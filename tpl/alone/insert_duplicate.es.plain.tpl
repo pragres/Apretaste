@@ -1,0 +1,1 @@
+{txt} 100 => {% insert_duplicate.es.html %} {/txt}

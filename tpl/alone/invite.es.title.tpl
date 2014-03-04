@@ -1,0 +1,1 @@
+{strip}{% styles %}{$from} lo ha invitado a usar {$apretaste}.{/strip}

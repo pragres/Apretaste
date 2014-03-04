@@ -1,0 +1,1 @@
+{txt} 100 => {% terms.es.html %} {/txt}

@@ -1,0 +1,1 @@
+{strip}{% styles %}Anuncio: {$title}{/strip}

@@ -1,0 +1,1 @@
+<p style="{$font}">El anuncio con identificador <strong>{$id}</strong> no fue encontrado</p>

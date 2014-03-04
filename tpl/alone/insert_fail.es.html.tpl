@@ -1,0 +1,1 @@
+<p align="justify" style="{$font}">Su anuncio no se public&oacute; debido a errores.</p>

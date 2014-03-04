@@ -1,0 +1,1 @@
+{strip}{% styles %}Su auncio no se pudo publicar.{/strip}

@@ -1,0 +1,1 @@
+{strip}{% styles %}Ud. ya ha invitado a su contacto {$guest} anteriormente{/strip}

@@ -1,0 +1,1 @@
+{strip}{% styles %}Su anuncio '{$title}' ha sido modificado satisfactoriamente{/strip}

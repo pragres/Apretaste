@@ -1,0 +1,1 @@
+<p>No se encontr&oacute; ning&uacute;n art&iacute;culo para "<b>{$query}</b>"</p>

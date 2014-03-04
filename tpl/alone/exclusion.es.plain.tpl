@@ -1,0 +1,1 @@
+{txt} 100 => {% exclusion.es.html %} {/txt}

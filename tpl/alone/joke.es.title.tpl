@@ -1,0 +1,1 @@
+{strip}{% styles %}Un chiste, un chiste!{/strip}

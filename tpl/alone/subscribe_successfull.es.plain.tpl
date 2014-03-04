@@ -1,0 +1,1 @@
+{txt} 100 => {% subscribe_successfull.es.html %} {/txt}

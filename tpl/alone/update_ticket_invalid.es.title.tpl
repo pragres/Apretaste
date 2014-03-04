@@ -1,0 +1,1 @@
+{strip}{% styles %}No se pudo modificar su anuncio.{/strip}

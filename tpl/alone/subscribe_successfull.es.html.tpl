@@ -1,0 +1,1 @@
+<p style="{$font}">Ud. se ha subscrito a la alerta <strong>'{$phrase}'</strong> satisfactoriamente. </p>

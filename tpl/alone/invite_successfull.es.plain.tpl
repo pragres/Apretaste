@@ -1,0 +1,1 @@
+{txt} 100 => {% invite_successfull.es.html %} {/txt}

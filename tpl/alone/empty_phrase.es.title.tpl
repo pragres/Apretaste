@@ -1,0 +1,1 @@
+{strip}{% styles %}Escriba una frase para poder buscar.{/strip}

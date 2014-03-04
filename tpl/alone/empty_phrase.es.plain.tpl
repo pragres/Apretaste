@@ -1,0 +1,1 @@
+{txt} 100 => {% empty_phrase.es.html %} {/txt}

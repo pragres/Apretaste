@@ -1,0 +1,1 @@
+{txt} 100 => {% article_not_found.es.html %} {/txt}

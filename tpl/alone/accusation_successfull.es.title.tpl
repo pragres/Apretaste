@@ -1,0 +1,1 @@
+{strip}{% styles %}El anuncio '{$announce.title}' ha sido denunciado satisfactoriamente.{/strip}

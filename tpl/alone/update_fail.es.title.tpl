@@ -1,0 +1,1 @@
+{strip}{% styles %}El anuncio no se pudo modificar debido a errores{/strip}

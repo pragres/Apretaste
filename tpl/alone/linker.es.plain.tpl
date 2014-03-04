@@ -1,0 +1,1 @@
+{txt} 100 => {% linker.es.html %} {/txt}

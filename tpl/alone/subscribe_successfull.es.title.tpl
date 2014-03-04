@@ -1,0 +1,1 @@
+{strip}{% styles %}Ud. se ha subscrito a la alerta '{$phrase}' satisfactoriamente{/strip}

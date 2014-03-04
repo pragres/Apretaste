@@ -1,0 +1,1 @@
+{txt} 100 => {% accusation_duplicated.es.html %} {/txt}

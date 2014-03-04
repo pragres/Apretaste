@@ -1,0 +1,1 @@
+{strip}{% styles %}No se pudo quitar el anuncio{/strip}

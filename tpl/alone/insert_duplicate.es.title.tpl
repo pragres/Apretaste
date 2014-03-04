@@ -1,0 +1,1 @@
+{strip}{% styles %}Su anuncio '{$title}' no se ha publicado pues se considera duplicado.{/strip}

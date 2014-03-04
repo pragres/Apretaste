@@ -1,0 +1,1 @@
+{txt} 100 => {% joke.es.html %} {/txt}

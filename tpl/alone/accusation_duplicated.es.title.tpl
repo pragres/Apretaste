@@ -1,0 +1,1 @@
+{strip}{txt}{% styles %}Usted ha marcado el anuncio '{$announce.title}' como {$reason} anteriormente.{/txt}{/strip}

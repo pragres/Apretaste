@@ -1,0 +1,1 @@
+{txt} 100 => {% update_successfull.es.html %} {/txt}

@@ -2057,7 +2057,6 @@ class Apretaste {
 				"guest" => $guest,
 				"title" => "Bienvenido a Apretaste!com"
 		);
-		
 		$data['images'] = self::getResImages(array(
 				"buscar.png",
 				"help.png"
@@ -2440,7 +2439,9 @@ class Apretaste {
 	 */
 	static function cleanText($text, $ps = false, $align = "justify"){
 		$text = "$text";
+		
 		$text = quoted_printable_decode($text);
+		
 		$alpha = "abcdefghijklmnopqrstuvwxyz1234567890., ";
 		
 		$save = array(

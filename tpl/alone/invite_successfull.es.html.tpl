@@ -1,10 +1,10 @@
 ?$guest
 <p>Su contacto <a href="mailto:{$guest}">{$guest}</a> ha sido invitado satisfactoriamente.</p>
 @else@
-<p>Sus contactos han sido invitados satisfactoriamente</p>
+<h1>Resultado de invitar a sus contactos</h1>
 ?$addresses
 [$addresses]
-- <a href="mailto:{$value}">{$value}</a><br/>
+- <a href="mailto:{$_key}">{$_key}</a> {$value}<br/>
 [/$addresses]
 $addresses?
 $guest?

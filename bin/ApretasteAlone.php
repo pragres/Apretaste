@@ -578,7 +578,7 @@ class ApretasteAlone {
 		$r = Apretaste::query("SELECT count(*) as cant FROM announcement WHERE (linker_date <> CURRENT_DATE OR linker_date is null) AND external_id is null ;");
 		$cld = $r[0]['cant'];
 		
-		$ids = Apretaste::query("SELECT id,title,author FROM announcement where /*author ~* 'rrodriguezramirez@gmail.com'*/ random() > random() AND (linker_date <> CURRENT_DATE OR linker_date is null OR $cld = 0) AND external_id is null LIMIT $max;");
+		$ids = Apretaste::query("SELECT id,title,author FROM announcement where random() > random() AND (linker_date <> CURRENT_DATE OR linker_date is null OR $cld = 0) AND external_id is null LIMIT $max;");
 		foreach ( $ids as $i => $item ) {
 			$author = $item['author'];
 			
@@ -659,7 +659,6 @@ class ApretasteAlone {
 		for($i = 1; $i <= $max; $i ++) {
 			$r = Apretaste::query("select ad,email from pre_alert limit 1;");
 			if (isset($r[0])) {
-				echo "[INFO] Analyzing {$r[0]['ad']} for outbox\n";
 				Apretaste::query("DELETE from pre_alert WHERE ad = '{$r[0]['ad']}'");
 				Apretaste::outbox($r[0]['ad'], $r[0]['email']);
 			} else

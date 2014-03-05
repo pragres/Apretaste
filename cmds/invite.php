@@ -9,6 +9,14 @@
  */
 function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 	
+	// Messages
+	$msgs = array(
+			APRETASTE_INVITATION_REPEATED => "ya ha sido invitado anteriormente por Ud.",
+			APRETASTE_INVITATION_STUPID => "es Ud., y Ud. no puede invitarse a si mismo.",
+			APRETASTE_INVITATION_UNNECESASARY => "ya utiliza Apretaste!",
+			APRETASTE_INVITATION_SUCCESSFULL => "ha sido invitado satisfactoriamente"
+	);
+	
 	// Filter argument
 	$address = Apretaste::getAddressFrom($argument);
 	
@@ -24,8 +32,10 @@ function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 		// Invite
 		
 		foreach ( $address as $guest ) {
-			$robot->log("Invite $guest");
-			$results[] = Apretaste::invite($from, $guest);
+			if (! isset($results[$guest])) {
+				$robot->log("Invite $guest");
+				$results[$guest] = Apretaste::invite($from, $guest);
+			}
 		}
 	}
 	
@@ -75,16 +85,31 @@ function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 						"from" => $from
 				);
 				break;
+			case APRETASTE_INVITATION_SUCCESSFULL :
+				return array(
+						"command" => "invite",
+						"answer_type" => "invite_successfull",
+						"title" => "Su contacto {$address[0]} han sido invitado satisfactoriamente",
+						"compactmode" => true,
+						"guest" => $address[0],
+						"addresses" => false,
+						"from" => $from
+				);
+				break;
 		}
-		
 	} else {
+		
+		$xresults = $results;
+		foreach ( $xresults as $k => $v )
+			$results[$k] = $msgs[$v];
+		
 		return array(
 				"command" => "invite",
 				"answer_type" => "invite_successfull",
-				"title" => isset($address[1]) ? "Sus contactos han sido invitados" : "Su contacto {$address[0]} han sido invitado satisfactoriamente",
+				"title" => "Resultado de invitar a sus contactos",
 				"compactmode" => true,
 				"guest" => false,
-				"addresses" => $address, 
+				"addresses" => $results,
 				"from" => $from
 		);
 	}

@@ -281,6 +281,7 @@ function parse_google_translator_response($response){
 			$richtextto .= $part['textto'];
 		}
 	}
+	
 	if ($i % 3 != 0)
 		$variants .= '</tr>';
 	$variants .= '</table>';

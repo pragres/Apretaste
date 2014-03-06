@@ -1523,6 +1523,7 @@ class Apretaste {
 	 * @param string $image
 	 */
 	static function insert($from, $title, $body, $images = array(), $price = 0, $phones = null, $author_name = null, $external_id = null, $external_source = null, $currency = "CUC", $update = false, $ticket = false){
+		
 		$title = str_replace("\n", " ", $title);
 		$title = str_replace("\r", " ", $title);
 		$title = str_replace("\r\n", " ", $title);
@@ -1533,6 +1534,7 @@ class Apretaste {
 				"</br>",
 				"</p>"
 		), "\n", $body);
+		
 		$body = preg_replace('{</?([a-z]+)[^>]*>|&#?[a-zA-Z0-9]+;}', "", $body);
 		$body = str_replace('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">', '', $body);
 		
@@ -3009,5 +3011,47 @@ class Apretaste {
 		
 		// close connection
 		@curl_close($ch);
+	}
+	
+	/**
+	 * Nurture address list from several sources
+	 */
+	static function nurtureAddressList(){
+		
+		// From announcements
+		
+		$sql = "insert into address_list (email, source)
+		select * from (
+			select extract_email(author) as email, 'apretaste.public.announcement' as source 
+			from announcement 
+			where external_id is null 
+			group by email,source
+		) as subq
+		where not exists(select * from address_list where address_list.email = extract_email(subq.email));";
+		
+		self::query($sql);
+		
+		// From invitations
+		// authors
+		$sql = "insert into address_list (email, source)
+		select * from (
+			select extract_email(author) as email, 'apretaste.public.invitation' as source 
+			from invitation 
+			group by email,source
+			) as subq
+		where not exists(select * from address_list where address_list.email = extract_email(subq.email));";
+		
+		self::query($sql);
+		
+		// guests
+		$sql = "insert into address_list (email, source)
+		select * from (
+			select extract_email(guest) as email, 'apretaste.public.invitation' as source
+			from invitation
+			group by email,source
+			) as subq
+		where not exists(select * from address_list where address_list.email = extract_email(subq.email));";
+		
+		self::query($sql);
 	}
 }

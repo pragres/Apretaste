@@ -6,6 +6,7 @@
 <a href="?path=admin&page=accusations">Accusations</a> |
 <a href="?path=admin&page=tips">Tips</a> |
 <a href="?path=admin&page=dictionary">Dictionary</a> |
+<a href="?path=admin&page=address_list">Address list</a> |
 {/?}
 <a href="?path=admin&page=logout">Logout</a>
 <hr>

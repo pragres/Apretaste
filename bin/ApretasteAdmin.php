@@ -627,4 +627,75 @@ class ApretasteAdmin {
 		$data['user'] = self::getUser();
 		echo new div("../tpl/admin/users", $data);
 	}
+	
+	
+	static function page_address_list(){
+		if (! self::verifyLogin())
+			die('Access denied');
+		
+		Apretaste::nurtureAddressList();
+		
+		$submit = post('btnAdd');
+		
+		$download = post('btnDownload');
+		
+		if (! is_null($download)) {
+			$file_name = 'apretaste-address-list-' . date("Y-m-d-h-i-s") . ".txt";
+			
+			$list = Apretaste::query("SELECT email FROM address_list;");
+			
+			$listtext = '';
+			foreach ( $list as $l ) {
+				$listtext .= $l['email'] . "\r\n";
+			}
+			
+			$headers = array(
+					'Content-type: force-download',
+					'Content-disposition: attachment; filename="' . $file_name . '"',
+					'Content-Type: text/plain; name="' . $file_name . '"',
+					'Content-Length: ' . sizeof($listtext),
+					'Content-Transfer-Encoding: binary',
+					'Pragma: no-cache',
+					'Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+					'Expires: 0',
+					'Accept-Ranges: bytes'
+			);
+			
+			foreach ( $headers as $h )
+				header($h);
+			
+			echo $listtext;
+			exit();
+		}
+		
+		$data = array();
+		
+		if (! is_null($submit)) {
+			$address = post('address');
+			$address = str_replace(array(
+					"\n\r",
+					"\n",
+					"\r"
+			), ";", $address);
+			$address = explode(";", $address);
+			$source = 'apretaste.admin';
+			foreach ( $address as $addr ) {
+				$addr = strtolower($addr);
+				if (Apretaste::checkAddress($addr)) {
+					Apretaste::query("
+					INSERT INTO address_list (email, source) 
+					SELECT '$addr' as email, '$source' as source
+					WHERE NOT EXISTS(SELECT * FROM address_list WHERE email = '$addr');");
+				}
+			}
+			$data['msg-type'] = 'msg-ok';
+			$data['msg'] = 'The address was inserted';
+		}
+		
+		$data['user'] = self::getUser();
+		
+		$data['providers'] = Apretaste::query("SELECT get_email_domain(email) as provider, count(*) as total from address_list group by provider;");
+		
+		echo new div("../tpl/admin/address_list", $data);
+	}
 }

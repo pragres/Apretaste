@@ -1,3 +1,6 @@
 etc/*
 tmp/*
 log/*
+.settings
+.project
+.buildpath

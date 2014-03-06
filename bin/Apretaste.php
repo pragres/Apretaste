@@ -59,7 +59,7 @@ class Apretaste {
 					break;
 				}
 				
-				$answerMail = new ApretasteAnswerEmail($config, "rrodriguezramirez@gmail.com", self::$robot->smtp_servers, $data, true, true, false);
+				//$answerMail = new ApretasteAnswerEmail($config, "rrodriguezramirez@gmail.com", self::$robot->smtp_servers, $data, true, true, false);
 			}
 		}
 	}

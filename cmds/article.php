@@ -248,7 +248,7 @@ function cmd_article($robot, $from, $argument, $body = '', $images = array()){
 	
 	// getting the query
 	$query = $argument;
-	$query = Apretaste::depura($query);
+	$query = Apretaste::depura($query," abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ".html_entity_decode("&aacute;&eacute;&iacute;&oacute;&uacute;&Aacute;&Eacute;&Iacute;&Uacute;&Oacute;&ntilde;&Ntilde;"));
 	
 	// log the search for stadistics
 	$robot->log("[INFO] Search for an articule in Wikipedia: $query");

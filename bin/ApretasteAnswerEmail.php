@@ -131,17 +131,14 @@ class ApretasteAnswerEmail {
 				if (! isset($froms[$i + 1])) {
 					echo "<h1>Error sending email from SMTP server to {$this->to} </h1>\n";
 					echo "<br/>\n";
-					echo '$server = ';
-					echo nl2br(var_export($this->servers[$from]), true);
-					// echo "<br/>\n";
-					/*
-					 * echo '$result = '; echo nl2br(var_export($result), true);
-					 */
+					$serv = $this->servers[$from];
+					echo "From: ".$serv['host']."<br/>";
 					echo "<br/>\n";
 					echo "To: " . $this->to . "<br/>\n";
 					echo "Headers: <br/>\n";
-					echo nl2br(var_export($this->headers), true);
+					echo div::asThis($this->headers);
 					echo "<br/>\n";
+					
 					// echo "Trying with other server ...\n";
 					$message = ob_get_contents();
 					
@@ -201,10 +198,10 @@ class ApretasteAnswerEmail {
 		$tpl_title = "../tpl/alone/{$this->type}.{$language}.title";
 		
 		if ($build_plain) {
-			echo $this->debug ? "building " . $this->type . " text message\n" : "";
+			/*echo $this->debug ? "building " . $this->type . " text message\n" : "";
 			$data['builder'] = 'plain';
 			$plain_body = new div($tpl_plain, $data);
-			$this->message->setTXTBody(utf8_decode($plain_body));
+			$this->message->setTXTBody(utf8_decode($plain_body));*/
 		}
 		
 		if ($build_html) {

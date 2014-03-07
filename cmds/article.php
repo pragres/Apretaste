@@ -13,8 +13,6 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 	
 	$completo = false;
 	
-	// $page = file_get_contents("http://localhost/wiki/nexus.xml");
-	// $page = file_get_contents("http://localhost/wiki/usa.xml");
 	$url = "http://es.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&redirects=1&titles=$keyword&rvparse";
 	
 	$robot->log("File get contents: $url");
@@ -42,7 +40,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 		
 		$page = str_replace('</rev></revisions></page></pages></query></api>', '', $page);
 		
-		$page = strip_tags($page, '<a><!--><!DOCTYPE><abbr><acronym><address><applet><area><article><aside><audio><b><base><basefont><bdi><bdo><big><blockquote><body><br><button><canvas><caption><center><cite><code><col><colgroup><command><datalist><dd><del><details><dfn><dialog><dir><div><dl><dt><em><embed><fieldset><figcaption><figure><font><footer><form><frame><frameset><head><header><h1> - <h6><hr><html><i><iframe><img><input><ins><kbd><keygen><label><legend><li><link><map><mark><menu><meta><meter><nav><noframes><noscript><object><ol><optgroup><option><output><p><param><pre><progress><q><rp><rt><ruby><s><samp><script><section><select><small><source><span><strike><strong><style><sub><summary><sup><table><tbody><td><textarea><tfoot><th><thead><time><title><tr><track><tt><u><ul><var><video><wbr><h2><h3>');
+		$page = strip_tags($page, '<a><!--><!DOCTYPE><abbr><acronym><address><area><article><aside><b><base><basefont><bdi><bdo><big><blockquote><body><br><button><canvas><caption><center><cite><code><col><colgroup><command><datalist><dd><del><details><dfn><dialog><dir><div><dl><dt><em><embed><fieldset><figcaption><figure><font><footer><form><frame><frameset><head><header><h1> - <h6><hr><html><i><iframe><img><input><ins><kbd><keygen><label><legend><li><link><map><mark><menu><meta><meter><nav><noframes><noscript><object><ol><optgroup><option><output><p><param><pre><progress><q><rp><rt><ruby><s><samp><script><section><select><small><source><span><strike><strong><style><sub><summary><sup><table><tbody><td><textarea><tfoot><th><thead><time><title><tr><track><tt><u><ul><var><wbr><h2><h3>');
 		$page = str_replace('oding="UTF-8"?>', '', $page);
 		
 		// removeing brackets []

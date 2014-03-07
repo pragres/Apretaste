@@ -631,12 +631,17 @@ class ApretasteAdmin {
 		if (! self::verifyLogin())
 			die('Access denied');
 		
-		Apretaste::nurtureAddressList();
-		
+		$nourish = get('nourish');
+		if (! is_null($nourish)) {
+			Apretaste::nourishAddressList();
+			header("Location: index.php?path=admin&page=address_list");
+			exit();
+		}
 		$submit = post('btnAdd');
 		
 		$download = post('btnDownload');
 		$download1 = get('download');
+		
 		$filter = get('filter');
 		if (! is_null($download) || ! is_null($download1)) {
 			$file_name = 'apretaste-addresses-' . str_replace(array(
@@ -646,12 +651,15 @@ class ApretasteAdmin {
 			
 			$file_name = str_replace("--", "-", $file_name);
 			
-			$list = Apretaste::query("SELECT email FROM address_list " . (is_null($filter) ? "" : "WHERE email ~* '$filter' OR source ~* '$filter'"));
+			$sql = "SELECT email FROM address_list " . (is_null($filter) ? "" : "WHERE matchEmail(email,'$filter') OR matchEmail(source,'$filter')");
+			
+			$list = Apretaste::query($sql);
 			
 			$listtext = '';
-			if (is_array($list)) foreach ( $list as $l ) {
-				$listtext .= $l['email'] . "\r\n";
-			}
+			if (is_array($list))
+				foreach ( $list as $l ) {
+					$listtext .= $l['email'] . "\r\n";
+				}
 			
 			$headers = array(
 					'Content-type: force-download',

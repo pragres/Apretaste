@@ -2289,9 +2289,12 @@ class Apretaste {
 	 * @return boolean
 	 */
 	static function matchEmail($email, $pattern){
+		
 		$pattern = str_replace("*", "", $pattern);
+		
 		if (strlen($email) < strlen($pattern))
 			return false;
+		
 		$email = substr($email, strlen($email) - strlen($pattern));
 		if ($email == $pattern)
 			return true;
@@ -3015,9 +3018,11 @@ class Apretaste {
 	/**
 	 * Nurture address list from several sources
 	 */
-	static function nurtureAddressList(){
+	static function nourishAddressList(){
 		
-			// From internal ads
+		self::connect();
+		
+		// From internal ads
 		$sql = "insert into address_list (email, source)
 		select * from (
 			select extract_email(author) as email, 'apretaste.public.announcement' as source 
@@ -3051,7 +3056,7 @@ class Apretaste {
 			from invitation 
 			group by email,source
 			) as subq
-		where not exists(select * from address_list where address_list.email = subq.emai));";
+		where not exists(select * from address_list where address_list.email = subq.email);";
 		
 		self::query($sql);
 		
@@ -3076,16 +3081,15 @@ class Apretaste {
 			) as subq
 		where not exists(select * from address_list where address_list.email = subq.email);";
 		
+			
 		self::query($sql);
 		
-		self::query($sql);
-		
-		// From authors
+		// From messages
 		
 		$sql = "insert into address_list (email, source)
 		select * from (
 			select extract_email(author) as email, 'apretaste.public.messages' as source
-			from messages
+			from message
 			group by email,source
 			) as subq
 		where not exists(select * from address_list where address_list.email = subq.email);";

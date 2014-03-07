@@ -3022,6 +3022,18 @@ class Apretaste {
 		
 		self::connect();
 		
+		// From messages
+		
+		$sql = "insert into address_list (email, source)
+		select * from (
+			select extract_email(author) as email, 'apretaste.public.messages' as source
+			from message
+			group by email,source
+			) as subq
+		where not exists(select * from address_list where address_list.email = subq.email);";
+		
+		self::query($sql);
+		
 		// From internal ads
 		$sql = "insert into address_list (email, source)
 		select * from (
@@ -3082,18 +3094,6 @@ class Apretaste {
 		where not exists(select * from address_list where address_list.email = subq.email);";
 		
 			
-		self::query($sql);
-		
-		// From messages
-		
-		$sql = "insert into address_list (email, source)
-		select * from (
-			select extract_email(author) as email, 'apretaste.public.messages' as source
-			from message
-			group by email,source
-			) as subq
-		where not exists(select * from address_list where address_list.email = subq.email);";
-		
 		self::query($sql);
 		
 		// Cleanning

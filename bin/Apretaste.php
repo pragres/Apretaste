@@ -59,7 +59,7 @@ class Apretaste {
 					break;
 				}
 				
-				//$answerMail = new ApretasteAnswerEmail($config, "rrodriguezramirez@gmail.com", self::$robot->smtp_servers, $data, true, true, false);
+				// $answerMail = new ApretasteAnswerEmail($config, "rrodriguezramirez@gmail.com", self::$robot->smtp_servers, $data, true, true, false);
 			}
 		}
 	}
@@ -1523,7 +1523,6 @@ class Apretaste {
 	 * @param string $image
 	 */
 	static function insert($from, $title, $body, $images = array(), $price = 0, $phones = null, $author_name = null, $external_id = null, $external_source = null, $currency = "CUC", $update = false, $ticket = false){
-		
 		$title = str_replace("\n", " ", $title);
 		$title = str_replace("\r", " ", $title);
 		$title = str_replace("\r\n", " ", $title);
@@ -3018,8 +3017,7 @@ class Apretaste {
 	 */
 	static function nurtureAddressList(){
 		
-		// From announcements
-		
+			// From internal ads
 		$sql = "insert into address_list (email, source)
 		select * from (
 			select extract_email(author) as email, 'apretaste.public.announcement' as source 
@@ -3027,7 +3025,21 @@ class Apretaste {
 			where external_id is null 
 			group by email,source
 		) as subq
-		where not exists(select * from address_list where address_list.email = extract_email(subq.email));";
+		where not exists(select * from address_list where address_list.email = subq.email);";
+		
+		self::query($sql);
+		
+		// From external ads
+		
+		$sql = "insert into address_list (email, source)	
+		select email::text, source::text from (
+			select extract_email(author) as email, 'apretaste.public.external_ads'::text as source
+			from announcement
+			where not external_id is null and not author ~* 'in.revolico.net'
+		) as subq
+		WHERE
+		not exists(select * from address_list where address_list.email::text = email::text)
+		group by email,source";
 		
 		self::query($sql);
 		
@@ -3039,19 +3051,48 @@ class Apretaste {
 			from invitation 
 			group by email,source
 			) as subq
-		where not exists(select * from address_list where address_list.email = extract_email(subq.email));";
+		where not exists(select * from address_list where address_list.email = subq.emai));";
 		
 		self::query($sql);
 		
 		// guests
 		$sql = "insert into address_list (email, source)
 		select * from (
-			select extract_email(guest) as email, 'apretaste.public.invitation' as source
+			select extract_email(guest) as email, 'apretaste.public.guests' as source
 			from invitation
 			group by email,source
 			) as subq
-		where not exists(select * from address_list where address_list.email = extract_email(subq.email));";
+		where not exists(select * from address_list where address_list.email = subq.email);";
 		
 		self::query($sql);
+		
+		// From authors
+		
+		$sql = "insert into address_list (email, source)
+		select * from (
+			select extract_email(email) as email, 'apretaste.public.authors' as source
+			from authors
+			group by email,source
+			) as subq
+		where not exists(select * from address_list where address_list.email = subq.email);";
+		
+		self::query($sql);
+		
+		self::query($sql);
+		
+		// From authors
+		
+		$sql = "insert into address_list (email, source)
+		select * from (
+			select extract_email(author) as email, 'apretaste.public.messages' as source
+			from messages
+			group by email,source
+			) as subq
+		where not exists(select * from address_list where address_list.email = subq.email);";
+		
+		self::query($sql);
+		
+		// Cleanning
+		self::query("delete from address_list where email ~* 'in.revolico.net'");
 	}
 }

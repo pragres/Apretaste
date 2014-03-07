@@ -627,8 +627,6 @@ class ApretasteAdmin {
 		$data['user'] = self::getUser();
 		echo new div("../tpl/admin/users", $data);
 	}
-	
-	
 	static function page_address_list(){
 		if (! self::verifyLogin())
 			die('Access denied');
@@ -638,14 +636,20 @@ class ApretasteAdmin {
 		$submit = post('btnAdd');
 		
 		$download = post('btnDownload');
-		
-		if (! is_null($download)) {
-			$file_name = 'apretaste-address-list-' . date("Y-m-d-h-i-s") . ".txt";
+		$download1 = get('download');
+		$filter = get('filter');
+		if (! is_null($download) || ! is_null($download1)) {
+			$file_name = 'apretaste-addresses-' . str_replace(array(
+					'@',
+					'.'
+			), '-', $filter) . '-' . date("Ymdhis") . ".txt";
 			
-			$list = Apretaste::query("SELECT email FROM address_list;");
+			$file_name = str_replace("--", "-", $file_name);
+			
+			$list = Apretaste::query("SELECT email FROM address_list " . (is_null($filter) ? "" : "WHERE email ~* '$filter' OR source ~* '$filter'"));
 			
 			$listtext = '';
-			foreach ( $list as $l ) {
+			if (is_array($list)) foreach ( $list as $l ) {
 				$listtext .= $l['email'] . "\r\n";
 			}
 			
@@ -653,7 +657,6 @@ class ApretasteAdmin {
 					'Content-type: force-download',
 					'Content-disposition: attachment; filename="' . $file_name . '"',
 					'Content-Type: text/plain; name="' . $file_name . '"',
-					'Content-Length: ' . sizeof($listtext),
 					'Content-Transfer-Encoding: binary',
 					'Pragma: no-cache',
 					'Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
@@ -694,7 +697,12 @@ class ApretasteAdmin {
 		
 		$data['user'] = self::getUser();
 		
-		$data['providers'] = Apretaste::query("SELECT get_email_domain(email) as provider, count(*) as total from address_list group by provider;");
+		$r = Apretaste::query("SELECT count(*) as total from address_list");
+		$data['total_address'] = $r[0]['total'];
+		
+		$data['providers'] = Apretaste::query("Select provider, total, case when provider ~* '.cu' then 1 else 0 end as national from (
+		SELECT get_email_domain(email) as provider, count(*) as total 
+		from address_list group by provider order by total desc) as subq;");
 		
 		echo new div("../tpl/admin/address_list", $data);
 	}

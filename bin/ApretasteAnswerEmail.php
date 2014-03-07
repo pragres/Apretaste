@@ -183,7 +183,7 @@ class ApretasteAnswerEmail {
 	 * @param boolean $build_plain
 	 * @param boolean $build_html
 	 */
-	function _buildMessage($build_plain = true, $build_html = true){
+	function _buildMessage($build_plain = false, $build_html = true){
 		$data = array(
 				'buttons' => $this->buttons,
 				'ads' => $this->ads,
@@ -203,8 +203,7 @@ class ApretasteAnswerEmail {
 		if ($build_plain) {
 			echo $this->debug ? "building " . $this->type . " text message\n" : "";
 			$data['builder'] = 'plain';
-			// TODO: Mejorar plantillas plain y su codificacion, desactivadas por el momento
-			$plain_body = ''; // new div($tpl_plain, $data);
+			$plain_body = new div($tpl_plain, $data);
 			$this->message->setTXTBody(utf8_decode($plain_body));
 		}
 		

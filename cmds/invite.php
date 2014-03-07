@@ -39,7 +39,7 @@ function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 		}
 	}
 	
-	if (! isset($address[1])) {
+	if (! isset($address[1]) && isset($results[0])) {
 		
 		switch ($results[0]) {
 			

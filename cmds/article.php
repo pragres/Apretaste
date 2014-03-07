@@ -112,6 +112,9 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 					if (substr($imgsrc, 0, 2) == '//')
 						$imgsrc = 'http:' . $imgsrc;
 					
+					if (stripos($imgsrc, '.svg.png') !== false)
+						continue;
+					
 					$srcparts = explode("/", $imgsrc);
 					$name = array_pop($srcparts);
 					

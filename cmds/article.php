@@ -112,8 +112,10 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 					if (substr($imgsrc, 0, 2) == '//')
 						$imgsrc = 'http:' . $imgsrc;
 					
-					if (stripos($imgsrc, '.svg.png') !== false)
+					if (stripos($imgsrc, '.svg.png') !== false) {
+						$robot->log("Ignoring this image! Continue...");
 						continue;
+					}
 					
 					$srcparts = explode("/", $imgsrc);
 					$name = array_pop($srcparts);
@@ -121,7 +123,10 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 					$robot->log("Retrieving image $imgsrc");
 					
 					$img = @file_get_contents($imgsrc);
-					
+					if ($img === false) {
+						$robot->log("Image not found! Continue...");
+						continue;
+					}
 					$robot->log("Compressing image $imgsrc");
 					
 					$img = base64_decode(Apretaste::resizeImage(base64_encode($img), 100));

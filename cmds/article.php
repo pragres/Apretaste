@@ -113,7 +113,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 						$imgsrc = 'http:' . $imgsrc;
 					
 					if (stripos($imgsrc, '.svg.png') !== false) {
-						$robot->log("Ignoring this image! Continue...");
+						$robot->log("Ignoring image $imgsrc");
 						continue;
 					}
 					

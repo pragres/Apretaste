@@ -197,6 +197,8 @@ class ApretasteAnswerEmail {
 		$tpl_html = "../tpl/alone/{$this->type}.{$language}.html";
 		$tpl_title = "../tpl/alone/{$this->type}.{$language}.title";
 		
+		
+		
 		if ($build_plain) {
 			/*echo $this->debug ? "building " . $this->type . " text message\n" : "";
 			$data['builder'] = 'plain';
@@ -232,6 +234,7 @@ class ApretasteAnswerEmail {
 			}
 		}
 		
+		$this->message->setTXTBody('');
 		$this->addHeaders($this->message->headers());
 		
 		$subject = new div($tpl_title, $data);

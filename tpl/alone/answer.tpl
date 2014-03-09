@@ -25,7 +25,7 @@
 									?$query 
 										{= qalerta: $query =} 
 									@else@ 
-										{= qalerta: "escriba en este asunto una frase relativa a lo que busca" =} 
+										{= qalerta: "" =} 
 									$query?
 									
 									<a style="{$element-a}" href="mailto:{$reply_to}?subject=BUSCAR &body={$body_search}" title="Realiza una nueva b&uacute;squeda">Nueva b&uacute;squeda</a>

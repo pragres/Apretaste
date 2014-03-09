@@ -40,9 +40,12 @@ class ApretasteEmailRobot {
 					$command['parameters'] = $params;
 					
 					$answer = call_user_func_array($user_func, $command['parameters']);
-					if (!isset($answer['command'])) $answer['command'] = $command['operation'];
-					if (!isset($answer['from'])) $answer['from'] = $params[1]; 
-					if (!isset($answer['answer_type'])) $answer['answer_type'] = $command['operation'];
+					if (! isset($answer['command']))
+						$answer['command'] = $command['operation'];
+					if (! isset($answer['from']))
+						$answer['from'] = $params[1];
+					if (! isset($answer['answer_type']))
+						$answer['answer_type'] = $command['operation'];
 				}
 			} else {
 				echo $clase->verbose ? "retrieving documentation\n" : "";
@@ -132,7 +135,7 @@ class ApretasteEmailRobot {
 			$argument = false;
 		
 		$from = $anounce['headers']->from[0]->mailbox . '@' . $anounce['headers']->from[0]->host;
-		$body = $anounce['htmlBody'] ? $anounce['htmlBody'] : $anounce['textBody'];
+		$body = $anounce['textBody'] ? $anounce['textBody'] : $anounce['htmlBody'];
 		
 		if (array_key_exists($command_name, $this->commands)) {
 			$actual_command = $this->commands[$command_name];

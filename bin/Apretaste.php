@@ -1695,6 +1695,24 @@ class Apretaste {
 	}
 	
 	/**
+	 * Clean the subcribes data
+	 */
+	static function cleanSubscribes(){
+		
+		// Cleanning subscribes
+		
+		if (self::isCli()) echo "[INFO] " . date("Y-m-d h:i:s") . " - Cleanning subscribes...\n";
+		
+		self::query("DELETE FROM subscribe WHERE phrase is null;");
+		self::query("DELETE FROM subscribe WHERE trim(phrase) = '';");
+		self::query("UPDATE subscribe SET phrase = lower(phrase);");
+		self::query("UPDATE subscribe SET phrase = replace(phrase,'frase_a_buscar:','');");
+		self::query("UPDATE subscribe SET phrase = replace(phrase,'frase a buscar ','');");
+		self::query("UPDATE subscribe SET phrase = replace(replace(phrase,'buscar ',''),',','');");
+		
+	}
+	
+	/**
 	 * Outbox subscribe
 	 *
 	 * @param string $ad
@@ -1702,13 +1720,18 @@ class Apretaste {
 	static function outbox($ad, $email){
 		if (self::isExcluded($email))
 			return false;
+		echo "[INFO] " . date("Y-m-d h:i:s") . " - Analyzing $ad of $email for outbox\n";
 		
-		echo "[INFO] Analyzing $ad of $email for outbox\n";
+		self::cleanSubscribes();
 		
 		$subs = self::query("SELECT * FROM subscribe WHERE email <> '$email';");
+		
 		if ($subs) {
 			foreach ( $subs as $sub ) {
+				echo "[INFO] " . date("Y-m-d h:i:s") . " - Searching $ad: {$sub['phrase']}\n";
+				
 				$s = self::search($sub['phrase'], 1, 0, false, '', $ad);
+				
 				$s = $s['results'];
 				if (isset($s[0])) {
 					if ($s[0]['id'] == $ad) {
@@ -1990,8 +2013,8 @@ class Apretaste {
 						}
 					}
 				}
-			
-			// send answers
+				
+				// send answers
 			foreach ( $answers as $email => $data ) {
 				$answerMail = new ApretasteAnswerEmail($config, $email, $robot->smtp_servers, $data, true, false, false);
 			}
@@ -3107,5 +3130,9 @@ class Apretaste {
 		
 		// Cleanning
 		self::query("delete from address_list where email ~* 'in.revolico.net'");
+	}
+	
+	static function isCli(){
+		return div::isCli();
 	}
 }

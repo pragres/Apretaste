@@ -649,7 +649,7 @@ class ApretasteAlone {
 	
 	static function outbox(){
 		
-		Apretaste::connect();
+		Apretaste::connect();		
 		
 		if (isset($_SERVER['argv'][1]))
 			$max = $_SERVER['argv'][1];

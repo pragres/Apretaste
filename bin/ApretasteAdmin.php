@@ -714,4 +714,21 @@ class ApretasteAdmin {
 		
 		echo new div("../tpl/admin/address_list", $data);
 	}
+	
+	/**
+	 * Admin page for manage subscribes
+	 */
+	static function page_subscribes(){
+		if (! self::verifyLogin())
+			die('Access denied');
+				
+		Apretaste::cleanSubscribes();
+		
+		$data = array();
+		$data['user'] = self::getUser();
+		
+		$data['subscribes'] = Apretaste::query("SELECT id,email,phrase,fa::date as moment,last_alert::date as last_alert FROM subscribe;");
+
+		echo new div("../tpl/admin/subscribes", $data);
+	}
 }

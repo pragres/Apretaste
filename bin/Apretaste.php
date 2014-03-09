@@ -1852,6 +1852,8 @@ class Apretaste {
 		// get receivers
 		$receivers = self::query("SELECT email FROM outbox GROUP BY email LIMIT $max;");
 		
+		$answers = array();
+		
 		if ($receivers) {
 			
 			if (is_array($receivers))
@@ -1979,10 +1981,20 @@ class Apretaste {
 						
 						$data['images'] = array(); // TODO: no images?
 						
-						if (isset($data['search_results'][0]))
-							$answerMail = new ApretasteAnswerEmail($config, $r['email'], $robot->smtp_servers, $data, true, false, false);
+						if (isset($data['search_results'][0])) {
+							
+							if (! isset($answers[$r['email']]))
+								$answers[$r['email']] = $data;
+							else
+								$answers[$r['email']]['search_results'] = array_merge($answers[$r['email']]['search_results'], $data['search_results']);
+						}
 					}
 				}
+			
+			// send answers
+			foreach ( $answers as $email => $data ) {
+				$answerMail = new ApretasteAnswerEmail($config, $email, $robot->smtp_servers, $data, true, false, false);
+			}
 		}
 		/*
 		 * // Load the outbox $outbox = self::query("SELECT * FROM outbox inner join subscribe on subscribe.id = outbox.subscribe order by outbox.fa desc;"); $r = self::query("SELECT count(*) as cant FROM outbox inner join announcement on outbox.announcement = announcement.id;"); $pass = false; if (intval($r[0]['cant']) > 0) $pass = true; if ($outbox) { if (count($outbox) >= $max || $pass) { // Preparing the shipments $shipments = array(); foreach ( $outbox as $ob ) { if (! isset($shipments[$ob['email']])) $shipments[$ob['email']] = array( "resutls" => array(), "query" => $ob['phrase'], "subscribe" => $ob['id'] ); $ad = self::getAnnouncement($ob['announcement']); if (! is_null($ad) && $ad != false && $ad != APRETASTE_ANNOUNCEMENT_NOTFOUND) $shipments[$ob['email']]['results'][] = $ad; self::query("DELETE FROM outbox where announcement = '{$ob['announcement']}' AND email = '{$ob['email']}';"); } // Sending... foreach ( $shipments as $email => $shp ) { $data = array( 'command' => 'search', 'answer_type' => 'search_results', 'query' => $shp['query'], 'search_results' => $shp['results'], "showminimal" => false, "alerta" => true, "title" => "Alerta por correo: " . $shp['query'], "subscribe" => $shp['subscribe'] ); echo "[INFO] Alert shipment {$shp['query']} to $email\n"; $data['image_src'] = 'cid:{$id}'; if (! self::isExcluded($email)) { $config = array(); foreach ( self::$robot->config_answer as $configx ) { $config = $configx; break; } $answerMail = new ApretasteAnswerEmail($config, $email, $robot->smtp_servers, $data, true, false, false); } } } }
@@ -2289,7 +2301,6 @@ class Apretaste {
 	 * @return boolean
 	 */
 	static function matchEmail($email, $pattern){
-		
 		$pattern = str_replace("*", "", $pattern);
 		
 		if (strlen($email) < strlen($pattern))
@@ -3019,7 +3030,6 @@ class Apretaste {
 	 * Nurture address list from several sources
 	 */
 	static function nourishAddressList(){
-		
 		self::connect();
 		
 		// From messages
@@ -3093,7 +3103,6 @@ class Apretaste {
 			) as subq
 		where not exists(select * from address_list where address_list.email = subq.email);";
 		
-			
 		self::query($sql);
 		
 		// Cleanning

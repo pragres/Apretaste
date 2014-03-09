@@ -1834,7 +1834,11 @@ class Apretaste {
 	 * @return mixed
 	 */
 	static function subscribe($from, $phrase){
+		
+		Apretaste::cleanSubscribes();
+		
 		$phrase = str_replace("'", "''", $phrase);
+		$phrase = trim(strtolower($phrase));
 		$r = self::query("SELECT * FROM subscribe WHERE email = '$from' AND phrase = '$phrase';");
 		if (! $r) {
 			$id = uniqid();

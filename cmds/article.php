@@ -14,7 +14,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 	$completo = false;
 	
 	$url = "http://es.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&redirects=1&titles=$keyword&rvparse";
-	//$url = "http://localhost/wiki/ecuador.xml";
+	$url = "http://localhost/wiki/ecuador.xml";
 	
 	$robot->log("File get contents: $url");
 	
@@ -238,6 +238,15 @@ function wiki_search($robot, $from, $argument, $body = '', $images = array(), $q
  * @return array
  */
 function cmd_article_result($robot, $from, $r){
+	$tagmarks = array(
+			'<h1',
+			'<h2',
+			'<h3',
+			'<p',
+			'<ul',
+			'<ol'
+	);
+	
 	$answers = $r;
 	
 	$i = 0;
@@ -262,30 +271,41 @@ function cmd_article_result($robot, $from, $r){
 		
 		$part = '';
 		
-		$p = - 1;
 		do {
-			
+			$p = - 1;
+			$last_p = - 1;
 			do {
 				
-				$p1 = stripos($page, '<h1', $p + 1);
-				$p2 = stripos($page, '<h2', $p + 1);
-				$p3 = stripos($page, '<h3', $p + 1);
+				$min = - 1;
+				foreach ( $tagmarks as $tm ) {
+					$px = stripos($page, $tm, $p + 1);
+					if ($px !== false) {
+						if ($min == - 1 || $px < $min) {
+							$min = $px;
+						}
+					}
+				}
 				
-				if ($p1 === false)
-					$p1 = $l;
-				if ($p2 === false)
-					$p2 = $l;
-				if ($p3 === false)
-					$p3 = $l;
-				
-				$p = min($p1, $p2, $p3);
+				if ($min > - 1) {
+					if ($last_p == - 1)
+						$last_p = $min;
+					else
+						$last_p = $p;
+					$p = $min;
+				}
+			
 			} while ( $p <= $limit_part );
 			
-			$parts[] = "<br/>" . substr($page, 0, $p);
+			$p = $last_p;
 			
-			$page = substr($page, $p);
+			if ($p > - 1) {
+				$parts[] = "<br/>" . substr($page, 0, $p);
+				
+				$page = substr($page, $p);
+			}
+			
 			$l = strlen($page);
-		} while ( $l > $limit_part );
+		} while ( $l > $limit_part && $p > - 1 );
 		
 		$parts[] = "<br/>" . $page;
 		

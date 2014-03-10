@@ -14,6 +14,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 	$completo = false;
 	
 	$url = "http://es.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&redirects=1&titles=$keyword&rvparse";
+	$url = "http://localhost/wiki/ecuador.xml";
 	
 	$robot->log("File get contents: $url");
 	
@@ -111,20 +112,21 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 						$imgsrc = 'http:' . $imgsrc;
 					
 					if (stripos($imgsrc, '.svg.png') !== false) {
-						$robot->log("Ignoring image $imgsrc");
+						// $robot->log("Ignoring image $imgsrc");
 						continue;
 					}
 					
 					$srcparts = explode("/", $imgsrc);
 					$name = array_pop($srcparts);
 					
-					$robot->log("Retrieving image $imgsrc");
+					// $robot->log("Retrieving image $imgsrc");
 					
 					$img = @file_get_contents($imgsrc);
 					if ($img === false) {
-						$robot->log("Image not found! Continue...");
+						// $robot->log("Image not found! Continue...");
 						continue;
 					}
+					
 					$robot->log("Compressing image $imgsrc");
 					
 					$img = base64_decode(Apretaste::resizeImage(base64_encode($img), 100));
@@ -156,7 +158,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 			$page = str_replace("/>", "/>\n", $page);
 			$page = str_replace("<p", "<p style=\"text-align:justify;\" align=\"justify\"", $page);
 			$page = wordwrap($page, 200, "\n");
-			$page = str_replace("href=\"/wiki/", 'href="mailto:{$reply_to}?subject=ARTICULO  ', $page);
+			$page = str_replace("href=\"/wiki/", 'href="mailto:' . $from . '?subject=ARTICULO  ', $page);
 			// $page = str_replace("href=\"http", 'href="mailto:{$reply_to}?subject=NAVIGATOR http', $page);
 			
 			foreach ( $images as $image ) {
@@ -229,6 +231,84 @@ function wiki_search($robot, $from, $argument, $body = '', $images = array(), $q
 }
 
 /**
+ * Process result
+ *
+ * @param ApretasteEmailRobot $robot
+ * @param array $r
+ * @return array
+ */
+function cmd_article_result($robot, $from, $r){
+	$answers = $r;
+	
+	$i = 0;
+	
+	$page = $r['body'];
+	
+	$l = strlen($page);
+	
+	$robot->log("Article length $l bytes");
+	
+	$limit = 200 * 1024;
+	$limit_part = 130 * 1024;
+	
+	if ($l > $limit) {
+		$answers = array(
+				'_answers' => array()
+		);
+		
+		$robot->log("Big article: $l bytes,.. sending in parts! Calculating...");
+		
+		$parts = array();
+		
+		$part = '';
+		
+		$p = - 1;
+		do {
+			
+			do {
+				
+				$p1 = stripos($page, '<h1', $p + 1);
+				$p2 = stripos($page, '<h2', $p + 1);
+				$p3 = stripos($page, '<h3', $p + 1);
+				
+				if ($p1 === false)
+					$p1 = $l;
+				if ($p2 === false)
+					$p2 = $l;
+				if ($p3 === false)
+					$p3 = $l;
+				
+				$p = min($p1, $p2, $p3);
+			} while ( $p <= $limit_part );
+			
+			$parts[] = "<br/>" . substr($page, 0, $p);
+			
+			$page = substr($page, $p);
+			$l = strlen($page);
+		} while ( $l > $limit_part );
+		
+		$parts[] = "<br/>" . $page;
+		
+		$title = $r['title'];
+		
+		$robot->log("Big article: " . count($parts) . " parts");
+		
+		foreach ( $parts as $part ) {
+			$i ++;
+			$r['body'] = $part;
+			$r['title'] = $title . ' (parte ' . $i . ')';
+			
+			// if exists another part then ...
+			$robot->log("Big article: preparing part $i with " . strlen($part) . " bytes");
+			$answers['_answers'][] = $r;
+		}
+	}
+	
+	// ... else return the last part
+	return $answers;
+}
+
+/**
  * Apretaste!com Article Command
  *
  * @author salvi <salvi@pragres.com>
@@ -246,7 +326,7 @@ function cmd_article($robot, $from, $argument, $body = '', $images = array()){
 	
 	// getting the query
 	$query = $argument;
-	$query = Apretaste::depura($query," abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ".html_entity_decode("&aacute;&eacute;&iacute;&oacute;&uacute;&Aacute;&Eacute;&Iacute;&Uacute;&Oacute;&ntilde;&Ntilde;"));
+	$query = Apretaste::depura($query, " abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ" . html_entity_decode("&aacute;&eacute;&iacute;&oacute;&uacute;&Aacute;&Eacute;&Iacute;&Uacute;&Oacute;&ntilde;&Ntilde;"));
 	
 	// log the search for stadistics
 	$robot->log("[INFO] Search for an articule in Wikipedia: $query");
@@ -259,7 +339,7 @@ function cmd_article($robot, $from, $argument, $body = '', $images = array()){
 	$r = wiki_get($robot, $from, $argument, $body = '', $images = array(), $query, $keyword);
 	
 	if ($r != false)
-		return $r;
+		return cmd_article_result($robot, $from, $r);
 		
 		// Step 2: Search for an article
 	
@@ -280,11 +360,11 @@ function cmd_article($robot, $from, $argument, $body = '', $images = array()){
 				
 				foreach ( $s as $si ) {
 					$si = utf8_decode($si);
-					$r['body'] .= ' - <a href="mailto:{$reply_to}?subject=ARTICULO ' . $si . '">' . $si . '</a><br/>';
+					$r['body'] .= ' - <a href="mailto:' . $from . '?subject=ARTICULO ' . $si . '">' . $si . '</a><br/>';
 				}
 			}
 			
-			return $r;
+			return cmd_article_result($robot, $from, $r);
 		}
 	}
 	

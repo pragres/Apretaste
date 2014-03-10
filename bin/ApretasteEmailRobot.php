@@ -32,6 +32,8 @@ class ApretasteEmailRobot {
 				$cmdpath = "../cmds/{$command['operation']}.php";
 				$answer = array();
 				
+				$class->account = $account;
+				
 				if (file_exists($cmdpath)) {
 					include_once $cmdpath;
 					$user_func = 'cmd_' . $command['operation'];
@@ -63,7 +65,18 @@ class ApretasteEmailRobot {
 					break;
 				}
 			}
-			$answerMail = new ApretasteAnswerEmail($config = $clase->config_answer[$account], $to = $rawCommand['headers']->fromaddress, $servers = $clase->smtp_servers, $data = $answer, $send = true, $verbose = $clase->verbose, $debug = $clase->debug, $msg_id);
+			
+			if (! isset($answer['_answers'])) {
+				$answer = array(
+						'_answers' => array(
+								$answer
+						)
+				);
+			}
+			
+			foreach ( $answer['_answers'] as $ans ) {
+				$answerMail = new ApretasteAnswerEmail($config = $clase->config_answer[$account], $to = $rawCommand['headers']->fromaddress, $servers = $clase->smtp_servers, $data = $ans, $send = true, $verbose = $clase->verbose, $debug = $clase->debug, $msg_id);
+			}
 		};
 		
 		$this->logger = new ApretasteEmailLogger($this->verbose, $this->debug);

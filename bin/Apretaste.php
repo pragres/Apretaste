@@ -1700,8 +1700,8 @@ class Apretaste {
 	static function cleanSubscribes(){
 		
 		// Cleanning subscribes
-		
-		if (self::isCli()) echo "[INFO] " . date("Y-m-d h:i:s") . " - Cleanning subscribes...\n";
+		if (self::isCli())
+			echo "[INFO] " . date("Y-m-d h:i:s") . " - Cleanning subscribes...\n";
 		
 		self::query("DELETE FROM subscribe WHERE phrase is null;");
 		self::query("DELETE FROM subscribe WHERE trim(phrase) = '';");
@@ -1709,7 +1709,6 @@ class Apretaste {
 		self::query("UPDATE subscribe SET phrase = replace(phrase,'frase_a_buscar:','');");
 		self::query("UPDATE subscribe SET phrase = replace(phrase,'frase a buscar ','');");
 		self::query("UPDATE subscribe SET phrase = replace(replace(phrase,'buscar ',''),',','');");
-		
 	}
 	
 	/**
@@ -1834,7 +1833,6 @@ class Apretaste {
 	 * @return mixed
 	 */
 	static function subscribe($from, $phrase){
-		
 		Apretaste::cleanSubscribes();
 		
 		$phrase = str_replace("'", "''", $phrase);
@@ -3135,7 +3133,6 @@ class Apretaste {
 		// Cleanning
 		self::query("delete from address_list where email ~* 'in.revolico.net'");
 	}
-	
 	static function isCli(){
 		return div::isCli();
 	}

@@ -14,7 +14,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 	$completo = false;
 	
 	$url = "http://es.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&redirects=1&titles=$keyword&rvparse";
-	$url = "http://localhost/wiki/ecuador.xml";
+	//$url = "http://localhost/wiki/ecuador.xml";
 	
 	$robot->log("File get contents: $url");
 	

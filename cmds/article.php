@@ -249,7 +249,7 @@ function cmd_article_result($robot, $from, $r){
 	$robot->log("Article length $l bytes");
 	
 	$limit = 200 * 1024;
-	$limit_part = 130 * 1024;
+	$limit_part = 100 * 1024;
 	
 	if ($l > $limit) {
 		$answers = array(

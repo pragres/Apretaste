@@ -324,10 +324,10 @@ function cmd_article_result($robot, $from, $r){
 			$r['title'] = $title . ' (parte ' . $i . ')';
 			
 			$ximages = array();
-			foreach ( $images as $img ) {
+			/*foreach ( $images as $img ) {
 				if (stripos($part, $img['id']) !== false)
 					$ximages[] = $img;
-			}
+			}*/
 			
 			$r['images'] = $ximages;
 			

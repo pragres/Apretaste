@@ -14,7 +14,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 	$completo = false;
 	
 	$url = "http://es.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&redirects=1&titles=$keyword&rvparse";
-	// $url = "http://localhost/wiki/ecuador.xml";
+	//$url = "http://localhost/wiki/ecuador.xml";
 	
 	$robot->log("File get contents: $url");
 	
@@ -312,17 +312,27 @@ function cmd_article_result($robot, $from, $r){
 		} while ( $l > $limit_part && $p > - 1 );
 		
 		$parts[] = "<br/>" . $page;
+				
+		$robot->log("Big article: " . count($parts) . " parts");
 		
 		$title = $r['title'];
-		
-		$robot->log("Big article: " . count($parts) . " parts");
+		$images = $r['images'];
 		
 		foreach ( $parts as $part ) {
 			$i ++;
 			$r['body'] = $part;
 			$r['title'] = $title . ' (parte ' . $i . ')';
 			
+			$ximages = array();
+			foreach ( $images as $img ) {
+				if (stripos($part, $img['id']) !== false)
+					$ximages[] = $img;
+			}
+			
+			$r['images'] = $ximages;
+			
 			// if exists another part then ...
+			
 			$robot->log("Big article: preparing part $i with " . strlen($part) . " bytes");
 			$answers['_answers'][] = $r;
 		}

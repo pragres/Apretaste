@@ -267,7 +267,7 @@ function cmd_article_result($robot, $from, $r){
 	$title = $r['title'];
 	$images = $r['images'];
 	foreach ( $images as $img )
-		$robot->log("Size of image {$img['name']} is " . sizeof($img['content']));
+		$robot->log("Size of image {$img['name']} is " . strlen($img['content']));
 	
 	if ($l > $limit) {
 		$answers = array(
@@ -307,7 +307,7 @@ function cmd_article_result($robot, $from, $r){
 				$extra = 0;
 				foreach ( $images as $img )
 					if (stripos($tempart, $img['id']) !== false) {
-						$extra += sizeof($img['content']);
+						$extra += strlen($img['content']);
 					}
 			} while ( $p + $extra <= $limit_part );
 			

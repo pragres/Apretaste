@@ -14,7 +14,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 	$completo = false;
 	
 	$url = "http://es.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&redirects=1&titles=$keyword&rvparse";
-	//$url = "http://localhost/wiki/ecuador.xml";
+	// $url = "http://localhost/wiki/ecuador.xml";
 	
 	$robot->log("File get contents: $url");
 	
@@ -264,6 +264,8 @@ function cmd_article_result($robot, $from, $r){
 	
 	$limit = 200 * 1024;
 	$limit_part = 80 * 1024;
+	$title = $r['title'];
+	$images = $r['images'];
 	
 	if ($l > $limit) {
 		$answers = array(
@@ -298,7 +300,14 @@ function cmd_article_result($robot, $from, $r){
 						$last_p = $p;
 					$p = $min;
 				}
-			} while ( $p <= $limit_part );
+				
+				$tempart = substr($page, 0, $p);
+				$extra = 0;
+				foreach ( $images as $img )
+					if (stripos($tempart, $img['id']) !== false) {
+						$extra += sizeof($img['content']);
+					}
+			} while ( $p + $extra <= $limit_part );
 			
 			$p = $last_p;
 			
@@ -312,11 +321,8 @@ function cmd_article_result($robot, $from, $r){
 		} while ( $l > $limit_part && $p > - 1 );
 		
 		$parts[] = "<br/>" . $page;
-				
-		$robot->log("Big article: " . count($parts) . " parts");
 		
-		$title = $r['title'];
-		$images = $r['images'];
+		$robot->log("Big article: " . count($parts) . " parts");
 		
 		foreach ( $parts as $part ) {
 			$i ++;

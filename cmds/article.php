@@ -266,6 +266,8 @@ function cmd_article_result($robot, $from, $r){
 	$limit_part = 100 * 1024;
 	$title = $r['title'];
 	$images = $r['images'];
+	foreach ( $images as $img )
+		$robot->log("Size of image {$img['name']} is " . sizeof($img['content']));
 	
 	if ($l > $limit) {
 		$answers = array(

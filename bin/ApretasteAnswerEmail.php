@@ -216,12 +216,12 @@ class ApretasteAnswerEmail {
 			$html_body = new div("../tpl/alone/answer", $data);
 			
 			$this->message->setHTMLBody($html_body);
-			$data['images'][] = array(
+			/*$data['images'][] = array(
 					"type" => "image/jpg",
 					"content" => file_get_contents("../web/static/apretaste.logo.jpg"),
 					"name" => "apretaste.logo.jpg",
 					"id" => "logo"
-			);
+			);*/
 			
 			if ($data) {
 				if (isset($data['images']))

@@ -1,4 +1,5 @@
-<img style="margin: 0px 0px 10px 20px;" alt="{$apretaste}" src="{$logo}"/><br/>
+{% logohtml %}
+<br/>
 ?$content
 {% content %}
 $content?

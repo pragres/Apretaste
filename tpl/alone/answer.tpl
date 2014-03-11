@@ -15,9 +15,7 @@
 						<table width ="800" cellspacing="0" cellpadding="0" style ="margin-bottom: 5px;{$font}">
 							<tr>
 								<td width="30%" align="left">
-									<a href="http://apretaste.com" style="border:0px;">
-									<img style="margin: 0px 0px 10px 20px;border:0px;" alt="{$apretaste}" src="{$logo}"/>
-									</a>
+									{% logohtml %}
 								</td>
 								<td align = "right" valign="top" style="{$font}">
 									<a style="{$element-a}" href="mailto:{$reply_to}?subject=PUBLICAR Titulo del anuncio&body={$body_insert}" title="Abre un nuevo correo listo para publicar un nuevo anuncio">Publicar un anuncio</a><br/>

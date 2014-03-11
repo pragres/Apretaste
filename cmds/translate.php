@@ -245,8 +245,8 @@ function parse_google_translator_response($response){
 					$richtextfrom .= htmlentities(substr($original, $lastp, $p1 - $lastp - 1));
 					$richtextto .= htmlentities(substr($original, $lastp, $p1 - $lastp - 1));
 				}
-			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . $part['text'] . '</a>';
-			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . $part['textto'] . '</a>';
+			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . $part['text'] . '</a>';
+			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . $part['textto'] . '</a>';
 			
 			$lastp = $p2;
 			
@@ -260,14 +260,14 @@ function parse_google_translator_response($response){
 				if ($i == 1)
 					$variants .= '</tr>';
 				
-				$variants .= "<td width=\"33%\" style=\"border-bottom: 1px solid #dddddd; border-right: 1px solid #dddddd; \" valign=\"top\">\n<a href=\"{\$reply_to}?subject=TRADUCIR&body=$vv\"><b>$vv</b></a>: <ol style=\"margin:0px;\">";
+				$variants .= "<td width=\"33%\" style=\"border-bottom: 1px solid #dddddd; border-right: 1px solid #dddddd; \" valign=\"top\">\n<a href=\"mailto:{\$reply_to}?subject=TRADUCIR&body=$vv\"><b>$vv</b></a>: <ol style=\"margin:0px;\">";
 				foreach ( $part['tips'] as $tip ) {
 					$tip = str_replace(array(
 							"\n",
 							"\r"
 					), "", trim($tip));
 					if (strlen($tip) > 1)
-						$variants .= "<li><a href=\"{\$reply_yo}?subject=TRADUCIR&body=$tip\">$tip</a></li>";
+						$variants .= "<li><a href=\"mailto:{\$reply_yo}?subject=TRADUCIR&body=$tip\">$tip</a></li>";
 				}
 				$variants .= '</ol></td>';
 				

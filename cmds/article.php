@@ -158,7 +158,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 			$page = str_replace("/>", "/>\n", $page);
 			$page = str_replace("<p", "<p style=\"text-align:justify;\" align=\"justify\"", $page);
 			$page = wordwrap($page, 200, "\n");
-			$page = str_replace("href=\"/wiki/", 'href="mailto:' . $from . '?subject=ARTICULO  ', $page);
+			$page = str_replace("href=\"/wiki/", 'href="mailto:{$reply_to}?subject=ARTICULO  ', $page);
 			// $page = str_replace("href=\"http", 'href="mailto:{$reply_to}?subject=NAVIGATOR http', $page);
 			
 			foreach ( $images as $image ) {

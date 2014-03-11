@@ -112,11 +112,11 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 					if (substr($imgsrc, 0, 2) == '//')
 						$imgsrc = 'http:' . $imgsrc;
 					
-					if (stripos($imgsrc, '.svg') !== false) {
+					/*if (stripos($imgsrc, '.svg.png') !== false) {
 						$ignored[] = $imgsrc;
 						// $robot->log("Ignoring image $imgsrc");
 						continue;
-					}
+					}*/
 					
 					$srcparts = explode("/", $imgsrc);
 					$name = array_pop($srcparts);

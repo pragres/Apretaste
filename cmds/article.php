@@ -112,8 +112,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 					if (substr($imgsrc, 0, 2) == '//')
 						$imgsrc = 'http:' . $imgsrc;
 					
-					if (stripos($imgsrc, 'increase') !== false || stripos($imgsrc, 'check') !== false || stripos($imgsrc, 'mark') !== false || stripos($imgsrc, 'emblem') !== false || stripos($imgsrc, 'symbol_comment') !== false
-						|| substr($imgsrc, -4) ==".svg") {
+					if (stripos($imgsrc, 'increase') !== false || stripos($imgsrc, 'check') !== false || stripos($imgsrc, 'mark') !== false || stripos($imgsrc, 'emblem') !== false || stripos($imgsrc, 'symbol_comment') !== false || substr($imgsrc, - 4) == ".svg") {
 						$ignored[] = $imgsrc;
 						// $robot->log("Ignoring image $imgsrc");
 						continue;
@@ -267,10 +266,18 @@ function cmd_article_result($robot, $from, $r){
 	$limit_part = 100 * 1024;
 	$title = $r['title'];
 	$images = $r['images'];
-	foreach ( $images as $img )
-		$robot->log("Size of image {$img['name']} is " . strlen($img['content']));
 	
-	if ($l > $limit) {
+	$imagesize = 0;
+	
+	foreach ( $images as $img ) {
+		$sz = strlen($img['content']);
+		$robot->log("Size of image {$img['name']} is $sz");
+		$imagesize += $sz;
+	}
+	
+	$robot->log("Total size of images {$img['name']} is $sz");
+	
+	if ($l + $imagesize > $limit) {
 		$answers = array(
 				'_answers' => array()
 		);

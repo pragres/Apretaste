@@ -14,7 +14,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 	$completo = false;
 	
 	$url = "http://es.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&redirects=1&titles=$keyword&rvparse";
-	//$url = "http://localhost/wiki/ecuador.xml";
+	// $url = "http://localhost/wiki/ecuador.xml";
 	
 	$robot->log("File get contents: $url");
 	
@@ -103,6 +103,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 			// Load images
 			$imagestags = $doc->getElementsByTagName("img");
 			$images = array();
+			$ignored = array();
 			if ($imagestags->length > 0) {
 				foreach ( $imagestags as $imgtag ) {
 					
@@ -112,6 +113,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 						$imgsrc = 'http:' . $imgsrc;
 					
 					if (stripos($imgsrc, '.svg') !== false) {
+						$ignored[] = $imgsrc;
 						// $robot->log("Ignoring image $imgsrc");
 						continue;
 					}
@@ -163,6 +165,9 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 			
 			foreach ( $images as $image ) {
 				$page = str_replace($image['src'], "cid:" . $image['id'], $page);
+			}
+			foreach ( $ignored as $ign ) {
+				$page = str_replace($ign, '', $page);
 			}
 			
 			$showimages = true;
@@ -293,7 +298,6 @@ function cmd_article_result($robot, $from, $r){
 						$last_p = $p;
 					$p = $min;
 				}
-			
 			} while ( $p <= $limit_part );
 			
 			$p = $last_p;

@@ -121,7 +121,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 					$srcparts = explode("/", $imgsrc);
 					$name = array_pop($srcparts);
 					
-					// $robot->log("Retrieving image $imgsrc");
+					$robot->log("Retrieving image $imgsrc");
 					
 					$img = @file_get_contents($imgsrc);
 					if ($img === false) {

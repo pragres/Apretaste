@@ -262,7 +262,7 @@ function cmd_article_result($robot, $from, $r){
 	
 	$robot->log("Article length $l bytes");
 	
-	$limit = 200 * 1024;
+	$limit = 300 * 1024;
 	$limit_part = 100 * 1024;
 	$title = $r['title'];
 	$images = $r['images'];

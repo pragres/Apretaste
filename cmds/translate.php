@@ -245,8 +245,8 @@ function parse_google_translator_response($response){
 					$richtextfrom .= htmlentities(substr($original, $lastp, $p1 - $lastp - 1));
 					$richtextto .= htmlentities(substr($original, $lastp, $p1 - $lastp - 1));
 				}
-			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . $part['text'] . '</a>';
-			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . $part['textto'] . '</a>';
+			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . $part['text'] . '</a>&nbsp;';
+			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . $part['textto'] . '</a>&nbsp;';
 			
 			$lastp = $p2;
 			

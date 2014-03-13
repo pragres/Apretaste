@@ -302,7 +302,14 @@ function cmd_article_result($robot, $from, $r){
 						}
 					}
 				}
-				echo "MIN =$min\n";
+				
+				if ($min == - 1) {
+					$p = strlen($page);
+					break;
+				}
+				
+				// echo "MIN =$min\n";
+				
 				if ($min > - 1) {
 					if ($last_p == - 1)
 						$last_p = $min;
@@ -310,8 +317,9 @@ function cmd_article_result($robot, $from, $r){
 						$last_p = $p;
 					$p = $min;
 				}
-				if ($p ==-1) break;
-				echo "P =$p\n";
+				
+				// echo "P =$p\n";
+				
 				$extra = 0;
 				/*
 				 * $tempart = substr($page, 0, $p); foreach ( $images as $img ) if (stripos($tempart, $img['id']) !== false) { $extra += strlen($img['content']); }

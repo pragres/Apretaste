@@ -310,6 +310,7 @@ function cmd_article_result($robot, $from, $r){
 						$last_p = $p;
 					$p = $min;
 				}
+				if ($p ==-1) break;
 				echo "P =$p\n";
 				$extra = 0;
 				/*

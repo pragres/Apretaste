@@ -344,13 +344,19 @@ function cmd_article_result($robot, $from, $r){
 		$robot->log("Big article: " . count($parts) . " parts");
 		
 		foreach ( $parts as $part ) {
+			$part = trim($part);
+			$size = strlen($part);
+			
+			if ($size < 10)
+				continue;
+			
 			$i ++;
 			$r['body'] = $part;
 			$r['title'] = $title . ' (parte ' . $i . ')';
 			
 			// Checking the size of images
 			$ximages = array();
-			$size = strlen($part);
+			
 			foreach ( $images as $img ) {
 				if (stripos($part, $img['id']) !== false) {
 					$imgsize = strlen($img['content']);

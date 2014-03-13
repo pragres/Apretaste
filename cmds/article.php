@@ -312,12 +312,9 @@ function cmd_article_result($robot, $from, $r){
 				}
 				
 				$extra = 0;
-				/*$tempart = substr($page, 0, $p);
-				
-				foreach ( $images as $img )
-					if (stripos($tempart, $img['id']) !== false) {
-						$extra += strlen($img['content']);
-					}*/
+				/*
+				 * $tempart = substr($page, 0, $p); foreach ( $images as $img ) if (stripos($tempart, $img['id']) !== false) { $extra += strlen($img['content']); }
+				 */
 			} while ( $p + $extra <= $limit_part );
 			
 			$p = $last_p;
@@ -340,10 +337,17 @@ function cmd_article_result($robot, $from, $r){
 			$r['body'] = $part;
 			$r['title'] = $title . ' (parte ' . $i . ')';
 			
+			// Checking the size of images
 			$ximages = array();
+			$size = strlen($part);
 			foreach ( $images as $img ) {
-				if (stripos($part, $img['id']) !== false)
-					$ximages[] = $img;
+				if (stripos($part, $img['id']) !== false) {
+					$imgsize = strlen($img['content']);
+					if ($size + $imgsize <= $limitpart) {
+						$size += $imgsize;
+						$ximages[] = $img;
+					}
+				}
 			}
 			
 			$r['images'] = $ximages;

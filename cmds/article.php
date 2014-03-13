@@ -304,7 +304,7 @@ function cmd_article_result($robot, $from, $r){
 				}
 				
 				if ($min < 1) {
-					$last_p = strlen($page) - 1;
+					$last_p = strlen($page);
 					break;
 				}
 				
@@ -325,17 +325,21 @@ function cmd_article_result($robot, $from, $r){
 			$p = $last_p;
 			
 			if ($p > - 1) {
-				$xpart = substr($page, 0, $p + 1);
+				$xpart = substr($page, 0, $p);
 				if (trim(strlen($xpart)) > 5) {
 					$parts[] = "<br/>" . $xpart;
 				}
-				$page = trim(substr($page, $p));
+				if (isset($page[$p]))
+					$page = trim(substr($page, $p));
+				else
+					$page = '';
 			}
 			
 			$l = strlen($page);
 		} while ( $l > $limit_part && $p > - 1 );
 		
-		$parts[] = "<br/>" . $page;
+		if (trim(strlen($xpart)) > 5)
+			$parts[] = "<br/>" . $page;
 		
 		$robot->log("Big article: " . count($parts) . " parts");
 		

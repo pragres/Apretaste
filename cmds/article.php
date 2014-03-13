@@ -304,7 +304,7 @@ function cmd_article_result($robot, $from, $r){
 				}
 				
 				if ($min == - 1) {
-					$p = strlen($page) - 1;
+					$last_p = strlen($page) - 1;
 					break;
 				}
 				

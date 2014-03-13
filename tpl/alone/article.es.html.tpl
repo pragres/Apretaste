@@ -2,7 +2,7 @@
 ?$body
 	!$showimages
 		<p style="{$font};color:red;">
-		Este arti&iacute;culo es demasiado grande para ser enviado por email. Apretaste ha eliminado 
+		Este art&iacute;culo es demasiado grande para ser enviado por email. Apretaste ha eliminado 
 		las im&aacute;genes para hacer posible que personas con conexiones limitadas lo reciban.
 		</p>
 		<hr/>

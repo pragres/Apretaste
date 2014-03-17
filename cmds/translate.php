@@ -193,7 +193,7 @@ function parse_google_translator_response($response){
 	if (isset($response[5]))
 		foreach ( $response[5] as $textpart ) {
 			
-			$part = htmlentities(utf8_encode($textpart[0]));
+			$part = Apretaste::reparaTildes($textpart[0]);
 			$part = str_replace(" ?", "?", $part);
 			$part = str_replace(" .", ".", $part);
 			$part = str_replace(" !", "!", $part);
@@ -205,7 +205,7 @@ function parse_google_translator_response($response){
 			
 			$parts[] = array(
 					"text" => $part,
-					"textto" => htmlentities(utf8_encode($textpart[2][0][0])),
+					"textto" => Apretaste::reparaTildes($textpart[2][0][0]),
 					"tips" => $tips,
 					"alldata" => $textpart
 			);
@@ -242,8 +242,8 @@ function parse_google_translator_response($response){
 			
 			if (! is_null($lastp))
 				if ($p1 - $lastp - 1 > 0) {
-					$richtextfrom .= htmlentities(substr($original, $lastp, $p1 - $lastp - 1));
-					$richtextto .= htmlentities(substr($original, $lastp, $p1 - $lastp - 1));
+					$richtextfrom .= substr($original, $lastp, $p1 - $lastp - 1);
+					$richtextto .= substr($original, $lastp, $p1 - $lastp - 1);
 				}
 			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . $part['text'] . '</a>&nbsp;';
 			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . $part['textto'] . '</a>&nbsp;';

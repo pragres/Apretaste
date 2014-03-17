@@ -193,7 +193,7 @@ function parse_google_translator_response($response){
 	if (isset($response[5]))
 		foreach ( $response[5] as $textpart ) {
 			
-			$part = htmlentities(ApretasteEncoding::encode('UTF-8', $textpart[0]));
+			$part = $textpart[0];
 			$part = str_replace(" ?", "?", $part);
 			$part = str_replace(" .", ".", $part);
 			$part = str_replace(" !", "!", $part);
@@ -205,7 +205,7 @@ function parse_google_translator_response($response){
 			
 			$parts[] = array(
 					"text" => $part,
-					"textto" => htmlentities(ApretasteEncoding::encode('UTF-8', $textpart[2][0][0])),
+					"textto" => $textpart[2][0][0],
 					"tips" => $tips,
 					"alldata" => $textpart
 			);
@@ -290,11 +290,14 @@ function parse_google_translator_response($response){
 	$richtextto = str_replace(" ,", ",", $richtextto);
 	
 	return array(
-			"textfrom" => $textfrom,
-			"textto" => $textto,
-			"richtextto" => $richtextto,
-			"richtextfrom" => $richtextfrom,
+			"textfrom" => cmd_translate_fix_text($textfrom),
+			"textto" => cmd_translate_fix_text($textto),
+			"richtextto" => cmd_translate_fix_text($richtextto),
+			"richtextfrom" => cmd_translate_fix_text($richtextfrom),
 			"variants" => $variants,
 			"meanings" => $meaninghtml
 	);
+}
+function cmd_translate_fix_text($text){
+	return htmlentities(html_entity_decode(ApretasteEncoding::encode('UTF-8', $text)));
 }

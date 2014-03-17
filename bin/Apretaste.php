@@ -650,7 +650,9 @@ class Apretaste {
 	 * @return Ambigous <string, mixed>
 	 */
 	static function repairUTF8($text){
-		$text = html_entity_decode(utf8_decode($text));
+		if (self::isUTF8($text))
+			$text = utf8_decode($text);
+		$text = html_entity_decode($text);
 		$text = htmlentities($text);
 		
 		$tildes = array(
@@ -3135,5 +3137,8 @@ class Apretaste {
 	}
 	static function isCli(){
 		return div::isCli();
+	}
+	static function isUTF8($string){
+		return (mb_detect_encoding($string, 'UTF-8', true) == 'UTF-8');
 	}
 }

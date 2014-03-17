@@ -193,7 +193,7 @@ function parse_google_translator_response($response){
 	if (isset($response[5]))
 		foreach ( $response[5] as $textpart ) {
 			
-			$part = htmlentities(utf8_decode(ApretasteEncoding::fixUTF8($textpart[0])));
+			$part = htmlentities(utf8_decode(ApretasteEncoding::encode('UTF-8',$textpart[0])));
 			$part = str_replace(" ?", "?", $part);
 			$part = str_replace(" .", ".", $part);
 			$part = str_replace(" !", "!", $part);
@@ -205,7 +205,7 @@ function parse_google_translator_response($response){
 			
 			$parts[] = array(
 					"text" => $part,
-					"textto" => htmlentities(utf8_decode(ApretasteEncoding::fixUTF8($textpart[2][0][0]))),
+					"textto" => htmlentities(utf8_decode(ApretasteEncoding::encode('UTF-8',$textpart[2][0][0]))),
 					"tips" => $tips,
 					"alldata" => $textpart
 			);

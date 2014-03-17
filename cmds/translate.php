@@ -193,7 +193,7 @@ function parse_google_translator_response($response){
 	if (isset($response[5]))
 		foreach ( $response[5] as $textpart ) {
 			
-			$part = Apretaste::reparaTildes(utf8_encode($textpart[0]));
+			$part = htmlentities(utf8_decode($textpart[0]));
 			$part = str_replace(" ?", "?", $part);
 			$part = str_replace(" .", ".", $part);
 			$part = str_replace(" !", "!", $part);
@@ -205,7 +205,7 @@ function parse_google_translator_response($response){
 			
 			$parts[] = array(
 					"text" => $part,
-					"textto" => Apretaste::reparaTildes(utf8_encode($textpart[2][0][0])),
+					"textto" => htmlentities(utf8_encode($textpart[2][0][0])),
 					"tips" => $tips,
 					"alldata" => $textpart
 			);

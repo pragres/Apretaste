@@ -201,11 +201,11 @@ function parse_google_translator_response($response){
 			
 			if (is_array($textpart[2]))
 				foreach ( $textpart[2] as $word )
-					$tips[] = $word[0];
+					$tips[] = cmd_translate_fix_text($word[0]);
 			
 			$parts[] = array(
-					"text" => $part,
-					"textto" => $textpart[2][0][0],
+					"text" => cmd_translate_fix_text($part),
+					"textto" => cmd_translate_fix_text($textpart[2][0][0]),
 					"tips" => $tips,
 					"alldata" => $textpart
 			);
@@ -290,10 +290,10 @@ function parse_google_translator_response($response){
 	$richtextto = str_replace(" ,", ",", $richtextto);
 	
 	return array(
-			"textfrom" => cmd_translate_fix_text($textfrom),
-			"textto" => cmd_translate_fix_text($textto),
-			"richtextto" => cmd_translate_fix_text($richtextto),
-			"richtextfrom" => cmd_translate_fix_text($richtextfrom),
+			"textfrom" => $textfrom,
+			"textto" => $textto,
+			"richtextto" => $richtextto,
+			"richtextfrom" => $richtextfrom,
 			"variants" => $variants,
 			"meanings" => $meaninghtml
 	);

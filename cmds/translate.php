@@ -205,7 +205,7 @@ function parse_google_translator_response($response){
 			
 			$parts[] = array(
 					"text" => $part,
-					"textto" => htmlentities(utf8_encode($textpart[2][0][0])),
+					"textto" => htmlentities(utf8_decode($textpart[2][0][0])),
 					"tips" => $tips,
 					"alldata" => $textpart
 			);

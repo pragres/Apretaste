@@ -299,5 +299,5 @@ function parse_google_translator_response($response){
 	);
 }
 function cmd_translate_fix_text($text){
-	return htmlentities(html_entity_decode(ApretasteEncoding::encode('UTF-8', $text)));
+	return Apretaste::reparaTildes(ApretasteEncoding::encode('UTF-8', $text));
 }

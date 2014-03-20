@@ -236,6 +236,8 @@ function cmd_sudoku($robot, $from, $argument, $body = '', $images = array(), $qu
 	for($i = 0; $i < 81; $i ++)
 		$sudoku[] = 0;
 	
+	$robot->log("Generating sudoku for $from");
+	
 	solve($sudoku);
 	
 	error_reporting($error);

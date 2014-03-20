@@ -74,9 +74,9 @@ function print_sudoku($sudoku){
 			
 			$html .= "<td width = \"40\" height = \"40\" style=\"$style;font-size:25px;font-family:verdana;\">";
 			
-			if ($v == '&nbsp;')
+			/*if ($v == '&nbsp;')
 				$html .= '<input type="text" size = "1" maxlength="1" style="text-align:center;border:0px;font-size:25px;color:red;font-weight:bold;">';
-			else $html .= $v;
+			else */$html .= $v;
 			
 			$html .= "</td>\n";
 		}

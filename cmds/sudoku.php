@@ -42,7 +42,7 @@ function is_possible_number($cell, $number, $sudoku){
 	return is_possible_row($number, $row, $sudoku) and is_possible_col($number, $col, $sudoku) and is_possible_block($number, $block, $sudoku);
 }
 function print_sudoku($sudoku){
-	$html = "<table cellspacing = \"1\" cellpadding = \"2\">\n";
+	$html = "<table align = \"center\" cellspacing = \"1\" cellpadding = \"2\">\n";
 	for($x = 0; $x <= 8; $x ++) {
 		$html .= "<tr align = \"center\">\n";
 		for($y = 0; $y <= 8; $y ++) {

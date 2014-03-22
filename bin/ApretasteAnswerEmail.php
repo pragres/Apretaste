@@ -126,12 +126,13 @@ class ApretasteAnswerEmail {
 			ob_start();
 			
 			$result = $smtp_server->send($this->to, $this->headers, $this->message->getMessageBody());
-			var_dump($result);
+			
 			
 			if ($result !== true) {
 				if (! isset($froms[$i + 1])) {
 					echo "<h1>Error sending email from SMTP server to {$this->to} </h1>\n";
 					echo "<br/>\n";
+					echo div::asThis($result);
 					$serv = $this->servers[$from];
 					echo "From: ".$serv['host']."<br/>";
 					echo "<br/>\n";

@@ -126,6 +126,7 @@ class ApretasteAnswerEmail {
 			ob_start();
 			
 			$result = $smtp_server->send($this->to, $this->headers, $this->message->getMessageBody());
+			var_dump($result);
 			
 			if ($result !== true) {
 				if (! isset($froms[$i + 1])) {
@@ -138,7 +139,6 @@ class ApretasteAnswerEmail {
 					echo "Headers: <br/>\n";
 					echo div::asThis($this->headers);
 					echo "<br/>\n";
-					
 					// echo "Trying with other server ...\n";
 					$message = ob_get_contents();
 					

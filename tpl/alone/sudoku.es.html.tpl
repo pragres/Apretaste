@@ -9,10 +9,9 @@ Los cuadrantes est&aacute;n delimitados por los borders negros.
 <label style="margin: 5px;">Otro Sudoku!</label>
 </a>
 </td></tr></table>
-<hr/>
 <p>Despl&aacute;cese hacia abajo para ver la soluci&oacute;n</p>
-<p align="right"><a href="mailto:{$reply_to}?subject=ARTICULO sudoku">Clic aqu&iacute; para conocer m&aacute;s sobre este juego</a></p> 
-
+<p><a href="mailto:{$reply_to}?subject=ARTICULO sudoku">Clic aqu&iacute; para conocer m&aacute;s sobre este juego</a></p> 
+<hr/>
 {$problem}
 
 <hr/>

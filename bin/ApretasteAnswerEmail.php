@@ -117,7 +117,7 @@ class ApretasteAnswerEmail {
 			$whitelist = Apretaste::getEmailWhiteList();
 			
 			if ((Apretaste::matchEmailPlus($this->to, $blacklist) == true && Apretaste::matchEmailPlus($this->to, $whitelist) == false)) {
-				imap_delete($this->imap, $message_number_iterator);
+				//imap_delete($this->imap, $message_number_iterator);
 				echo $this->verbose ? "[INFO] ignore email address {$this->to}\n" : "";
 				return false;
 			}

@@ -314,6 +314,11 @@ function parse_google_translator_response($response){
 function cmd_translate_fix_text($text){
 	if (! Apretaste::isUTF8($text))
 		$text = utf8_encode($text);
+	
+	if (Apretaste::isUTF8($text))
+		$text = utf8_decode($text);
+	
 	$text = html_entity_decode($text);
+	
 	return htmlentities($text);
 }

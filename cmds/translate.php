@@ -201,7 +201,7 @@ function parse_google_translator_response($response){
 			
 			if (is_array($textpart[2]))
 				foreach ( $textpart[2] as $word )
-					$tips[] = cmd_translate_fix_text(utf8_encode($word[0]));
+					$tips[] = htmlentities(utf8_encode($word[0]));
 			
 			$parts[] = array(
 					"text" => cmd_translate_fix_text($part),

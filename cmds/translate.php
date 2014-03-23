@@ -83,7 +83,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	// Clean the text
 	$robot->log("Cleanning/Decoding the text..");
 	//$body = ApretasteEncoding::UTF8FixWin1252Chars($body);
-	$body = ApretasteEncoding::toUTF8($body);
+	$body = ApretasteEncoding::fixUTF8($body);
 	$text = strip_tags($body);
 	//$text = ApretasteEncoding::fixUTF8($text);
 	//$text = ApretasteEncoding::UTF8FixWin1252Chars($text);
@@ -92,6 +92,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	//$text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "ISO-8859-1"), 6);
 	$text = quoted_printable_decode($text);
 	$text = trim($text);
+	
 	echo "Translate: $text\n";
 	// No text
 	if ($text == '')

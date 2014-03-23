@@ -4,11 +4,12 @@ function cmd_remedy($robot, $from, $argument, $body = '', $images = array()){
 	
 	if (isset($results[0])) {
 		$remedio = file_get_contents($results[0]->url);
+		$titulo = $results[0]->title;
 		unset($results[0]);
 		return array(
 				"answer_type" => "remedy",
 				"command" => "remedy",
-				"title" => $results[0]->title,
+				"title" => $titulo,
 				"body" => $remedio,
 				"others" => $results,
 				"compactmode" => true

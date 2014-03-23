@@ -213,7 +213,7 @@ function parse_google_translator_response($response){
 			
 			if (is_array($textpart[2]))
 				foreach ( $textpart[2] as $word )
-					$tips[] = cmd_translate_fix_text($word[0]);
+					$tips[] = htmlentities($word[0]);
 			
 			$parts[] = array(
 					"text" => cmd_translate_fix_text($part),
@@ -226,8 +226,8 @@ function parse_google_translator_response($response){
 	$original = '';
 	foreach ( $response[0] as $k => $v ) {
 		$original .= $v[1];
-		$v0 = cmd_translate_fix_text($v[0]);
-		$v1 = cmd_translate_fix_text($v[1]);
+		$v0 = htmlentities($v[0]);
+		$v1 = htmlentities($v[1]);
 		$textto .= $v0;
 		$textfrom .= $v1;
 	}

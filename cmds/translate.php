@@ -144,6 +144,9 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	$url = "http://translate.google.com/translate_a/t?client=t&sl={$lfrom}&tl={$lto}&hl={$hl}&sc=2&ie=$ie&oe=$oe&oc=13&otf=2&ssel=3&tsel=6&q=" . urlencode($text);
 	$robot->log($url, "URL");
 	$json = file_get_contents($url);
+	
+	if (Apretaste::isUTF8($string)) $json = utf8_encode($json);
+	
 	$arr = div::jsonDecode($json); // uso este metodo porque la funcion de php no sirve
 	
 	$robot->log("Compiling results...");

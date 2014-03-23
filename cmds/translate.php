@@ -88,7 +88,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	//$text = ApretasteEncoding::UTF8FixWin1252Chars($text);
 	$text = html_entity_decode($text);
 	//$text = Apretaste::reparaTildes($text);
-	$text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "ISO-8859-1"), 6);
+	//$text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "ISO-8859-1"), 6);
 	$text = quoted_printable_decode($text);
 	$text = trim($text);
 	

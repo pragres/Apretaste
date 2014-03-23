@@ -3141,4 +3141,17 @@ class Apretaste {
 	static function isUTF8($string){
 		return (mb_detect_encoding($string, 'UTF-8', true) == 'UTF-8');
 	}
+	
+	/**
+	 * Search in google
+	 *
+	 * @param string $query
+	 */
+	static function google($query){
+		$url = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=" . urlencode($query);
+		
+		$body = file_get_contents($url);
+		$results = json_decode($body);
+		return $results->responseData->results;
+	}
 }

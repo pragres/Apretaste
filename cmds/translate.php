@@ -254,11 +254,11 @@ function parse_google_translator_response($response){
 			
 			if (! is_null($lastp))
 				if ($p1 - $lastp - 1 > 0) {
-					$richtextfrom .= substr($original, $lastp, $p1 - $lastp - 1);
-					$richtextto .= substr($original, $lastp, $p1 - $lastp - 1);
+					$richtextfrom .= cmd_translate_fix_text(substr($original, $lastp, $p1 - $lastp - 1));
+					$richtextto .= cmd_translate_fix_text(substr($original, $lastp, $p1 - $lastp - 1));
 				}
-			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . $part['text'] . '</a>&nbsp;';
-			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . $part['textto'] . '</a>&nbsp;';
+			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . cmd_translate_fix_text($part['text']) . '</a>&nbsp;';
+			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . cmd_translate_fix_text($part['textto']) . '</a>&nbsp;';
 			
 			$lastp = $p2;
 			
@@ -280,7 +280,7 @@ function parse_google_translator_response($response){
 					), "", trim($tip));
 					
 					if (strlen($tip) > 1)
-						$variants .= "<li><a href=\"mailto:{\$reply_yo}?subject=TRADUCIR&body=$tip\">$tip</a></li>";
+						$variants .= "<li><a href=\"mailto:{\$reply_yo}?subject=TRADUCIR&body=$tip\">" . cmd_translate_fix_text($tip) . "</a></li>";
 				}
 				$variants .= '</ol></td>';
 				
@@ -290,8 +290,8 @@ function parse_google_translator_response($response){
 				}
 			}
 		} else {
-			$richtextfrom .= htmlentities($vv);
-			$richtextto .= htmlentities($part['textto']);
+			$richtextfrom .= cmd_translate_fix_text($vv);
+			$richtextto .= cmd_translate_fix_text($part['textto']);
 		}
 	}
 	

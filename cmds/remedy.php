@@ -5,6 +5,8 @@ function cmd_remedy($robot, $from, $argument, $body = '', $images = array()){
 	if (isset($results[0])) {
 		$remedio = file_get_contents($results[0]->url);
 		
+		$remedio = ApretasteEncoding::fixUTF8($remedio);
+		
 		$doc = new DOMDocument();
 		
 		@$doc->loadHTML($remedio);
@@ -14,6 +16,7 @@ function cmd_remedy($robot, $from, $argument, $body = '', $images = array()){
 		$remedio = $doc->saveHTML($r);
 		
 		$titulo = $results[0]->title;
+		
 		unset($results[0]);
 		return array(
 				"answer_type" => "remedy",

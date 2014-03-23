@@ -83,7 +83,8 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	// Clean the text
 	$robot->log("Cleanning/Decoding the text..");
 	$text = $body;
-	if (!Apretaste::isUTF8($text)) $body = utf8_encode($body);
+	if (! Apretaste::isUTF8($text))
+		$body = utf8_encode($body);
 	$text = strip_tags($body);
 	$text = html_entity_decode($text);
 	$text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "ISO-8859-1"), 6);
@@ -111,7 +112,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 		
 		$robot->log("Detecting language...");
 		
-		$url = "http://translate.google.com/translate_a/t?client=t&sl=auto&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" .$text;
+		$url = "http://translate.google.com/translate_a/t?client=t&sl=auto&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" . urlencode($text);
 		$robot->log($url, "URL");
 		$json = file_get_contents($url);
 		$json = div::jsonDecode($json);
@@ -130,11 +131,17 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	}
 	
 	$robot->log("Translating the text with Google Translator from -$lfrom- to -$lto-...");
-
-	if ($lfrom == 'es') $ie = 'WINDOWS-1252'; else $ie = 'UTF-8';
-	if ($lto == 'es') $oe = 'WINDOWS-1252'; else $oe = 'UTF-8';
 	
-	$url = "http://translate.google.com/translate_a/t?client=t&sl={$lfrom}&tl={$lto}&hl={$hl}&sc=2&ie=$ie&oe=$oe&oc=13&otf=2&ssel=3&tsel=6&q=" . $text;
+	if ($lfrom == 'es')
+		$ie = 'WINDOWS-1252';
+	else
+		$ie = 'UTF-8';
+	if ($lto == 'es')
+		$oe = 'WINDOWS-1252';
+	else
+		$oe = 'UTF-8';
+	
+	$url = "http://translate.google.com/translate_a/t?client=t&sl={$lfrom}&tl={$lto}&hl={$hl}&sc=2&ie=$ie&oe=$oe&oc=13&otf=2&ssel=3&tsel=6&q=" . urlencode($text);
 	$robot->log($url, "URL");
 	$json = file_get_contents($url);
 	$arr = div::jsonDecode($json); // uso este metodo porque la funcion de php no sirve
@@ -251,7 +258,7 @@ function parse_google_translator_response($response){
 					$richtextto .= substr($original, $lastp, $p1 - $lastp - 1);
 				}
 			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . $part['text'] . '</a>&nbsp;';
-			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . $part['textto']. '</a>&nbsp;';
+			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . $part['textto'] . '</a>&nbsp;';
 			
 			$lastp = $p2;
 			

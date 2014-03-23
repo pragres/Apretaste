@@ -213,11 +213,11 @@ function parse_google_translator_response($response){
 			
 			if (is_array($textpart[2]))
 				foreach ( $textpart[2] as $word )
-					$tips[] = htmlentities($word[0]);
+					$tips[] = cmd_translate_fix_text($word[0]);
 			
 			$parts[] = array(
-					"text" => htmlentities($part),
-					"textto" => htmlentities($textpart[2][0][0]),
+					"text" => cmd_translate_fix_text($part),
+					"textto" => cmd_translate_fix_text($textpart[2][0][0]),
 					"tips" => $tips,
 					"alldata" => $textpart
 			);
@@ -226,8 +226,8 @@ function parse_google_translator_response($response){
 	$original = '';
 	foreach ( $response[0] as $k => $v ) {
 		$original .= $v[1];
-		$v0 = htmlentities($v[0]);
-		$v1 = htmlentities($v[1]);
+		$v0 = cmd_translate_fix_text($v[0]);
+		$v1 = cmd_translate_fix_text($v[1]);
 		$textto .= $v0;
 		$textfrom .= $v1;
 	}
@@ -312,6 +312,8 @@ function parse_google_translator_response($response){
 	);
 }
 function cmd_translate_fix_text($text){
-	if (!Apretaste::isUTF8($text)) $text = utf8_encode($text);
+	if (! Apretaste::isUTF8($text))
+		$text = utf8_encode($text);
+	$text = html_entity_decode($text);
 	return htmlentities($text);
 }

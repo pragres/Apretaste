@@ -82,11 +82,12 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	// Clean the text
 	$robot->log("Cleanning/Decoding the text..");
+	$body = ApretasteEncoding::UTF8FixWin1252Chars($body);
 	$text = strip_tags($body);
-	$text = ApretasteEncoding::fixUTF8($text);
-	$text = ApretasteEncoding::UTF8FixWin1252Chars($text);
+	//$text = ApretasteEncoding::fixUTF8($text);
+	//$text = ApretasteEncoding::UTF8FixWin1252Chars($text);
 	$text = html_entity_decode($text);
-	$text = Apretaste::reparaTildes($text);
+	//$text = Apretaste::reparaTildes($text);
 	$text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "ISO-8859-1"), 6);
 	$text = quoted_printable_decode($text);
 	$text = trim($text);

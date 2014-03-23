@@ -145,7 +145,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	$robot->log($url, "URL");
 	$json = file_get_contents($url);
 	
-	if (Apretaste::isUTF8($string)) $json = utf8_encode($json);
+	if (Apretaste::isUTF8($json)) $json = utf8_encode($json);
 	
 	$arr = div::jsonDecode($json); // uso este metodo porque la funcion de php no sirve
 	
@@ -314,6 +314,7 @@ function parse_google_translator_response($response){
 			"meanings" => $meaninghtml
 	);
 }
+
 function cmd_translate_fix_text($text){
 	if (! Apretaste::isUTF8($text))
 		$text = utf8_encode($text);

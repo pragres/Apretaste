@@ -312,5 +312,6 @@ function parse_google_translator_response($response){
 	);
 }
 function cmd_translate_fix_text($text){
-	return htmlentities(ApretasteEncoding::fixUTF8($text));
+	if (!Apretaste::isUTF8($text)) $text = utf8_encode($text);
+	return htmlentities($text);
 }

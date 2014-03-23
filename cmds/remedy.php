@@ -9,9 +9,16 @@ function cmd_remedy($robot, $from, $argument, $body = '', $images = array()){
 				"answer_type" => "remedy",
 				"command" => "remedy",
 				"title" => $results[0]->title,
-				"body" => $body,
+				"body" => $remedio,
 				"others" => $results,
 				"compactmode" => true
 		);
 	}
+	
+	return array(
+			"answer_type" => "remedy_not_found",
+			"command" => "remedy",
+			"title" => 'No se encontraron remedios para ' . $argument,
+			"compactmode" => true
+	);
 }

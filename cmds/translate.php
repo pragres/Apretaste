@@ -82,15 +82,11 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	// Clean the text
 	$robot->log("Cleanning/Decoding the text..");
-	//$body = ApretasteEncoding::UTF8FixWin1252Chars($body);
-	if (!Apretaste::isUTF8($body)) $body = ApretasteEncoding::toUTF8($body);
-	//$body = ApretasteEncoding::fixUTF8($body);
+	$text = $body;
+	if (!Apretaste::isUTF8($text)) $body = utf8_encode($body);
 	$text = strip_tags($body);
-	//$text = ApretasteEncoding::fixUTF8($text);
-	//$text = ApretasteEncoding::UTF8FixWin1252Chars($text);
 	$text = html_entity_decode($text);
-	//$text = Apretaste::reparaTildes($text);
-	//$text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "ISO-8859-1"), 6);
+	$text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "ISO-8859-1"), 6);
 	$text = quoted_printable_decode($text);
 	$text = trim($text);
 	
@@ -115,7 +111,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 		
 		$robot->log("Detecting language...");
 		
-		$url = "http://translate.google.com/translate_a/t?client=t&sl={$lfrom}&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" .$text;
+		$url = "http://translate.google.com/translate_a/t?client=t&sl=auto&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" .$text;
 		$robot->log($url, "URL");
 		$json = file_get_contents($url);
 		$json = div::jsonDecode($json);

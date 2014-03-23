@@ -245,8 +245,8 @@ function parse_google_translator_response($response){
 					$richtextfrom .= substr($original, $lastp, $p1 - $lastp - 1);
 					$richtextto .= substr($original, $lastp, $p1 - $lastp - 1);
 				}
-			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . $part['text'] . '</a>&nbsp;';
-			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . $part['textto'] . '</a>&nbsp;';
+			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . htmlentities($part['text']) . '</a>&nbsp;';
+			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . htmlentities($part['textto']) . '</a>&nbsp;';
 			
 			$lastp = $p2;
 			
@@ -278,8 +278,8 @@ function parse_google_translator_response($response){
 				}
 			}
 		} else {
-			$richtextfrom .= $vv;
-			$richtextto .= $part['textto'];
+			$richtextfrom .= htmlentities($vv);
+			$richtextto .= htmlentities($part['textto']);
 		}
 	}
 	

@@ -201,7 +201,7 @@ function parse_google_translator_response($response){
 			
 			if (is_array($textpart[2]))
 				foreach ( $textpart[2] as $word )
-					$tips[] = cmd_translate_fix_text($word[0]);
+					$tips[] = cmd_translate_fix_text(utf8_encode($word[0]));
 			
 			$parts[] = array(
 					"text" => cmd_translate_fix_text($part),
@@ -266,6 +266,7 @@ function parse_google_translator_response($response){
 							"\n",
 							"\r"
 					), "", trim($tip));
+					
 					if (strlen($tip) > 1)
 						$variants .= "<li><a href=\"mailto:{\$reply_yo}?subject=TRADUCIR&body=$tip\">$tip</a></li>";
 				}

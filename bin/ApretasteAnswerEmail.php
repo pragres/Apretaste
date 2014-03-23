@@ -130,7 +130,7 @@ class ApretasteAnswerEmail {
 			
 			if ($result !== true) {
 				if (! isset($froms[$i + 1])) {
-					echo "<h1>Error sending email from SMTP server to {$this->to} </h1>\n";
+					echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
 					echo "<br/>\n";
 					echo div::asThis($result);
 					$serv = $this->servers[$from];

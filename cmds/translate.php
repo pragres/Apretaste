@@ -83,7 +83,8 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	// Clean the text
 	$robot->log("Cleanning/Decoding the text..");
 	//$body = ApretasteEncoding::UTF8FixWin1252Chars($body);
-	$body = ApretasteEncoding::fixUTF8($body);
+	if (!Apretaste::isUTF8($body)) $body = ApretasteEncoding::toUTF8($body);
+	//$body = ApretasteEncoding::fixUTF8($body);
 	$text = strip_tags($body);
 	//$text = ApretasteEncoding::fixUTF8($text);
 	//$text = ApretasteEncoding::UTF8FixWin1252Chars($text);

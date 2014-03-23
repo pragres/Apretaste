@@ -138,7 +138,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	if ($lfrom == 'es') $ie = 'WINDOWS-1252'; else $ie = 'UTF-8';
 	if ($lto == 'es') $oe = 'WINDOWS-1252'; else $oe = 'UTF-8';
 	
-	$url = "http://translate.google.com/translate_a/t?client=t&sl={$lfrom}&tl={$lto}&hl={$hl}&sc=2&ie=$ie&oe=$oe&oc=13&otf=2&ssel=3&tsel=6&q=" . rawurlencode($text);
+	$url = "http://translate.google.com/translate_a/t?client=t&sl={$lfrom}&tl={$lto}&hl={$hl}&sc=2&ie=$ie&oe=$oe&oc=13&otf=2&ssel=3&tsel=6&q=" . $text;
 	$robot->log($url, "URL");
 	$json = file_get_contents($url);
 	$arr = div::jsonDecode($json); // uso este metodo porque la funcion de php no sirve

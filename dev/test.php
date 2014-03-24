@@ -2,4 +2,8 @@
 
 // put here test code
 
-var_dump(Apretaste::isUTF8(utf8_encode(html_entity_decode("&aacute;AA"))));
+$text = html_entity_decode("&aacute;", ENT_COMPAT, "UTF-8");
+
+var_dump(Apretaste::isUTF8($text));
+
+echo $text;

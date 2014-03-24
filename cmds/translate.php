@@ -316,15 +316,13 @@ function parse_google_translator_response($response){
 	);
 }
 function cmd_translate_fix_text($text){
-	return Apretaste::reparaTildes($text);
+	$text = Apretaste::repairUTF8($text);
 	
 	if (! Apretaste::isUTF8($text))
 		$text = utf8_encode($text);
 	
-	if (Apretaste::isUTF8($text))
-		$text = utf8_decode($text);
-	
-	$text = html_entity_decode($text);
-	
-	return htmlentities($text);
+	return $text;
+	/*
+	 * if (Apretaste::isUTF8($text)) $text = utf8_decode($text); $text = html_entity_decode($text); return htmlentities($text);
+	 */
 }

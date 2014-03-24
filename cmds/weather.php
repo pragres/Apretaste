@@ -135,11 +135,11 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			break;
 		default :
 			
-			$pronostico_hoy = file_get_contents("http://www.met.inf.cu/Pronostico/pttn.txt");
-			$pronostico_hoy = nl2br($pronostico_hoy);
+			$pronostico_hoy = @file_get_contents("http://www.met.inf.cu/Pronostico/pttn.txt");
+			$pronostico_hoy = cmd_weather_clean_txt($pronostico_hoy);
 			
-			$pronostico_manana = file_get_contents("http://www.met.inf.cu/Pronostico/ptm.txt");
-			$pronostico_manana = nl2br($pronostico_manana);
+			$pronostico_manana = @file_get_contents("http://www.met.inf.cu/Pronostico/ptm.txt");
+			$pronostico_manana = cmd_weather_clean_txt($pronostico_manana);
 			
 			
 			// Getting rss
@@ -176,4 +176,37 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 	
 	// Revisar esta que ponen por el TV, viene del WSI Coporation
 	// http://tiempo.cuba.cu/imprimir.php?opt=5
+}
+
+
+function cmd_weather_clean_txt($text){
+
+	$lines = explode("\n",$text);
+	$i = 0;
+
+	$text = '';
+
+	foreach($lines as $line){
+		$i++;
+
+		if ($i>3){
+			if (substr($line,0,1)=='"') continue;
+			if (substr($line,-3,2)=='".') continue;
+			$line = trim($line);
+			$line = htmlentities($line);
+			if ($i==4) $line= '<h2 style="{$font}">'.$line.'</h2><p align="justify" style="{$font}">';
+			if (substr($line,0,3)=='...') $line = "<i>$line</i>";
+			if (strlen(html_entity_decode($line)) > 15)
+				$text .= $line.' '; //.'<br/>';
+			if (trim($line)=='')
+				$text .='<br/><br/>';
+				
+		}
+	}
+	$text .= "</p>\n";
+	$text = str_replace("<br/><br/><br/><br/>","<br/><br/>", $text);
+	$text = str_replace("<br/><br/><br/>","<br/><br/>", $text);
+	$text = str_replace("<br/>","<br/>\n", $text);
+	return $text;
+
 }

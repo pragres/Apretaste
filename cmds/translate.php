@@ -84,13 +84,14 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	$robot->log("Cleanning/Decoding the text..");
 	$text = $body;
 	
-	if (!Apretaste::isUTF8($text)) $text = utf8_encode($text);
-	
-	$text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "UTF-8"), 6);
+	if (! Apretaste::isUTF8($text))
+		$text = utf8_encode($text);
+		
+		// $text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "UTF-8"), 6);
 	$text = quoted_printable_decode($text);
 	$text = strip_tags($text);
 	$text = trim($text);
-	//$text = cmd_translate_fix_text($text);
+	// $text = cmd_translate_fix_text($text);
 	
 	$robot->log("Translating: $text");
 	
@@ -135,12 +136,15 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	}
 	
 	$robot->log("Translating the text with Google Translator from -$lfrom- to -$lto-...");
-		
+	
 	$url = "http://translate.google.com/translate_a/t?client=t&sl={$lfrom}&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" . urlencode($text);
 	
 	$robot->log($url, "URL");
 	
-	$json = cmd_translate_fix_text(file_get_contents($url));
+	$json = file_get_contents($url);
+	
+	if (! Apretaste::isUTF8($json))
+		$json = utf8_encode($json);
 	
 	$arr = div::jsonDecode($json); // uso este metodo porque la funcion de php no sirve
 	
@@ -309,15 +313,12 @@ function parse_google_translator_response($response){
 			"meanings" => $meaninghtml
 	);
 }
-
-
 function cmd_translate_fix_text($text){
-	
 	if (! Apretaste::isUTF8($text))
 		$text = utf8_encode($text);
-		
+	
 	$text = html_entity_decode($text, ENT_COMPAT, 'UTF-8');
 	$text = htmlentities($text);
-		
+	
 	return $text;
 }

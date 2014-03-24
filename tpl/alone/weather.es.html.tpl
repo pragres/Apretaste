@@ -14,9 +14,14 @@ $pronostico_manana?
 $pronostico_extendido?
 
 ?$satelite
+	<h2>Imagen del Sat&eacute;lite - WSI Corporation</h2>
+	<img src="cid:wsi" width="700"><br/>
+$satelite?
+
+?$nasa
 	<h2>Imagen del Sat&eacute;lite de la NASA - GOES Project Science</h2>
 	<img src="cid:goes" width="700"><br/>
-$satelite?
+$nasa?
 
 ?$radar
 	<h2>Imagen del radar</h2>
@@ -30,5 +35,6 @@ $radar?
 $mapa?
 <hr/>
 <a href = "mailto:{$reply_to}?subject=CLIMA satelite">Imagen del sat&eacute;lite</a> {$splitter} 
+<a href = "mailto:{$reply_to}?subject=CLIMA nasa">Imagen de la NASA </a> {$splitter}
 <a href = "mailto:{$reply_to}?subject=CLIMA radar">Imagen del radar</a> {$splitter} 
-<a href = "mailto:{$reply_to}?subject=CLIMA satelite">Mapa de presi&oacute;n superficial</a>
+<a href = "mailto:{$reply_to}?subject=CLIMA mapa">Mapa de presi&oacute;n superficial</a>

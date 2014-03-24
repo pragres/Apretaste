@@ -650,12 +650,11 @@ class Apretaste {
 	 * @return Ambigous <string, mixed>
 	 */
 	static function repairUTF8($text){
-		
 		if (self::isUTF8($text))
 			$text = utf8_decode($text);
 		
-		$text = html_entity_decode($text, ENT_COMPAT, 'UTF-8');
-		$text = htmlentities($text, ENT_COMPAT, 'UTF-8', false);
+		$text = html_entity_decode($text);
+		$text = htmlentities($text);
 		
 		$tildes = array(
 				'&aacute;' => '[a]',

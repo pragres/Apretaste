@@ -32,7 +32,15 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				$url = "http://tiempo.cuba.cu/images/$f";
 				$robot->log("Downloading $url");
 					
-				$img  = @file_get_contents($url);					
+				$img  = @file_get_contents($url);
+
+				if ($img === false){
+					$f = date("Ymd", time() - 60 * 60 * 24 * 2).'1.gif';
+					$url = "http://tiempo.cuba.cu/images/$f";
+					$robot->log("Downloading $url");
+						
+					$img  = @file_get_contents($url);
+				}
 			}
 			
 			return array(

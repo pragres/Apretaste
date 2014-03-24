@@ -91,7 +91,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	$text = quoted_printable_decode($text);
 	$text = strip_tags($text);
 	$text = trim($text);
-	// $text = cmd_translate_fix_text($text);
+	$text = cmd_translate_fix_text($text);
 	
 	$robot->log("Translating: $text");
 	

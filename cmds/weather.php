@@ -62,8 +62,9 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"pronostico_manana" => false,
 					"pronostico_extendido" => false,
 					"mapa" => false,
-					"satelite" => true,
+					"satelite" => false,
 					"radar" => false,
+					"nasa" => true,
 					"images" => array(
 							array(
 									"type" => "image/jpeg",

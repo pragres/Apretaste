@@ -149,14 +149,14 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			$p2 = strpos($rss, '<title>Estado de la');
 			
 			$rss = substr($rss, $p1, $p2-$p1);
-			$rss = substr('<item>','<div>', $rss);
-			$rss = substr('</item>','</div><br/><hr/>', $rss);
-			$rss = substr('<description>','', $rss);
-			$rss = substr('</description>','', $rss);
-			$rss = substr('<title>','<h2>', $rss);
-			$rss = substr('</title>','</h2>', $rss);
-			$rss = substr('<![CDATA[','', $rss);
-			$rss = substr(']]>','', $rss);
+			$rss = str_replace('<item>','<div>', $rss);
+			$rss = str_replace('</item>','</div><br/><hr/>', $rss);
+			$rss = str_replace('<description>','', $rss);
+			$rss = str_replace('</description>','', $rss);
+			$rss = str_replace('<title>','<h2>', $rss);
+			$rss = str_replace('</title>','</h2>', $rss);
+			$rss = str_replace('<![CDATA[','', $rss);
+			$rss = str_replace(']]>','', $rss);
 			
 			return array(
 					"answer_type" => "weather",

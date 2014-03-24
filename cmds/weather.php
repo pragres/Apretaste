@@ -43,6 +43,8 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				}
 			}
 			
+			$img = Apretaste::resizeImage($img, 700);
+			
 			return array(
 					"answer_type" => "weather",
 					"command" => "weather",

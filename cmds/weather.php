@@ -38,9 +38,9 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"radar" => false,
 					"images" => array(
 							array(
-									"type" => "image/jpeg",
+									"type" => "image/gif",
 									"content" => $img,
-									"name" => "Imagen del Satelite - WSI Corporation [" . date("Y-m-d h:i:s") . "].jpg",
+									"name" => "Imagen del Satelite - WSI Corporation [" . date("Y-m-d h:i:s") . "].gif",
 									"id" => "wsi",
 									"src" => "cid:wsi"
 							)

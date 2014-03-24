@@ -22,7 +22,10 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			echo "[INFO] Download last Satellite WSI Image \n";
 			
 			$f = date("Ymd").'1.gif';
-			$img  = @file_get_contents("http://tiempo.cuba.cu/images/$f");
+			$url = "http://tiempo.cuba.cu/images/$f";
+			$robot->log("Downloading $url");
+			
+			$img  = @file_get_contents($url);
 			
 			return array(
 					"answer_type" => "weather",

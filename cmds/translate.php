@@ -82,16 +82,10 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	// Clean the text
 	$robot->log("Cleanning/Decoding the text..");
-	$text = $body;
-	if (! Apretaste::isUTF8($text))
-		$body = utf8_encode($body);
-	$text = strip_tags($body);
-	$text = html_entity_decode($text);
-	$text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "ISO-8859-1"), 6);
-	$text = quoted_printable_decode($text);
-	$text = trim($text);
+	$text = cmd_translate_fix_text($body);
 	
-	echo "Translate: $text\n";
+	$robot->log("Translating: $text");
+	
 	// No text
 	if ($text == '')
 		return array(
@@ -112,9 +106,11 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 		
 		$robot->log("Detecting language...");
 		
-		$url = "http://translate.google.com/translate_a/t?client=t&sl=auto&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" . urlencode(html_entity_decode(cmd_translate_fix_text($text)));
+		$url = "http://translate.google.com/translate_a/t?client=t&sl=auto&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" . urlencode($text);
+		
 		$robot->log($url, "URL");
 		$json = file_get_contents($url);
+		
 		$json = div::jsonDecode($json);
 		$lfrom = $json[2];
 		$robot->log("The language of text is -$lfrom-");
@@ -131,22 +127,12 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	}
 	
 	$robot->log("Translating the text with Google Translator from -$lfrom- to -$lto-...");
+		
+	$url = "http://translate.google.com/translate_a/t?client=t&sl={$lfrom}&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" . urlencode($text);
 	
-	if ($lfrom == 'es')
-		$ie = 'WINDOWS-1252';
-	else
-		$ie = 'UTF-8';
-	if ($lto == 'es')
-		$oe = 'WINDOWS-1252';
-	else
-		$oe = 'UTF-8';
-	
-	$url = "http://translate.google.com/translate_a/t?client=t&sl={$lfrom}&tl={$lto}&hl={$hl}&sc=2&ie=$ie&oe=$oe&oc=13&otf=2&ssel=3&tsel=6&q=" . urlencode(html_entity_decode(cmd_translate_fix_text($text)));
 	$robot->log($url, "URL");
-	$json = file_get_contents($url);
 	
-	if (Apretaste::isUTF8($json))
-		$json = utf8_encode($json);
+	$json = cmd_translate_fix_text(file_get_contents($url));
 	
 	$arr = div::jsonDecode($json); // uso este metodo porque la funcion de php no sirve
 	
@@ -217,11 +203,11 @@ function parse_google_translator_response($response){
 			
 			if (is_array($textpart[2]))
 				foreach ( $textpart[2] as $word )
-					$tips[] = htmlentities($word[0]);
+					$tips[] = $word[0];
 			
 			$parts[] = array(
-					"text" => cmd_translate_fix_text($part),
-					"textto" => cmd_translate_fix_text($textpart[2][0][0]),
+					"text" => $part,
+					"textto" => $textpart[2][0][0],
 					"tips" => $tips,
 					"alldata" => $textpart
 			);
@@ -230,8 +216,8 @@ function parse_google_translator_response($response){
 	$original = '';
 	foreach ( $response[0] as $k => $v ) {
 		$original .= $v[1];
-		$v0 = htmlentities($v[0]);
-		$v1 = htmlentities($v[1]);
+		$v0 = $v[0];
+		$v1 = $v[1];
 		$textto .= $v0;
 		$textfrom .= $v1;
 	}
@@ -258,11 +244,11 @@ function parse_google_translator_response($response){
 			
 			if (! is_null($lastp))
 				if ($p1 - $lastp - 1 > 0) {
-					$richtextfrom .= cmd_translate_fix_text(substr($original, $lastp, $p1 - $lastp - 1));
-					$richtextto .= cmd_translate_fix_text(substr($original, $lastp, $p1 - $lastp - 1));
+					$richtextfrom .= substr($original, $lastp, $p1 - $lastp - 1);
+					$richtextto .= substr($original, $lastp, $p1 - $lastp - 1);
 				}
-			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . cmd_translate_fix_text($part['text']) . '</a>&nbsp;';
-			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . cmd_translate_fix_text($part['textto']) . '</a>&nbsp;';
+			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . $part['text'] . '</a>&nbsp;';
+			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . $part['textto'] . '</a>&nbsp;';
 			
 			$lastp = $p2;
 			
@@ -284,7 +270,7 @@ function parse_google_translator_response($response){
 					), "", trim($tip));
 					
 					if (strlen($tip) > 1)
-						$variants .= "<li><a href=\"mailto:{\$reply_yo}?subject=TRADUCIR&body=$tip\">" . cmd_translate_fix_text($tip) . "</a></li>";
+						$variants .= "<li><a href=\"mailto:{\$reply_yo}?subject=TRADUCIR&body=$tip\">" . $tip . "</a></li>";
 				}
 				$variants .= '</ol></td>';
 				
@@ -294,8 +280,8 @@ function parse_google_translator_response($response){
 				}
 			}
 		} else {
-			$richtextfrom .= cmd_translate_fix_text($vv);
-			$richtextto .= cmd_translate_fix_text($part['textto']);
+			$richtextfrom .= $vv;
+			$richtextto .= $part['textto'];
 		}
 	}
 	
@@ -315,15 +301,19 @@ function parse_google_translator_response($response){
 			"meanings" => $meaninghtml
 	);
 }
+
+
 function cmd_translate_fix_text($text){
 	if (! Apretaste::isUTF8($text))
 		$text = utf8_encode($text);
 	
-	if (Apretaste::isUTF8($text))
-		$text = utf8_decode($text);
-	
+	$text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "UTF-8"), 6);
+	$text = quoted_printable_decode($text);
+	$text = strip_tags($body);
+	$text = trim($text);
 	$text = html_entity_decode($text, ENT_COMPAT, 'UTF-8');
 	$text = htmlentities($text, ENT_COMPAT, 'UTF-8', false);
+	$text = trim($text);
 	
 	return $text;
 }

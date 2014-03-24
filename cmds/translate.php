@@ -84,14 +84,14 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	$robot->log("Cleanning/Decoding the text..");
 	$text = $body;
 	
-	if (! Apretaste::isUTF8($text))
+	/*if (! Apretaste::isUTF8($text))
 		$text = utf8_encode($text);
-		
+	*/
 		// $text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "UTF-8"), 6);
 	$text = quoted_printable_decode($text);
 	$text = strip_tags($text);
-	$text = trim($text);
-	$text = cmd_translate_fix_text($text);
+	//$text = trim($text);
+	//$text = cmd_translate_fix_text($text);
 	
 	$robot->log("Translating: $text");
 	

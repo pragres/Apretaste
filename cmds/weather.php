@@ -108,6 +108,23 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			$pronostico_manana = file_get_contents("http://www.met.inf.cu/Pronostico/ptm.txt");
 			$pronostico_manana = nl2br($pronostico_manana);
 			
+			
+			// Getting rss
+			$rss = file_get_contents('http://www.met.inf.cu/asp/genesis.asp?TB0=RSSFEED');
+			
+			$p1 = strpos($rss, 'Extendido del Tiempo por Ciudades</title>')-18;
+			$p2 = strpos($rss, '<title>Estado de la');
+			
+			$rss = substr($rss, $p1, $p2-$p1);
+			$rss = substr('<item>','<div>', $rss);
+			$rss = substr('</item>','</div><br/><hr/>', $rss);
+			$rss = substr('<description>','', $rss);
+			$rss = substr('</description>','', $rss);
+			$rss = substr('<title>','<h2>', $rss);
+			$rss = substr('</title>','</h2>', $rss);
+			$rss = substr('<![CDATA[','', $rss);
+			$rss = substr(']]>','', $rss);
+			
 			return array(
 					"answer_type" => "weather",
 					"command" => "weather",
@@ -118,6 +135,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"mapa" => false,
 					"pronostico_hoy" => "$pronostico_hoy",
 					"pronostico_manana" => "$pronostico_manana",
+					"pronostico_extendido" => "$rss",
 					"images" => array()
 			);
 			break;

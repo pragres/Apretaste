@@ -8,6 +8,11 @@ $pronostico_hoy?
 	<p align="jusitfy" style="{$font};text-align:justify;">{$pronostico_manana}</p>
 $pronostico_manana?
 
+?$pronostico_extendido
+	<h2>Pron&oacute;stico extendido por ciudades</h2>
+	{$pronostico_extendido}
+$pronostico_extendido?
+
 ?$satelite
 	<h2>Imagen del Sat&eacute;lite de la NASA - GOES Project Science</h2>
 	<img src="cid:goes" width="700"><br/>

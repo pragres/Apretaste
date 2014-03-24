@@ -150,7 +150,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			
 			$rss = substr($rss, $p1, $p2-$p1);
 			$rss = str_replace('<item>','<div>', $rss);
-			$rss = str_replace('</item>','</div><br/><hr/>', $rss);
+			$rss = str_replace('</item>','</div><br/>', $rss);
 			$rss = str_replace('<description>','', $rss);
 			$rss = str_replace('</description>','', $rss);
 			$rss = str_replace('<title>','<h2>', $rss);

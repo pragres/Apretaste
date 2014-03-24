@@ -1,15 +1,12 @@
 ?$pronostico_hoy
-	<h2>Pron&oacute;stico para hoy</h2>
-	<p align="jusitfy" style="{$font};text-align:justify;">{$pronostico_hoy}</p>
+	{$pronostico_hoy}
 $pronostico_hoy?
 
 ?$pronostico_manana
-	<h2>Pron&oacute;stico para ma&ntilde;ana</h2>
-	<p align="jusitfy" style="{$font};text-align:justify;">{$pronostico_manana}</p>
+	{$pronostico_manana}
 $pronostico_manana?
 
 ?$pronostico_extendido
-	<h2>Pron&oacute;stico extendido por ciudades</h2>
 	{$pronostico_extendido}
 $pronostico_extendido?
 

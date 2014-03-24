@@ -314,7 +314,7 @@ function cmd_translate_fix_text($text){
 		$text = utf8_encode($text);
 		
 	$text = html_entity_decode($text, ENT_COMPAT, 'UTF-8');
-	$text = htmlentities($text, ENT_COMPAT, 'UTF-8', false);
+	$text = htmlentities($text);
 		
 	return $text;
 }

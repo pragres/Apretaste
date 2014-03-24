@@ -82,6 +82,11 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	// Clean the text
 	$robot->log("Cleanning/Decoding the text..");
+	
+	$text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "UTF-8"), 6);
+	$text = quoted_printable_decode($text);
+	$text = strip_tags($text);
+	$text = trim($text);
 	$text = cmd_translate_fix_text($body);
 	
 	$robot->log("Translating: $text");
@@ -304,16 +309,12 @@ function parse_google_translator_response($response){
 
 
 function cmd_translate_fix_text($text){
+	
 	if (! Apretaste::isUTF8($text))
 		$text = utf8_encode($text);
-	
-	$text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "UTF-8"), 6);
-	$text = quoted_printable_decode($text);
-	$text = strip_tags($text);
-	$text = trim($text);
+		
 	$text = html_entity_decode($text, ENT_COMPAT, 'UTF-8');
 	$text = htmlentities($text, ENT_COMPAT, 'UTF-8', false);
-	$text = trim($text);
-	
+		
 	return $text;
 }

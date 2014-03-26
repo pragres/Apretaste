@@ -239,7 +239,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 								"src" => "cid:$id"
 						);
 						//var_dump($r);
-						$r->weather_forecast[$k]['weatherIcon'] = 'cid:'.$id;
+						$r->weather_forecast->$k['weatherIcon'] = 'cid:'.$id;
 					}
 				}
 				

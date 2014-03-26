@@ -2529,8 +2529,7 @@ class Apretaste {
 		
 		// cleaning ms word code
 		$text = html_entity_decode($text);
-		$text = html_entity_decode($text);
-		$text = urldecode($text);
+		$text = urldecode($text);		
 		$text = strip_tags($text);
 		$text = str_replace(';=20', ' ', $text);
 		$text = str_replace('=20', ' ', $text);

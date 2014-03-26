@@ -4,13 +4,13 @@
 
             <div class="weather_now">
                 <span style="float:right;"><img src="cid:{$weather_now.weatherIcon}" /></span>
-                <strong>DESCRIPTION:</strong> {$weather_now.weatherDesc} {$splitter}
+                {$weather_now.weatherDesc} {$splitter}
                 <strong>Temperatura:</strong> {$weather_now.weatherTemp} {$splitter}
                 <strong>Velocidad del viento:</strong> {$weather_now.windSpeed} {$splitter}
                 <strong>Precipitaci&oacute;n:</strong> {$weather_now.precipitation} {$splitter}
                 <strong>Humedad:</strong> {$weather_now.humidity} {$splitter}
-                <strong>Visibility:</strong> {$weather_now.visibility} {$splitter}
-                <strong>Presi&oaute;n:</strong> {$weather_now.pressure} {$splitter}
+                <strong>Visibilidad:</strong> {$weather_now.visibility} {$splitter}
+                <strong>Presi&oacute;n:</strong> {$weather_now.pressure} {$splitter}
                 <strong>Nubosidad:</strong> {$weather_now.cloudcover} {$splitter}
             </div>
 

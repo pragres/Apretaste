@@ -1,5 +1,7 @@
 <?php
 
+include_once "../lib/WeatherForecast.php";
+
 /**
  * Apretaste!com Weather Command
  *
@@ -267,8 +269,9 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 	// Revisar esta que ponen por el TV, viene del WSI Coporation
 	// http://tiempo.cuba.cu/imprimir.php?opt=5
 }
+
 function cmd_weather_place($place){
-	include "../lib/WeatherForecast.php";
+	
 	$weather = new WeatherForecast('93fvz526zx8uu26b59cpy9xf');
 	$weather->setRequest($place, 'Cuba', 5);
 	$weather->setUSMetric(false);

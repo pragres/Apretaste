@@ -217,8 +217,11 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					$r->weather_now['weatherIcon'] = 'cid:'.$id;
 				}
 				
-				if (is_object($r->weather_forecast)) 
-					$r->weather_forecast = get_object_vars($r->weather_forecast);
+				if (is_object($r->weather_forecast)){
+					$w = array();
+					foreach($r->weather_forecast as $k=>$v) $w['v'.$k] = $v;
+						$r->weather_forecast = $w;
+				}
 				
 				foreach ( $r->weather_forecast as $k => $wf ) {
 					

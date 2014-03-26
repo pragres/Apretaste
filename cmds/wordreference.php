@@ -5,10 +5,14 @@ function cmd_wordreference($robot, $from, $argument, $body = '', $images = array
 	
 	if (substr($argument, 0, 3) == 'ID:') {
 		$robot->log("Getting word reference $argument in Real Academia Espanola");
-		$result = file_get_contents("http://buscon.rae.es/drae/srv/search?id=" . urlencode(substr($argument, 3)));
+		$url = "http://buscon.rae.es/drae/srv/search?id=" . urlencode($argument);
+		$robot->log("Downloading $url");
+		$result = file_get_contents($url);
 	} else {
 		$robot->log("Searching for $argument in Real Academia Espanola");
-		$result = file_get_contents("http://buscon.rae.es/drae/srv/search?val=" . urlencode($argument));
+		$url = "http://buscon.rae.es/drae/srv/search?val=" . urlencode($argument);
+		$robot->log("Downloading $url");
+		$result = file_get_contents($url);
 	}
 	
 	$robot->log("Cleanning the result");

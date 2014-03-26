@@ -193,7 +193,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				$robot->log("Getting weather information of $place");
 				
 				$r = cmd_weather_place($place);
-				
+				var_dump($r);
 				$imgsrc = $r->weather_now['weatherIcon'];
 				
 				if (!isset($images[$imgsrc])){
@@ -217,7 +217,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				
 				
 				
-				foreach ( $r->weather_forecast as $k=>$wf ) {
+				foreach ( $r->weather_forecast as $k => $wf ) {
 					
 					$imgsrc = $wf['weatherIcon'];
 					

@@ -4,14 +4,14 @@
 
             <div class="weather_now">
                 <span style="float:right;"><img src="cid:{$weather_now.weatherIcon}" /></span>
-                <strong>DESCRIPTION:</strong> {$weather_now.weatherDesc} <br />
-                <strong>TEMPERATURE:</strong> {$weather_now.weatherTemp}<br />
-                <strong>WIND SPEED:</strong> {$weather_now.windSpeed} <br />
-                <strong>PRECIPITATION:</strong> {$weather_now.precipitation} <br />
-                <strong>HUMIDITY:</strong> {$weather_now.humidity}<br />
-                <strong>VISIBILITY:</strong> $weather_now.visibility}<br />
-                <strong>PRESSURE:</strong> {$weather_now.pressure}<br />
-                <strong>CLOUD COVER:</strong> {$weather_now.cloudcover}<br />
+                <strong>DESCRIPTION:</strong> {$weather_now.weatherDesc} {$splitter}
+                <strong>Temperatura:</strong> {$weather_now.weatherTemp} {$splitter}
+                <strong>Velocidad del viento:</strong> {$weather_now.windSpeed} {$splitter}
+                <strong>Precipitaci&oacute;n:</strong> {$weather_now.precipitation} {$splitter}
+                <strong>Humedad:</strong> {$weather_now.humidity} {$splitter}
+                <strong>Visibility:</strong> {$weather_now.visibility} {$splitter}
+                <strong>Presi&oaute;n:</strong> {$weather_now.pressure} {$splitter}
+                <strong>Nubosidad:</strong> {$weather_now.cloudcover} {$splitter}
             </div>
 
             <h3>Pron&oacute;stico</h3>

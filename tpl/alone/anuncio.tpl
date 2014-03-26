@@ -6,7 +6,7 @@
                     <tr>
                         <td valign="top">
                             ?$image
-                            <img style="float: left; padding: 3px; margin-right: 10px; background-color: white; border: 2px solid #C1C1C1;max-height:300px;" width="300" alt="imagen" src="{$image_src}" />
+                            <img style="float: left; padding: 3px; margin-right: 10px; background-color: white; border: 2px solid #C1C1C1;max-height:300px;" width="300" height="300" alt="imagen" src="{$image_src}" />
                             $image?
                         </td>
                         <td valign="top">

@@ -33,9 +33,9 @@
                         <span class="tmin">{$tempMin}</span>
                     </div>
                 </div>
-                <?php
-            }
-            ?>
+            
+            [/$weather_forecast]
+            
 	[/$provincias]
 $provincias?
 

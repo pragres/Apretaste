@@ -198,7 +198,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				$robot->log("Getting weather information of $place");
 				
 				$r = cmd_weather_place($place);
-				$p = strpos($t->locality,', Cuba');
+				$p = strpos($r->locality,', Cuba');
 				if ($p !==false) $r->locality = substr($r->locality,0,$p);
 				$imgsrc = $r->weather_now['weatherIcon'];
 				

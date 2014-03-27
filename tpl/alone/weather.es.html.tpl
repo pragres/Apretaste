@@ -23,13 +23,13 @@
 			[$weather_forecast]
 				<td valign="top">
 					<table>
+						<tr><td colspan="2">{$weatherDay}, {$weatherDate}</td></tr>
 						<tr>
 							<td valign="top">
 							<img src="{$weatherIcon}" />
 							</td>
 							<td valign="top">
-								<span style="">{$weatherDay}</span><br/>
-								<span style="">{$weatherDate}</span><br/>
+								
 								<span class="">{$weatherDesc}</span><br/>
 								<span class="">Viento: <b>{$windDirection}</b> a <b>{$windSpeed}</span><br/>
 								<span style="color: red;">{$tempMax}</span><br/>

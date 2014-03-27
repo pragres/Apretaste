@@ -66,7 +66,8 @@ $search_results?
 					$pricing?
 					<br/>
                     ?$related_phrases
-                    <h2 style="margin-top: 0px; margin-bottom: 0px; font-size: 20px; color: green;{$font}">Lo que otros usuarios han buscado</h2>                      
+                    <h2 style="margin-top: 0px; margin-bottom: 0px; font-size: 20px; color: green;{$font}">Lo que otros usuarios han buscado</h2>
+                    <br/>                      
                         [$related_phrases]
                         <a title = "Clic para buscar con esta frase" href="mailto:{$reply_to}?subject=BUSCAR {$phrase}&body=Haga clic en Enviar para buscar">{$phrase}</a>
                         {$splitter}

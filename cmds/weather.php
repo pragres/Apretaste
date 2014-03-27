@@ -244,9 +244,9 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 								"id" => $id,
 								"src" => "cid:$id"
 						);
-
-						$r->weather_forecast[$k]['weatherIcon'] = 'cid:'.$id;
 					}
+					
+					$r->weather_forecast[$k]['weatherIcon'] = 'cid:'.$images[$imgsrc]['id'];
 				}
 				
 				$provincias[] = $r;

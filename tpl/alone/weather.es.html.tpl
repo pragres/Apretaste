@@ -1,42 +1,41 @@
 ?$provincias
 	[$provincias]
-		<h1>{$locality}, {$weather_now.weatherTime}</h1>
-
-            <div class="weather_now">
-                <span style="float:right;"><img src="cid:{$weather_now.weatherIcon}" /></span>
-                {$weather_now.weatherDesc} {$splitter}
-                <strong>Temperatura:</strong> {$weather_now.weatherTemp} {$splitter}
-                <strong>Velocidad del viento:</strong> {$weather_now.windSpeed} {$splitter}
-                <strong>Precipitaci&oacute;n:</strong> {$weather_now.precipitation} {$splitter}
-                <strong>Humedad:</strong> {$weather_now.humidity} {$splitter}
-                <strong>Visibilidad:</strong> {$weather_now.visibility} {$splitter}
-                <strong>Presi&oacute;n:</strong> {$weather_now.pressure} {$splitter}
-                <strong>Nubosidad:</strong> {$weather_now.cloudcover} {$splitter}
-            </div>
-
-            <h3>Pron&oacute;stico</h3>
-			<table><tr>
-            [$weather_forecast]
-                
-                <td valing="top">
-                    <div class="block block1">
-                        <span class="icon"><img src="{$weatherIcon}" /></span>
-                    </div>
-                    <div class="block block2">
-                        <span class="wday">{$weatherDay}</span>
-                        <span class="date">{$weatherDate}</span>
-                        <span class="desc">{$weatherDesc}</span>
-                        <span class="wind">Viento: {$windDirection} a {$windSpeed}</span>
-                    </div>
-                    <div class="block block3">
-                        <span class="tmax">{$tempMax}</span>
-                        <span class="tmin">{$tempMin}</span>
-                    </div>
-                </td>
-            
-            [/$weather_forecast]
-            </tr></table>
-            
+		<h1>{$locality}, {$weather_now.weatherTime}</h1>   
+		<table>
+			<tr>
+				<td>
+					<img src="cid:{$weather_now.weatherIcon}" /><br/>
+					{$weather_now.weatherDesc} 
+				</td>
+				<td>
+					<strong>Temperatura:</strong> {$weather_now.weatherTemp} {$splitter}
+					<strong>Velocidad del viento:</strong> {$weather_now.windSpeed} {$splitter}
+					<strong>Precipitaci&oacute;n:</strong> {$weather_now.precipitation} {$splitter}
+					<strong>Humedad:</strong> {$weather_now.humidity} {$splitter}
+					<strong>Visibilidad:</strong> {$weather_now.visibility} {$splitter}
+					<strong>Presi&oacute;n:</strong> {$weather_now.pressure} {$splitter}
+					<strong>Nubosidad:</strong> {$weather_now.cloudcover} {$splitter}
+				</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+			[$weather_forecast]
+				<td valing="top">
+					<table><tr><td>
+						<img src="{$weatherIcon}" />
+					</td><td>
+						<span class="wday">{$weatherDay}</span><br/>
+						<span class="date">{$weatherDate}</span><br/>
+						<span class="desc">{$weatherDesc}</span><br/>
+						<span class="wind">Viento: {$windDirection} a {$windSpeed}</span><br/>
+						<span style="color: red;">{$tempMax}</span><br/>
+						<span style="color: blue;">{$tempMin}</span>
+					</td></tr></table>
+				</td>
+			[/$weather_forecast]
+			</tr>
+		</table>
 	[/$provincias]
 $provincias?
 

@@ -15,10 +15,10 @@
             </div>
 
             <h3>Pron&oacute;stico</h3>
-
+			<table><tr>
             [$weather_forecast]
                 
-                <div class="weather_forecast">
+                <td valing="top">
                     <div class="block block1">
                         <span class="icon"><img src="{$weatherIcon}" /></span>
                     </div>
@@ -32,9 +32,10 @@
                         <span class="tmax">{$tempMax}</span>
                         <span class="tmin">{$tempMin}</span>
                     </div>
-                </div>
+                </td>
             
             [/$weather_forecast]
+            </tr></table>
             
 	[/$provincias]
 $provincias?

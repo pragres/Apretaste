@@ -3,7 +3,6 @@
 de tal forma <b>que no se repitan</b> en cada columna, fila y cuadrante. 
 Los cuadrantes est&aacute;n delimitados por los borders negros.
 </p>
-
 <table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
 <a style="mouse:pointer;{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" href="mailto:{$reply_to}?subject=SUDOKU">
 <label style="margin: 5px;">Otro Sudoku!</label>
@@ -11,10 +10,10 @@ Los cuadrantes est&aacute;n delimitados por los borders negros.
 </td></tr></table>
 <p>Despl&aacute;cese hacia abajo para ver la soluci&oacute;n</p>
 <p><a href="mailto:{$reply_to}?subject=ARTICULO sudoku">Clic aqu&iacute; para conocer m&aacute;s sobre este juego</a></p> 
-<br/>
+<hr/>
 <h2>Completar desde su correo</h2>
 {$problem}
-<br/>
+<hr/>
 <h2>Imprimir</h2>
 {$problem_print}
 <hr/>

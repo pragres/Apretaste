@@ -200,6 +200,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				$r = cmd_weather_place($place);
 				$p = strpos($r->locality,', Cuba');
 				if ($p !==false) $r->locality = substr($r->locality,0,$p);
+				
 				$imgsrc = $r->weather_now['weatherIcon'];
 				
 				if (!isset($images[$imgsrc])){
@@ -218,8 +219,11 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 							"id" => $id,
 							"src" => "cid:$id"
 					);
-					$r->weather_now['weatherIcon'] = 'cid:'.$id;
+					
+					
 				}
+				
+				$r->weather_now['weatherIcon'] = 'cid:'.$images[$imgsrc]['id'];
 				
 				if (is_object($r->weather_forecast)){
 					$w = array();

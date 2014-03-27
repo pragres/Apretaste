@@ -4,7 +4,7 @@
 		<table>
 			<tr>
 				<td>
-					<img src="cid:{$weather_now.weatherIcon}" /><br/>
+					<img src="{$weather_now.weatherIcon}" /><br/>
 					{$weather_now.weatherDesc} 
 				</td>
 				<td>
@@ -25,10 +25,10 @@
 					<table><tr><td>
 						<img src="{$weatherIcon}" />
 					</td><td>
-						<span class="wday">{$weatherDay}</span><br/>
-						<span class="date">{$weatherDate}</span><br/>
-						<span class="desc">{$weatherDesc}</span><br/>
-						<span class="wind">Viento: {$windDirection} a {$windSpeed}</span><br/>
+						<span style="">{$weatherDay}</span><br/>
+						<span style="">{$weatherDate}</span><br/>
+						<span class="">{$weatherDesc}</span><br/>
+						<span class="">Viento: <b>{$windDirection}</b> a <b>{$windSpeed}</span><br/>
 						<span style="color: red;">{$tempMax}</span><br/>
 						<span style="color: blue;">{$tempMin}</span>
 					</td></tr></table>

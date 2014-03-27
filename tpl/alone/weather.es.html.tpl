@@ -3,11 +3,11 @@
 		<h1>{$locality}, {$weather_now.weatherTime}</h1>   
 		<table>
 			<tr>
-				<td>
+				<td valign="top">
 					<img src="{$weather_now.weatherIcon}" /><br/>
 					{$weather_now.weatherDesc} 
 				</td>
-				<td>
+				<td valign="top">
 					<strong>Temperatura:</strong> {$weather_now.weatherTemp} {$splitter}
 					<strong>Velocidad del viento:</strong> {$weather_now.windSpeed} {$splitter}
 					<strong>Precipitaci&oacute;n:</strong> {$weather_now.precipitation} {$splitter}
@@ -21,17 +21,22 @@
 		<table>
 			<tr>
 			[$weather_forecast]
-				<td valing="top">
-					<table><tr><td>
-						<img src="{$weatherIcon}" />
-					</td><td>
-						<span style="">{$weatherDay}</span><br/>
-						<span style="">{$weatherDate}</span><br/>
-						<span class="">{$weatherDesc}</span><br/>
-						<span class="">Viento: <b>{$windDirection}</b> a <b>{$windSpeed}</span><br/>
-						<span style="color: red;">{$tempMax}</span><br/>
-						<span style="color: blue;">{$tempMin}</span>
-					</td></tr></table>
+				<td valign="top">
+					<table>
+						<tr>
+							<td valign="top">
+							<img src="{$weatherIcon}" />
+							</td>
+							<td valign="top">
+								<span style="">{$weatherDay}</span><br/>
+								<span style="">{$weatherDate}</span><br/>
+								<span class="">{$weatherDesc}</span><br/>
+								<span class="">Viento: <b>{$windDirection}</b> a <b>{$windSpeed}</span><br/>
+								<span style="color: red;">{$tempMax}</span><br/>
+								<span style="color: blue;">{$tempMin}</span>
+							</td>
+						</tr>
+					</table>
 				</td>
 			[/$weather_forecast]
 			</tr>

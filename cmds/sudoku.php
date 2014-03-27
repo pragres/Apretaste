@@ -77,8 +77,8 @@ function print_sudoku($sudoku){
 			if ($v == '&nbsp;') {
 				// $html .= '<input type="text" size = "1" maxlength="1" style="text-align:center;border:0px;font-size:25px;color:red;font-weight:bold;">';
 				$html .= '<select>';
-				for($i = 1; $i <= 0; $i ++)
-					$html .= '<option>' . $i . '</option>';
+				for($i = 1; $i <= 9; $i ++)
+					$html .= '<option value="'.$i.'">' . $i . '</option>';
 				$html .= '</select>';
 			} else
 				$html .= $v;

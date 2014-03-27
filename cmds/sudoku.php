@@ -78,7 +78,7 @@ function print_sudoku($sudoku, $for_print = false){
 				if ($for_print) {
 					$html .= '&nbsp;';
 				} else {
-					$html .= '<!--[if !mso ]><select><option value="-">&nbsp;</option>';
+					$html .= '<!--[if !mso ]><select style="padding: 3px; border: 1px solid gray;"><option value="-">&nbsp;</option>';
 					for($i = 1; $i <= 9; $i ++)
 						$html .= '<option value="' . $i . '">' . $i . '</option>';
 					$html .= '</select><![endif]-->';

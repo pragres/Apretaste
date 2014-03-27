@@ -21,3 +21,7 @@ Los cuadrantes est&aacute;n delimitados por los borders negros.
 <h2>Soluci&oacute;n</h2>
 {$solution}
 <br/>
+{{footerlinks
+{$splitter}
+<a href="mailto:{$reply_to}?subject=CHISTE">Leer un chiste</a>
+footerlinks}}

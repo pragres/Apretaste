@@ -4,12 +4,16 @@
 {% content %}
 $content?
 <br/>
+
 <font size="2" style="{$font}">
+	!$hide_market_links
 	<a href="mailto:{$reply_to}?subject=BUSCAR &body={$body_search}" title="Realiza una nueva b&uacute;squeda">Iniciar nueva b&uacute;squeda</a>
 	{$splitter}
 	<a href="mailto:{$reply_to}?subject=PUBLICAR Titulo del anuncio&body={$body_insert}">Publicar un anuncio</a>
 	{$splitter}
+	$hide_market_links!
 	<a href="mailto:{$reply_to}?subject=INVITAR direccion@de.correo.de.su.amigo&body=Escriba en el asunto el correo electr&oacute;nico de su amigo despu&eacute;s de la palabra INVITAR" title="Env&iacute;a un correo a un amigo coment&aacute;ndole sobre nuestro servicio e invit&aacute;ndole a usarlo">Invitar a un amigo</a>
+	(( footerlinks ))
 </font>
 <br/><br/><hr style="border:1px dashed #5DBD00;"/>	
 <font size="2" style="{$font}">

@@ -78,10 +78,10 @@ function print_sudoku($sudoku, $for_print = false){
 				if ($for_print) {
 					$html .= '&nbsp;';
 				} else {
-					$html .= '<select><option value="-">&nbsp;</option>';
+					$html .= '<!--[if !mso ]><select><option value="-">&nbsp;</option>';
 					for($i = 1; $i <= 9; $i ++)
 						$html .= '<option value="' . $i . '">' . $i . '</option>';
-					$html .= '</select>';
+					$html .= '</select><![endif]-->';
 				}
 			} else
 				$html .= $v;
@@ -262,7 +262,7 @@ function cmd_sudoku($robot, $from, $argument, $body = '', $images = array(), $qu
 	
 	$htmlproblem = print_sudoku($sudoku);
 	$htmlsolution = print_sudoku($solution);
-	$forprint = print_sudoku($solution, true);
+	$forprint = print_sudoku($sudoku, true);
 	/*
 	 * $problemtxt = ""; for($x = 0; $x <= 8; $x ++) { for($y = 0; $y <= 8; $y ++) { $problemtxt .= $sudoku[$x * 9 + $y];
 	 */
@@ -274,6 +274,7 @@ function cmd_sudoku($robot, $from, $argument, $body = '', $images = array(), $qu
 			"problem" => $htmlproblem,
 			"problem_print" => $forprint,
 			"compactmode" => true,
-			"images" => array()
+			"images" => array(),
+			"hide_market_links" => true
 	);
 }

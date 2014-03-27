@@ -41,7 +41,7 @@ function is_possible_number($cell, $number, $sudoku){
 	$block = return_block($cell);
 	return is_possible_row($number, $row, $sudoku) and is_possible_col($number, $col, $sudoku) and is_possible_block($number, $block, $sudoku);
 }
-function print_sudoku($sudoku){
+function print_sudoku($sudoku, $for_print = false){
 	$html = "<table align = \"center\" cellspacing = \"1\" cellpadding = \"2\">\n";
 	for($x = 0; $x <= 8; $x ++) {
 		$html .= "<tr align = \"center\">\n";
@@ -75,11 +75,14 @@ function print_sudoku($sudoku){
 			$html .= "<td width = \"40\" height = \"40\" style=\"$style;font-size:25px;font-family:verdana;\">";
 			
 			if ($v == '&nbsp;') {
-				// $html .= '<input type="text" size = "1" maxlength="1" style="text-align:center;border:0px;font-size:25px;color:red;font-weight:bold;">';
-				$html .= '<select>';
-				for($i = 1; $i <= 9; $i ++)
-					$html .= '<option value="'.$i.'">' . $i . '</option>';
-				$html .= '</select>';
+				if ($for_print) {
+					$html .= '&nbsp;';
+				} else {
+					$html .= '<select><option value="-">&nbsp;</option>';
+					for($i = 1; $i <= 9; $i ++)
+						$html .= '<option value="' . $i . '">' . $i . '</option>';
+					$html .= '</select>';
+				}
 			} else
 				$html .= $v;
 			
@@ -259,7 +262,7 @@ function cmd_sudoku($robot, $from, $argument, $body = '', $images = array(), $qu
 	
 	$htmlproblem = print_sudoku($sudoku);
 	$htmlsolution = print_sudoku($solution);
-	
+	$forprint == print_sudoku($solution, true);
 	/*
 	 * $problemtxt = ""; for($x = 0; $x <= 8; $x ++) { for($y = 0; $y <= 8; $y ++) { $problemtxt .= $sudoku[$x * 9 + $y];
 	 */
@@ -269,6 +272,7 @@ function cmd_sudoku($robot, $from, $argument, $body = '', $images = array(), $qu
 			"title" => "Sudoku " . date("Y-m-d h:i:s"),
 			"solution" => $htmlsolution,
 			"problem" => $htmlproblem,
+			"problem_print" => $forprint,
 			"compactmode" => true,
 			"images" => array()
 	);

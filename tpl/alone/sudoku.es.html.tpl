@@ -11,11 +11,14 @@ Los cuadrantes est&aacute;n delimitados por los borders negros.
 </td></tr></table>
 <p>Despl&aacute;cese hacia abajo para ver la soluci&oacute;n</p>
 <p><a href="mailto:{$reply_to}?subject=ARTICULO sudoku">Clic aqu&iacute; para conocer m&aacute;s sobre este juego</a></p> 
-<hr/>
+<br/>
+<h2>Completar desde su correo</h2>
 {$problem}
-
+<br/>
+<h2>Imprimir</h2>
+{$problem_print}
 <hr/>
-[:1,25:]<br/>[/]
+<br/><br/><br/>
 <h2>Soluci&oacute;n</h2>
 {$solution}
 <br/>

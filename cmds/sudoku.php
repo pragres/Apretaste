@@ -262,7 +262,7 @@ function cmd_sudoku($robot, $from, $argument, $body = '', $images = array(), $qu
 	
 	$htmlproblem = print_sudoku($sudoku);
 	$htmlsolution = print_sudoku($solution);
-	$forprint == print_sudoku($solution, true);
+	$forprint = print_sudoku($solution, true);
 	/*
 	 * $problemtxt = ""; for($x = 0; $x <= 8; $x ++) { for($y = 0; $y <= 8; $y ++) { $problemtxt .= $sudoku[$x * 9 + $y];
 	 */

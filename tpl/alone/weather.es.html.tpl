@@ -29,9 +29,10 @@
 							<img src="{$weatherIcon}" />
 							</td>
 							<td valign="top">
-								
 								<span class="">{$weatherDesc}</span><br/>
 								<span class="">Viento: <b>{$windDirection}</b> a <b>{$windSpeed}</span><br/>
+							</td>
+							<td valign="top">
 								<span style="color: red;">{$tempMax}</span><br/>
 								<span style="color: blue;">{$tempMin}</span>
 							</td>

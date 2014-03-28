@@ -35,11 +35,11 @@ class ApretasteEmailCollector {
 			
 			unset($this->imap);
 			
-			echo "[ERROR] Error al conectar al servidor imap {$server['mailbox']}\n";
+			echo "[ERROR] Error al conectar al servidor IMAP {$server['mailbox']}\n";
 			
 			$message = '';
 			ob_start();
-			echo "<h1>Errores al conectar al servidor IAMP {$server['mailbox']}</h1>\n";
+			echo "<h1>Errores al conectar al servidor IMAP {$server['mailbox']}</h1>\n";
 			$errors = imap_errors();
 			foreach ( $errors as $k => $error )
 				echo ($k + 1) . " - $error<br/>\n";

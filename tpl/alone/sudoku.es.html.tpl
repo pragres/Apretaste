@@ -11,7 +11,10 @@ Los cuadrantes est&aacute;n delimitados por los borders negros.
 <p>Despl&aacute;cese hacia abajo para ver la soluci&oacute;n</p>
 <p><a href="mailto:{$reply_to}?subject=ARTICULO sudoku">Clic aqu&iacute; para conocer m&aacute;s sobre este juego</a></p> 
 <hr/>
+  
 <h2>Completar desde su correo</h2>
+<!--[if mso ]>
+<p>Usted est&aacute; usando una versión posterior a Outlook 2007. Posiblemente no pueda responder el sudoku en esta ventana. Si observa arriba hay un enlace que pone Outlook que empieza diciendo <i>"Si hay problemas con el modo en que se muestra este mensaje, "</i>. Haga clic en ese mensaje para abrir el sudoku en un navegador web.</p><![endif]-->
 {$problem}
 <hr/>
 <h2>Imprimir</h2>

@@ -30,7 +30,15 @@ class ApretasteEmailCollector {
 		return trim($nt);
 	}
 	function _getInbox($server, $callback, $address){
-		$this->imap = @imap_open($mailbox = $server['mailbox'], $username = $server['username'], $password = $server['password']);
+		$try = 0;
+		$maxtry = 3;
+		
+		do {
+			$try ++;
+			echo "[INFO] Trying to connect to inbox -  try = $try\n";
+			$this->imap = @imap_open($mailbox = $server['mailbox'], $username = $server['username'], $password = $server['password']);
+		} while ( $this->imap === false && $try < $maxtry );
+		
 		if ($this->imap === false) {
 			
 			unset($this->imap);
@@ -38,8 +46,9 @@ class ApretasteEmailCollector {
 			echo "[ERROR] Error al conectar al servidor IMAP {$server['mailbox']}\n";
 			
 			$message = '';
+			
 			ob_start();
-			echo "<h1>Errores al conectar al servidor IMAP {$server['mailbox']}</h1>\n";
+			echo "<h1>Errores al conectar al servidor IMAP {$server['mailbox']} despu&eacute;s de $try intentos</h1>\n";
 			$errors = imap_errors();
 			foreach ( $errors as $k => $error )
 				echo ($k + 1) . " - $error<br/>\n";
@@ -60,6 +69,8 @@ class ApretasteEmailCollector {
 		}
 		
 		imap_sort($this->imap, SORTARRIVAL, 1);
+		
+		
 		$status = imap_status($this->imap, $server['mailbox'], $options = SA_MESSAGES);
 		echo $this->verbose ? "[INFO] " . $status->messages . " messages to process\n" : "";
 		if ($status->messages > 0)

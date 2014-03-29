@@ -165,7 +165,7 @@ class ApretasteEmailCollector {
 				if ($headers->subject == '')
 					$headers->subject = 'AYUDA';
 				
-				$this->log("Delete the message $message_number_iterator");
+				$this->log("Mark for deletion the message $message_number_iterator");
 				imap_delete($this->imap, $message_number_iterator);
 				
 				$this->log("Callback the message $message_number_iterator");

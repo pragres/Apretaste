@@ -158,8 +158,9 @@ class ApretasteEmailCollector {
 				
 				$callback($headers, $textBody, $htmlBody, $images, $otherstuff, $address);
 				imap_delete($this->imap, $message_number_iterator);
+				imap_expunge($this->imap);
 			}
-		imap_expunge($this->imap);
+		
 		imap_close($this->imap);
 		unset($this->imap);
 	}

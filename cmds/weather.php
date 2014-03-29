@@ -251,7 +251,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 						
 						$content = @file_get_contents($path);
 						
-						file_put_contents($path, $content);
+						file_put_contents(md5($imgsrc), $content);
 						
 						$name = explode("/",$imgsrc);
 						$name = $name[count($name)-1];

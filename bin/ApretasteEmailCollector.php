@@ -79,6 +79,12 @@ class ApretasteEmailCollector {
 				
 				$headers = imap_headerinfo($this->imap, $message_number_iterator);
 				
+				if (isset($headers->Deleted))
+					if ($headers->Deleted == 'D'){
+						$this->log("Ignore message #$message_number_iterator marked for deletion: {$headers->subject}");
+						continue;
+					}
+				
 				if (! isset($headers->subject))
 					$headers->subject = '';
 				
@@ -165,7 +171,6 @@ class ApretasteEmailCollector {
 				$this->log("Callback the message $message_number_iterator");
 				$callback($headers, $textBody, $htmlBody, $images, $otherstuff, $address);
 			}
-		
 		
 		$this->log("Expunge IMAP connection");
 		imap_expunge($this->imap);

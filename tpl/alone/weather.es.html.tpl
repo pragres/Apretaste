@@ -23,7 +23,7 @@
 			[$weather_forecast]
 				<td valign="top">
 					<table>
-						<tr><td colspan="2">{$weatherDay}, {$weatherDate}</td></tr>
+						<tr><td colspan="3">{$weatherDay}, {$weatherDate}</td></tr>
 						<tr>
 							<td valign="top">
 							<img src="{$weatherIcon}" />

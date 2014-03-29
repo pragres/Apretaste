@@ -42,6 +42,7 @@
 			[/$weather_forecast]
 			</tr>
 		</table>
+		<hr/>
 	[/$provincias]
 $provincias?
 

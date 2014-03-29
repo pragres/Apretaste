@@ -243,9 +243,15 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					
 					if (!isset($images[$imgsrc])){
 						
-						$robot->log("Downloading image $imgsrc");
+						$path = $imgsrc;
+						if (file_exists("../cache/".md5($imgsrc)))
+							$path = "../cache/".md5($imgsrc);
 						
-						$content = @file_get_contents($imgsrc);
+						$robot->log("Downloading image $path");
+						
+						$content = @file_get_contents($path);
+						
+						file_put_contents($path, $content);
 						
 						$name = explode("/",$imgsrc);
 						$name = $name[count($name)-1];
@@ -288,7 +294,6 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 }
 
 function cmd_weather_place($place){
-	
 	$weather = new WeatherForecast('93fvz526zx8uu26b59cpy9xf');
 	$weather->setRequest($place, 'Cuba', 3);
 	$weather->setUSMetric(false);

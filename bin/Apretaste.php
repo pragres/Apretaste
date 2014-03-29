@@ -98,6 +98,7 @@ class Apretaste {
 	 * @return array
 	 */
 	static function query($sql, &$error = null){
+		self::connect();
 		$r = pg_query(self::$db, self::utf8Encode($sql));
 		$s = pg_last_error(self::$db);
 		// echo "[SQL] $sql \n";

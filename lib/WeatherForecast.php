@@ -232,7 +232,7 @@ class WeatherForecast
         $cache_life = '3600';
 
         // Cache file
-        $cache_file = 'cache/cached-' . (substr($key, 0, 8) . '-' . $city . $country) . '.xml';
+        $cache_file = '../cache/cached-' . (substr($key, 0, 8) . '-' . $city . $country) . '.xml';
 
         // Generates the cache file if it does not exist or has expired life time
         $filemtime = @filemtime($cache_file);

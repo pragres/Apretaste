@@ -161,14 +161,17 @@ class ApretasteEmailCollector {
 				
 				$this->log("Delete the message $message_number_iterator");
 				imap_delete($this->imap, $message_number_iterator);
-				imap_expunge($this->imap);
 				
 				$this->log("Callback the message $message_number_iterator");
 				$callback($headers, $textBody, $htmlBody, $images, $otherstuff, $address);
 			}
 		
+		
+		$this->log("Expunge IMAP connection");
+		imap_expunge($this->imap);
 		$this->log("Close IMAP connection");
 		imap_close($this->imap);
+		
 		unset($this->imap);
 	}
 	

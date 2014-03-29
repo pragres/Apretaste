@@ -1,3 +1,11 @@
+{@ ["SUNDAY", "Domingo"] @}
+{@ ["MONDAY", "Lunes"] @}
+{@ ["TUESDAY", "Martes"] @}
+{@ ["WEDNESDAY", "Mi&eacute;rcoles"] @}
+{@ ["THURSDAY", "Jueves"] @}
+{@ ["FRIDAY", "Viernes"] @}
+{@ ["SATURDAY", "S&aacute;bado"] @}
+
 ?$provincias
 	[$provincias]
 		<h1>{$locality}, {$weather_now.weatherTime}</h1>   

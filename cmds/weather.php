@@ -198,6 +198,12 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				$robot->log("Getting weather information of $place");
 				
 				$r = cmd_weather_place($place);
+				
+				if ($r===false){
+					$robot->log("The weather conditions were not found");
+					continue;
+				}
+				
 				$p = strpos($r->locality,', Cuba');
 				if ($p !==false) $r->locality = substr($r->locality,0,$p);
 				

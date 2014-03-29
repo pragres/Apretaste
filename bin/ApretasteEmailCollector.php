@@ -35,7 +35,7 @@ class ApretasteEmailCollector {
 		
 		do {
 			$try ++;
-			echo "[INFO] Trying to connect to inbox -  try = $try\n";
+			echo "[INFO] ".date("Y-m-d h:i:s")." Trying to connect to inbox -  try = $try\n";
 			$this->imap = @imap_open($mailbox = $server['mailbox'], $username = $server['username'], $password = $server['password']);
 		} while ( $this->imap === false && $try < $maxtry );
 		
@@ -69,7 +69,6 @@ class ApretasteEmailCollector {
 		}
 		
 		imap_sort($this->imap, SORTARRIVAL, 1);
-		
 		
 		$status = imap_status($this->imap, $server['mailbox'], $options = SA_MESSAGES);
 		echo $this->verbose ? "[INFO] " . $status->messages . " messages to process\n" : "";

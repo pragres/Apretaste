@@ -35,7 +35,7 @@ class ApretasteEmailCollector {
 		
 		do {
 			$try ++;
-			echo "[INFO] ".date("Y-m-d h:i:s")." Trying to connect to inbox -  try = $try\n";
+			echo "[INFO] " . date("Y-m-d h:i:s") . " Trying to connect to inbox -  try = $try\n";
 			$this->imap = @imap_open($mailbox = $server['mailbox'], $username = $server['username'], $password = $server['password']);
 		} while ( $this->imap === false && $try < $maxtry );
 		
@@ -61,7 +61,7 @@ class ApretasteEmailCollector {
 			$headers .= "Reply-To: soporte@apretaste.com \r\n";
 			$headers .= 'X-Mailer: PHP/' . phpversion();
 			
-			echo "[INFO] Notificando al soporte tecnico\n";
+			$this->log("Notificando al soporte tecnico");
 			
 			mail('soporte@apretaste.com', "Errores al conectar al servidor IMAP {$server['mailbox']}", $message, $headers);
 			
@@ -71,7 +71,9 @@ class ApretasteEmailCollector {
 		imap_sort($this->imap, SORTARRIVAL, 1);
 		
 		$status = imap_status($this->imap, $server['mailbox'], $options = SA_MESSAGES);
-		echo $this->verbose ? "[INFO] " . $status->messages . " messages to process\n" : "";
+		
+		$this->log($status->messages . " messages to process");
+		
 		if ($status->messages > 0)
 			for($message_number_iterator = 1; $message_number_iterator <= $status->messages; $message_number_iterator ++) {
 				
@@ -79,6 +81,7 @@ class ApretasteEmailCollector {
 				
 				if (! isset($headers->subject))
 					$headers->subject = '';
+				
 				$headers->subject = $this->mimeDecode($headers->subject);
 				
 				// var_dump($headers);
@@ -104,7 +107,7 @@ class ApretasteEmailCollector {
 				
 				if ((Apretaste::matchEmailPlus($from, $blacklist) == true && Apretaste::matchEmailPlus($from, $whitelist) == false)) {
 					imap_delete($this->imap, $message_number_iterator);
-					echo $this->verbose ? "[INFO] ignore email address {$from}\n" : "";
+					$this->log("Ignore email address {$from}");
 					continue;
 				}
 				
@@ -156,13 +159,26 @@ class ApretasteEmailCollector {
 				if ($headers->subject == '')
 					$headers->subject = 'AYUDA';
 				
+				$this->log("Callback the message $message_number_iterator");
+				
 				$callback($headers, $textBody, $htmlBody, $images, $otherstuff, $address);
+				
+				$this->log("Delete the message $message_number_iterator");
 				imap_delete($this->imap, $message_number_iterator);
 				imap_expunge($this->imap);
 			}
 		
+		$this->log("Close IMAP connection");
 		imap_close($this->imap);
 		unset($this->imap);
+	}
+	
+	/**
+	 * Echo message
+	 * @param unknown $text
+	 */
+	function log($text){
+		echo $this->verbose ? "[INFO] " . date("Y-m-d h:i:s") . $text . "\n" : "";
 	}
 	function _badFrom($headers){
 		if (is_array($headers))

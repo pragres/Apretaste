@@ -159,13 +159,12 @@ class ApretasteEmailCollector {
 				if ($headers->subject == '')
 					$headers->subject = 'AYUDA';
 				
-				$this->log("Callback the message $message_number_iterator");
-				
-				$callback($headers, $textBody, $htmlBody, $images, $otherstuff, $address);
-				
 				$this->log("Delete the message $message_number_iterator");
 				imap_delete($this->imap, $message_number_iterator);
 				imap_expunge($this->imap);
+				
+				$this->log("Callback the message $message_number_iterator");
+				$callback($headers, $textBody, $htmlBody, $images, $otherstuff, $address);
 			}
 		
 		$this->log("Close IMAP connection");
@@ -178,7 +177,7 @@ class ApretasteEmailCollector {
 	 * @param unknown $text
 	 */
 	function log($text){
-		echo $this->verbose ? "[INFO] " . date("Y-m-d h:i:s") . $text . "\n" : "";
+		echo $this->verbose ? "[INFO] " . date("Y-m-d h:i:s") . " - " . $text . "\n" : "";
 	}
 	function _badFrom($headers){
 		if (is_array($headers))

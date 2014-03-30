@@ -282,7 +282,23 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				$provincias[] = $r;
 			}
 			
-			div::setDefault("SATURDAY", "S&aacute;bado");
+			
+			// Translate
+			
+			$weatherDesc = array(
+				395 => 'Nieve moderada o fuerte en area con truenos',
+				392 => 'Nieve moderada tormentosas',
+				389 => 'Lluvia moderada o fuerte en area con truenos',
+				386 => 'Intervalos de lluvias tormentosas',
+				377 => 'Lluvias moderadas o fuerte de granizo',
+				374 => 'Lluvias ligeras de granizos de hielo',
+				371 => 'Nieve moderada o fuerte'
+					
+			);
+			
+			/*foreach ($r->weather_forecast as $k=> $wf){
+				 $r->weather_forecast[$k]->weatherDesc = 
+			}*/
 			
 			return array(
 					"answer_type" => "weather",
@@ -292,6 +308,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"satelite" => false,
 					"radar" => false,
 					"mapa" => false,
+					"i18n" => $weatherDesc,
 					/*"pronostico_hoy" => "$pronostico_hoy",
 					"pronostico_manana" => "$pronostico_manana",
 					"pronostico_extendido" => "$rss",*/

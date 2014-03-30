@@ -30,7 +30,7 @@
 							<img src="{$weatherIcon}" />
 							</td>
 							<td valign="top">
-								<span class="">{$weatherDesc}</span><br/>
+								<span class="">{$i18n.{$weatherCode}}</span><br/>
 								<span class="">Viento: <b>{$windDirection}</b> a <b>{$windSpeed}</span><br/>
 							</td>
 							<td valign="top">

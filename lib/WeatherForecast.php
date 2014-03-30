@@ -250,7 +250,8 @@ class WeatherForecast
                 $msg = !empty($doc_error->msg) ? $doc_error->msg : 'Data could not be retrieved.';
 
                 if (self::$display_error) {
-                    exit('<strong style="color:red;">' . $msg . '</strong>');
+                    echo '<strong style="color:red;">' . $msg . '</strong>';
+                    return false;
                 }
             } else {
                 file_put_contents($cache_file, $contents);

@@ -1,12 +1,3 @@
-{@ ["SUNDAY", "Domingo"] @}
-{@ ["MONDAY", "Lunes"] @}
-{@ ["TUESDAY", "Martes"] @}
-{@ ["WEDNESDAY", "Mi&eacute;rcoles"] @}
-{@ ["THURSDAY", "Jueves"] @}
-{@ ["FRIDAY", "Viernes"] @}
-{@ ["SATURDAY", "S&aacute;bado"] @}
-{@ ["Clear", "Despejado"] @}
-
 ?$provincias
 	[$provincias]
 		<h1>{$locality}, {$weather_now.weatherTime}</h1>   
@@ -30,6 +21,14 @@
 		<table>
 			<tr>
 			[$weather_forecast]
+			{@ ["SUNDAY", "Domingo"] @}
+{@ ["MONDAY", "Lunes"] @}
+{@ ["TUESDAY", "Martes"] @}
+{@ ["WEDNESDAY", "Mi&eacute;rcoles"] @}
+{@ ["THURSDAY", "Jueves"] @}
+{@ ["FRIDAY", "Viernes"] @}
+{@ ["SATURDAY", "S&aacute;bado"] @}
+{@ ["Clear", "Despejado"] @}
 				<td valign="top">
 					<table>
 						<tr><td colspan="3"><b>{$weatherDay}, {$weatherDate}</b></td></tr>

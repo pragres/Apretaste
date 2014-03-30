@@ -107,7 +107,7 @@ class WeatherForecast
     public function __construct($key = null)
     {
         if ($key == 'YOUR_API_KEY')
-            exit('You have not defined an API key to get climate data.');
+            echo 'You have not defined an API key to get climate data.';
 
         self::setKey($key);
     }
@@ -208,7 +208,8 @@ class WeatherForecast
         // Gets the unique key of the API
         $key = self::getKey();
         if (empty($key)) {
-            exit('The API key is missing.');
+            echo 'The API key is missing.';
+            return false;
         }
 
         // Gets the City name
@@ -222,7 +223,8 @@ class WeatherForecast
 
         // Checks if has been set the city
         if (empty($city)) {
-            exit('You can specify the location for any of these options: City and Town Name, IP Address, UK Postcode, Canada Postal Code, US Zipcode and Latitude and Longitude (in decimal).');
+            echo 'You can specify the location for any of these options: City and Town Name, IP Address, UK Postcode, Canada Postal Code, US Zipcode and Latitude and Longitude (in decimal).';
+            return false;
         }
 
         // Stores the request URL

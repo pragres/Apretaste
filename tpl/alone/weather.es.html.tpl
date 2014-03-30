@@ -5,6 +5,7 @@
 {@ ["THURSDAY", "Jueves"] @}
 {@ ["FRIDAY", "Viernes"] @}
 {@ ["SATURDAY", "S&aacute;bado"] @}
+{@ ["Clear", "Despejado"] @}
 
 ?$provincias
 	[$provincias]

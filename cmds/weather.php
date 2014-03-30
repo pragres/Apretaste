@@ -198,7 +198,6 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"Las Tunas",
 					"Holguin",
 					"Bayamo",
-					"Granma",
 					"Santiago de Cuba",
 					"Guantanamo"
 			);
@@ -282,6 +281,8 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				
 				$provincias[] = $r;
 			}
+			
+			div::setDefault("SATURDAY", "S&aacute;bado");
 			
 			return array(
 					"answer_type" => "weather",

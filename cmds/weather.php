@@ -292,7 +292,18 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				386 => 'Intervalos de lluvias tormentosas',
 				377 => 'Lluvias moderadas o fuerte de granizo',
 				374 => 'Lluvias ligeras de granizos de hielo',
-				371 => 'Nieve moderada o fuerte'
+				371 => 'Nieve moderada o fuerte',
+				368 => 'Lluvias ligeras',
+				365 => 'Aguanieve moderada o fuerte',
+				362 => 'Aguanieve ligera',
+				359 => 'Torrencial lluvia',
+					356 => 'Lluvia moderada o fuerte',
+					353 => 'Light rain shower',
+					350 => 'Granizos de hielo',
+					338 => 'Fuertes nevadas',
+					335 => 'Nubes y nieve pesada',
+					332 => 'Nieve moderada'
+					
 					
 			);
 			

@@ -235,7 +235,9 @@ class WeatherForecast
 
         // Cache file
         $cache_file = '../cache/cached-' . (substr($key, 0, 8) . '-' . $city . $country) . '.xml';
-
+		
+        $request='../cache/cached-93fvz526-varadero,cuba.xml';
+        
         // Generates the cache file if it does not exist or has expired life time
         $filemtime = @filemtime($cache_file);
         if (!$filemtime || (time() - $filemtime >= $cache_life)) {
@@ -256,7 +258,7 @@ class WeatherForecast
                     return false;
                 }
             } else {
-                file_put_contents($cache_file, $contents);
+                //file_put_contents($cache_file, $contents);
             }
         }
 

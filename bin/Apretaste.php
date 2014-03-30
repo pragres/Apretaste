@@ -2480,10 +2480,16 @@ class Apretaste {
 	 * @return string
 	 */
 	static function cleanText($text, $ps = false, $align = "justify"){
+		
 		$text = "$text";
+		if (!self::isUTF8($text)) $text = utf8_encode($text);
 		
 		$text = quoted_printable_decode($text);
+		$text = strip_tags($text);
+		$text = htmlentities($text);
 		
+		//return $text;
+		/*
 		$alpha = "abcdefghijklmnopqrstuvwxyz1234567890., ";
 		
 		$save = array(
@@ -2500,7 +2506,7 @@ class Apretaste {
 				'&Ntilde;',
 				'&ntilde;'
 		);
-		
+		*/
 		/*
 		 * $restore = array(); foreach ($save as $sav) { $kk = uniqid(); $text = str_replace($sav, '{' . $kk . '}', $text); $restore[$kk] = $sav; }
 		 */
@@ -2520,13 +2526,14 @@ class Apretaste {
 		
 		foreach ( $abreviaturas as $abv => $repl )
 			$text = str_ireplace($abv, $repl, $text);
-		
+		/*
 		$text = mb_convert_encoding($text, 'UTF-8', 'ASCII,UTF-8,ISO-8859-1');
 		if (substr($text, 0, 3) == pack("CCC", 0xEF, 0xBB, 0xBF))
 			$text = substr($text, 3);
 		
 		$text = htmlspecialchars_decode($text);
-		
+		*/
+		/*
 		// cleaning ms word code
 		$text = html_entity_decode($text);
 		$text = urldecode($text);		
@@ -2545,6 +2552,7 @@ class Apretaste {
 				"\nnb ",
 				"\nbsp "
 		), ' ', $text);
+		*/
 		$text = str_replace("\n\r", "\n", $text);
 		$text = str_replace("\r", "\n", $text);
 		$text = str_replace("\n\n", "\n", $text);
@@ -2558,13 +2566,13 @@ class Apretaste {
 		
 		// cleaning other junks
 		// $text = html_entity_decode($text);
-		$text = self::htmlToText($text);
+		//$text = self::htmlToText($text);
 		
 		// $text = htmlentities($text);
-		$save = $text;
+		/*$save = $text;
 		$text = iconv_mime_decode($text, ICONV_MIME_DECODE_CONTINUE_ON_ERROR);
 		if (strlen($text) < strlen($save) / 2)
-			$text = $save;
+			$text = $save;*/
 		$text = self::replaceRecursive("  ", " ", $text);
 		$text = str_replace(" ,", ",", $text);
 		$text = str_replace(" ;", ";", $text);
@@ -2614,7 +2622,7 @@ class Apretaste {
 		// $text = str_replace(".",". ",$text);
 		$text = self::replaceRecursive("  ", " ", $text);
 		$text = self::replaceRecursive(", ,", ", ", $text);
-		$parentezco = 0;
+		/*$parentezco = 0;
 		
 		$words = explode(" ", $text);
 		
@@ -2694,7 +2702,7 @@ class Apretaste {
 		}
 		
 		$text = ucfirst(trim($text));
-		
+		*/
 		/*
 		 * foreach ($restore as $kk => $restor) { $text = str_replace('{' . $kk . '}', $restor, $text); }
 		 */

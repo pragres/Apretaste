@@ -187,7 +187,20 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"Pinar del Rio",
 					"Artemisa",
 					"Batabano",
-					"Varadero"
+					"Varadero",
+					"Matanzas",
+					"Santa Clara",
+					"Cienfuegos",
+					"Sancti Spiritus",
+					"Trinidad",
+					"Camaguey",
+					"Ciego de Avila",
+					"Las Tunas",
+					"Holguin",
+					"Bayamo",
+					"Granma",
+					"Santiago de Cuba",
+					"Guantanamo"
 			);
 			
 			$provincias = array();

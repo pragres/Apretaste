@@ -224,11 +224,11 @@ function parse_google_translator_response($response){
 			
 			if (is_array($textpart[2]))
 				foreach ( $textpart[2] as $word )
-					$tips[] = $word[0];
+					$tips[] = Apretaste::cleanText($word[0]);
 			
 			$parts[] = array(
-					"text" => $part,
-					"textto" => $textpart[2][0][0],
+					"text" => Apretaste::cleanText($part),
+					"textto" => Apretaste::cleanText($textpart[2][0][0]),
 					"tips" => $tips,
 					"alldata" => $textpart
 			);
@@ -236,9 +236,9 @@ function parse_google_translator_response($response){
 	
 	$original = '';
 	foreach ( $response[0] as $k => $v ) {
-		$original .= $v[1];
-		$v0 = $v[0];
-		$v1 = $v[1];
+		$original .= Apretaste::cleanText($v[1]);
+		$v0 = Apretaste::cleanText($v[0]);
+		$v1 = Apretaste::cleanText($v[1]);
 		$textto .= $v0;
 		$textfrom .= $v1;
 	}

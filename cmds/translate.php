@@ -123,8 +123,10 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 		$json = div::jsonDecode($json);
 		$lfrom = $json[2];
 		$robot->log("The language of text is -$lfrom-");
-		$hl = $hls[$lfrom];
 		
+		if (isset($hls[$lfrom]))
+			$hl = $hls[$lfrom];
+				
 		if ($lfrom == $lto) {
 			if ($lfrom == 'es') {
 				$lto = 'en';

@@ -13,13 +13,12 @@
 		   
 		<table>
 			<tr>
-				<td valign="top">
-					<img src="{$weather_now.weatherIcon}" /><br/>
+				<td valign="top" align="center" width="100">
+					<img src="{$weather_now.weatherIcon}" width="80"/><br/>
 					{$i18n.{$weather_now.weatherCode}} 
 				</td>
-				<td style="border-left: 1px solid gray;" valign="top">
+				<td valign="top">
 					<h2>{$locality}, {$weather_now.weatherTime}</h2>
-					<br/>
 					<strong>Temperatura:</strong> {$weather_now.weatherTemp} {$splitter}
 					<strong>Viento: </strong> {$weather_now.windSpeed} {$splitter}
 					<strong>Lluvias:</strong> {$weather_now.precipitation} {$splitter}
@@ -38,8 +37,8 @@
 					<table>
 						<tr><td colspan="3"><b>{$i18n_days.{$weatherDay}}, {$weatherDate:3,3}</b></td></tr>
 						<tr>
-							<td valign="top">
-							<img src="{$weatherIcon}" />
+							<td valign="top" align="center">
+							<img src="{$weatherIcon}" width="50"/>
 							</td>
 							<td valign="top">
 								<span class="">{$i18n.{$weatherCode}}</span><br/>

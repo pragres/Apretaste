@@ -14,7 +14,6 @@
  * @return array
  */
 function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
-	
 	$langs = array(
 			"auto" => "auto",
 			"es" => "espanol",
@@ -84,16 +83,9 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	// Clean the text
 	$robot->log("Cleanning/Decoding the text..");
 	$text = Apretaste::cleanText($body);
-	$text = html_entity_decode($text,ENT_COMPAT,'UTF-8');
-	
-	/*
-	 * if (! Apretaste::isUTF8($text)) $text = utf8_encode($text);
-	 */
-	// $text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "UTF-8"), 6);
-	// $text = quoted_printable_decode($text);
-	// $text = strip_tags($text);
-	// $text = trim($text);
-	// $text = cmd_translate_fix_text($text);
+	$text = html_entity_decode($text);
+	if (! Apretaste::isUTF8($text))
+		$text = utf8_encode($text);
 	
 	$robot->log("Translating: $text");
 	

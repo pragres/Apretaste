@@ -359,8 +359,8 @@ class Apretaste {
 		$r['title'] = str_replace("\r\n", " ", $r['title']);
 		$r['title'] = str_replace("\n\r", " ", $r['title']);
 		$r['title'] = strtolower($r['title']);
-		$r['title'] = self::cleanText($r['title']);
-		$r['body'] = self::cleanText($r['body'], true);
+		$r['title'] = self::cleanTextJunk($r['title']);
+		$r['body'] = self::cleanTextJunk($r['body'], true);
 		
 		$r['title'] = str_replace('<br />', ' ', $r['title']);
 		$r['title'] = str_replace('<br/>', ' ', $r['title']);
@@ -1373,8 +1373,8 @@ class Apretaste {
 				$results[$k]['title'] = str_replace("\r\n", " ", $results[$k]['title']);
 				$results[$k]['title'] = str_replace("\n\r", " ", $results[$k]['title']);
 				$results[$k]['title'] = strtolower($results[$k]['title']);
-				$results[$k]['title'] = self::cleanText($results[$k]['title']);
-				$results[$k]['body'] = self::cleanText($results[$k]['body']);
+				$results[$k]['title'] = self::cleanTextJunk($results[$k]['title']);
+				$results[$k]['body'] = self::cleanTextJunk($results[$k]['body']);
 				$results[$k]['price'] = $results[$k]['price'] * 1;
 				$results[$k]['cota'] = false;
 				
@@ -1923,8 +1923,8 @@ class Apretaste {
 						$results[$k]['title'] = str_replace("\r\n", " ", $results[$k]['title']);
 						$results[$k]['title'] = str_replace("\n\r", " ", $results[$k]['title']);
 						$results[$k]['title'] = strtolower($results[$k]['title']);
-						$results[$k]['title'] = self::cleanText($results[$k]['title']);
-						$results[$k]['body'] = self::cleanText($results[$k]['body']);
+						$results[$k]['title'] = self::cleanTextJunk($results[$k]['title']);
+						$results[$k]['body'] = self::cleanTextJunk($results[$k]['body']);
 						$results[$k]['price'] = $results[$k]['price'] * 1;
 						
 						// Analyzing images
@@ -2472,30 +2472,31 @@ class Apretaste {
 		
 		return $s;
 	}
-	
-	/**
-	 * Clean a text
-	 *
-	 * @param string $text
-	 * @return string
-	 */
-	static function cleanText($text, $ps = false, $align = "justify"){
-		$text = "$text";
-		if (! self::isUTF8($text))
-			$text = utf8_encode($text);
+	static function cleanTextJunk($text, $ps = false, $align = "justify"){
+		$text = self::cleanText($text);
 		
-		$text = quoted_printable_decode($text);
-		$text = strip_tags($text);
-		$text = html_entity_decode($text, ENT_COMPAT, 'UTF-8');
-		$text = htmlentities($text, ENT_COMPAT, 'UTF-8');
+		$alpha = "abcdefghijklmnopqrstuvwxyz1234567890., ";
+		$save = array(
+				'&aacute;',
+				'&eacute;',
+				'&iacute;',
+				'&oacute;',
+				'&uacute;',
+				'&Aacute;',
+				'&Eacute;',
+				'&Iacute;',
+				'&Oacute;',
+				'&Uacute;',
+				'&Ntilde;',
+				'&ntilde;'
+		);
 		
-		// return $text;
-		/*
-		 * $alpha = "abcdefghijklmnopqrstuvwxyz1234567890., "; $save = array( '&aacute;', '&eacute;', '&iacute;', '&oacute;', '&uacute;', '&Aacute;', '&Eacute;', '&Iacute;', '&Oacute;', '&Uacute;', '&Ntilde;', '&ntilde;' );
-		 */
-		/*
-		 * $restore = array(); foreach ($save as $sav) { $kk = uniqid(); $text = str_replace($sav, '{' . $kk . '}', $text); $restore[$kk] = $sav; }
-		 */
+		$restore = array();
+		foreach ( $save as $sav ) {
+			$kk = uniqid();
+			$text = str_replace($sav, '{' . $kk . '}', $text);
+			$restore[$kk] = $sav;
+		}
 		
 		$abreviaturas = array(
 				"c/" => "con",
@@ -2512,29 +2513,14 @@ class Apretaste {
 		
 		foreach ( $abreviaturas as $abv => $repl )
 			$text = str_ireplace($abv, $repl, $text);
-			/*
-		 * $text = mb_convert_encoding($text, 'UTF-8', 'ASCII,UTF-8,ISO-8859-1'); if (substr($text, 0, 3) == pack("CCC", 0xEF, 0xBB, 0xBF)) $text = substr($text, 3); $text = htmlspecialchars_decode($text);
-		 */
-		/*
-		// cleaning ms word code
-		$text = html_entity_decode($text);
-		$text = urldecode($text);		
-		$text = strip_tags($text);
-		$text = str_replace(';=20', ' ', $text);
-		$text = str_replace('=20', ' ', $text);
-		$text = str_replace(';=', ' ', $text);
-		$text = str_replace(array(
-				'&nbsp',
-				'&nb=',
-				'&nbs=',
-				'&n=',
-				'p; =',
-				'sp;',
-				'&=',
-				"\nnb ",
-				"\nbsp "
-		), ' ', $text);
-		*/
+		
+		$text = mb_convert_encoding($text, 'UTF-8', 'ASCII,UTF-8,ISO-8859-1');
+		
+		if (substr($text, 0, 3) == pack("CCC", 0xEF, 0xBB, 0xBF))
+			$text = substr($text, 3);
+		
+		$text = htmlspecialchars_decode($text);
+		
 		$text = str_replace("\n\r", "\n", $text);
 		$text = str_replace("\r", "\n", $text);
 		$text = str_replace("\n\n", "\n", $text);
@@ -2545,16 +2531,7 @@ class Apretaste {
 		$text = str_replace("= \n", " ", $text);
 		$text = str_replace("  ", " ", $text);
 		$text = str_replace(",,", ", ", $text);
-		
-		// cleaning other junks
-		// $text = html_entity_decode($text);
-		// $text = self::htmlToText($text);
-		
-		// $text = htmlentities($text);
-		/*
-		 * $save = $text; $text = iconv_mime_decode($text, ICONV_MIME_DECODE_CONTINUE_ON_ERROR); if (strlen($text) < strlen($save) / 2) $text = $save;
-		 */
-		/*$text = self::replaceRecursive("  ", " ", $text);
+		$text = self::replaceRecursive("  ", " ", $text);
 		$text = str_replace(" ,", ",", $text);
 		$text = str_replace(" ;", ";", $text);
 		$text = str_replace(" :", ":", $text);
@@ -2565,8 +2542,6 @@ class Apretaste {
 		$text = self::replaceRecursive("ooo", "o", $text);
 		$text = self::replaceRecursive("nn", "n", $text);
 		$text = self::replaceRecursive("aa", "a", $text);
-		
-		// $text = str_replace(".",". ",$text);
 		$text = self::replaceRecursive("!!", "!", $text);
 		$text = str_replace("!", "! ", $text);
 		$text = str_replace("\n", "\n\n", $text);
@@ -2600,12 +2575,9 @@ class Apretaste {
 		$text = str_replace(" :", ":", $text);
 		$text = str_replace(" .", ".", $text);
 		$text = str_replace(",", ", ", $text);
-		// $text = str_replace(".",". ",$text);
 		$text = self::replaceRecursive("  ", " ", $text);
 		$text = self::replaceRecursive(", ,", ", ", $text);
-		*/
-		/*$parentezco = 0;
-		
+	
 		$words = explode(" ", $text);
 		
 		$text = "";
@@ -2654,40 +2626,30 @@ class Apretaste {
 			}
 		} while ( $p !== false );
 		
-		// Arreglando parrafos y oraciones
-		$parras = explode(".\n", $text);
-		$text = "";
+		$text = ucfirst(trim($text));
 		
-		foreach ( $parras as $parra ) {
-			$parra = trim($parra);
-			$parra = nl2br($parra);
-			if ($parra != '') {
-				$lc = strtolower(substr($parra, strlen($parra) - 1, 1));
-				if ($lc == "." || strpos($alpha, $lc, 1) === false) {
-					if ($ps)
-						$text .= "<p align=\"$align\">\n";
-					else
-						$text .= "\n";
-					$text .= "\t" . ucfirst($parra);
-					if ($ps)
-						$text .= "</p>\n";
-				} else {
-					if ($ps)
-						$text .= "<p align=\"$align\">\n";
-					else
-						$text .= " ";
-					$text .= "\t" . ucfirst($parra);
-					if ($ps)
-						$text .= "</p>\n";
-				}
-			}
+		foreach ( $restore as $kk => $restor ) {
+			$text = str_replace('{' . $kk . '}', $restor, $text);
 		}
 		
-		$text = ucfirst(trim($text));
-		*/
-		/*
-		 * foreach ($restore as $kk => $restor) { $text = str_replace('{' . $kk . '}', $restor, $text); }
-		 */
+		return $text;
+	}
+	
+	/**
+	 * Clean a text
+	 *
+	 * @param string $text
+	 * @return string
+	 */
+	static function cleanText($text, $ps = false, $align = "justify"){
+		$text = "$text";
+		if (! self::isUTF8($text))
+			$text = utf8_encode($text);
+		
+		$text = quoted_printable_decode($text);
+		$text = strip_tags($text);
+		$text = html_entity_decode($text, ENT_COMPAT, 'UTF-8');
+		$text = htmlentities($text, ENT_COMPAT, 'UTF-8');
 		
 		return $text;
 	}

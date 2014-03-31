@@ -14,7 +14,7 @@
 		<table>
 			<tr>
 				<td valign="top" align="center" width="100">
-					<img src="{$weather_now.weatherIcon}" width="80"/><br/>
+					<img src="{$weather_now.weatherIcon}" width="60"/><br/>
 					{$i18n.{$weather_now.weatherCode}} 
 				</td>
 				<td valign="top">
@@ -25,11 +25,8 @@
 					<strong>Humedad:</strong> {$weather_now.humidity}<br/>
 					<strong>Visibilidad:</strong> {$weather_now.visibility} {$splitter}
 					<strong>Presi&oacute;n:</strong> {$weather_now.pressure} {$splitter}
-					<strong>Nubosidad:</strong> {$weather_now.cloudcover} {$splitter}
-				</td>
-			</tr>
-		</table>
-		<table>
+					<strong>Nubosidad:</strong> {$weather_now.cloudcover} {$splitter}<br/>
+					<table>
 			<tr>
 			[$weather_forecast]
 
@@ -38,7 +35,7 @@
 						<tr><td colspan="3"><b>{$i18n_days.{$weatherDay}}, {$weatherDate:3,3}</b></td></tr>
 						<tr>
 							<td valign="top" align="center">
-							<img src="{$weatherIcon}" width="50"/>
+							<img src="{$weatherIcon}" width="40"/>
 							</td>
 							<td valign="top">
 								<span class="">{$i18n.{$weatherCode}}</span><br/>
@@ -54,6 +51,10 @@
 			[/$weather_forecast]
 			</tr>
 		</table>
+				</td>
+			</tr>
+		</table>
+		
 		<hr/>
 	[/$provincias]
 $provincias?

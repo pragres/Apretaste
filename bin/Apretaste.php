@@ -2573,7 +2573,7 @@ class Apretaste {
 		$text = iconv_mime_decode($text, ICONV_MIME_DECODE_CONTINUE_ON_ERROR);
 		if (strlen($text) < strlen($save) / 2)
 			$text = $save;*/
-		$text = self::replaceRecursive("  ", " ", $text);
+		/*$text = self::replaceRecursive("  ", " ", $text);
 		$text = str_replace(" ,", ",", $text);
 		$text = str_replace(" ;", ";", $text);
 		$text = str_replace(" :", ":", $text);
@@ -2622,6 +2622,7 @@ class Apretaste {
 		// $text = str_replace(".",". ",$text);
 		$text = self::replaceRecursive("  ", " ", $text);
 		$text = self::replaceRecursive(", ,", ", ", $text);
+		*/
 		/*$parentezco = 0;
 		
 		$words = explode(" ", $text);

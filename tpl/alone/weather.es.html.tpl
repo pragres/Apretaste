@@ -2,7 +2,7 @@
 	SATURDAY: 'S&aacute;bado',
 	SUNDAY: 'Domingo',
 	MONDAY: 'Lunes',
-	TUESDAY: 'Martes,
+	TUESDAY: 'Martes',
 	WEDNESDAY: 'Mi&eacute;rcoles',
 	THURSDAY: 'Jueves',
 	FRIDAY: 'Viernes'	

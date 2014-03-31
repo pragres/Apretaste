@@ -2486,7 +2486,8 @@ class Apretaste {
 		
 		$text = quoted_printable_decode($text);
 		$text = strip_tags($text);
-		$text = htmlentities($text, ENT_COMPAT, 'UTF-8', false);
+		$text = html_entity_decode($text);
+		$text = htmlentities($text);
 		
 		// return $text;
 		/*

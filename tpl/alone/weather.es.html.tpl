@@ -15,7 +15,7 @@
 			<tr>
 				<td valign="top">
 					<img src="{$weather_now.weatherIcon}" /><br/>
-					{$weather_now.weatherDesc} 
+					{$i18n.{$weather_now.weatherCode}} 
 				</td>
 				<td valign="top">
 					<strong>Temperatura:</strong> {$weather_now.weatherTemp} {$splitter}

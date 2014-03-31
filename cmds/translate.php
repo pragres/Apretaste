@@ -14,6 +14,7 @@
  * @return array
  */
 function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
+	
 	$langs = array(
 			"auto" => "auto",
 			"es" => "espanol",
@@ -85,14 +86,14 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	$text = Apretaste::cleanText($body);
 	$text = html_entity_decode($text);
 	
-	/*if (! Apretaste::isUTF8($text))
-		$text = utf8_encode($text);
-	*/
-		// $text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "UTF-8"), 6);
-	//$text = quoted_printable_decode($text);
-	//$text = strip_tags($text);
-	//$text = trim($text);
-	//$text = cmd_translate_fix_text($text);
+	/*
+	 * if (! Apretaste::isUTF8($text)) $text = utf8_encode($text);
+	 */
+	// $text = substr(iconv_mime_decode("From: $text", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "UTF-8"), 6);
+	// $text = quoted_printable_decode($text);
+	// $text = strip_tags($text);
+	// $text = trim($text);
+	// $text = cmd_translate_fix_text($text);
 	
 	$robot->log("Translating: $text");
 	
@@ -122,12 +123,17 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 		$json = file_get_contents($url);
 		
 		$json = div::jsonDecode($json);
+		
 		$lfrom = $json[2];
+		
+		if (! isset($langs[$lfrom]))
+			$lfrom = 'es';
+		
 		$robot->log("The language of text is -$lfrom-");
 		
 		if (isset($hls[$lfrom]))
 			$hl = $hls[$lfrom];
-				
+		
 		if ($lfrom == $lto) {
 			if ($lfrom == 'es') {
 				$lto = 'en';

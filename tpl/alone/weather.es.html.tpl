@@ -10,18 +10,20 @@
 
 ?$provincias
 	[$provincias]
-		<h1>{$locality}, {$weather_now.weatherTime}</h1>   
+		   
 		<table>
 			<tr>
 				<td valign="top">
 					<img src="{$weather_now.weatherIcon}" /><br/>
 					{$i18n.{$weather_now.weatherCode}} 
 				</td>
-				<td valign="top">
+				<td style="border-left: 1px solid gray;" valign="top">
+					<h2>{$locality}, {$weather_now.weatherTime}</h2>
+					<br/>
 					<strong>Temperatura:</strong> {$weather_now.weatherTemp} {$splitter}
-					<strong>Velocidad del viento:</strong> {$weather_now.windSpeed} {$splitter}
-					<strong>Precipitaci&oacute;n:</strong> {$weather_now.precipitation} {$splitter}
-					<strong>Humedad:</strong> {$weather_now.humidity} {$splitter}
+					<strong>Viento: </strong> {$weather_now.windSpeed} {$splitter}
+					<strong>Lluvias:</strong> {$weather_now.precipitation} {$splitter}
+					<strong>Humedad:</strong> {$weather_now.humidity}<br/>
 					<strong>Visibilidad:</strong> {$weather_now.visibility} {$splitter}
 					<strong>Presi&oacute;n:</strong> {$weather_now.pressure} {$splitter}
 					<strong>Nubosidad:</strong> {$weather_now.cloudcover} {$splitter}

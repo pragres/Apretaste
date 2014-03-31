@@ -1,3 +1,13 @@
+{= i18n_days: {
+	SATURDAY: 'S&aacute;bado',
+	SUNDAY: 'Domingo',
+	MONDAY: 'Lunes',
+	TUESDAY: 'Martes,
+	WEDNESDAY: 'Mi&eacute;rcoles',
+	THURSDAY: 'Jueves',
+	FRIDAY: 'Viernes'	
+} =}
+
 ?$provincias
 	[$provincias]
 		<h1>{$locality}, {$weather_now.weatherTime}</h1>   
@@ -24,7 +34,7 @@
 
 				<td valign="top">
 					<table>
-						<tr><td colspan="3"><b>{$weatherDay}, {$weatherDate}</b></td></tr>
+						<tr><td colspan="3"><b>{$i18n_days.{$weatherDay}}, {$weatherDate}</b></td></tr>
 						<tr>
 							<td valign="top">
 							<img src="{$weatherIcon}" />

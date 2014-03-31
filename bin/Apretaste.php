@@ -2486,8 +2486,9 @@ class Apretaste {
 		
 		$text = quoted_printable_decode($text);
 		$text = strip_tags($text);
-		$text = html_entity_decode($text);
-		$text = htmlentities($text);
+		$text = html_entity_decode($text, ENT_COMPAT, 'UTF-8');
+		$text = htmlentities($text, ENT_COMPAT, 'UTF-8');
+		
 		// return $text;
 		/*
 		 * $alpha = "abcdefghijklmnopqrstuvwxyz1234567890., "; $save = array( '&aacute;', '&eacute;', '&iacute;', '&oacute;', '&uacute;', '&Aacute;', '&Eacute;', '&Iacute;', '&Oacute;', '&Uacute;', '&Ntilde;', '&ntilde;' );

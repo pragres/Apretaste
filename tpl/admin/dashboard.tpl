@@ -19,7 +19,7 @@
     <body>
 	<div id ="page">
 	    <h1><a style="float:right;" href="?page=dashboard">Dashboard</a></h1>
-		<a href = "?page=admin"><img src="static/apretaste-minilogo.gif" alt="Apretaste!"></a> <br/>
+		<a href = "?page=admin">{% ../alone/logohtml.tpl %}</a> <br/>
 				{% menu %}
 		<!--{ BEGIN Hourly access }-->
 		<h2>Access by hour</h2>

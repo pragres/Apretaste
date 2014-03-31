@@ -34,7 +34,7 @@
 
 				<td valign="top">
 					<table>
-						<tr><td colspan="3"><b>{$i18n_days.{$weatherDay}}, {$weatherDate}</b></td></tr>
+						<tr><td colspan="3"><b>{$i18n_days.{$weatherDay}}, {$weatherDate:5}</b></td></tr>
 						<tr>
 							<td valign="top">
 							<img src="{$weatherIcon}" />

@@ -70,7 +70,7 @@ $search_results?
                     <br/>                      
                         [$related_phrases]
                         <a title = "Clic para buscar con esta frase" href="mailto:{$reply_to}?subject=BUSCAR {$phrase}&body=Haga clic en Enviar para buscar">{$phrase}</a>
-                        {$splitter}
+                        !$_is_last {$splitter} $_is_last!
                         [/$related_phrases]
                     $related_phrases?
                     <br/><br/>
@@ -85,7 +85,7 @@ $search_results?
                                             las siguientes palabras en su frase de b&uacute;squeda:
                                     </p>
                                     {= url_search: mailto:{$reply_to}?body=Haga clic en Enviar para obtener los resultados&subject={$query} =}
-
+	
                                     [$dwords]
                                             <a href="{$url_search} {$value}">{$value}</a> 
                                             !$_is_last {$splitter} $_is_last!

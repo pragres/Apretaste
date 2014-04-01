@@ -12,6 +12,7 @@ Env&iacute;e sus correos a <a href ="mailto:{$reply_to}">{$reply_to}</a>.</p>
         <th>Cuerpo del correo</th>
 		<th width = "40%">Breve explicaci&oacute;n de la opci&oacute;n</th>
 	</tr>
+	<tr><td colspan="3"><b>Compra/Venta</b></td></tr>
 	<tr style="background:#eeeeee;">
 		<td valign="top">
                 <strong>PUBLICAR</strong> T&iacute;tulo del anuncio.<br/>
@@ -110,6 +111,26 @@ Env&iacute;e sus correos a <a href ="mailto:{$reply_to}">{$reply_to}</a>.</p>
 		<td valign="top" style="text-align:justify;" align="justify">Devuelve un reporte con la lista de sus anuncios, las alertas por correo a las cuales Ud. est&aacute; subscrito,
 		entre otras informaciones, junto a algunas estad&iacute;sticas de sus anuncios.</td>
 	</tr>
+	<tr><td colspan="3"><b>Entretenimiento y juegos</b></td></tr>
+	<tr>
+		<td valign="top">
+                <strong>CHISTE</strong>
+                </td>
+                <td valign="top">
+                    - en blanco -
+                </td>
+		<td valign="top" style="text-align:justify;" align="justify">Devuelve un chiste</td>
+	</tr>
+	<tr style="background:#eeeeee;">
+		<td valign="top">
+                <strong>SUDOKU</strong>
+                </td>
+                <td valign="top">
+                    - en blanco -
+                </td>
+		<td valign="top" style="text-align:justify;" align="justify">Devuelve un SUDOKU para jugar. Puede responderlo en el mismo correo o imprimirlo si desea.</td>
+	</tr>
+	<tr><td colspan="3"><b>Otros servicios</b></td></tr>
 	<tr>
 		<td valign="top">
                 <strong>INVITAR</strong> direcci&oacute;n email de su amigo<br/>

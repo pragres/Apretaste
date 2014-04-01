@@ -1,11 +1,14 @@
 <p align="justify" style="{$font}; text-align:justify;">
-	Apretaste <i>une vendedores y compradores usando el email</i>. Si usted quiere vender la cuna que us&oacute; su hijo, puede encontrar un comprador por email. Si necesita comprar un televisor, puede encontrar quien lo venda usando solamente el email.
+	Apretaste <i>permite revisar servicios en Internet mediante el email</i>. Usando Apretaste 
+	usted puede Vender o Comprar algo que necesite, consultar la Enciclopedia, Traducir documentos a 
+	decenas de idiomas, ver el Estado del Tiempo o (entre otros) leer un Chiste; siempre usando su 
+	correo electr&oacute;nico.
 </p>
 
 <table>
 	<tr>
 		<td valign="top">
-			<h3>¿Qu&eacute; debo hacer ahora? ¿C&oacute;mo empezar?</h3>
+			<h3>¿Quiere probar Apretaste? Siga esto pasos para usar nuestro servicio de Compra/Venta</h3>
 			<p style="{$font}">1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a></p>
 			<p style="{$font}">2. En la secci&oacute;n "Asunto" escriba: <span style="color:green;">BUSCAR televisor LCD</span></p>
 			<p style="{$font}">3. Haga clic en "Enviar", no necesita llenar ning&uacute;n otro campo.</p>
@@ -33,13 +36,9 @@
 	</tr>
 </table>
 
-<p align="justify" style="{$font}; text-align:justify;">
-	<b>Por favor lea nuestros <a href="mailto:{$reply_to}?subject=TERMINOS">t&eacute;rminos de uso</a> 
-	antes de utilizar este servicio</b>.
-</p>
 <hr/>
 
-<h3 style="{$font}">Lista de opciones</h3>
+<h3 style="{$font}">Lista de servicios</h3>
 {% help_commands_list.es.html.tpl %}
 <hr/>
 
@@ -75,5 +74,5 @@
 </table>
 <hr/>
 
-<h3 style="{$font}">Ejemplos de las opciones m&aacute;s usadas</h3>
+<h3 style="{$font}">Ejemplos de las servicios m&aacute;s usados</h3>
 {% help_commands.es.html.tpl %}

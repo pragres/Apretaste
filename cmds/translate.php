@@ -193,14 +193,14 @@ function parse_google_translator_response($response){
 	
 	if (isset($response[1]))
 		if (is_array($response[1]))
-			$meanings = Apretaste::cleanText($response[1]);
-	
+			$meanings = $response[1];
+		
 	$meaninghtml = '';
 	
 	foreach ( $meanings as $meaning ) {
-		$meaninghtml .= "<b>{$meaning[0]}</b><br/><ul>";
+		$meaninghtml .= "<b>".Apretaste::cleanText($meaning[0])."</b><br/><ul>";
 		foreach ( $meaning[1] as $k => $mean ) {
-			$meaninghtml .= '<li><i>' . $mean . '</i>: ' . implode(" / ", $meaning[2][$k][1]) . '</li>';
+			$meaninghtml .= '<li><i>' . Apretaste::cleanText($mean) . '</i>: ' . Apretaste::cleanText(implode(" / ", $meaning[2][$k][1])) . '</li>';
 		}
 		$meaninghtml .= '</ul>';
 	}

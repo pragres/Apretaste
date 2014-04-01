@@ -50,15 +50,15 @@ function print_sudoku($sudoku, $for_print = false){
 			$style = 'border-right: 1px solid gray;';
 			
 			if (($x + 1) % 3 == 0)
-				$style .= 'border-bottom: 2px solid black;';
+				$style .= 'border-bottom: 3px solid black;';
 			else
 				$style .= 'border-bottom: 1px solid gray;';
 			if (($y + 1) % 3 == 0)
-				$style .= 'border-right: 2px solid black;';
+				$style .= 'border-right: 3px solid black;';
 			if ($x == 0)
-				$style .= 'border-top: 2px solid black;';
+				$style .= 'border-top: 3px solid black;';
 			if ($y == 0)
-				$style .= 'border-left: 2px solid black;';
+				$style .= 'border-left: 3px solid black;';
 			
 			$v = $sudoku[$x * 9 + $y];
 			
@@ -78,7 +78,7 @@ function print_sudoku($sudoku, $for_print = false){
 				if ($for_print) {
 					$html .= '&nbsp;';
 				} else {
-					$html .= '<select style="padding: 3px; border: 1px solid gray;"><option value="-">&nbsp;</option>';
+					$html .= '<select style="padding: 3px; border: none; background:white;"><option value="-">&nbsp;</option>';
 					for($i = 1; $i <= 9; $i ++)
 						$html .= '<option value="' . $i . '">' . $i . '</option>';
 					$html .= '</select>';

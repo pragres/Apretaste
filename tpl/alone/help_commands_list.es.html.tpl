@@ -1,11 +1,5 @@
-<p align="justify" style="{$font}; text-align: justify;">
-De manera general, usted siempre enviar&aacute; un correo con una orden y el sistema le devolver&aacute; la respuesta de su petici&oacute;n por la misma v&iacute;a, como
-si estuviese intercambiando correos con otra persona. Para su facilidad, existen dos comportamientos b&aacute;sicos del servicio:<br/><br/>
-1. Si usted env&iacute;a <a href="mailto:{$reply_to}">un correo en blanco</a> (sin asunto ni cuerpo), se le devolver&aacute; esta ayuda. <br/><br/>
-2. Si usted env&iacute;a un correo sin ninguna de las palabras claves al inicio del asunto, se tomar&aacute; el asunto como una frase de b&uacute;squeda y se le devolver&aacute;n los resultados.
-</p>
-<p align = "justify" style="{$font}">La tabla a continuaci&oacute;n muestra como interactuar con las diferentes opciones de Apretaste!com. 
-Env&iacute;e sus correos a <a href ="mailto:{$reply_to}">{$reply_to}</a>.</p>
+<p align = "justify" style="{$font}">La tabla a continuaci&oacute;n muestra como interactuar con las diferentes opciones de Apretaste!. 
+Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr&iacute;banos a <a href="mailto:soporte@apretaste.com">soporte@apretaste.com</a> y con gusto le explicaremos.</p>
 <table width="790" cellpadding="5" style="{$font}">
 	<tr>
 		<th width = "33%">Asunto del correo</th>

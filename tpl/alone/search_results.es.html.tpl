@@ -86,25 +86,24 @@ $search_results?
                                     </p>
                                     {= url_search: mailto:{$reply_to}?body=Haga clic en Enviar para obtener los resultados&subject={$query} =}
 
-                                    <p align="center" style="{$font}; width:300px;">
                                     [$dwords]
-                                            <a href="{$url_search} {$value}">{$value}</a>&nbsp;
-                                            {?( {$_order} % 7 == 0 )?} <br/> {/?}
+                                            <a href="{$url_search} {$value}">{$value}</a> 
+                                            !$_is_last {$splitter} $_is_last!
                                     [/$dwords]
-                                    </p>
+                                    
                             $dwords?
                     {/?}
                     <br/>
                     					
 					?$recommended_phrases
-                 <!--{ <td valign="top" style="background:#eeeeee;padding: 10px;"> }-->
+   
                         <h2 style="margin-top: 0px; margin-bottom: 0px;	font-size: 20px; color: green;{$font};">B&uacute;squedas recomendadas</h2>
                         <br/>
                         [$recommended_phrases]
                             <a style="{$font};" title = "Clic para buscar con esta frase" href="mailto:{$reply_to}?subject=BUSCAR {$value}&body=Haga clic en Enviar para buscar">{$value}</a>
                             !$_is_last {$splitter} $_is_last!
                         [/$recommended_phrases]
-                <!--{ </td> }-->
+   
                  $recommended_phrases?
                 
         <!--{

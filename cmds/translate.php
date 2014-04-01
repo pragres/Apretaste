@@ -93,7 +93,11 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	$text = html_entity_decode($text);
 	
+	if($text=='') $text = $body;
+	
 	$robot->log("Translating: $text");
+	
+	
 	
 	// No text
 	if ($text == '')

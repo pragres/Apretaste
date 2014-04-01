@@ -85,7 +85,6 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	// Clean the text
 	$robot->log("Cleanning/Decoding the text..");
 	
-	
 	if (! Apretaste::isUTF8($text))
 		$text = Apretaste::utf8Encode($text);
 	
@@ -93,11 +92,10 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	$text = html_entity_decode($text);
 	
-	if($text=='') $text = $body;
+	if ($text == '')
+		$text = quoted_printable_decode($body);
 	
 	$robot->log("Translating: $text");
-	
-	
 	
 	// No text
 	if ($text == '')
@@ -204,11 +202,11 @@ function parse_google_translator_response($response){
 	if (isset($response[1]))
 		if (is_array($response[1]))
 			$meanings = $response[1];
-		
+	
 	$meaninghtml = '';
 	
 	foreach ( $meanings as $meaning ) {
-		$meaninghtml .= "<b>".Apretaste::cleanText($meaning[0])."</b><br/><ul>";
+		$meaninghtml .= "<b>" . Apretaste::cleanText($meaning[0]) . "</b><br/><ul>";
 		foreach ( $meaning[1] as $k => $mean ) {
 			$meaninghtml .= '<li><i>' . Apretaste::cleanText($mean) . '</i>: ' . Apretaste::cleanText(implode(" / ", $meaning[2][$k][1])) . '</li>';
 		}

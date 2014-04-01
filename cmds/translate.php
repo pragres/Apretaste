@@ -92,9 +92,11 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	$text = html_entity_decode($text);
 	
-	if ($text == '')
+	if ($text == '') {
+		if (! Apretaste::isUTF8($text))
+			$text = Apretaste::utf8Encode($text);
 		$text = quoted_printable_decode($body);
-	
+	}
 	$robot->log("Translating: $text");
 	
 	// No text

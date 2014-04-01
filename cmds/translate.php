@@ -80,6 +80,8 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	$hl = $hls[$lfrom];
 	
+	$text = $body;
+	
 	// Clean the text
 	$robot->log("Cleanning/Decoding the text..");
 	
@@ -87,7 +89,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	if (! Apretaste::isUTF8($text))
 		$text = Apretaste::utf8Encode($text);
 	
-	$text = Apretaste::cleanText($body);
+	$text = Apretaste::cleanText($text);
 	
 	$text = html_entity_decode($text);
 	

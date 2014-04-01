@@ -85,7 +85,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	$text = Apretaste::cleanText($body);
 	$text = html_entity_decode($text);
 	if (! Apretaste::isUTF8($text))
-		$text = utf8_encode($text);
+		$text = Apretaste::utf8Encode($text);
 	
 	$robot->log("Translating: $text");
 	

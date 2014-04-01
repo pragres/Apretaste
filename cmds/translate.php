@@ -193,7 +193,7 @@ function parse_google_translator_response($response){
 	
 	if (isset($response[1]))
 		if (is_array($response[1]))
-			$meanings = $response[1];
+			$meanings = Apretaste::cleanText($response[1]);
 	
 	$meaninghtml = '';
 	

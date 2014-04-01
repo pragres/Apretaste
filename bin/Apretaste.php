@@ -2093,14 +2093,16 @@ class Apretaste {
 		$data = array(
 				'command' => 'invite',
 				'answer_type' => 'invite',
-				"from" => $from,
+				"from" => $guest,
 				"guest" => $guest,
+				"author" => $from,
 				"title" => "Bienvenido a Apretaste!com"
 		);
-		$data['images'] = self::getResImages(array(
+		
+		/*$data['images'] = self::getResImages(array(
 				"buscar.png",
 				"help.png"
-		));
+		));*/
 		
 		$config = array();
 		

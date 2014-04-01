@@ -1,5 +1,5 @@
 <p align="justify" style="text-align:justify;{$font}">
-Usted ha recibido este correo porque <b><a href="mailto:{$from}">{$from}</a></b> le ha invitado a descubrir 
+Usted ha recibido este correo porque <b><a href="mailto:{$author}">{$author}</a></b> le ha invitado a descubrir 
 Apretaste.
 </p>
 <p align="justify" style="text-align:justify;{$font}">

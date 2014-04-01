@@ -6,7 +6,7 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
         <th>Cuerpo del correo</th>
 		<th width = "40%">Breve explicaci&oacute;n de la opci&oacute;n</th>
 	</tr>
-	<tr><td colspan="3"><b>Compra/Venta</b></td></tr>
+	<tr><td colspan="3" align="center" style="font-size: 14px;"><b>Compra/Venta</b></td></tr>
 	<tr style="background:#eeeeee;">
 		<td valign="top">
                 <strong>PUBLICAR</strong> T&iacute;tulo del anuncio.<br/>
@@ -105,7 +105,7 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 		<td valign="top" style="text-align:justify;" align="justify">Devuelve un reporte con la lista de sus anuncios, las alertas por correo a las cuales Ud. est&aacute; subscrito,
 		entre otras informaciones, junto a algunas estad&iacute;sticas de sus anuncios.</td>
 	</tr>
-	<tr><td colspan="3"><b>Entretenimiento y juegos</b></td></tr>
+	<tr><td colspan="3"  align="center" style="font-size: 14px;"><b>Entretenimiento y juegos</b></td></tr>
 	<tr>
 		<td valign="top">
                 <strong>CHISTE</strong>
@@ -124,7 +124,7 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
                 </td>
 		<td valign="top" style="text-align:justify;" align="justify">Devuelve un SUDOKU para jugar. Puede responderlo en el mismo correo o imprimirlo si desea.</td>
 	</tr>
-	<tr><td colspan="3"><b>Otros servicios</b></td></tr>
+	<tr><td colspan="3" align="center" style="font-size: 14px;"><b>Otros servicios</b></td></tr>
 	<tr>
 		<td valign="top">
                 <strong>INVITAR</strong> direcci&oacute;n email de su amigo<br/>

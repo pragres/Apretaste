@@ -94,9 +94,9 @@ $search_results?
                             $dwords?
                     {/?}
                     <br/>
-                    					
+                    	
 					?$recommended_phrases
-   
+						<br/>
                         <h2 style="margin-top: 0px; margin-bottom: 0px;	font-size: 20px; color: green;{$font};">B&uacute;squedas recomendadas</h2>
                         <br/>
                         [$recommended_phrases]

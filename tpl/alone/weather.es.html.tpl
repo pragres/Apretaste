@@ -26,6 +26,8 @@
 					<strong>Visibilidad:</strong> {$weather_now.visibility} {$splitter}
 					<strong>Presi&oacute;n:</strong> {$weather_now.pressure} {$splitter}
 					<strong>Nubosidad:</strong> {$weather_now.cloudcover} {$splitter}<br/>
+					<hr/>
+					<b>Pron&oacute;stico:</b>
 					<table>
 			<tr>
 			[$weather_forecast]

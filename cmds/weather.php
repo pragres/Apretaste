@@ -364,7 +364,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 
 function cmd_weather_place($place){
 	$weather = new WeatherForecast('93fvz526zx8uu26b59cpy9xf');
-	$weather->setRequest($place, 'Cuba', 4);
+	$weather->setRequest($place, 'Cuba', 5);
 	$weather->setUSMetric(false);
 	return $weather->getLocalWeather();
 }

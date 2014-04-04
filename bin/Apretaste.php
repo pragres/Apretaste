@@ -2099,10 +2099,9 @@ class Apretaste {
 				"title" => "Bienvenido a Apretaste!com"
 		);
 		
-		/*$data['images'] = self::getResImages(array(
-				"buscar.png",
-				"help.png"
-		));*/
+		/*
+		 * $data['images'] = self::getResImages(array( "buscar.png", "help.png" ));
+		 */
 		
 		$config = array();
 		
@@ -2330,12 +2329,23 @@ class Apretaste {
 	 * @return boolean
 	 */
 	static function matchEmail($email, $pattern){
+		
+		$email = strtolower($email);
+		$pattern = strtolower($pattern);
+		
 		$pattern = str_replace("*", "", $pattern);
+		
+		$email = self::extractEmailAddress($email);
 		
 		if (strlen($email) < strlen($pattern))
 			return false;
 		
-		$email = substr($email, strlen($email) - strlen($pattern));
+		if (substr($email, 0, strlen($pattern)) == $pattern)
+			return true;
+		
+		if (substr($email, strlen($email) - strlen($pattern)) == $pattern)
+			return true;
+		
 		if ($email == $pattern)
 			return true;
 		
@@ -2579,7 +2589,7 @@ class Apretaste {
 		$text = str_replace(",", ", ", $text);
 		$text = self::replaceRecursive("  ", " ", $text);
 		$text = self::replaceRecursive(", ,", ", ", $text);
-	
+		
 		$words = explode(" ", $text);
 		
 		$text = "";

@@ -2,8 +2,6 @@
 
 // put here test code
 
-$text = Apretaste::cleanText(html_entity_decode("&aacute;", ENT_COMPAT, 'ISO-8859-1'));
+$r = Apretaste::matchEmail("POSTMASTER <postmaster@cneuro.edu.cu>", "*CU");
 
-var_dump(Apretaste::isUTF8($text));
-
-echo $text;
+var_dump($r);

@@ -333,7 +333,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				122	=> 'Nublado',	
 				119	=> 'Nublado',
 				116	=> 'Parcialmente nublado',	
-				113	=> 'Desoejado'
+				113	=> 'Despejado'
 			);
 			
 			/*foreach ($r->weather_forecast as $k=> $wf){

@@ -231,7 +231,7 @@ class WeatherForecast
         $request = self::$request[$type_of_request] . '?q=' . $city . $country . '&format=xml&num_of_days=' . $num_of_days . '&key=' . $key;
 
         // Lifetime of the cache file, in seconds (1 hour = 3600)
-        $cache_life = '3600';
+        $cache_life = '0';
 
         // Cache file
         $cache_file = '../cache/cached-' . (substr($key, 0, 8) . '-' . $city . $country) . '.xml';

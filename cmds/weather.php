@@ -333,7 +333,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				122	=> 'Nublado',	
 				119	=> 'Nublado',
 				116	=> 'Parcialmente nublado',	
-				113	=> 'Soleado'
+				113	=> 'Desoejado'
 			);
 			
 			/*foreach ($r->weather_forecast as $k=> $wf){
@@ -364,7 +364,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 
 function cmd_weather_place($place){
 	$weather = new WeatherForecast('93fvz526zx8uu26b59cpy9xf');
-	$weather->setRequest($place, 'Cuba', 5);
+	$weather->setRequest($place, 'Cuba', 3);
 	$weather->setUSMetric(false);
 	return $weather->getLocalWeather();
 }

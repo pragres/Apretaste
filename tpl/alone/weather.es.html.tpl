@@ -50,7 +50,7 @@
 						</tr>
 					</table>
 				</td>
-			[/$weather_forecast]
+			[/$weather_forecast]	
 			</tr>
 		</table>
 				</td>

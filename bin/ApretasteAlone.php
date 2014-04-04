@@ -432,7 +432,7 @@ class ApretasteAlone {
 		
 		echo "[INFO] Deleting old ads ...\n";
 		
-		$r = Apretaste::query("select count(*) as cant from announcement where current_date - post_date > interval '$d days' and (sponsored is null or sponsored = false) and (external");
+		$r = Apretaste::query("select count(*) as cant from announcement where current_date - post_date > interval '$d days' and (sponsored is null or sponsored = false);");
 		
 		$cant = $r[0]['cant'];
 		

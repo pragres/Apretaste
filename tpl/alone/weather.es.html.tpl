@@ -29,30 +29,29 @@
 					<hr/>
 					<b>Pron&oacute;stico:</b>
 					<table>
-			<tr>
-			[$weather_forecast]
-
-				<td valign="top">
-					<table>
-						<tr><td colspan="3"><b>{$i18n_days.{$weatherDay}}, {$weatherDate:3,3}</b></td></tr>
 						<tr>
-							<td valign="top" align="center">
-							<img src="{$weatherIcon}" width="40"/>
-							</td>
+						[$weather_forecast]
 							<td valign="top">
-								<span class="">{$i18n.{$weatherCode}}</span><br/>
-								<span class="">Viento: <b>{$windDirection}</b> a <b>{$windSpeed}</span><br/>
+								<table>
+									<tr><td colspan="3"><b>{$i18n_days.{$weatherDay}}, {$weatherDate:3,3}</b></td></tr>
+									<tr>
+										<td valign="top" align="center">
+										<img src="{$weatherIcon}" width="40"/>
+										</td>
+										<td valign="top">
+											<span class="">{$i18n.{$weatherCode}}</span><br/>
+											<span class="">Viento: <b>{$windDirection}</b> a <b>{$windSpeed}</span><br/>
+										</td>
+										<td valign="top">
+											<span style="color: red;">{$tempMax}</span><br/>
+											<span style="color: blue;">{$tempMin}</span>
+										</td>
+									</tr>
+								</table>
 							</td>
-							<td valign="top">
-								<span style="color: red;">{$tempMax}</span><br/>
-								<span style="color: blue;">{$tempMin}</span>
-							</td>
+						[/$weather_forecast]	
 						</tr>
 					</table>
-				</td>
-			[/$weather_forecast]	
-			</tr>
-		</table>
 				</td>
 			</tr>
 		</table>

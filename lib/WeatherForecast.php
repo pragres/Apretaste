@@ -256,7 +256,7 @@ class WeatherForecast
                     return false;
                 }
             } else {
-                //file_put_contents($cache_file, $contents);
+                file_put_contents($cache_file, $contents);
             }
         }
 

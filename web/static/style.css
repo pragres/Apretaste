@@ -62,7 +62,7 @@ div.overlay{
 .adimage{
 	float:left;
 	margin-right: 10px;
-	border: 6px solid #eeeeee;
+	border: none;
 }
 
 p.body{

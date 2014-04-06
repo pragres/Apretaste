@@ -17,11 +17,6 @@ function showHelp() {
 	
 	if ($("#help").html() == '') {
 		var help = client.ApretasteWeb.help();
-
-		// BEGIN Salvi. Rafa client.ApretasteWeb.help() is returning NULL. I created this line to work meanwhile, but we HAVE TO fix this!
-		help = "Cree un nuevo correo electronico para \"anuncios@apretaste.com\"<br/>Escriba en el asunto: \"BUSCAR televisor lcd\"<br/>Envie el correo. En menos de tres minutos recibira un email con los televisores a la venta en Cuba.";
-		help += '<br/><br/><a href="mailto:anuncios@apretaste.com?subject=BUSCAR televisor lcd&body=Este es un ejemplo de correo de busqueda. Envielo tal y como esta y recibira respuesta en 3 minutos">Probar Apretaste ahora</a>';
-		// END Salvi
 	
 		$("#help").html("<h2>Aprenda a utilizar Apretaste! con su correo electr&oacute;nico</h2><br/>" + help);
 	}
@@ -217,7 +212,7 @@ function viewDetails() {
 
 					var ad = lastresults.results[i];
 					var img = "<img class=\"adimage\" src=\"index.php?path=ad_image&id="
-							+ ad.id + "\&resized=60\" width=\"60\">";
+							+ ad.id + "\&resized=60\" width=\"60\" alt=\"\">";
 
 					if (ad.rank_title == 0 && !ra) {
 						if (i > 0)
@@ -468,8 +463,10 @@ function showPaginado() {
 	if (isset(lastresults)) if (lastresults != null){
 		var total = lastresults.total;
 		var html = '';
+		
 		if (total > 10) {
 			var pages = total / 10;
+			if (pages > 20) pages = 20;
 			if (pages > 1)
 				for ( var i = 1; i <= pages; i++) {
 					html += '<button class="link" onclick="searchmore('

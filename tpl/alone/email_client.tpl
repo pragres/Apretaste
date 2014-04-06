@@ -22,7 +22,7 @@
 		</td>
 		<td style="padding: 5px;" align="left">
 			<table cellspacing="0" cellpadding="2" style="font-family: Verdana; font-weight: bold;border: 1px solid gray; background: #cccccc; width: 190px; text-align: center; height: 35px;">
-			<tr><td>Adjuntar archivo</tr><td>
+			<tr><td>Adjuntar archivo</td></tr>
 			</table>
 		</td>
 	</tr>

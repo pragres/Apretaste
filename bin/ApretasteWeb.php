@@ -80,7 +80,9 @@ class ApretasteWeb {
 				"reply_to" => "anuncios@apretaste.com",
 				"apretaste" => "Apretaste!"
 		));
+		
 		$help = "$help";
+		
 		return $help;
 	}
 	function terms(){

@@ -19,7 +19,8 @@ function showHelp() {
 		var help = client.ApretasteWeb.help();
 
 		// BEGIN Salvi. Rafa client.ApretasteWeb.help() is returning NULL. I created this line to work meanwhile, but we HAVE TO fix this!
-		help = "Creee un nuevo correo electronico para anuncios@apretaste.com<br/>Escriba en el asunto: BUSCAR televisor lcd<br/>Envie el correo. En menos de tres minutos recibira un email con los televisores a la venta en Cuba.";
+		help = "Cree un nuevo correo electronico para \"anuncios@apretaste.com\"<br/>Escriba en el asunto: \"BUSCAR televisor lcd\"<br/>Envie el correo. En menos de tres minutos recibira un email con los televisores a la venta en Cuba.";
+		help += '<a href="mailto:anuncios@apretaste.com?subject=BUSCAR+televisor+lcd&amp;body=Este+es+un+ejemplo+de+correo+de+busqueda.+Envielo+tal+y+como+esta+y+recibira+respuesta+en+3+minutos" title="Probar Apretaste" target="_blank">Probar Apretaste ahora</a>';
 		// END Salvi
 	
 		$("#help").html("<h2>Aprenda a utilizar Apretaste! con su correo electr&oacute;nico</h2><br/>" + help);

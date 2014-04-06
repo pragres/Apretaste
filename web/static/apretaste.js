@@ -212,7 +212,7 @@ function viewDetails() {
 
 					var ad = lastresults.results[i];
 					var img = "<img class=\"adimage\" src=\"index.php?path=ad_image&id="
-							+ ad.id + "\&resized=60\" width=\"60\">";
+							+ ad.id + "\&resized=60\" width=\"60\" alt=\"\">";
 
 					if (ad.rank_title == 0 && !ra) {
 						if (i > 0)
@@ -463,8 +463,10 @@ function showPaginado() {
 	if (isset(lastresults)) if (lastresults != null){
 		var total = lastresults.total;
 		var html = '';
+		
 		if (total > 10) {
 			var pages = total / 10;
+			if (pages > 20) pages = 20;
 			if (pages > 1)
 				for ( var i = 1; i <= pages; i++) {
 					html += '<button class="link" onclick="searchmore('

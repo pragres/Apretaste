@@ -77,7 +77,8 @@ class ApretasteWeb {
 		$help = new div("../tpl/alone/help.es.html.tpl", array(
 				"font" => "font-family: Arial,Helvetica,sans-serif",
 				"from" => "you@somemail.com",
-				"reply_to" => "anuncios@apretaste.com"
+				"reply_to" => "anuncios@apretaste.com",
+				"apretaste" => "Apretaste!"
 		));
 		$help = "$help";
 		return $help;
@@ -86,7 +87,8 @@ class ApretasteWeb {
 		$help = new div("../tpl/alone/terms.es.html.tpl", array(
 				"font" => "font-family: Arial,Helvetica,sans-serif",
 				"from" => "you@somemail.com",
-				"reply_to" => "anuncios@apretaste.com"
+				"reply_to" => "anuncios@apretaste.com",
+				"apretaste" => "Apretaste!"
 		));
 		$help = "$help";
 		return $help;

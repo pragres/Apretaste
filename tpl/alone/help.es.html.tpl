@@ -46,11 +46,11 @@
 <table>
 	<tr>
 		<td valign="top">
-			<p style="{$font};" align="justify">Invite a sus amigos y familia a conocer Apretaste. </p>
+			<p style="{$font};">Invite a sus amigos y familia a conocer Apretaste. </p>
 			
-			<p style="{$font};" align="justify">Env&iacute;e un email a <a style="color:green;" href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a> y en el asunto escriba <span style="color:green;">INVITAR email@deSuAmigo.cu</span>. En menos de 3 minutos le mandaremos un email de confirmaci&oacute;n.</p>
+			<p style="{$font};">Env&iacute;e un email a <a style="color:green;" href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a> y en el asunto escriba <span style="color:green;">INVITAR email@deSuAmigo.cu</span>. En menos de 3 minutos le mandaremos un email de confirmaci&oacute;n.</p>
 			
-			<p style="{$font};" align="justify">Recuerde reemplazar <span style="color: green;">email@deSuAmigo.cu</span> por el correo electr&oacute;nico de la persona que quiera invitar.</p>
+			<p style="{$font};">Recuerde reemplazar <span style="color: green;">email@deSuAmigo.cu</span> por el correo electr&oacute;nico de la persona que quiera invitar.</p>
 			
 			<table align="center">
 				<tr>

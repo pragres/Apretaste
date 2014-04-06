@@ -8,7 +8,7 @@
 <table>
 	<tr>
 		<td valign="top">
-			<h3>&#168;Quiere probar Apretaste? Siga esto pasos para usar nuestro servicio de Compra/Venta</h3>
+			<h3 style="{$font}">&#191;Quiere probar Apretaste? Siga esto pasos para usar nuestro servicio de Compra/Venta</h3>
 			<p style="{$font}">1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a></p>
 			<p style="{$font}">2. En la secci&oacute;n "Asunto" escriba: <span style="color:green;">BUSCAR televisor LCD</span></p>
 			<p style="{$font}">3. Haga clic en "Enviar", no necesita llenar ning&uacute;n otro campo.</p>

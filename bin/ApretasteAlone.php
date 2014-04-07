@@ -697,7 +697,7 @@ class ApretasteAlone {
 			$email = $a['email'];
 			
 			if ((Apretaste::matchEmailPlus($email, $blacklist) == true && Apretaste::matchEmailPlus($email, $whitelist) == false)) {
-				$this->log("Ignore email address {$email}");
+				$robot->log("Ignore email address {$email}");
 				continue;
 			}
 			

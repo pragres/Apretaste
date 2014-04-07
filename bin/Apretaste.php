@@ -2329,7 +2329,6 @@ class Apretaste {
 	 * @return boolean
 	 */
 	static function matchEmail($email, $pattern){
-		
 		$email = strtolower($email);
 		$pattern = strtolower($pattern);
 		
@@ -3128,5 +3127,29 @@ class Apretaste {
 		$body = file_get_contents($url);
 		$results = json_decode($body);
 		return $results->responseData->results;
+	}
+	static function getUserStats($email){
+		$stats = array();
+		
+		$email = strtolower($email);
+		$email = self::extractEmailAddress($email);
+		
+		// Total messages
+		$r = self::query("SELECT count(*) as total from message where lower(extract_email(author))='$email';");
+		$stats['messages'] = $r[0]['total'];
+		
+		// Total messages by command
+		$r = self::query("SELECT command, count(*) as total from message where lower(extract_email(author))='$email' group by command order by total desc;");
+		$stats['messages_by_command'] = $r[0]['total'];
+
+		// Total answers
+		$r = self::query("SELECT count(*) as total from answer where lower(extract_email(receiver))='$email';");
+		$stats['answers'] = $r[0]['total'];
+		
+		// Total answers by type
+		$r = self::query("SELECT type, count(*) as total from answer where lower(extract_email(receiver))='$email' group by type order by total desc;");
+		$stats['answers_by_type'] = $r[0]['total'];
+		
+		return $stats;
 	}
 }

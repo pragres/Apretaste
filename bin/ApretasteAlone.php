@@ -662,6 +662,44 @@ class ApretasteAlone {
 				break;
 		}
 	}
+	static function sendStatus(){
+		Apretaste::connect();
+		
+		if (isset($_SERVER['argv'][1]))
+			$max = $_SERVER['argv'][1];
+		else
+			$max = 100;
+		
+		$r = Apretaste::query("select email 
+				from address_list 
+				where 
+				(send_status is null or CURRENT_DATE - send_status >=7)
+				and random() >= 0.5
+				limit $max");
+		
+		include "../cmds/state.php";
+		
+		$robot = new ApretasteEmailRobot($autostart = false, $verbose = true);
+		Apretaste::$robot = &$robot;
+		
+		$config = array();
+		
+		foreach ( Apretaste::$robot->config_answer as $configx ) {
+			$config = $configx;
+			break;
+		}
+		
+		foreach ( $r as $a ) {
+			$email = $a['email'];
+			$stats = Apretaste::getUserStats($email);
+			if ($stats['messages'] > 0) {
+				$robot->log("Send STATE to $email");
+				$data = cmd_state($robot, $email, '');
+				$ans = new ApretasteAnswerEmail($config, $email, $robot->smtp_servers, $data);
+			} else 
+				$robot->log("Discard $email");
+		}
+	}
 	static function test(){
 		include "../dev/test.php";
 	}

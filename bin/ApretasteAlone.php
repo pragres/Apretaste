@@ -167,13 +167,13 @@ class ApretasteAlone {
 					$sql = "update announcement set phones = '$phones' where id = '{$a['id']}';";
 					
 					Apretaste::query($sql);
-					
-					if (trim("{$a['extrenal_id']}") == '') {
-						Apretaste::saveAuthor($a['author'], array(
-								'phones' => $phones
-						));
-					}
-					// echo "[SQL] $sql \n";
+					if (isset($a['extrenal_id']))
+						if (trim("{$a['extrenal_id']}") == '') {
+							Apretaste::saveAuthor($a['author'], array(
+									'phones' => $phones
+							));
+						}
+						// echo "[SQL] $sql \n";
 					$fixed ++;
 					echo "[INFO] $fixed fixed of $cant / Fix {$a['id']} / $i of $cant / $phones\n";
 				}
@@ -511,7 +511,6 @@ class ApretasteAlone {
 		
 		echo $xml;
 	}
-	
 	static function nanotitles(){
 		Apretaste::connect();
 		$c = Apretaste::query("select count(*) as cant from announcement;");
@@ -598,7 +597,7 @@ class ApretasteAlone {
 						'answer_type' => 'linker',
 						'oferta' => $r['oferta'],
 						'search_results' => $r['results'],
-						"compactmode"=> true,
+						"compactmode" => true,
 						"showminimal" => true,
 						"ad_title" => $item['title'],
 						"title" => "Ayudando con su {$r['oferta']}: {$item['title']}"
@@ -646,10 +645,8 @@ class ApretasteAlone {
 				break;
 		}
 	}
-	
 	static function outbox(){
-		
-		Apretaste::connect();		
+		Apretaste::connect();
 		
 		if (isset($_SERVER['argv'][1]))
 			$max = $_SERVER['argv'][1];
@@ -665,7 +662,6 @@ class ApretasteAlone {
 				break;
 		}
 	}
-	
 	static function test(){
 		include "../dev/test.php";
 	}

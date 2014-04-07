@@ -662,6 +662,7 @@ class ApretasteAlone {
 				break;
 		}
 	}
+	
 	static function sendStatus(){
 		Apretaste::connect();
 		
@@ -689,14 +690,23 @@ class ApretasteAlone {
 			break;
 		}
 		
+		$blacklist = Apretaste::getEmailBlackList();
+		$whitelist = Apretaste::getEmailWhiteList();
+		
 		foreach ( $r as $a ) {
+			
+			if ((Apretaste::matchEmailPlus($a, $blacklist) == true && Apretaste::matchEmailPlus($a, $whitelist) == false)) {
+				$this->log("Ignore email address {$a}");
+				continue;
+			}
+			
 			$email = $a['email'];
 			$stats = Apretaste::getUserStats($email);
 			if ($stats['messages'] > 0) {
 				$robot->log("Send STATE to $email");
 				$data = cmd_state($robot, $email, '');
 				$ans = new ApretasteAnswerEmail($config, $email, $robot->smtp_servers, $data);
-			} else 
+			} else
 				$robot->log("Discard $email");
 		}
 	}

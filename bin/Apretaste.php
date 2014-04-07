@@ -3137,8 +3137,8 @@ class Apretaste {
 		$email = self::extractEmailAddress($email);
 		
 		// Total messages
-		$r = self::query("SELECT count(*) as total from message where lower(extract_email(author))='$email';");
-		$stats['messages'] = $r[0]['total'];
+		$r = self::query("SELECT count(*) as total from message where lower(extract_email(author))='$email' or author = '$email' or extract_email(author) = '$email';");
+		$stats['messages'] = $r[0]['total'] * 1;
 		
 		// Total messages by command
 		$r = self::query("SELECT command, count(*) as total from message where lower(extract_email(author))='$email' group by command order by total desc;");

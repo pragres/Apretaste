@@ -14,6 +14,7 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 	
 	return array(
 			"command" => "state",
+			"compactmode" => true,
 			"answer_type" => "state",
 			"title" => "Su estado en Apretaste!com",
 			"announcements" => $r,

@@ -2329,7 +2329,9 @@ class Apretaste {
 	 * @return boolean
 	 */
 	static function matchEmail($email, $pattern){
+		
 		$email = strtolower($email);
+		
 		$pattern = strtolower($pattern);
 		
 		$pattern = str_replace("*", "", $pattern);

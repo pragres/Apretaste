@@ -662,7 +662,6 @@ class ApretasteAlone {
 				break;
 		}
 	}
-	
 	static function sendStatus(){
 		Apretaste::connect();
 		
@@ -695,12 +694,13 @@ class ApretasteAlone {
 		
 		foreach ( $r as $a ) {
 			
-			if ((Apretaste::matchEmailPlus($a, $blacklist) == true && Apretaste::matchEmailPlus($a, $whitelist) == false)) {
-				$this->log("Ignore email address {$a}");
+			$email = $a['email'];
+			
+			if ((Apretaste::matchEmailPlus($email, $blacklist) == true && Apretaste::matchEmailPlus($email, $whitelist) == false)) {
+				$this->log("Ignore email address {$email}");
 				continue;
 			}
 			
-			$email = $a['email'];
 			$stats = Apretaste::getUserStats($email);
 			if ($stats['messages'] > 0) {
 				$robot->log("Send STATE to $email");

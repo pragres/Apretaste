@@ -24,11 +24,12 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 			"subscribe" => "ALERTA: Recibir alertas de anuncios por correo"
 	);
 	
-	foreach ( $stats['messages_by_command'] as $msg ) {
-		if (isset($services[$msg['command']]))
-			unset($services[$msg['command']]);
-	}
-		
+	if (is_array($stats['messages_by_command']))
+		foreach ( $stats['messages_by_command'] as $msg ) {
+			if (isset($services[$msg['command']]))
+				unset($services[$msg['command']]);
+		}
+	
 	return array(
 			"command" => "state",
 			"compactmode" => true,

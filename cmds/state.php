@@ -29,6 +29,8 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 				unset($services[$msg['command']]);
 		}
 	
+	Apretaste::query("UPDATE address_list SET send_status = CURRENT_DATE where email = '$from';");
+	
 	return array(
 			"command" => "state",
 			"compactmode" => true,

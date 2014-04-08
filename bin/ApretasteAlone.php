@@ -706,7 +706,7 @@ class ApretasteAlone {
 				$robot->log("Send STATE to $email");
 				$data = cmd_state($robot, $email, '');
 				$ans = new ApretasteAnswerEmail($config, $email, $robot->smtp_servers, $data);
-				Apretaste::query("UPDATE address_list SET send_status = CURRENT_DATE where email = '$email';");
+				
 			} else
 				$robot->log("Discard $email");
 		}

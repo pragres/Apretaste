@@ -663,23 +663,33 @@ class ApretasteAlone {
 		}
 	}
 	static function sendStatus(){
+		echo "[INFO] Connecting to DB\n";
+		
 		Apretaste::connect();
+		
+		echo "[INFO] Nourish the address list\n";
+		
+		Apretaste::nourishAddressList();
 		
 		if (isset($_SERVER['argv'][1]))
 			$max = $_SERVER['argv'][1];
 		else
 			$max = 100;
 		
+		echo "[INFO] Select $max email addresses\n";
+		
 		$r = Apretaste::query("select email 
-				from address_list 
-				where 
-				(send_status is null or CURRENT_DATE - send_status >=7)
-				and random() >= 0.5
-				limit $max");
+			from address_list 
+			where 
+			(send_status is null or CURRENT_DATE - send_status >= 5)
+			and substr(email,length(email)-2,3) = '.cu'
+			and random() >= random()
+			limit $max");
 		
 		include "../cmds/state.php";
 		
 		$robot = new ApretasteEmailRobot($autostart = false, $verbose = true);
+		
 		Apretaste::$robot = &$robot;
 		
 		$config = array();
@@ -692,9 +702,11 @@ class ApretasteAlone {
 		$blacklist = Apretaste::getEmailBlackList();
 		$whitelist = Apretaste::getEmailWhiteList();
 		
+		echo "[INFO] Process " . count($r) . " email addresses\n";
+		
 		foreach ( $r as $a ) {
 			
-			$email = $a['email'];
+			$email = strtolower($a['email']);
 			
 			if ((Apretaste::matchEmailPlus($email, $blacklist) == true && Apretaste::matchEmailPlus($email, $whitelist) == false)) {
 				$robot->log("Ignore email address {$email}");
@@ -704,7 +716,7 @@ class ApretasteAlone {
 			$r = Apretaste::query("SELECT count(*) as total 
 					from message 
 					where lower(extract_email(author)) = '$email' 
-						and current_date - moment::date < 180;"); // si nos escribio en los ultimos 6 meses
+						and current_date - moment::date <= 180;"); // si nos escribio en los ultimos 6 meses
 			
 			$stats = $r[0]['total'] * 1;
 			
@@ -712,8 +724,10 @@ class ApretasteAlone {
 				$robot->log("Send STATE to $email");
 				$data = cmd_state($robot, $email, '');
 				$ans = new ApretasteAnswerEmail($config, $email, $robot->smtp_servers, $data);
-			} else
+			} else {
+				Apretaste::query("UPDATE address_list SET send_status = CURRENT_DATE where email = '$email';");
 				$robot->log("Discard $email");
+			}
 		}
 	}
 	static function test(){

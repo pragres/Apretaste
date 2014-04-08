@@ -701,12 +701,17 @@ class ApretasteAlone {
 				continue;
 			}
 			
-			$stats = Apretaste::getUserStats($email);
-			if ($stats['messages'] > 0) {
+			$r = self::query("SELECT count(*) as total 
+					from message 
+					where lower(extract_email(author)) = '$email' 
+						and current_date - moment::date < 180;"); // si nos escribio en los ultimos 6 meses
+			
+			$stats = $r[0]['total'] * 1;
+			
+			if ($stats > 0) {
 				$robot->log("Send STATE to $email");
 				$data = cmd_state($robot, $email, '');
 				$ans = new ApretasteAnswerEmail($config, $email, $robot->smtp_servers, $data);
-				
 			} else
 				$robot->log("Discard $email");
 		}

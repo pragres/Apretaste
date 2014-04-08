@@ -701,7 +701,7 @@ class ApretasteAlone {
 				continue;
 			}
 			
-			$r = self::query("SELECT count(*) as total 
+			$r = Apretaste::query("SELECT count(*) as total 
 					from message 
 					where lower(extract_email(author)) = '$email' 
 						and current_date - moment::date < 180;"); // si nos escribio en los ultimos 6 meses

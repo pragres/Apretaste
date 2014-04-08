@@ -12,16 +12,15 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 	$stats = Apretaste::getUserStats($from);
 	
 	$services = array(
-			"help" => "AYUDA: Ayuda de Apretaste!",
-			"search" => "BUSCAR: Busar anuncios",
-			"insert" => "PUBLICAR: Publicar un anuncio",
-			"joke" => "CHISTE: Leer un chiste",
-			"sudoku" => "SUDOKU: Resolver un Sudoku",
-			"article" => "ARTICULO: Consultar la Wikipedia",
-			// "weather" => "CLIMA: Ver el estado del tiempo",
-			// "translate" => "TRADUCIR: Traducir textos",
-			"invite" => "INVITAR: Invitar a un amigo",
-			"subscribe" => "ALERTA: Recibir alertas de anuncios por correo"
+			"search" => "<b>BUSCAR</b>: Busar anuncios",
+			"insert" => "<b>PUBLICAR</b>: Publicar un anuncio",
+			"joke" => "<b>CHISTE</b>: Leer un chiste",
+			"sudoku" => "<b>SUDOKU</b>: Resolver un Sudoku",
+			"article" => "<b>ARTICULO</b>: Consultar la Wikipedia",
+			// "weather" => "<b>CLIMA</b>: Ver el estado del tiempo",
+			// "translate" => "<b>TRADUCIR</b>: Traducir textos",
+			"invite" => "<b>INVITAR</b>: Invitar a un amigo",
+			"subscribe" => "<b>ALERTA</b>: Recibir alertas de anuncios por correo"
 	);
 	
 	if (is_array($stats['messages_by_command']))

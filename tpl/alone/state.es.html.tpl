@@ -65,3 +65,12 @@ $announcements?
 @else@
 	<p style="{$font}">Usted no est&aacute; subscrito a ninguna alerta.</p>
 $subscribes?
+?$services
+<h2 style="{$font}">Servicios que no ha utilizado</h2>
+<ul>
+[$services]
+	<li>{$value}</li>
+[/$services]
+</ul>
+<p style="{$font}">Para saber como utilizar estos servicios consulte <a href="mailto:{$reply_to}?subject=AYUDA">la Ayuda</a>.</p>
+$services?

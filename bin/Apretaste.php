@@ -3142,7 +3142,7 @@ class Apretaste {
 		
 		// Total messages by command
 		$r = self::query("SELECT command, count(*) as total from message where lower(extract_email(author))='$email' group by command order by total desc;");
-		$stats['messages_by_command'] = $r[0]['total'];
+		$stats['messages_by_command'] = $r;
 
 		// Total answers
 		$r = self::query("SELECT count(*) as total from answer where lower(extract_email(receiver))='$email';");
@@ -3150,7 +3150,7 @@ class Apretaste {
 		
 		// Total answers by type
 		$r = self::query("SELECT type, count(*) as total from answer where lower(extract_email(receiver))='$email' group by type order by total desc;");
-		$stats['answers_by_type'] = $r[0]['total'];
+		$stats['answers_by_type'] = $r;
 		
 		return $stats;
 	}

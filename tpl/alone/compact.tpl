@@ -7,6 +7,8 @@ $content?
 
 <font size="2" style="{$font}">
 	!$hide_market_links
+	<a href="mailto:{$reply_to}?subject=AYUDA" title="Consultar la ayuda">Aprenda a usar todos los servicios de Apretaste!</a>
+	{$splitter}
 	<a href="mailto:{$reply_to}?subject=BUSCAR &body={$body_search}" title="Realiza una nueva b&uacute;squeda">Iniciar nueva b&uacute;squeda</a>
 	{$splitter}
 	<a href="mailto:{$reply_to}?subject=PUBLICAR Titulo del anuncio&body={$body_insert}">Publicar un anuncio</a>

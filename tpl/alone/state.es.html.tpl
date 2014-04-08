@@ -22,7 +22,7 @@ el tiempo, por lo que puede <a href = "mailto:{$reply_to}?subject=ESTADO&Haga cl
 			<td>?$expire {$expire:8,2}/{$expire:5,2}/{$expire:4} $expire?</td>
 			<td align="center">?$visits {$visits} @else@ 0 $visits?</td>
 			<td align="center" width = "60">
-                            <a href="mailto:{$reply_to}?subject=CAMBIAR {$ticket} {txt}{$title}{/txt}&body={txt}{$body}{/txt}">Cambiar</a>
+            <a href="mailto:{$reply_to}?subject=CAMBIAR {$ticket} {txt}{$title}{/txt}&body={txt}{$body}{/txt}">Cambiar</a>
 			</td>
 			<td align="center" width = "60">
 				<a href="mailto:{$reply_to}?subject=QUITAR {$ticket}&body=Haga clic en Enviar para quitar el anuncio seleccionado">Quitar</a>

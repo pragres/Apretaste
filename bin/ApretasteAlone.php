@@ -702,9 +702,14 @@ class ApretasteAlone {
 		$blacklist = Apretaste::getEmailBlackList();
 		$whitelist = Apretaste::getEmailWhiteList();
 		
-		echo "[INFO] Process " . count($r) . " email addresses\n";
+		$total = count($r);
 		
+		echo "[INFO] Process " . $total . " email addresses\n";
+		
+		$i = 0;
 		foreach ( $r as $a ) {
+			
+			$i++;
 			
 			$email = strtolower($a['email']);
 			
@@ -718,7 +723,7 @@ class ApretasteAlone {
 			$r = Apretaste::query("SELECT count(*) as total 
 					from message 
 					where lower(extract_email(author)) = '$email' 
-						and current_date - moment::date <= 180;"); // si nos escribio en los ultimos 6 meses
+						and current_date - moment::date <= 90;"); // si nos escribio en los ultimos 3 meses
 			
 			$stats = $r[0]['total'] * 1;
 			

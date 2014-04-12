@@ -2870,7 +2870,7 @@ class Apretaste {
 		}
 		
 		if ($from != '' && $to != '') {
-			$subject = addslashes($subject);
+			$subject = str_replace("'", "''", $subject);
 			$sql = "INSERT INTO answer (sender, receiver, subject, type, message) VALUES ('$from','$to','$subject','$type', '$msg_id');";
 			self::query($sql);
 		}

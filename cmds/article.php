@@ -432,7 +432,7 @@ function cmd_article($robot, $from, $argument, $body = '', $images = array()){
 				
 				foreach ( $s as $si ) {
 					$si = utf8_decode($si);
-					$r['body'] .= ' - <a href="mailto:' . $from . '?subject=ARTICULO ' . $si . '">' . $si . '</a><br/>';
+					$r['body'] .= ' - <a href="mailto:{$reply_to}?subject=ARTICULO ' . $si . '">' . $si . '</a><br/>';
 				}
 			}
 			

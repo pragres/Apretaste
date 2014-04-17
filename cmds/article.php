@@ -360,7 +360,7 @@ function cmd_article_result($robot, $from, $r){
 			foreach ( $images as $img ) {
 				if (stripos($part, $img['id']) !== false) {
 					$imgsize = strlen($img['content']);
-					if ($size + $imgsize <= $limitpart) {
+					if ($size + $imgsize <= $limit_part) {
 						$size += $imgsize;
 						$ximages[] = $img;
 					}

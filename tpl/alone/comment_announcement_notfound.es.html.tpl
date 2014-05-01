@@ -1,1 +1,0 @@
-<p>Anuncio {$title} no encontrado. No se puede comentar.</p>

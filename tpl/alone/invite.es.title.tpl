@@ -1,1 +1,0 @@
-{strip}{% styles %}{$author} lo ha invitado a usar {$apretaste}.{/strip}

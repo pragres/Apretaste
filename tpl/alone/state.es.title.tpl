@@ -1,1 +1,0 @@
-{strip}{txt}{% styles %}Su estado en {$apretaste}{/txt}{/strip}

@@ -1,1 +1,0 @@
-<p align="justify" style="{$font}">Su anuncio <b>'{$title}'</b> se ha quitado satisfactoriamente.</p>

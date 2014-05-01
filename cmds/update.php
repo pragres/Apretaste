@@ -12,12 +12,21 @@
  * @return array
  */
 function cmd_update($robot, $from, $argument, $body = '', $images = array()){
+	
+	$title = $argument;
+	
 	$fail_response = array(
 			"command" => "insert",
 			"answer_type" => "insert_fail",
 			"compactmode" => true,
 			'title' => $title
 	);
+	
+	$p = strpos($title, " ");
+	if ($p === false)
+		return $fail_response;
+	$ticket = substr($title, 0, $p);
+	$title = substr($title, $p + 1);
 	
 	if (strlen(trim($title)) < 7) {
 		if (strlen(trim($body)) > 7) {
@@ -31,13 +40,7 @@ function cmd_update($robot, $from, $argument, $body = '', $images = array()){
 	}
 	
 	$title = trim($title);
-	
-	$p = strpos($title, " ");
-	if ($p === false)
-		return $fail_response;
-	$ticket = substr($title, 0, $p);
-	$title = substr($title, $p + 1);
-	
+		
 	$robot->log("Updating: $title from $from as $body");
 	
 	$text = $title . ' ' . $body;

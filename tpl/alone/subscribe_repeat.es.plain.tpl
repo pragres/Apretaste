@@ -1,1 +1,0 @@
-{txt} 100 => {% subscribe_repeat.es.html %} {/txt}

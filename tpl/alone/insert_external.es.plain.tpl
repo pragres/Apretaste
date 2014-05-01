@@ -1,1 +1,0 @@
-{txt} 100 => {% insert_external.es.html %} {/txt}

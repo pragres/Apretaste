@@ -1,1 +1,0 @@
-{strip}{% styles %}Anuncio {$title} no encontrado. No se puedo comentar.{/strip}

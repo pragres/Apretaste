@@ -1,1 +1,0 @@
-{% apretaste/alone/view/design/error.es.html %}

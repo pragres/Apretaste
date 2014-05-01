@@ -1,1 +1,0 @@
-{strip}{% styles %}?$alerta Alertas por correo @else@ Resultado de buscar: {$query} $alerta?{/strip}

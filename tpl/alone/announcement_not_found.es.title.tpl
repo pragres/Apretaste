@@ -1,1 +1,0 @@
-{strip}{% styles %}El anuncio con identificador '{$id}' no fue encontrado{/strip}

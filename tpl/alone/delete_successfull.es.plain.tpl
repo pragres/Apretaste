@@ -1,1 +1,0 @@
-{txt} 100 => {% delete_successfull.es.html %} {/txt}

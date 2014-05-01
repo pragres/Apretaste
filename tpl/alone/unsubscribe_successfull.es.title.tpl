@@ -1,1 +1,0 @@
-{strip}{% styles %}Alerta cancelada satisfactoriamente{/strip}

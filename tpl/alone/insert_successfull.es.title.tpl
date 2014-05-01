@@ -1,1 +1,0 @@
-{strip}{% styles %}Su anuncio '{$title:40}...' ha sido publicado satisfactoriamente{/strip}

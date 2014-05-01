@@ -1,1 +1,0 @@
-{txt} 100 => {% insert_successfull.es.html %} {/txt}

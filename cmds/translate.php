@@ -298,7 +298,7 @@ function parse_google_translator_response($response){
 					), "", trim($tip));
 					
 					if (strlen($tip) > 1)
-						$variants .= "<li><a href=\"mailto:{\$reply_yo}?subject=TRADUCIR&body=$tip\">" . $tip . "</a></li>";
+						$variants .= "<li><a href=\"mailto:{\$reply_to}?subject=TRADUCIR&body=$tip\">" . $tip . "</a></li>";
 				}
 				$variants .= '</ol></td>';
 				

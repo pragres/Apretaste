@@ -1,1 +1,0 @@
-{strip}{% styles %}Art&iacute;culo -{$query}- no encontrado{/strip}

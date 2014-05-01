@@ -1,1 +1,0 @@
-No se reconoce el ticket enviado por Ud.

@@ -1,1 +1,0 @@
-<p style="{$font}">El anuncio '{$announce.title}' ha sido denunciado satisfactoriamente.</p>

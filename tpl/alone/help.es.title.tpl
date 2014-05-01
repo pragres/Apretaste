@@ -1,1 +1,0 @@
-{strip}{% styles %}Ayuda de {$apretaste}{/strip}

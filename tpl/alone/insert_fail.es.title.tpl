@@ -1,1 +1,0 @@
-{strip}{% styles %}El anuncio no se ha publicado debido a errores.{/strip}

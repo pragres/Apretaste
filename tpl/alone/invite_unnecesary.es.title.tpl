@@ -1,1 +1,0 @@
-{strip}{% styles %}Su contacto {$guest} ya utiliza {$apretaste}{/strip}

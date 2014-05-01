@@ -1,1 +1,0 @@
-{txt} 100 => {% delete_announcement_notfound.es.html %} {/txt}

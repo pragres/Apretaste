@@ -1,1 +1,0 @@
-{strip}{% styles %}Su anuncio "{$title}" fue publicado en {$apretaste}{/strip}

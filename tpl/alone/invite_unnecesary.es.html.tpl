@@ -1,1 +1,0 @@
-<p>Su contacto {$guest} ya utiliza {$apretaste} y no es necesario invitarlo.</p>

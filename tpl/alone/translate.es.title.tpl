@@ -1,1 +1,0 @@
-{strip}{% styles %}{$title}{/strip}

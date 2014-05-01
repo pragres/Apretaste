@@ -17,7 +17,7 @@ include_once "../lib/WeatherForecast.php";
  * @return array
  */
 function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
-	$agument = trim(strtolower($argument));
+	$argument = trim(strtolower($argument));
 	
 	switch ($argument) {
 		case 'satelite' :

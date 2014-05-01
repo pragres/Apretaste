@@ -1,1 +1,0 @@
-<p>La alerta <strong>'{$sub.phrase}'</strong> fue cancelada satisfactoriamente.</p>

@@ -1,1 +1,0 @@
-{strip}{% styles %}Usted se ha invitado a usted mismo?{/strip}

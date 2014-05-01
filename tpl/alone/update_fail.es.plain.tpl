@@ -1,1 +1,0 @@
-{txt} 100 => {% update_fail.es.html %} {/txt}

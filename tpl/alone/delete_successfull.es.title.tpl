@@ -1,1 +1,0 @@
-{strip}{% styles %}Se ha quitado su anuncio '{$title:40}...' satisfactoriamente{/strip}

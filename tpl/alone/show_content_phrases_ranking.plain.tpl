@@ -1,1 +1,0 @@
-{txt} 100 => {% show_content_phrases_ranking.html %} {/txt}

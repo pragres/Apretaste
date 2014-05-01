@@ -1,1 +1,0 @@
-{strip}{% styles %}Alerta no encontrada{/strip}

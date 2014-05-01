@@ -12,29 +12,29 @@
 {= separatorLinks: <span class="separador-links" style="color: #A03E3B;">&nbsp;|&nbsp;</span> =}
 
 {= commands: {
-		sudoku: {cmd: "SUDOKU", desc: "Resolver un Sudoku", rel:["joke"]},
-		help: {cmd: "AYUDA", desc: "Ayuda", rel:[]},
-		state: {cmd: "ESTADO", desc: "Mi estado", rel:[]},
-		invite: {cmd: "INVITAR", desc: "Invitar a un amigo", rel: ["search"]},
+		sudoku: {cmd: "SUDOKU", desc: "Resolver un Sudoku", rel:["joke", "invite"]},
+		help: {cmd: "AYUDA", desc: "Ayuda", rel:["invite"]},
+		state: {cmd: "ESTADO", desc: "Mi estado", rel:["invite"]},
+		invite: {cmd: "INVITAR", desc: "Invitar a un amigo", rel: ["search", "invite"]},
 		search: {cmd: "BUSCAR", desc: "Buscar anuncios", rel: ["searchfull","invite"]},
 		searchfull: {cmd: "BUSCARTODO", desc: "Buscar m&aacute;s anuncios", rel: ["search","invite"]},
 		joke: {cmd: "CHISTE", desc: "Leer un chiste", rel:["sudoku","invite"]},
-		article: {cmd: "ARTICULO", desc: "Buscar en la enciclopedia", rel: []},
-		weather: {cmd: "CLIMA", desc: "El tiempo en Cuba", rel: []},
-		insert: {cmd: "PUBLICAR", desc: "Publicar un anuncio", rel: ["state", "update","search","searchfull", "exclusion"]},
-		update: {cmd: "CAMBIAR", desc: "Cambiar su anuncio", rel: ["insert","search","searchfull"]},
-		translate: {cmd: "TRADUCIR", desc: "Traducir textos", rel: ["article"]},
-		exclusion: {cmd: "EXLUYEME", desc: "Exluirme de los servicios de Apretaste!", rel: []},
-		delete: {cmd: "QUITAR", desc: "Quitar un anuncio", rel: []},
-		get: {cmd: "ANUNCIO", desc: "Obtener un anuncio", rel: []},
-		subscribe: {cmd: "ALERTA", desc: "Alertas de anuncios por correo", rel: ["unsubscribe", "search"]},
-		unsubscribe: {cmd: "DETENER", desc: "Detener alerta por correo", rel: ["subscribe"]},
-		spam: {cmd: "DENUNCIAR", desc: "Denunciar un anuncio", rel: []},
-		invite: {cmd: "INVITAR", desc: "Invitar a un amigo a Apretaste!", rel: []},
-		addresses: {cmd: "BUZONES", desc: "Buzones de Apretaste!", rel: []},
-		terms: {cmd: "TERMINOS", desc: "T&eacute;rminos de uso", rel: []}	,
-		google: {cmd: "GOOGLE", desc: "Buscar con Google", rel: []}	,
-		services: {cmd: "SERVICIOS", desc: "Servicios de Apretaste!", rel: []}	,
+		article: {cmd: "ARTICULO", desc: "Buscar en la enciclopedia", rel: ["invite"]},
+		weather: {cmd: "CLIMA", desc: "El tiempo en Cuba", rel: ["invite"]},
+		insert: {cmd: "PUBLICAR", desc: "Publicar un anuncio", rel: ["state", "update","search","searchfull", "exclusion", "invite"]},
+		update: {cmd: "CAMBIAR", desc: "Cambiar su anuncio", rel: ["insert","search","searchfull", "invite"]},
+		translate: {cmd: "TRADUCIR", desc: "Traducir textos", rel: ["article", "invite"]},
+		exclusion: {cmd: "EXLUYEME", desc: "Exluirme de los servicios de Apretaste!", rel: ["invite"]},
+		delete: {cmd: "QUITAR", desc: "Quitar un anuncio", rel: ["invite"]},
+		get: {cmd: "ANUNCIO", desc: "Obtener un anuncio", rel: ["invite"]},
+		subscribe: {cmd: "ALERTA", desc: "Alertas de anuncios por correo", rel: ["unsubscribe", "search", "invite"]},
+		unsubscribe: {cmd: "DETENER", desc: "Detener alerta por correo", rel: ["subscribe", "invite"]},
+		spam: {cmd: "DENUNCIAR", desc: "Denunciar un anuncio", rel: ["invite"]},
+		invite: {cmd: "INVITAR", desc: "Invitar a un amigo a Apretaste!", rel: ["invite"]},
+		addresses: {cmd: "BUZONES", desc: "Buzones de Apretaste!", rel: ["invite"]},
+		terms: {cmd: "TERMINOS", desc: "T&eacute;rminos de uso", rel: ["invite"]}	,
+		google: {cmd: "GOOGLE", desc: "Buscar con Google", rel: ["invite"]}	,
+		services: {cmd: "SERVICIOS", desc: "Servicios de Apretaste!", rel: ["invite"]}	,
 	}
 =}
 
@@ -146,9 +146,6 @@
 						!$_is_last {$separatorLinks} $_is_last!
 						[/$commands.{$command}.rel]
 						<!--{ END related }--> 
-						<nobr>
-							<a href="mailto:{$reply_to}?subject=INVITAR escriba aqui la direcion de correo de su amigo">Invitar a un amigo</a>
-						</nobr>
 					</td>
 				</tr>
 	

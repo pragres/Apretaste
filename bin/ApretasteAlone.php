@@ -681,7 +681,7 @@ class ApretasteAlone {
 		$r = Apretaste::query("select email 
 			from address_list 
 			where 
-			(send_status is null or CURRENT_DATE - send_status >= 30)
+			(send_status is null or CURRENT_DATE - send_status >= 20)
 			and substr(email,length(email)-2,3) = '.cu'
 			and random() >= random()
 			limit $max");

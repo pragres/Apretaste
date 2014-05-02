@@ -90,10 +90,12 @@ class ApretasteEmailRobot {
 				
 				$s = '';
 				
-				if (isset($headers->Subject))
-					$s = $headers->Subject;
-				elseif (isset($headers->subject))
+				if (isset($headers->subject))
 					$s = $headers->subject;
+				elseif (isset($headers->Subject))
+					$s = $headers->Subject;
+				
+				$s = substr(iconv_mime_decode("From: " . $s, null, 'UTF-8'), 6);
 				
 				$ans['msg'] = array(
 						'date' => $d,

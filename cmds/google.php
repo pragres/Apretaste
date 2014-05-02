@@ -12,7 +12,7 @@
  * @return multitype:string boolean unknown |multitype:string boolean
  */
 function cmd_google($robot, $from, $argument, $body = '', $images = array()){
-	$robot->log("Search with Google");
+	$robot->log("Searching -$argument- with Google");
 	
 	$results = Apretaste::google($argument);
 	
@@ -22,7 +22,7 @@ function cmd_google($robot, $from, $argument, $body = '', $images = array()){
 		
 		$robot->log("Getting the first result from {$results[0]->url}");
 		
-		$remedio = file_get_contents($results[0]->url);
+		$remedio = file_get_contents(urldecode($results[0]->url));
 		
 		$robot->log("Fixing encoding...");
 		
@@ -36,7 +36,7 @@ function cmd_google($robot, $from, $argument, $body = '', $images = array()){
 		
 		$script = $doc->getElementsByTagName('script');
 		
-		$remove = [];
+		$remove = array();
 		foreach ( $script as $item ) {
 			$remove[] = $item;
 		}
@@ -47,7 +47,7 @@ function cmd_google($robot, $from, $argument, $body = '', $images = array()){
 		
 		$script = $doc->getElementsByTagName('style');
 		
-		$remove = [];
+		$remove = array();
 		foreach ( $script as $item ) {
 			$remove[] = $item;
 		}

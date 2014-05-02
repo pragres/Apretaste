@@ -1,9 +1,9 @@
 <?php
 /**
  * Apretaste!
- * 
+ *
  * Google command
- * 
+ *
  * @param unknown $robot
  * @param unknown $from
  * @param unknown $argument
@@ -12,7 +12,6 @@
  * @return multitype:string boolean unknown |multitype:string boolean
  */
 function cmd_google($robot, $from, $argument, $body = '', $images = array()){
-	
 	$robot->log("Search with Google");
 	
 	$results = Apretaste::google($argument);
@@ -25,7 +24,7 @@ function cmd_google($robot, $from, $argument, $body = '', $images = array()){
 		
 		$remedio = file_get_contents($results[0]->url);
 		
-		$robot->log("Fix encoding...");
+		$robot->log("Fixing encoding...");
 		
 		$remedio = ApretasteEncoding::fixUTF8($remedio);
 		
@@ -35,13 +34,35 @@ function cmd_google($robot, $from, $argument, $body = '', $images = array()){
 		
 		@$doc->loadHTML($remedio);
 		
+		$script = $doc->getElementsByTagName('script');
+		
+		$remove = [];
+		foreach ( $script as $item ) {
+			$remove[] = $item;
+		}
+		
+		foreach ( $remove as $item ) {
+			$item->parentNode->removeChild($item);
+		}
+		
+		$script = $doc->getElementsByTagName('style');
+		
+		$remove = [];
+		foreach ( $script as $item ) {
+			$remove[] = $item;
+		}
+		
+		foreach ( $remove as $item ) {
+			$item->parentNode->removeChild($item);
+		}
+		
 		$remedio = $doc->saveHTML();
 		
 		$robot->log("Cleanning the content");
 		
 		$titulo = strip_tags($results[0]->title);
 		
-		$remedio = strip_tags($remedio, '<b><strong><tr><table><td><li><ul><ol><p><a><div><br><hr><style><script>');
+		$remedio = strip_tags($remedio, '<b><strong><tr><table><td><li><ul><ol><p><a><div><br><hr>');
 		
 		$remedio = Apretaste::repairUTF8($remedio);
 		

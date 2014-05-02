@@ -95,11 +95,13 @@ class ApretasteEmailRobot {
 				elseif (isset($headers->Subject))
 					$s = $headers->Subject;
 				
-				$s = substr(iconv_mime_decode("From: " . $s, null, 'UTF-8'), 6);
+				$s = htmlentities(quoted_printable_decode($s));
+				
+				echo "[INFO] Message subject = $s date = $d \n";
 				
 				$ans['msg'] = array(
 						'date' => $d,
-						'subject' => htmlentities(quoted_printable_decode($s))
+						'subject' => $s
 				);
 				
 				$answerMail = new ApretasteAnswerEmail($config = $clase->config_answer[$account], $to = $rawCommand['headers']->fromaddress, $servers = $clase->smtp_servers, $data = $ans, $send = true, $verbose = $clase->verbose, $debug = $clase->debug, $msg_id);

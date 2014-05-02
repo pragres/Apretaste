@@ -97,7 +97,7 @@ class ApretasteEmailRobot {
 				
 				$ans['msg'] = array(
 						'date' => $d,
-						'subject' => $s
+						'subject' => htmlentities(quoted_printable_decode($s))
 				);
 				
 				$answerMail = new ApretasteAnswerEmail($config = $clase->config_answer[$account], $to = $rawCommand['headers']->fromaddress, $servers = $clase->smtp_servers, $data = $ans, $send = true, $verbose = $clase->verbose, $debug = $clase->debug, $msg_id);

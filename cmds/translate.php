@@ -14,6 +14,7 @@
  * @return array
  */
 function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
+	
 	$langs = array(
 			"auto" => "auto",
 			"es" => "espanol",
@@ -85,17 +86,21 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	// Clean the text
 	$robot->log("Cleanning/Decoding the text..");
 	
-	if (! Apretaste::isUTF8($text))
+	if (! Apretaste::isUTF8($text)){
+		$robot->log("Text is not UTF8, encoding to UTF8...");
 		$text = Apretaste::utf8Encode($text);
+	}
+	
+	$text = quoted_printable_decode($body);
 	
 	$text = Apretaste::cleanText($text);
 	
 	$text = html_entity_decode($text);
 	
 	if ($text == '') {
-		
-		if (! Apretaste::isUTF8($text))
-			$text = Apretaste::utf8Encode($text);
+		$robot->log("Text is empty after clear, try another strategy...");
+		if (! Apretaste::isUTF8($body))
+			$text = Apretaste::utf8Encode($body);
 		
 		$text = quoted_printable_decode($body);
 		

@@ -26,7 +26,7 @@ class ApretasteEmailCollector {
 		$nt = "";
 		$arr = explode(" ", $text);
 		foreach ( $arr as $item )
-			$nt .= iconv_mime_decode($item, ICONV_MIME_DECODE_CONTINUE_ON_ERROR) . " ";
+			$nt .= iconv_mime_decode($item, ICONV_MIME_DECODE_CONTINUE_ON_ERROR, 'UTF-8') . " ";
 		return trim($nt);
 	}
 	function _getInbox($server, $callback, $address){
@@ -79,10 +79,10 @@ class ApretasteEmailCollector {
 				
 				$headers = imap_headerinfo($this->imap, $message_number_iterator);
 				
-				//var_dump($headers);
+				// var_dump($headers);
 				
 				if (isset($headers->Deleted))
-					if ($headers->Deleted == 'D'){
+					if ($headers->Deleted == 'D') {
 						$this->log("Ignore message #$message_number_iterator marked for deletion: {$headers->subject}");
 						continue;
 					}
@@ -162,7 +162,24 @@ class ApretasteEmailCollector {
 					continue;
 				}
 				
+				if (! Apretaste::isUTF8($textBody)) {
+					echo "textBody = $textBody = ".htmlentities($textBody)."\n";
+					echo $this->verbose ? "textBody is not utf8, converting now \n" : "";
+					$textBody = iconv('ISO-8859-1', 'UTF-8', $textBody);
+					//$textBody = ApretasteEncoding::toUTF8($textBody);
+					echo "textBody = $textBody = ".htmlentities($textBody, ENT_QUOTES | ENT_IGNORE, "UTF-8")."\n";
+					
+				}
+				
+				if (! Apretaste::isUTF8($htmlBody)){
+					echo $this->verbose ? "htmlBody is not utf8 \n" : "";
+					$textBody = ApretasteEncoding::toUTF8($htmlBody);
+				}
+				
+				echo $this->verbose ? "[INFO] mime decoding... \n" : "";
 				$textBody = $this->mimeDecode($textBody);
+				$htmlBody = $this->mimeDecode($htmlBody);
+				echo "textBody = $textBody\n";
 				
 				if ($headers->subject == '')
 					$headers->subject = 'AYUDA';

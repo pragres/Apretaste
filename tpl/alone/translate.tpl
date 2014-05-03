@@ -6,7 +6,7 @@
 
 <h2 style="{$font}">Traducci&oacute;n:</h2>
 
-<p  style="{$font}; padding: 5px; border: 1px solid gray;">
+<p  style="{$font};">
 <b>Texto traducido ({$blto}):</b><br/>
 {br:textto}
 </p>
@@ -16,20 +16,20 @@
 {br:textfrom}
 </p>
 
-<hr/>
 ?$meanings
+<hr/>
 <h2 style="{$font}">Significados</h2>
 {$meanings}
 $meanings?
-<h2 style="{$font}">Texto interactivo</h2>
-<p style="{$font}">
-<b>Texto original ({$blfrom}):</b><br/>
-{$richtextfrom}
-</p>
 <hr/>
+<h2 style="{$font}">Interactivo</h2>
 <p style="{$font}">
 <b>Texto traducido ({$blto}):</b><br/>
 {$richtextto}
+</p>
+<p style="{$font}">
+<b>Texto original ({$blfrom}):</b><br/>
+{$richtextfrom}
 </p>
 <h2 style="{$font}">Variantes de traducci&oacute;n</h2>
 {$variants}

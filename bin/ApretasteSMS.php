@@ -82,7 +82,7 @@ class ApretasteSMS {
 			foreach ( $codes as $xcode => $country ) {
 				if (substr($number, 0, strlen($xcode) + 1) == '+' . $xcode) {
 					$code = $xcode;
-					$number = substr($number, strlen($xcode)+1);
+					$number = substr($number, strlen($xcode) + 1);
 					break;
 				}
 			}

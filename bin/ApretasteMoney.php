@@ -4,7 +4,7 @@
  * Apretaste Money Management
  *
  * @author rafa <rafa@pragres.com>
- * 
+ *        
  */
 class ApretasteMoney {
 	
@@ -27,14 +27,13 @@ class ApretasteMoney {
 		
 		return true;
 	}
-		
+	
 	/**
 	 * Returns the total of credits a user has
 	 * @param unknown $email
 	 * @return boolean number
 	 */
 	static function getCreditOf($email){
-		
 		$email = strtolower($email);
 		
 		$r = Apretaste::query("SELECT email, credit FROM credit WHERE email = '$email';");
@@ -56,7 +55,6 @@ class ApretasteMoney {
 	 * @return array
 	 */
 	static function getDiscountsOf($email, $limit = 100, $offset = 0){
-
 		$email = strtolower($email);
 		
 		$r = Apretaste::query("SELECT * FROM discounts WHERE email = '$email';");

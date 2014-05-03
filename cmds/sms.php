@@ -2,7 +2,7 @@
 
 /**
  * Apretaste SMS Service
- * 
+ *
  * @param unknown $robot
  * @param string $from
  * @param string $argument
@@ -12,16 +12,20 @@
  */
 function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	$argument = trim($argument);
+	
+	$body = quoted_printable_decode($body);
+	if (! Apretaste::isUTF8($body))
+		$body = utf8_encode($body);
 	$body = strip_tags($body);
 	
 	// Get country code
 	$parts = ApretasteSMS::splitNumber($argument);
 	
-	if ($parts === false){
+	if ($parts === false) {
 		return array(
 				"answer_type" => "sms_wrong_number",
 				"number" => $argument,
-				"message" => $body				
+				"message" => $body
 		);
 	}
 	
@@ -55,7 +59,7 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	
 	foreach ( $parts as $i => $part ) {
 		$robot->log("Sending sms part $i - $part to $code - $number");
-		ApretasteSMS::send($code, $number, $from, $body, $discount);
+		ApretasteSMS::send($code, $number, $from, $part, $discount);
 	}
 	
 	$newcredit = ApretasteMoney::getCreditOf($from);

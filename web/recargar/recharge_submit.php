@@ -22,6 +22,7 @@ try {
 			"description" => $customer_email
 	));
 } catch ( Stripe_CardError $e ) {
+	print_r($e); exit;
 	// error message
 	// @TODO send an alert to our emails
 	

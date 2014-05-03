@@ -64,13 +64,25 @@ class ApretasteSMS {
 		$number = str_replace(array(
 				'(',
 				'-',
-				' ',
-				'+'
+				' '
 		), '', $number);
 		
 		$code = '53';
-		
 		$codes = self::getCountryCodes();
+		
+		if ($number[0] != '+' && strlen($number) > 8 && $number[0] != '5') {
+			$number = '+' . $number;
+		}
+		
+		if ($number[0] == '+') {
+			foreach ( $codes as $xcode => $country ) {
+				if (substr($number, 0, strlen($xcode)) == '+' . $xcode) {
+					$code = $xcode;
+					$number = substr($number, strlen($xcode));
+					break;
+				}
+			}
+		}
 		
 		return array(
 				'code' => $code,

@@ -103,9 +103,11 @@
 								<td class="phone-block" style="margin-right: 20px;">
 									<img width="200" src="cid:logo" alt="Apretaste!" /> 
 								</td>
+								?$command
 								<td class="phone-block" align="center">
 									<font size="6" face="Tahoma" color="#A03E3B"><b>{$commands.{$command}.cmd}</b></font>
 								</td>
+								$command?
 							</tr>
 						</table>
 						{$space10}
@@ -113,9 +115,11 @@
 				</tr>
 	
 				<tr>
+					?$msg
 					<td align="left">
 					{% user_message %}
 					</td>
+					$msg?
 				</tr>
 				
 				<!--information-->
@@ -135,6 +139,7 @@
 					</td>
 				</tr>
 				
+				?$command
 				<!--services related-->
 				<tr>
 					<td align="left" style="padding: 0px 5px;">
@@ -149,7 +154,8 @@
 						<!--{ END related }--> 
 					</td>
 				</tr>
-	
+				$command?
+				
 				<!--{ footer }-->
 				<tr>
 					<td align="center">

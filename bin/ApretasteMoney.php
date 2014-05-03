@@ -4,7 +4,7 @@
  * Apretaste Money Management
  *
  * @author rafa <rafa@pragres.com>
- *        
+ * 
  */
 class ApretasteMoney {
 	

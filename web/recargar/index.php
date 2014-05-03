@@ -8,9 +8,8 @@
 		<!--[if lt IE 7]><link rel="stylesheet" type="text/css" media="all" href="css/ie6.css"/><![endif]-->
 		<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" href="../static/bootstrap/css/bootstrap-theme.min.css">
-		<?php /*
-		<script src="../static/bootstrap/js/bootstrap.min.js"></script>
-		*/?>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
+		<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 		<style type="text/css">
 			.control-label{
 				text-align: left !important; 
@@ -30,11 +29,43 @@
 				-khtml-border-radius: 3px;
 				border-radius: 3px;
 			}
+			.payment-errors{
+				color: red;
+				font-weight: bold;
+				font-size: 18px;
+			}
 		</style>
+		<script type="text/javascript">
+			Stripe.setPublishableKey('pk_test_z9IpGwj8o4gJ0xOwt0S6L33c');
+
+			var stripeResponseHandler = function(status, response) {
+				var $form = $('#payment-form');
+				if (response.error) {
+					// Show the errors on the form
+					$form.find('.payment-errors').html(response.error.message);
+					$form.find('button').prop('disabled', false);
+				} else {
+					// token contains id, last4, and card type
+					var token = response.id;
+					// Insert the token into the form so it gets submitted to the server
+					$form.append($('<input type="hidden" name="stripeToken" />').val(token));
+					// and submit
+					$form.get(0).submit();
+				}
+			};
+
+			$(document).ready(function() {
+				$('#payment-form').submit(function() {
+					var $form = $(this);
+					$form.find('button').prop('disabled', true);
+					Stripe.card.createToken($form, stripeResponseHandler);
+					return false;
+				});
+			});
+		</script>
 	</head>
 
 	<body id="index" class="home">
-
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
@@ -44,22 +75,21 @@
 			<div class="row">
 				<!-- payment form -->
 				<div class="col-xs-12 col-sm-8 col-md-8">
-
-					<form action="" method="POST" id="payment-form" class="form-horizontal" role="form">
+					<form action="recharge_submit.php" method="POST" id="payment-form" class="form-horizontal" role="form">
 						<h1 style="margin-top: 0px;">Personal</h1>
 						<p>Escriba su correo electr&oacute;nico (para mandarle un recibo) y escoja la cantidad a recargar.</p>
 
 						<div class="form-group">
-							<label for="youremail" class="hidden-xs col-sm-3 col-md-2 col-lg-2 control-label">Email</label>
+							<label for="customer_email" class="hidden-xs col-sm-3 col-md-2 col-lg-2 control-label">Email</label>
 							<div class="col-xs-12 col-sm-9 col-sm-10 col-sm-10">
-								<input type="email" class="form-control" id="youremail" placeholder="Su correo electr&oacute;nico">
+								<input type="email" class="form-control" id="customer_email" required name="customer_email" placeholder="Su correo electr&oacute;nico">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label for="amount" class="hidden-xs col-sm-3 col-md-2 col-lg-2 control-label">Cantidad</label>
 							<div class="col-xs-12 col-sm-9 col-sm-10 col-sm-10">
-								<select id="amount" class="dropdown" class="form-control">
+								<select id="amount" name="amount" class="dropdown" class="form-control">
 									<option value="5">$5 (Aprox 30 SMS)</option>
 									<option value="10" selected>$10 (Aprox 60 SMS)</option>
 									<option value="15">$15 (Aprox 90 SMS)</option>
@@ -76,9 +106,9 @@
 						<p>Escriba el correo electr&oacute;nico de la persona a recargar.</p>
 
 						<div class="form-group">
-							<label for="user" class="hidden-xs col-sm-3 col-md-2 col-lg-2 control-label">Email</label>
+							<label for="user_email" class="hidden-xs col-sm-3 col-md-2 col-lg-2 control-label">Email</label>
 							<div class="col-xs-12 col-sm-9 col-sm-10 col-sm-10">
-								<input type="email" class="form-control" id="user" placeholder="Email a recargar">
+								<input type="email" class="form-control" id="user_email" name="user_email" required placeholder="Email a recargar">
 							</div>
 						</div>
 
@@ -87,6 +117,8 @@
 						<h1>Tarjeta de Cr&eacute;dito</h1>
 						<p>Entre la informaci&oacute;n de su tarjeta de cr&eacute;dito. Si no sabe como hacerlo o tiene dudas, escribanos a <a href="mailto:soporte@apretaste.com">soporte@apretaste.com</a> y le ayudaremos al momento</p>
 
+						<p class="payment-errors"></p>
+						
 						<div class="form-group">
 							<label for="ccname" class="hidden-xs col-sm-3 col-md-2 col-lg-2 control-label">Nombre</label>
 							<div class="col-xs-12 col-sm-9 col-sm-10 col-sm-10">

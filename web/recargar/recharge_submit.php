@@ -49,8 +49,5 @@ Apretaste::sendEmail(array(
 // Add the funds to the user
 ApretasteMoney::recharge($user_email, $amount);
 
-// create payment log
-// @TODO RAFA ADD YOUR CODE TO CREATE THE LOG
-
 // redirect to the thank you page
 header("thank_you.php?user=$user_email&customer=$customer_email&amount=$amount");

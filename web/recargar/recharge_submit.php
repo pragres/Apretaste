@@ -19,22 +19,35 @@ try {
 			"amount" => $amount * 100,
 			"currency" => "usd",
 			"card" => $token,
-			"description" => "payinguser@example.com"
+			"description" => $customer_email
 	));
 } catch ( Stripe_CardError $e ) {
 	// error message
 	// @TODO send an alert to our emails
+	
 	die('Lo sentimos mucho, pero ha habido un error cobrando. Su tarjeta de credito no ha sido cargada. Por favor presione "Atras" en su navegador e intente nuevamente. Si no funciona, escribanos a soporte@apretaste.com y le ayudaremos al momento.');
 }
 
-// send confirmation email to the customOer
-// @TODO RAFA ADD YOUR CODE TO SEND EMAIL HERE
+// send confirmation email to the customer
+
+Apretaste::sendEmail(array(
+	"answer_type" => "recharge_thankyou",
+	"amount" => $amount,
+	"user_email" => $user_email,
+	"customer_email" => $customer_email
+));
 
 // send alert email to the user
-// @TODO RAFA ADD YOUR CODE TO SEND EMAIL HERE
+
+Apretaste::sendEmail(array(
+	"answer_type" => "recharge_successfull",
+	"amount" => $amount,
+	"customer_email" => $customer_email
+));
+
 
 // Add the funds to the user
-ApretasteMoney::recharge($customer_email, $amount);
+ApretasteMoney::recharge($user_email, $amount);
 
 // create payment log
 // @TODO RAFA ADD YOUR CODE TO CREATE THE LOG

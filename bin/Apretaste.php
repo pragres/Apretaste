@@ -3130,6 +3130,7 @@ class Apretaste {
 		$results = json_decode($body);
 		return $results->responseData->results;
 	}
+	
 	static function getUserStats($email){
 		$stats = array();
 		

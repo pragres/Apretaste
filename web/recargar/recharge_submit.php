@@ -51,4 +51,4 @@ Apretaste::sendEmail($user_email, array(
 ApretasteMoney::recharge($user_email, $amount);
 
 // redirect to the thank you page
-header("thank_you.php?user=$user_email&customer=$customer_email&amount=$amount");
+header("Location: thank_you.php?user=$user_email&customer=$customer_email&amount=$amount");

@@ -7,6 +7,7 @@
  * @version 1.0
  */
 class ApretasteWeb {
+	
 	static function Run(){
 		include "../tpl/web/index.html";
 	}

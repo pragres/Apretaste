@@ -5,7 +5,7 @@ if (file_exists("../index.php"))
 
 date_default_timezone_set("America/New_York");
 
-set_include_path("../;../lib/;../bin/;../tpl/;../lib/PEAR/;../lib/stripe/lib/");
+set_include_path("../;../lib/;../bin/;../tpl/;../lib/PEAR/;../lib/Stripe/");
 
 // Autoload classes
 function __autoload($class){

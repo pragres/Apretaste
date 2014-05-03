@@ -20,9 +20,6 @@ class ApretasteMoney {
 	static function recharge($email, $amount, $code_redeemed = '', $payment_method = 'cc'){
 		$amount = $amount * 1;
 		
-		if (! Apretaste::checkAddress($email))
-			return false;
-		
 		$email = strtolower($email);
 		
 		Apretaste::query("INSERT INTO recharge (email,amount,code_redeemed,payment_method) VALUES
@@ -37,8 +34,6 @@ class ApretasteMoney {
 	 * @return boolean number
 	 */
 	static function getCreditOf($email){
-		if (! Apretaste::checkAddress($email))
-			return false;
 		
 		$email = strtolower($email);
 		
@@ -61,9 +56,7 @@ class ApretasteMoney {
 	 * @return array
 	 */
 	static function getDiscountsOf($email, $limit = 100, $offset = 0){
-		if (! Apretaste::checkAddress($email))
-			return false;
-		
+
 		$email = strtolower($email);
 		
 		$r = Apretaste::query("SELECT * FROM discounts WHERE email = '$email';");

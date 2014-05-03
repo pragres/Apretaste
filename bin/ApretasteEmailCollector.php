@@ -162,7 +162,7 @@ class ApretasteEmailCollector {
 					continue;
 				}
 				
-				if (! Apretaste::isUTF8($textBody)) {
+				/*if (! Apretaste::isUTF8($textBody)) {
 					echo "textBody = $textBody = ".htmlentities($textBody)."\n";
 					echo $this->verbose ? "textBody is not utf8, converting now \n" : "";
 					$textBody = iconv('ISO-8859-1', 'UTF-8', $textBody);
@@ -175,11 +175,11 @@ class ApretasteEmailCollector {
 					echo $this->verbose ? "htmlBody is not utf8 \n" : "";
 					$textBody = ApretasteEncoding::toUTF8($htmlBody);
 				}
-				
+				*/
 				echo $this->verbose ? "[INFO] mime decoding... \n" : "";
 				$textBody = $this->mimeDecode($textBody);
 				$htmlBody = $this->mimeDecode($htmlBody);
-				echo "textBody = $textBody\n";
+				//echo "textBody = $textBody\n";
 				
 				if ($headers->subject == '')
 					$headers->subject = 'AYUDA';

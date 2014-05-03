@@ -31,7 +31,7 @@ try {
 
 // send confirmation email to the customer
 
-Apretaste::sendEmail(array(
+Apretaste::sendEmail($customer_email, array(
 	"answer_type" => "recharge_thankyou",
 	"amount" => $amount,
 	"user_email" => $user_email,
@@ -40,7 +40,7 @@ Apretaste::sendEmail(array(
 
 // send alert email to the user
 
-Apretaste::sendEmail(array(
+Apretaste::sendEmail($user_email, array(
 	"answer_type" => "recharge_successfull",
 	"amount" => $amount,
 	"customer_email" => $customer_email

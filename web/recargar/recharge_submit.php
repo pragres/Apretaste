@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include "../router.php";
 
 // obtain params from post
@@ -8,7 +11,9 @@ $customer_email = $_POST['customer_email'];
 $user_email = $_POST['user_email'];
 $amount = $_POST['amount'];
 
-// Charge the credit card
+
+// Charge the customer's credit card
+require_once('../lib/Stripe/Stripe.php');
 Stripe::setApiKey("sk_test_xCTtSZAffzCkUolsHhBvZUrQ");
 $token = $stripeToken;
 try {
@@ -24,12 +29,20 @@ try {
 	die('Lo sentimos mucho, pero ha habido un error cobrando. Su tarjeta de credito no ha sido cargada. Por favor presione "Atras" en su navegador e intente nuevamente. Si no funciona, escribanos a soporte@apretaste.com y le ayudaremos al momento.');
 }
 
-// send confirmation emails
 
+// send confirmation email to the customOer
+// @TODO RAFA ADD YOUR CODE TO SEND EMAIL HERE
+
+
+// send alert email to the user
+// @TODO RAFA ADD YOUR CODE TO SEND EMAIL HERE
 
 // Add the funds to the user
+ApretasteMoney::recharge($customer_email, $amount);
+
 
 // create payment log
+// @TODO RAFA ADD YOUR CODE TO CREATE THE LOG
 
 
 // redirect to the thank you page

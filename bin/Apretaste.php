@@ -2329,7 +2329,6 @@ class Apretaste {
 	 * @return boolean
 	 */
 	static function matchEmail($email, $pattern){
-		
 		$email = strtolower($email);
 		
 		$pattern = strtolower($pattern);
@@ -3130,7 +3129,6 @@ class Apretaste {
 		$results = json_decode($body);
 		return $results->responseData->results;
 	}
-	
 	static function getUserStats($email){
 		$stats = array();
 		
@@ -3144,7 +3142,7 @@ class Apretaste {
 		// Total messages by command
 		$r = self::query("SELECT command, count(*) as total from message where lower(extract_email(author))='$email' group by command order by total desc;");
 		$stats['messages_by_command'] = $r;
-
+		
 		// Total answers
 		$r = self::query("SELECT count(*) as total from answer where lower(extract_email(receiver))='$email';");
 		$stats['answers'] = $r[0]['total'];
@@ -3154,5 +3152,27 @@ class Apretaste {
 		$stats['answers_by_type'] = $r;
 		
 		return $stats;
+	}
+	
+	/**
+	 * Send email
+	 * 
+	 * @param string $to
+	 * @param array $data
+	 */
+	static function sendEmail($to, $data){
+		
+		$robot = new ApretasteEmailRobot($autostart = false, $verbose = true);
+		
+		Apretaste::$robot = &$robot;
+		
+		$config = array();
+		
+		foreach ( self::$robot->config_answer as $configx ) {
+			$config = $configx;
+			break;
+		}
+		
+		$answerMail = new ApretasteAnswerEmail($config, $to, self::$robot->smtp_servers, $data, true, true, false);
 	}
 }

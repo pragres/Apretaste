@@ -1,6 +1,7 @@
 <?php
 
-chdir("../");
+if (file_exists("../index.php"))
+	chdir("../");
 
 date_default_timezone_set("America/New_York");
 

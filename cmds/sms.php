@@ -6,9 +6,18 @@
 function cmd_sms_get_country_code($number){}
 function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	$argument = trim($argument);
+	$body = strip_tags($body);
 	
 	// Get country code
 	$parts = ApretasteSMS::splitNumber($argument);
+	
+	if ($parts === false){
+		return array(
+				"answer_type" => "sms_wrong_number",
+				"number" => $argument,
+				"message" => $body				
+		);
+	}
 	
 	$code = $parts['code'];
 	$number = $parts['number'];
@@ -25,10 +34,11 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	
 	// Verify credit
 	$credit = ApretasteMoney::getCreditOf($from);
+	
 	if ($credit < $discount * $tparts) {
 		// no credit
 		return array(
-				"answer_type" => "sms_not_enought_funds",
+				"answer_type" => "sms_wrong_number",
 				"credit" => $credit,
 				"discount" => $discount * $tparts,
 				"smsparts" => $parts
@@ -38,7 +48,7 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	// Send message
 	
 	foreach ( $parts as $i => $part ) {
-		$robot->log("Sending sms part $i - $part");
+		$robot->log("Sending sms part $i - $part to $code - $number");
 		ApretasteSMS::send($code, $number, $from, $body, $discount);
 	}
 	

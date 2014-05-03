@@ -61,27 +61,34 @@ class ApretasteSMS {
 	 */
 	static function splitNumber($number){
 		$number = trim($number);
+		
 		$number = str_replace(array(
 				'(',
 				'-',
 				' '
 		), '', $number);
 		
-		$code = '53';
+		$code = null;
 		$codes = self::getCountryCodes();
 		
-		if ($number[0] != '+' && strlen($number) > 8 && $number[0] != '5') {
-			$number = '+' . $number;
-		}
+		if (strlen($number) == 8 && $number[0] == '5')
+			$code = 53; // to cuba
 		
-		if ($number[0] == '+') {
+		if (is_null($code)) { // to world
+			
+			if ($number[0] != '+')
+				$number = '+' . $number;
+			
 			foreach ( $codes as $xcode => $country ) {
-				if (substr($number, 0, strlen($xcode)) == '+' . $xcode) {
+				if (substr($number, 0, strlen($xcode) + 1) == '+' . $xcode) {
 					$code = $xcode;
-					$number = substr($number, strlen($xcode));
+					$number = substr($number, strlen($xcode)+1);
 					break;
 				}
 			}
+			
+			if (is_null($code))
+				return false;
 		}
 		
 		return array(

@@ -3162,7 +3162,7 @@ class Apretaste {
 	 */
 	static function sendEmail($to, $data){
 		
-		$robot = new ApretasteEmailRobot($autostart = false, $verbose = true);
+		$robot = new ApretasteEmailRobot($autostart = false, $verbose = false);
 		
 		Apretaste::$robot = &$robot;
 		

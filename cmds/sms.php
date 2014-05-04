@@ -11,7 +11,13 @@
  * @return array
  */
 function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
+	
+	$body = str_replace("\n", " ", $body);
+	$body = str_replace("\r", " ", $body);
+	$body = str_replace("  ", " ", $body);
+	
 	$codes = ApretasteSMS::getCountryCodes();
+	
 	asort($codes);
 	
 	$as_plain_text = false;

@@ -21,14 +21,34 @@ class ApretasteEmailCollector {
 			$this->_getInbox($server, $callback, $address);
 		}
 	}
+	
+	/**
+	 * Mime decode
+	 *
+	 * @param string $text
+	 * @return string
+	 */
 	function mimeDecode($text){
+		$id = uniqid();
+		$text = str_replace("\n", $id, $text);
 		$text = trim($text);
+		
 		$nt = "";
 		$arr = explode(" ", $text);
 		foreach ( $arr as $item )
 			$nt .= iconv_mime_decode($item, ICONV_MIME_DECODE_CONTINUE_ON_ERROR, 'UTF-8') . " ";
+		
+		$nt = str_replace($id, "\n", $nt);
 		return trim($nt);
 	}
+	
+	/**
+	 * 
+	 * @param unknown $server
+	 * @param unknown $callback
+	 * @param unknown $address
+	 * @return boolean
+	 */
 	function _getInbox($server, $callback, $address){
 		$try = 0;
 		$maxtry = 3;
@@ -162,24 +182,15 @@ class ApretasteEmailCollector {
 					continue;
 				}
 				
-				/*if (! Apretaste::isUTF8($textBody)) {
-					echo "textBody = $textBody = ".htmlentities($textBody)."\n";
-					echo $this->verbose ? "textBody is not utf8, converting now \n" : "";
-					$textBody = iconv('ISO-8859-1', 'UTF-8', $textBody);
-					//$textBody = ApretasteEncoding::toUTF8($textBody);
-					echo "textBody = $textBody = ".htmlentities($textBody, ENT_QUOTES | ENT_IGNORE, "UTF-8")."\n";
-					
-				}
-				
-				if (! Apretaste::isUTF8($htmlBody)){
-					echo $this->verbose ? "htmlBody is not utf8 \n" : "";
-					$textBody = ApretasteEncoding::toUTF8($htmlBody);
-				}
-				*/
+				/*
+				 * if (! Apretaste::isUTF8($textBody)) { echo "textBody = $textBody = ".htmlentities($textBody)."\n"; echo $this->verbose ? "textBody is not utf8, converting now \n" : ""; $textBody = iconv('ISO-8859-1', 'UTF-8', $textBody); //$textBody = ApretasteEncoding::toUTF8($textBody); echo "textBody = $textBody = ".htmlentities($textBody, ENT_QUOTES | ENT_IGNORE, "UTF-8")."\n"; } if (! Apretaste::isUTF8($htmlBody)){ echo $this->verbose ? "htmlBody is not utf8 \n" : ""; $textBody = ApretasteEncoding::toUTF8($htmlBody); }
+				 */
 				echo $this->verbose ? "[INFO] mime decoding... \n" : "";
+				
+				echo "textBody = $textBody\n";
+				
 				$textBody = $this->mimeDecode($textBody);
 				$htmlBody = $this->mimeDecode($htmlBody);
-				//echo "textBody = $textBody\n";
 				
 				if ($headers->subject == '')
 					$headers->subject = 'AYUDA';

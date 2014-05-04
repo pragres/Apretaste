@@ -24,12 +24,13 @@ class ApretasteSMS {
 		$URL = "http://api.smsacuba.com/api10allcountries.php?";
 		$URL .= "login=" . $login . "&password=" . $password . "&prefix=" . $prefix . "&number=" . $number . "&sender=" . $sender . "&msg=" . urlencode($message);
 		
-		$r = @file($URL);
+		if (Apretaste::isCli()) echo "[INFO] Getting: ". $URL."\n";
+		$r = file_get_contents($URL);
 		
 		Apretaste::query("INSERT INTO sms (email, phone, message, discount)
 				VALUES ('$sender', '(+$prefix)$number', '$message', $discount);");
 		
-		return $r[0];
+		return $r;
 	}
 	
 	/**

@@ -17,9 +17,10 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 		$body = utf8_encode($body);
 		
 	$body = quoted_printable_decode($body);
+	$body = trim(strip_tags($body));
 	
-	$body = strip_tags($body);
-	
+	$body = Apretaste::reparaTildes($body);
+		
 	// Get country code
 	$parts = ApretasteSMS::splitNumber($argument);
 	

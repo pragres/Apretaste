@@ -1,4 +1,4 @@
 {= AnswerSubject: "SMS enviado correctamente" =}
 {$AnswerSubject}
-
-Su cr&eacute;dito es de {$newcredit}
+<br/>
+Su cr&eacute;dito actual es de {$newcredit}

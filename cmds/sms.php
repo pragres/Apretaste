@@ -21,10 +21,11 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	
 	$body = Apretaste::reparaTildes($body);
 	
-	$p = strrpos($body, "--");
+	/*$p = strrpos($body, "--");
+	
 	if ($p !== false)
 		$body = substr($body, 0, $p);
-	
+	*/
 	$body = trim($body);
 	
 	if (trim($body) == '')

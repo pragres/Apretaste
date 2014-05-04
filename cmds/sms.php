@@ -12,22 +12,28 @@
  */
 function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	$argument = trim($argument);
-
+	
 	if (! Apretaste::isUTF8($body))
 		$body = utf8_encode($body);
-		
+	
 	$body = quoted_printable_decode($body);
 	$body = trim(strip_tags($body));
 	
 	$body = Apretaste::reparaTildes($body);
-		
+	
+	$p = strrpos($body, "--");
+	if ($p !== false)
+		$body = substr($body, 0, $p);
+	
+	$body = trim($body);
+	
 	if (trim($body) == '')
 		return array(
 				"answer_type" => "sms_empty_text",
 				"number" => $argument
 		);
-	
-	// Get country code
+		
+		// Get country code
 	$parts = ApretasteSMS::splitNumber($argument);
 	
 	if ($parts === false) {

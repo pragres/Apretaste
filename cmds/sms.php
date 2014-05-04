@@ -21,6 +21,12 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	
 	$body = Apretaste::reparaTildes($body);
 		
+	if (trim($body) == '')
+		return array(
+				"answer_type" => "sms_empty_text",
+				"number" => $argument
+		);
+	
 	// Get country code
 	$parts = ApretasteSMS::splitNumber($argument);
 	

@@ -12,10 +12,12 @@
  */
 function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	$argument = trim($argument);
-	
-	$body = quoted_printable_decode($body);
+
 	if (! Apretaste::isUTF8($body))
 		$body = utf8_encode($body);
+		
+	$body = quoted_printable_decode($body);
+	
 	$body = strip_tags($body);
 	
 	// Get country code

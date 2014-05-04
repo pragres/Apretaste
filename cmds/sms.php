@@ -11,7 +11,22 @@
  * @return array
  */
 function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
+	$codes = ApretasteSMS::getCountryCodes();
+	asort($codes);
+	
+	$as_plain_text = false;
+	if (strpos($from, '@nauta.cu') !== false)
+		$as_plain_text = true;
+	
 	$argument = trim($argument);
+	
+	if (strtolower($argument) == 'codigos') {
+		return array(
+				"answer_type" => "sms_codes",
+				"codes" => $codes,
+				"as_plain_text" => $as_plain_text
+		);
+	}
 	
 	if (! Apretaste::isUTF8($body))
 		$body = utf8_encode($body);
@@ -21,27 +36,30 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	
 	$body = Apretaste::reparaTildes($body);
 	
-	/*$p = strrpos($body, "--");
-	
-	if ($p !== false)
-		$body = substr($body, 0, $p);
-	*/
+	/*
+	 * $p = strrpos($body, "--"); if ($p !== false) $body = substr($body, 0, $p);
+	 */
 	$body = trim($body);
 	
 	if (trim($body) == '')
 		return array(
 				"answer_type" => "sms_empty_text",
-				"number" => $argument
+				"number" => $argument,
+				"as_plain_text" => $as_plain_text
 		);
 		
 		// Get country code
 	$parts = ApretasteSMS::splitNumber($argument);
 	
 	if ($parts === false) {
+		
 		return array(
 				"answer_type" => "sms_wrong_number",
 				"number" => $argument,
-				"message" => $body
+				"message" => $body,
+				"codes" => $codes,
+				"credit" => ApretasteMoney::getCreditOf($from),
+				"as_plain_text" => $as_plain_text
 		);
 	}
 	
@@ -67,7 +85,8 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 				"answer_type" => "sms_wrong_number",
 				"credit" => $credit,
 				"discount" => $discount * $tparts,
-				"smsparts" => $parts
+				"smsparts" => $parts,
+				"as_plain_text" => $as_plain_text
 		);
 	}
 	
@@ -86,7 +105,8 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 			"newcredit" => $newcredit,
 			"discount" => $discount,
 			"smsparts" => $parts,
-			"totaldiscount" => $discount * $tparts
+			"totaldiscount" => $discount * $tparts,
+			"as_plain_text" => $as_plain_text
 	);
 }
 	

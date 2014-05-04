@@ -45,7 +45,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Title</title>
+		?$title <title>{$title}</title> $title?
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<style type="text/css">
@@ -80,6 +80,7 @@
 			<table id="container" border="0" cellpadding="0" cellspacing="0"
 				border="0" valign="top" align="center" width="600">
 	
+				!$as_plain_text
 				<!--{ links }-->
 	
 				<tr>
@@ -113,7 +114,8 @@
 						{$space10}
 					</td>
 				</tr>
-	
+				$as_plain_text!
+				
 				<tr>
 					?$msg
 					<td align="left">
@@ -138,6 +140,8 @@
 						{% content %}
 					</td>
 				</tr>
+				
+				!$as_plain_text
 				
 				?$command
 				<!--services related-->
@@ -169,6 +173,7 @@
 						</p>
 					</td>
 				</tr>
+				$as_plain_text!
 			</table>
 		</center>
 	</body>

@@ -4,6 +4,12 @@
 la lista de sus anuncios y las alertas a las cuales Ud. est&aacute; subscrito. Este reporte puede cambiar durante
 el tiempo, por lo que puede <a href = "mailto:{$reply_to}?subject=ESTADO&Haga clic en Enviar para obtener el reporte de su estado en {$apretaste}" style ="{$element-a}">solicitarlo nuevamente.</a></p>
 
+<h2 style="{$font}">Cr&eacute;dito:</h2>
+
+<p style="{$font}">Su cr&eacute;dito actual es de ${$credit} USD. Recuerde que usted o alguna amistad 
+o familiar puede recargar su cr&eacute;dito desde la web <a href="http://apretaste.com/recargar">http://apretaste.com/recargar</a>.
+</p>
+
 <h2 style="{$font}">Sus anuncios publicados</h2>
 ?$announcements
 	<table width="790" style="{$font}">
@@ -46,7 +52,7 @@ $announcements?
 
 <h2 style="{$font}">Sus alertas por correo</h2>
 ?$subscribes
-	<table width = "790" style="{$font}">
+	<table style="{$font}">
 		<tr style = "font-weight: bold;">
 			<th align="left">Identificador</th><th align="left">Fecha</th><th align="left">Frase de b&uacute;squeda</th><th></th>
 		</tr>
@@ -67,6 +73,24 @@ $announcements?
 @else@
 	<p style="{$font}">Usted no est&aacute; subscrito a ninguna alerta.</p>
 $subscribes?
+
+<h2 style="{$font}">&Uacute;ltimos SMS enviados:</h2>
+?$sms
+<table>
+	<table style="{$font}">
+	<tr><th>Fecha</th><th>Tel&eacute;fono</th><th>Mensaje</th><th>Descuento</th></tr>
+	[$sms]
+	<tr><td>{$send_date}</td>
+	<td>{$phone}</td>
+	<td>{$message}</td>
+	<td>${$discount} USD</td>
+	</tr>
+	[/$sms]
+	</table>
+@else@
+<p style="{$font}">Usted no ha enviado SMS a trav&eacute;s de Apretaste!.</p>
+$sms?
+
 ?$services
 <h2 style="{$font}">Servicios que no ha utilizado</h2>
 <ul>
@@ -76,3 +100,4 @@ $subscribes?
 </ul>
 <p style="{$font}">Para saber como utilizar estos servicios consulte <a href="mailto:{$reply_to}?subject=AYUDA">la Ayuda</a>.</p>
 $services?
+

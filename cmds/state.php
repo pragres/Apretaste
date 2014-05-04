@@ -31,6 +31,10 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 	
 	Apretaste::query("UPDATE address_list SET send_status = CURRENT_DATE where email = '$from';");
 	
+	$credit = ApretasteMoney::getCreditOf($from);
+	
+	$sms = ApretasteSMS::getLastSMSOf($from);
+	
 	return array(
 			"command" => "state",
 			"compactmode" => true,
@@ -39,6 +43,8 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 			"announcements" => $r,
 			"subscribes" => $s,
 			"stats" => $stats,
-			"services" => $services
+			"services" => $services,
+			"credit" => $credit,
+			"sms" => $sms
 	);
 }

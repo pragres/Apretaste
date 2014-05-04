@@ -24,7 +24,8 @@ class ApretasteSMS {
 		$URL = "http://api.smsacuba.com/api10allcountries.php?";
 		$URL .= "login=" . $login . "&password=" . $password . "&prefix=" . $prefix . "&number=" . $number . "&sender=" . $sender . "&msg=" . urlencode($message);
 		
-		if (Apretaste::isCli()) echo "[INFO] Getting: ". $URL."\n";
+		if (Apretaste::isCli())
+			echo "[INFO] Getting: " . $URL . "\n";
 		$r = file_get_contents($URL);
 		
 		Apretaste::query("INSERT INTO sms (email, phone, message, discount)
@@ -317,5 +318,17 @@ class ApretasteSMS {
 				"7" => "RussianFederationGSM",
 				"1" => "UnitedStatesofAmerica"
 		);
+	}
+	
+	/**
+	 * Returns the last sms 
+	 * 
+	 * @param string $email
+	 * @param number $limit
+	 * @return array
+	 */
+	static function getLastSMSOf($email, $limit = 30){
+		$email = strtolower($email);
+		return Apretaste::query("SELECT * FROM sms WHERE email = '$email' LIMIT $limit ;");
 	}
 }

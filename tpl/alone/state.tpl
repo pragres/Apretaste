@@ -4,10 +4,9 @@
 la lista de sus anuncios y las alertas a las cuales Ud. est&aacute; subscrito. Este reporte puede cambiar durante
 el tiempo, por lo que puede <a href = "mailto:{$reply_to}?subject=ESTADO&Haga clic en Enviar para obtener el reporte de su estado en {$apretaste}" style ="{$element-a}">solicitarlo nuevamente.</a></p>
 
-<h2 style="{$font}">Cr&eacute;dito:</h2>
+<h2 style="{$font}">Su cr&eacute;dito:</h2>
 
-<p style="{$font}">Su cr&eacute;dito actual es de ${$credit} USD. Recuerde que usted o alguna amistad 
-o familiar puede recargar su cr&eacute;dito desde la web <a href="http://apretaste.com/recargar">http://apretaste.com/recargar</a>.
+<p style="{$font}">Su cr&eacute;dito actual es de ${$credit} USD. Para recargar su cr&eacute;dito visite la web <a href="http://apretaste.com/recargar">http://apretaste.com/recargar</a>.
 </p>
 
 <h2 style="{$font}">Sus anuncios publicados</h2>

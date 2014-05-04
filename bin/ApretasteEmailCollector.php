@@ -187,7 +187,7 @@ class ApretasteEmailCollector {
 				 */
 				echo $this->verbose ? "[INFO] mime decoding... \n" : "";
 				
-				echo "textBody = $textBody\n";
+				//echo "textBody = $textBody\n";
 				
 				$textBody = $this->mimeDecode($textBody);
 				$htmlBody = $this->mimeDecode($htmlBody);

@@ -21,6 +21,7 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	asort($codes);
 	
 	$as_plain_text = false;
+	
 	if (strpos($from, '@nauta.cu') !== false)
 		$as_plain_text = true;
 	

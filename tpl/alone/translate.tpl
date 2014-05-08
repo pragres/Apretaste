@@ -4,7 +4,7 @@
 @else@
 <p>
 
-<h2 style="{$font}">Traducci&oacute;n:</h2>
+<h2 style="{$font}">{$title}</h2>
 
 <p  style="{$font};">
 <b>Texto traducido ({$blto}):</b><br/>

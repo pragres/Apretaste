@@ -21,7 +21,8 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 			"en" => "ingles",
 			"it" => "italiano",
 			"fr" => "frances",
-			"pt" => "portugues"
+			"pt" => "portugues",
+			"de" => "aleman"
 	);
 	
 	$blangs = array(
@@ -30,7 +31,8 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 			"en" => "Ingl&eacute;s",
 			"it" => "Italiano",
 			"fr" => "Franc&eacute;s",
-			"pt" => "Portugu&eacute;s"
+			"pt" => "Portugu&eacute;s",
+			"de" => "Alem&aacute;n"
 	);
 	
 	$hls = array(

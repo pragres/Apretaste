@@ -2478,7 +2478,7 @@ class div {
 					
 					foreach ( $xitems as $xkey => $item ) {
 						$tempglobal = array(); // priority to item's properties
-						                        // Save similar global design vars
+						                       // Save similar global design vars
 						
 						$tempglobal = self::$__globals_design;
 						foreach ( $item as $kkk => $vvv )
@@ -6896,8 +6896,8 @@ class div {
 			if (substr($pathx, 0, 2) == "./")
 				$pathx = substr($pathx, 2);
 			
-			if (file_exists($pathx))
-				if (is_file($pathx))
+			if (@file_exists($pathx))
+				if (@is_file($pathx))
 					return true;
 		}
 		

@@ -260,7 +260,7 @@ function parse_google_translator_response($response){
 	$richtextto = '';
 	$richtextfrom = '';
 	
-	$variants = '<table width="100%"><tr>';
+	$variants = '';
 	$i = 0;
 	foreach ( $parts as $part ) {
 		
@@ -293,11 +293,8 @@ function parse_google_translator_response($response){
 			), "", trim("$vv")));
 			
 			if (strlen($vv) > 1) {
-				$i ++;
-				if ($i == 1)
-					$variants .= '</tr>';
 				
-				$variants .= "<td width=\"33%\" valign=\"top\">\n<a href=\"mailto:{\$reply_to}?subject=TRADUCIR&body=$vv\"><b>$vv</b></a>: <ol style=\"margin:0px;\">";
+				$variants .= "<a href=\"mailto:{\$reply_to}?subject=TRADUCIR&body=$vv\"><b>$vv</b></a>: ";
 				foreach ( $part['tips'] as $tip ) {
 					$tip = str_replace(array(
 							"\n",
@@ -305,14 +302,9 @@ function parse_google_translator_response($response){
 					), "", trim($tip));
 					
 					if (strlen($tip) > 1)
-						$variants .= "<li><a href=\"mailto:{\$reply_to}?subject=TRADUCIR&body=$tip\">" . $tip . "</a></li>";
+						$variants .= "<a href=\"mailto:{\$reply_to}?subject=TRADUCIR&body=$tip\">" . $tip . "</a>,\n";
 				}
-				$variants .= '</ol></td>';
-				
-				if ($i == 3) {
-					$variants .= '</tr>' . "\n";
-					$i = 0;
-				}
+				$variants.= '{$br}';
 			}
 		} else {
 			$richtextfrom .= $vv;

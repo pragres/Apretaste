@@ -2,35 +2,20 @@
 ?$missing_text
 	No nos envi&oacute; el texto a traducir.
 @else@
-<p>
+	{$h1}{$ltitle}{$_h1}
 
-<h2 style="{$font}">{$title}</h2>
+	{$p}<b>Texto traducido ({$blto}):</b>{$br}{br:textto}{$_p}
+	{$p}<b>Texto original ({$blfrom}):</b>{$br}{br:textfrom}{$_p}
 
-<p  style="{$font};">
-<b>Texto traducido ({$blto}):</b><br/>
-{br:textto}
-</p>
+	?$meanings
+		{$h2}Significados{$_h2}
+		{$meanings}
+	$meanings?
 
-<p  style="{$font}">
-<b>Texto original ({$blfrom}):</b><br/>
-{br:textfrom}
-</p>
+	{$h2}Interactivo{$_h2}
+	{$p}<b>Texto traducido ({$blto}):</b>{$br}{$richtextto}{$_p}
+	{$p}<b>Texto original ({$blfrom}):</b>{$br}{$richtextfrom}{$_p}
 
-?$meanings
-<hr/>
-<h2 style="{$font}">Significados</h2>
-{$meanings}
-$meanings?
-<hr/>
-<h2 style="{$font}">Interactivo</h2>
-<p style="{$font}">
-<b>Texto traducido ({$blto}):</b><br/>
-{$richtextto}
-</p>
-<p style="{$font}">
-<b>Texto original ({$blfrom}):</b><br/>
-{$richtextfrom}
-</p>
-<h2 style="{$font}">Variantes de traducci&oacute;n</h2>
-{$variants}
+	{$h2}Variantes de traducci&oacute;n{$_h2}
+	{$variants}
 $missing_text?

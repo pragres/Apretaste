@@ -14,7 +14,6 @@
  * @return array
  */
 function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
-	
 	$langs = array(
 			"auto" => "auto",
 			"es" => "espanol",
@@ -88,7 +87,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	// Clean the text
 	$robot->log("Cleanning/Decoding the text..");
 	
-	if (! Apretaste::isUTF8($text)){
+	if (! Apretaste::isUTF8($text)) {
 		$robot->log("Text is not UTF8, encoding to UTF8...");
 		$text = Apretaste::utf8Encode($text);
 	}
@@ -187,6 +186,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 			"blto" => $blangs[$lto],
 			"blfrom" => $blangs[$lfrom],
 			"title" => "Resultado de traducir '" . substr($result['textfrom'], 0, 20) . "...' al " . $blangs[$lto],
+			"ltitle" => substr($result['textfrom'], 0, 20) . "...' al " . $blangs[$lto],
 			"textto" => $result['textto'],
 			"textfrom" => $result['textfrom'],
 			"richtextto" => $result['richtextto'],
@@ -282,8 +282,8 @@ function parse_google_translator_response($response){
 					$richtextfrom .= substr($original, $lastp, $p1 - $lastp - 1);
 					$richtextto .= substr($original, $lastp, $p1 - $lastp - 1);
 				}
-			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . $part['text'] . '</a>&nbsp;';
-			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . $part['textto'] . '</a>&nbsp;';
+			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['text'] . '">' . htmlentities($part['text'], 2 | 0, 'UTF-8', false) . '</a>&nbsp;'."\n";
+			$richtextto .= '<a style="cursor: pointer; padding: 3px;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="mailto:{$reply_to}?subject=TRADUCIR&body=' . $part['textto'] . '">' . htmlentities($part['textto'], 2 | 0, 'UTF-8', false) . '</a>&nbsp;'."\n";
 			
 			$lastp = $p2;
 			
@@ -297,7 +297,7 @@ function parse_google_translator_response($response){
 				if ($i == 1)
 					$variants .= '</tr>';
 				
-				$variants .= "<td width=\"33%\" style=\"border-bottom: 1px solid #dddddd; border-right: 1px solid #dddddd; \" valign=\"top\">\n<a href=\"mailto:{\$reply_to}?subject=TRADUCIR&body=$vv\"><b>$vv</b></a>: <ol style=\"margin:0px;\">";
+				$variants .= "<td width=\"33%\" valign=\"top\">\n<a href=\"mailto:{\$reply_to}?subject=TRADUCIR&body=$vv\"><b>$vv</b></a>: <ol style=\"margin:0px;\">";
 				foreach ( $part['tips'] as $tip ) {
 					$tip = str_replace(array(
 							"\n",

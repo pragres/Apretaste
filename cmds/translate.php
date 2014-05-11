@@ -124,8 +124,13 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 				"textfrom" => '',
 				"compactmode" => true
 		);
-		
-		// Translating...
+	
+	$textoobig = false;
+	if (strlen($text) > 100 * 1024) {
+		$text = substr($text, 0, 100 * 1024);
+		$textoobig = true;
+	}
+	// Translating...
 	if ($lfrom == 'auto') {
 		
 		$robot->log("Detecting language...");
@@ -193,7 +198,8 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 			"richtextfrom" => $result['richtextfrom'],
 			"meanings" => $result['meanings'],
 			"compactmode" => true,
-			"variants" => $result['variants']
+			"variants" => $result['variants'],
+			"toobig" => $textoobig
 	);
 }
 
@@ -282,8 +288,8 @@ function parse_google_translator_response($response){
 					$richtextfrom .= substr($original, $lastp, $p1 - $lastp - 1);
 					$richtextto .= substr($original, $lastp, $p1 - $lastp - 1);
 				}
-			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;text-decoration: none;color:black;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="' . implode(" / ", $part['tips']) . '">' . htmlentities($part['text'], 2 | 0, 'UTF-8', false) . '</a>&nbsp;'."\n";
-			$richtextto .= '<a style="cursor: pointer; padding: 3px;text-decoration: none;color:black;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="' . implode(" / ", $part['tips']) . '">' . htmlentities($part['textto'], 2 | 0, 'UTF-8', false) . '</a>&nbsp;'."\n";
+			$richtextfrom .= '<a style="cursor: pointer; padding: 3px;text-decoration: none;color:black;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="' . implode(" / ", $part['tips']) . '">' . htmlentities($part['text'], 2 | 0, 'UTF-8', false) . '</a>&nbsp;' . "\n";
+			$richtextto .= '<a style="cursor: pointer; padding: 3px;text-decoration: none;color:black;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="' . implode(" / ", $part['tips']) . '">' . htmlentities($part['textto'], 2 | 0, 'UTF-8', false) . '</a>&nbsp;' . "\n";
 			
 			$lastp = $p2;
 			
@@ -304,7 +310,7 @@ function parse_google_translator_response($response){
 					if (strlen($tip) > 1)
 						$variants .= "<a href=\"mailto:{\$reply_to}?subject=TRADUCIR&body=$tip\">" . $tip . "</a>,\n";
 				}
-				$variants.= '{$br}';
+				$variants .= '{$br}';
 			}
 		} else {
 			$richtextfrom .= $vv;

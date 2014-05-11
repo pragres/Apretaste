@@ -205,7 +205,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 			"title" => "Resultado de traducir '" . substr($result['textfrom'], 0, 20) . "...' al " . $blangs[$lto],
 			"ltitle" => substr($result['textfrom'], 0, 20) . "...' al " . $blangs[$lto],
 			"textto" => $result['textto'],
-			"textfrom" => $body,
+			"textfrom" => quoted_printable_decode($body),
 			"richtextto" => $result['richtextto'],
 			"richtextfrom" => $result['richtextfrom'],
 			"meanings" => $result['meanings'],

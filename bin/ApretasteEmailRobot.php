@@ -86,7 +86,7 @@ class ApretasteEmailRobot {
 					$d = $headers->date;
 				
 				$t = strtotime($d);
-				$d = date("d-m-Y", $t);
+				$d = date("d/m/Y", $t);
 				
 				$s = '';
 				

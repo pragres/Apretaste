@@ -118,6 +118,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 		if (! Apretaste::isUTF8($text))
 			$text = Apretaste::utf8Encode($text);
 	}
+	
 	$robot->log("Translating: $text");
 	
 	// No text
@@ -140,6 +141,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 		$text = substr($text, 0, 100 * 1024);
 		$textoobig = true;
 	}
+	
 	// Translating...
 	if ($lfrom == 'auto') {
 		
@@ -336,7 +338,7 @@ function parse_google_translator_response($response){
 	$richtextto = str_replace(" ,", ",", $richtextto);
 	
 	return array(
-			"textfrom" => $textfrom,
+			"textfrom" => $body,
 			"textto" => $textto,
 			"richtextto" => $richtextto,
 			"richtextfrom" => $richtextfrom,

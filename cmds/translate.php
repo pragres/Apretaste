@@ -205,7 +205,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 			"title" => "Resultado de traducir '" . substr($result['textfrom'], 0, 20) . "...' al " . $blangs[$lto],
 			"ltitle" => substr($result['textfrom'], 0, 20) . "...' al " . $blangs[$lto],
 			"textto" => $result['textto'],
-			"textfrom" => $result['textfrom'],
+			"textfrom" => $body,
 			"richtextto" => $result['richtextto'],
 			"richtextfrom" => $result['richtextfrom'],
 			"meanings" => $result['meanings'],
@@ -338,7 +338,7 @@ function parse_google_translator_response($response){
 	$richtextto = str_replace(" ,", ",", $richtextto);
 	
 	return array(
-			"textfrom" => $body,
+			"textfrom" => $textfrom,
 			"textto" => $textto,
 			"richtextto" => $richtextto,
 			"richtextfrom" => $richtextfrom,

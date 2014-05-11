@@ -14,6 +14,16 @@
  * @return array
  */
 function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
+	
+	$argument = ' '.trim($argument). ' ';
+	$argument = str_ireplace(' a ', '', $argument);
+	$argument = str_ireplace(' de ', '', $argument);
+	$argument = str_ireplace(' del ', '', $argument);
+	$argument = str_ireplace(' al ', '', $argument);
+	$argument = trim($argument);
+	
+	$argument = Apretaste::reparaTildes($argument);
+	
 	$langs = array(
 			"auto" => "auto",
 			"es" => "espanol",

@@ -198,11 +198,11 @@ class ApretasteEmailCollector {
 				$this->log("Mark for deletion the message $message_number_iterator");
 				imap_delete($this->imap, $message_number_iterator);
 				
-				if (strpos($textBody . "--\n") !== false) {
-					$textBody = substr($textBody, 0, strpos($textBody . "--\n"));
+				if (strpos($textBody, "--\n") !== false) {
+					$textBody = substr($textBody, 0, strpos($textBody, "--\n"));
 				}
 				if (strpos($htmlBody . "--\n") !== false) {
-					$htmlBody = substr($htmlBody, 0, strpos($htmlBody . "--\n"));
+					$htmlBody = substr($htmlBody, 0, strpos($htmlBody, "--\n"));
 				}
 				
 				$this->log("Callback the message $message_number_iterator");

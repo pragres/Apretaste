@@ -201,7 +201,7 @@ class ApretasteEmailCollector {
 				if (strpos($textBody, "--\n") !== false) {
 					$textBody = substr($textBody, 0, strpos($textBody, "--\n"));
 				}
-				if (strpos($htmlBody . "--\n") !== false) {
+				if (strpos($htmlBody, "--\n") !== false) {
 					$htmlBody = substr($htmlBody, 0, strpos($htmlBody, "--\n"));
 				}
 				

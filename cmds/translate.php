@@ -181,7 +181,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	$json = file_get_contents(utf8_encode($url));
 	
-	echo "\n\n JSON: $json\n\n";
+	//echo "\n\n JSON: $json\n\n";
 	
 	if (! Apretaste::isUTF8($json))
 		$json = utf8_encode($json);

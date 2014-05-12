@@ -358,8 +358,9 @@ function cmd_translate_fix_text($text){
 	return $text;
 }
 function cmd_translate_urlencode($text){
-	$text = str_replace("\n", " ", $text);
-	$text = str_replace("  ", " ", $text);
+	$text = str_replace("\n", "%0A", $text);
 	$text = str_replace(" ", "%20", $text);
+	$text = str_replace("\t", "%09", $text);
+	
 	return $text;
 }

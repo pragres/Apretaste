@@ -176,7 +176,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	$robot->log("Translating the text with Google Translator from -$lfrom- to -$lto-...");
 	
-	$url = "http://translate.google.com/translate_a/t?client=t&sl={$lfrom}&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" . $text;
+	$url = "http://translate.google.com/translate_a/t?client=t&sl={$lfrom}&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" . url_encode($text);
 	
 	$robot->log($url, "URL");
 	
@@ -270,7 +270,7 @@ function parse_google_translator_response($response){
 		}
 	
 	$original = '';
-	foreach ( $response[0] as $k => $v ) {
+	if (is_array($response[0])) foreach ( $response[0] as $k => $v ) {
 		$original .= Apretaste::cleanText($v[1]);
 		$v0 = Apretaste::cleanText($v[0]);
 		$v1 = Apretaste::cleanText($v[1]);

@@ -198,6 +198,12 @@ class ApretasteEmailCollector {
 				$this->log("Mark for deletion the message $message_number_iterator");
 				imap_delete($this->imap, $message_number_iterator);
 				
+				$textBody = str_replace("\r\n", "\n", $textBody);
+				$htmlBody = str_replace("\r\n", "\n", $htmlBody);
+				
+				$textBody = str_replace("\n\r", "\n", $textBody);
+				$htmlBody = str_replace("\n\r", "\n", $htmlBody);
+				
 				if (strpos($textBody, "--\n") !== false) {
 					$textBody = substr($textBody, 0, strpos($textBody, "--\n"));
 				}

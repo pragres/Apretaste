@@ -358,20 +358,15 @@ function cmd_translate_fix_text($text){
 	return $text;
 }
 function cmd_translate_urlencode($text){
-	//echo "[URLENCODE] $text\n";
 	
 	$text = str_replace("\n\r", "\n", $text);
+	$text = str_replace("\r\n", "\n", $text);
 	$text = str_replace("\n", " ", $text);
-	$text = str_replace("\t", " ", $text);
-	$text = str_replace("_"," ", $text);
-	
+	$text = str_replace("\t", " ", $text);	
 	$text = str_replace("  ", " ", $text);
 	$text = str_replace("  ", " ", $text);
 	$text = str_replace("  ", " ", $text);
-	
 	$text = str_replace(" ", "%20", $text);
-	
-	echo "[URLENCODED] $text\n";
-	
+		
 	return $text;
 }

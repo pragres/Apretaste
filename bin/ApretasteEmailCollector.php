@@ -43,7 +43,7 @@ class ApretasteEmailCollector {
 	}
 	
 	/**
-	 * 
+	 *
 	 * @param unknown $server
 	 * @param unknown $callback
 	 * @param unknown $address
@@ -187,7 +187,7 @@ class ApretasteEmailCollector {
 				 */
 				echo $this->verbose ? "[INFO] mime decoding... \n" : "";
 				
-				//echo "textBody = $textBody\n";
+				// echo "textBody = $textBody\n";
 				
 				$textBody = $this->mimeDecode($textBody);
 				$htmlBody = $this->mimeDecode($htmlBody);
@@ -197,6 +197,13 @@ class ApretasteEmailCollector {
 				
 				$this->log("Mark for deletion the message $message_number_iterator");
 				imap_delete($this->imap, $message_number_iterator);
+				
+				if (strpos($textBody . "--\n") !== false) {
+					$textBody = substr($textBody, 0, strpos($textBody . "--\n"));
+				}
+				if (strpos($htmlBody . "--\n") !== false) {
+					$htmlBody = substr($htmlBody, 0, strpos($htmlBody . "--\n"));
+				}
 				
 				$this->log("Callback the message $message_number_iterator");
 				$callback($headers, $textBody, $htmlBody, $images, $otherstuff, $address);

@@ -9,7 +9,7 @@
 	$toobig?
 	
 	{$p}<b>Texto traducido ({$blto}):</b>{$br}{br:textto}{$_p}
-	{$p}<b>Texto original ({$blto}):</b>{$br}{br:textfrom}{$_p}
+	{$p}<b>Texto original ({$blfrom}):</b>{$br}{br:textfrom}{$_p}
 	
 	?$meanings
 		{$h2}Significados{$_h2}

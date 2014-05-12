@@ -14,8 +14,7 @@
  * @return array
  */
 function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
-	
-	$argument = ' '.trim($argument). ' ';
+	$argument = ' ' . trim($argument) . ' ';
 	$argument = str_ireplace(' a ', '', $argument);
 	$argument = str_ireplace(' de ', '', $argument);
 	$argument = str_ireplace(' del ', '', $argument);
@@ -147,7 +146,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 		
 		$robot->log("Detecting language...");
 		
-		$url = "http://translate.google.com/translate_a/t?client=t&sl=auto&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" . rawurlencode($text);
+		$url = "http://translate.google.com/translate_a/t?client=t&sl=auto&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" . cmd_translate_urlencode($text);
 		
 		$robot->log($url, "URL");
 		$json = file_get_contents(utf8_encode($url));
@@ -176,7 +175,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	$robot->log("Translating the text with Google Translator from -$lfrom- to -$lto-...");
 	
-	$url = "http://translate.google.com/translate_a/t?client=t&sl={$lfrom}&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" . rawurlencode($text);
+	$url = "http://translate.google.com/translate_a/t?client=t&sl={$lfrom}&tl={$lto}&hl={$hl}&sc=2&ie=UTF-8&oe=UTF-8&oc=13&otf=2&ssel=3&tsel=6&q=" . cmd_translate_urlencode($text);
 	
 	$robot->log($url, "URL");
 	
@@ -269,13 +268,14 @@ function parse_google_translator_response($response){
 		}
 	
 	$original = '';
-	if (is_array($response[0])) foreach ( $response[0] as $k => $v ) {
-		$original .= Apretaste::cleanText($v[1]);
-		$v0 = Apretaste::cleanText($v[0]);
-		$v1 = Apretaste::cleanText($v[1]);
-		$textto .= $v0;
-		$textfrom .= $v1;
-	}
+	if (is_array($response[0]))
+		foreach ( $response[0] as $k => $v ) {
+			$original .= Apretaste::cleanText($v[1]);
+			$v0 = Apretaste::cleanText($v[0]);
+			$v1 = Apretaste::cleanText($v[1]);
+			$textto .= $v0;
+			$textfrom .= $v1;
+		}
 	
 	$richtextto = '';
 	$richtextfrom = '';
@@ -355,5 +355,11 @@ function cmd_translate_fix_text($text){
 	$text = html_entity_decode($text, ENT_COMPAT, 'UTF-8');
 	$text = htmlentities($text);
 	
+	return $text;
+}
+function cmd_translate_urlencode($text){
+	$text = str_replace("\n", " ", $text);
+	$text = str_replace("  ", " ", $text);
+	$text = str_replace(" ", "%20", $text);
 	return $text;
 }

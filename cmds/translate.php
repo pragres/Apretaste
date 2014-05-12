@@ -137,7 +137,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	$textoobig = false;
 	if (strlen($text) > 100 * 1024) {
-		$text = substr($text, 0, 100 * 1024);
+		$text = substr($text, 0, 3 * 1024);
 		$textoobig = true;
 	}
 	

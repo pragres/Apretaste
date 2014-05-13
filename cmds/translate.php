@@ -53,9 +53,9 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 			"fr" => "es-419",
 			"pt" => "es-419",
 			"de" => "es-419",
-			"ru" => "es-419",
-			
-	);
+			"ru" => "es-419"
+	)
+	;
 	
 	$language = trim(strtolower($argument));
 	$languages = explode(" ", $language);
@@ -187,7 +187,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	$json = file_get_contents(utf8_encode($url));
 	
-	//echo "\n\n JSON: $json\n\n";
+	// echo "\n\n JSON: $json\n\n";
 	
 	if (! Apretaste::isUTF8($json))
 		$json = utf8_encode($json);
@@ -201,8 +201,15 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	// Send the answer
 	$robot->log("Sending the translated text...");
 	
-	if ($lto=='ru') {
-		$result['textto'] = $arr[0][0][2];
+	if ($lto == 'ru') {
+		
+		$rtto = '';
+		
+		foreach ( $arr[0] as $sentence ) {
+			$rtto .= $sentence[2];
+		}
+		
+		$result['textto'] = $rtto;
 		$result['richtextfrom'] = false;
 		$result['richtextto'] = false;
 	}
@@ -314,8 +321,8 @@ function parse_google_translator_response($response){
 					$richtextfrom .= substr($original, $lastp, $p1 - $lastp - 1);
 					$richtextto .= substr($original, $lastp, $p1 - $lastp - 1);
 				}
-			$richtextfrom .= '<a style="cursor: pointer; border: 3px solid '.$rgb.';text-decoration: none;color:black;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="' . implode(" / ", $part['tips']) . '">' . htmlentities(cmd_translate_special_chars($part['text']), 2 | 0, 'UTF-8', false) . '</a>&nbsp;' . "\n";
-			$richtextto .= '<a style="cursor: pointer; border: 3px solid '.$rgb.';text-decoration: none;color:black;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="' . implode(" / ", $part['tips']) . '">' . htmlentities(cmd_translate_special_chars($part['textto']), 2 | 0, 'UTF-8', false) . '</a>&nbsp;' . "\n";
+			$richtextfrom .= '<a style="cursor: pointer; border: 3px solid ' . $rgb . ';text-decoration: none;color:black;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="' . implode(" / ", $part['tips']) . '">' . htmlentities(cmd_translate_special_chars($part['text']), 2 | 0, 'UTF-8', false) . '</a>&nbsp;' . "\n";
+			$richtextto .= '<a style="cursor: pointer; border: 3px solid ' . $rgb . ';text-decoration: none;color:black;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="' . implode(" / ", $part['tips']) . '">' . htmlentities(cmd_translate_special_chars($part['textto']), 2 | 0, 'UTF-8', false) . '</a>&nbsp;' . "\n";
 			
 			$lastp = $p2;
 			
@@ -370,29 +377,21 @@ function cmd_translate_fix_text($text){
 	return $text;
 }
 function cmd_translate_urlencode($text){
-	
 	$text = str_replace("\n\r", "\n", $text);
 	$text = str_replace("\r\n", "\n", $text);
 	$text = str_replace("\n", " ", $text);
-	$text = str_replace("\t", " ", $text);	
+	$text = str_replace("\t", " ", $text);
 	$text = str_replace("  ", " ", $text);
 	$text = str_replace("  ", " ", $text);
 	$text = str_replace("  ", " ", $text);
 	$text = str_replace(" ", "%20", $text);
-		
+	
 	return $text;
 }
-
 function cmd_translate_special_chars($text){
 	return $text;
 	
-	/*$l = strlen($text);
-	$ntext = '';
-	for($i=1025; $i<=1169;$i++){
-		$text = str_replace(chr($i),'&#'.$i.';',$text);
-	}
-	return htmlspecialchars($text,null,'KOI8-R',false);*/
-	
-	
-	
+	/*
+	 * $l = strlen($text); $ntext = ''; for($i=1025; $i<=1169;$i++){ $text = str_replace(chr($i),'&#'.$i.';',$text); } return htmlspecialchars($text,null,'KOI8-R',false);
+	 */
 }

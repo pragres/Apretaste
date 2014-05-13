@@ -201,6 +201,12 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	// Send the answer
 	$robot->log("Sending the translated text...");
 	
+	if ($lto=='ru') {
+		$result['textto'] = $arr[0][0][2];
+		$result['richtextfrom'] = false;
+		$result['richtextto'] = false;
+	}
+	
 	return array(
 			"answer_type" => "translate",
 			"command" => "translate",
@@ -308,8 +314,8 @@ function parse_google_translator_response($response){
 					$richtextfrom .= substr($original, $lastp, $p1 - $lastp - 1);
 					$richtextto .= substr($original, $lastp, $p1 - $lastp - 1);
 				}
-			$richtextfrom .= '<a style="cursor: pointer; border: 3px solid '.$rgb.';text-decoration: none;color:black;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="' . implode(" / ", $part['tips']) . '">' . htmlentities($part['text'], 2 | 0, 'UTF-8', false) . '</a>&nbsp;' . "\n";
-			$richtextto .= '<a style="cursor: pointer; border: 3px solid '.$rgb.';text-decoration: none;color:black;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="' . implode(" / ", $part['tips']) . '">' . htmlentities($part['textto'], 2 | 0, 'UTF-8', false) . '</a>&nbsp;' . "\n";
+			$richtextfrom .= '<a style="cursor: pointer; border: 3px solid '.$rgb.';text-decoration: none;color:black;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="' . implode(" / ", $part['tips']) . '">' . htmlentities(cmd_translate_special_chars($part['text']), 2 | 0, 'UTF-8', false) . '</a>&nbsp;' . "\n";
+			$richtextto .= '<a style="cursor: pointer; border: 3px solid '.$rgb.';text-decoration: none;color:black;background: ' . $rgb . '" title="' . implode(" / ", $part['tips']) . '" href="' . implode(" / ", $part['tips']) . '">' . htmlentities(cmd_translate_special_chars($part['textto']), 2 | 0, 'UTF-8', false) . '</a>&nbsp;' . "\n";
 			
 			$lastp = $p2;
 			
@@ -375,4 +381,18 @@ function cmd_translate_urlencode($text){
 	$text = str_replace(" ", "%20", $text);
 		
 	return $text;
+}
+
+function cmd_translate_special_chars($text){
+	return $text;
+	
+	/*$l = strlen($text);
+	$ntext = '';
+	for($i=1025; $i<=1169;$i++){
+		$text = str_replace(chr($i),'&#'.$i.';',$text);
+	}
+	return htmlspecialchars($text,null,'KOI8-R',false);*/
+	
+	
+	
 }

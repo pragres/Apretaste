@@ -16,9 +16,10 @@
 		{$meanings}
 	$meanings?
 
-	{$h1}Traducci&oacute;n interactiva:{$_h1}
-	{$p}Pase el mouse sobre las palabras para ver variantes de traducci&oacute;n.{$_p}
-	{$p}<b>Texto traducido ({$blto}):</b>{$br}{$richtextto}{$_p}
-	{$p}<b>Texto original ({$blfrom}):</b>{$br}{$richtextfrom}{$_p}
-
+	?$richtextto
+		{$h1}Traducci&oacute;n interactiva:{$_h1}
+		{$p}Pase el mouse sobre las palabras para ver variantes de traducci&oacute;n.{$_p}
+		{$p}<b>Texto traducido ({$blto}):</b>{$br}{$richtextto}{$_p}
+		{$p}<b>Texto original ({$blfrom}):</b>{$br}{$richtextfrom}{$_p}
+	$richtextto?
 $missing_text?

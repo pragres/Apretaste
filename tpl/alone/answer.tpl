@@ -46,7 +46,8 @@
 		terms: {cmd: "TERMINOS", desc: "T&eacute;rminos de uso", rel: ["invite"]}	,
 		google: {cmd: "GOOGLE", desc: "Buscar con Google", rel: ["invite"]}	,
 		services: {cmd: "SERVICIOS", desc: "Servicios de Apretaste!", rel: ["invite"]}	,
-		sms: {cmd: "SMS", desc: "Enviar un SMS", rel:["invite"]}
+		sms: {cmd: "SMS", desc: "Enviar un SMS", rel:["invite"]},
+		linker: {cmd: "ANUNCIOS", desc: "Anuncios", rel:["insert","search","subscribe"]}
 	}
 =}
 

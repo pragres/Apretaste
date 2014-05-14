@@ -682,22 +682,25 @@ class ApretasteAdmin {
 		$data = array();
 		
 		if (! is_null($submit)) {
+			
+			
 			$address = post('address');
-			$address = str_replace(array(
+			$address = Apretaste::getAddressFrom($address);
+			/*$address = str_replace(array(
 					"\n\r",
 					"\n",
 					"\r"
 			), ";", $address);
-			$address = explode(";", $address);
+			$address = explode(";", $address);*/
 			$source = 'apretaste.admin';
 			foreach ( $address as $addr ) {
-				$addr = strtolower($addr);
-				if (Apretaste::checkAddress($addr)) {
+				/*$addr = strtolower($addr);
+				if (Apretaste::checkAddress($addr)) {*/
 					Apretaste::query("
 					INSERT INTO address_list (email, source) 
 					SELECT '$addr' as email, '$source' as source
 					WHERE NOT EXISTS(SELECT * FROM address_list WHERE email = '$addr');");
-				}
+				//}
 			}
 			$data['msg-type'] = 'msg-ok';
 			$data['msg'] = 'The address was inserted';

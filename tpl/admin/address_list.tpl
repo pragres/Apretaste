@@ -49,6 +49,10 @@
 			<div id = "message" class = "{$msg-type}">{$msg}</div>
 		$msg?
 		
+		?$addinserted
+			<p>{$addinserted} already inserted: [$addinserted]{$value}, [/$addinserted]</p> 
+		$addinserted?
+		
 		<!--{ download area }-->
 		<hr/>
 				

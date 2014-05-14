@@ -704,6 +704,7 @@ class ApretasteAdmin {
 			}
 			$data['msg-type'] = 'msg-ok';
 			$data['msg'] = 'The address was inserted';
+			$data['addinserted'] = $address;
 		}
 		
 		$data['user'] = self::getUser();

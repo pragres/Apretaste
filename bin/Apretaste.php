@@ -989,6 +989,39 @@ class Apretaste {
 		
 		return $addresses;
 	}
+	/**
+	 * Add a list of email addresses
+	 *
+	 * @param mixed $text
+	 * @param string $source
+	 */
+	static public function addToAddressList($text, $source){
+		$address = array();
+		if (! is_array($text)) {
+			$text = "$text";
+			$address = Apretaste::getAddressFrom($text);
+		} else
+			$address = $text;
+		
+		$naddress = array();
+		foreach ( $address as $addr ) {
+			$addr = strtolower($addr);
+			if (Apretaste::checkAddress($addr)) {
+				$naddress[$addr] = $addr;
+			}
+		}
+		
+		$address = $naddress;
+		
+		foreach ( $address as $addr ) {
+			self::query("
+					INSERT INTO address_list (email, source)
+					SELECT '$addr' as email, '$source' as source
+					WHERE NOT EXISTS(SELECT * FROM address_list WHERE email = '$addr');");
+		}
+		
+		return $address;
+	}
 	
 	/**
 	 * Convert to links the email addresses in the text
@@ -3156,12 +3189,11 @@ class Apretaste {
 	
 	/**
 	 * Send email
-	 * 
+	 *
 	 * @param string $to
 	 * @param array $data
 	 */
 	static function sendEmail($to, $data){
-		
 		$robot = new ApretasteEmailRobot($autostart = false, $verbose = false);
 		
 		Apretaste::$robot = &$robot;

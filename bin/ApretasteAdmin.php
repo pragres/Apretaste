@@ -682,26 +682,9 @@ class ApretasteAdmin {
 		$data = array();
 		
 		if (! is_null($submit)) {
-			
-			
 			$address = post('address');
-			$address = Apretaste::getAddressFrom($address);
-			/*$address = str_replace(array(
-					"\n\r",
-					"\n",
-					"\r"
-			), ";", $address);
-			$address = explode(";", $address);*/
 			$source = 'apretaste.admin';
-			foreach ( $address as $addr ) {
-				/*$addr = strtolower($addr);
-				if (Apretaste::checkAddress($addr)) {*/
-					Apretaste::query("
-					INSERT INTO address_list (email, source) 
-					SELECT '$addr' as email, '$source' as source
-					WHERE NOT EXISTS(SELECT * FROM address_list WHERE email = '$addr');");
-				//}
-			}
+			$address = Apretaste::addToAddressList($address, $source);
 			$data['msg-type'] = 'msg-ok';
 			$data['msg'] = 'The address was inserted';
 			$data['addinserted'] = $address;
@@ -725,14 +708,14 @@ class ApretasteAdmin {
 	static function page_subscribes(){
 		if (! self::verifyLogin())
 			die('Access denied');
-				
+		
 		Apretaste::cleanSubscribes();
 		
 		$data = array();
 		$data['user'] = self::getUser();
 		
 		$data['subscribes'] = Apretaste::query("SELECT id,email,phrase,fa::date as moment,last_alert::date as last_alert FROM subscribe order by email,phrase;");
-
+		
 		echo new div("../tpl/admin/subscribes", $data);
 	}
 }

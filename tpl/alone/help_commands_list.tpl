@@ -1,6 +1,8 @@
-<p align = "justify" style="{$font}">La tabla a continuaci&oacute;n muestra como interactuar con las diferentes opciones de Apretaste!. 
-Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr&iacute;banos a <a href="mailto:soporte@apretaste.com">soporte@apretaste.com</a> y con gusto le explicaremos.</p>
-<table width="790" cellpadding="5" style="{$font}">
+{$p}
+La tabla a continuaci&oacute;n muestra como interactuar con las diferentes opciones de Apretaste!. 
+Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr&iacute;banos a <a href="mailto:soporte@apretaste.com">soporte@apretaste.com</a> y con gusto le explicaremos.
+{$_p}
+<table cellpadding="5" style="{$font}">
 	<tr>
 		<th width = "33%">Asunto del correo</th>
         <th>Cuerpo del correo</th>
@@ -123,6 +125,29 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
                     - en blanco -
                 </td>
 		<td valign="top" style="text-align:justify;" align="justify">Devuelve un SUDOKU para jugar. Puede responderlo en el mismo correo o imprimirlo si desea.</td>
+	</tr>
+	<tr><td colspan="3"  align="center" style="font-size: 14px;"><b>Acad&eacute;micos</b></td></tr>
+	<tr>
+		<td valign="top">
+                <strong>ARTICULO frase de b&uacute;squeda</strong>
+                </td>
+                <td valign="top">
+                    - en blanco -
+                </td>
+		<td valign="top" style="text-align:justify;" align="justify">Busca el art&iacute;culo m&aacute;s relevante en Wikipedia.org seg&uacute;n la frase de b&uacute;squeda puesta en el asunto del correo.</td>
+	</tr>
+	<tr style="background:#eeeeee;">
+		<td valign="top">
+                <b>TRADUCIR</b> idioma-del-texto<i>(opcional)</i> idioma-a-obtener<i>(opcional)</i>
+                </td>
+                <td valign="top">
+                    Texto a traducir
+                </td>
+		<td valign="top" style="text-align:justify;" align="justify">Traduce un texto a un idioma dado. <ul>
+		<li>Si se omiten ambos idiomas,	se detecta el idioma del texto autom&aacute;ticamente y se traduce al espa&ntilde;ol. Si el idioma detectado es el espa&ntilde;ol, se traduce al ingl&eacute;s.</li> 
+		<li>Si se especifica un solo idioma, se detecta el del texto y se traduce a ese idioma. </li>
+		<li>Si se especifican los dos idiomas, entonces el primer idioma es el del texto y el segundo el que se desea obtener.</li>
+		</ul></td>
 	</tr>
 	<tr><td colspan="3" align="center" style="font-size: 14px;"><b>Otros servicios</b></td></tr>
 	<tr>

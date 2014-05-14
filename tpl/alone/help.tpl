@@ -1,10 +1,10 @@
 {= *AnswerSubject: Ayuda de {$apretaste} =}
-<p align="justify" style="{$font}; text-align:justify;">
+{$p}
 	Apretaste <i>permite revisar servicios en Internet mediante el email</i>. Usando Apretaste 
 	usted puede Vender o Comprar algo que necesite, consultar la Enciclopedia, Traducir documentos a 
 	decenas de idiomas, ver el Estado del Tiempo o (entre otros) leer un Chiste; siempre usando su 
 	correo electr&oacute;nico.
-</p>
+{$_p}
 
 <table>
 	<tr>
@@ -36,22 +36,19 @@
 		</td>
 	</tr>
 </table>
-
-<hr/>
-
-<h3 style="{$font}">Lista de servicios</h3>
+{$br}
+{$h1}Lista de servicios{$_h1}
 {% help_commands_list %}
-<hr/>
-
-<h3>Invite a sus amigos y familia</h3>
+{$br}
+{$h1}Invite a sus amigos y familia{$_h1}
 <table>
 	<tr>
 		<td valign="top">
-			<p style="{$font};">Invite a sus amigos y familia a conocer Apretaste. </p>
+			{$p}Invite a sus amigos y familia a conocer Apretaste.{$_p}
 			
-			<p style="{$font};">Env&iacute;e un email a <a style="color:green;" href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a> y en el asunto escriba <span style="color:green;">INVITAR email@deSuAmigo.cu</span>. En menos de 3 minutos le mandaremos un email de confirmaci&oacute;n.</p>
+			{$p}Env&iacute;e un email a <a style="color:green;" href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a> y en el asunto escriba <span style="color:green;">INVITAR email@deSuAmigo.cu</span>. En menos de 3 minutos le mandaremos un email de confirmaci&oacute;n.{$_p}
 			
-			<p style="{$font};">Recuerde reemplazar <span style="color: green;">email@deSuAmigo.cu</span> por el correo electr&oacute;nico de la persona que quiera invitar.</p>
+			{$p}Recuerde reemplazar <span style="color: green;">email@deSuAmigo.cu</span> por el correo electr&oacute;nico de la persona que quiera invitar.{$_p}
 			
 			<table align="center">
 				<tr>
@@ -73,7 +70,6 @@
 		</td>
 	</tr>
 </table>
-<hr/>
-
-<h3 style="{$font}">Ejemplos de las servicios m&aacute;s usados</h3>
+{$br}
+{$h1}Ejemplos de las servicios m&aacute;s usados{$_h1}
 {% help_commands %}

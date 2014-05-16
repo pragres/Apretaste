@@ -17,6 +17,10 @@ function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 			APRETASTE_INVITATION_SUCCESSFULL => "ha sido invitado satisfactoriamente"
 	);
 	
+	$argument = $argument . ' ' . $body;
+	
+	Apretaste::addToAddressList($argument, 'apretaste.invitation');
+	
 	// Filter argument
 	$address = Apretaste::getAddressFrom($argument);
 	
@@ -34,7 +38,7 @@ function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 		foreach ( $address as $guest ) {
 			if (! isset($results[$guest])) {
 				$robot->log("Invite $guest");
-				$results[$guest] = Apretaste::invite($from, $guest);
+				$results[$guest] = Apretaste::invite($from, $guest, $body);
 			}
 		}
 	}

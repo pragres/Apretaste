@@ -1,13 +1,13 @@
 {= *AnswerSubject: {$author} lo ha invitado a usar {$apretaste} =}
-<p align="justify" style="text-align:justify;{$font}">
+{$p}
 Usted ha recibido este correo porque <b><a href="mailto:{$author}">{$author}</a></b> le ha invitado a descubrir 
-Apretaste.
-</p>
-<p align="justify" style="text-align:justify;{$font}">
+Apretaste. 
+{$_p}
+{$p}
 Apretaste <i>permite revisar servicios en Internet mediante el email</i>. Usando Apretaste usted puede Vender o Comprar algo que necesite, consultar la Enciclopedia, Traducir documentos a decenas de idiomas, ver el Estado del Tiempo o (entre otros) leer un Chiste; siempre usando su correo electr&oacute;nico.
-</p>
+{$_p}
 
-<h3>Para usar el servicio de Compra/Venta</h3>
+{$h1}Para usar el servicio de Compra/Venta{$_h1}
 <p align="justify" style="text-align:justify;{$font}">Si usted quiere vender la cuna que us&oacute; su hijo, puede encontrar un comprador por email. Si necesita comprar un televisor, puede encontrar quien lo venda usando solamente el email.</p>
 
 <table width="790" style="{$font}">

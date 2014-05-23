@@ -20,7 +20,8 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 			// "weather" => "<b>CLIMA</b>: Ver el estado del tiempo",
 			// "translate" => "<b>TRADUCIR</b>: Traducir textos",
 			"invite" => "<b>INVITAR</b>: Invitar a un amigo",
-			"subscribe" => "<b>ALERTA</b>: Recibir alertas de anuncios por correo"
+			"subscribe" => "<b>ALERTA</b>: Recibir alertas de anuncios por correo",
+			"translate" => "<b>TRADUCIR</b>: Traducir textos"
 	);
 	
 	if (is_array($stats['messages_by_command']))
@@ -39,7 +40,7 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 			"command" => "state",
 			"compactmode" => true,
 			"answer_type" => "state",
-			"title" => "Su estado en Apretaste!com",
+			"title" => "Su estado en Apretaste!",
 			"announcements" => $r,
 			"subscribes" => $s,
 			"stats" => $stats,

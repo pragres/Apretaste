@@ -6,13 +6,11 @@ la lista de sus anuncios y las alertas a las cuales Ud. est&aacute; subscrito, e
  en {$apretaste}" style ="{$element-a}">solicitarlo nuevamente</a> para obtenerlo actualizado.
 {$_p}
 
-?$credit
 {$h2}Su cr&eacute;dito:{$_h2}
 {$p}
 Su cr&eacute;dito actual es de <b>${$credit}</b>. 
 <!--{ Para recargar su cr&eacute;dito visite la web <a href="http://apretaste.com/recargar">http://apretaste.com/recargar</a>. }-->
 {$_p}
-$credit?
 
 ?$announcements
 {$h2}Sus anuncios publicados{$_h2}
@@ -50,6 +48,9 @@ $credit?
 			<td></td><td></td>
 		</tr>
 	</table>
+@else@
+	{$h2}Sus anuncios publicados{$_h2}
+	{$p}Usted no tiene anuncios publicados en Apretaste!{$_p}
 $announcements?
 
 ?$subscribes
@@ -72,6 +73,9 @@ $announcements?
 			<td></td>
 		</tr>
 	</table>
+@else@
+	{$h2}Sus alertas por correo{$_h2}
+	{$p}Usted no est&aacute; subscrito(a) a ninguna alerta{$_p}
 $subscribes?
 
 ?$sms
@@ -87,6 +91,9 @@ $subscribes?
 	</tr>
 	[/$sms]
 	</table>
+@else@
+	{$h2}&Uacute;ltimos SMS enviados:{$_h2}
+	{$p}Usted no ha enviado ningún SMS usando Apretaste!{$_p}
 $sms?
 
 ?$services

@@ -9,7 +9,7 @@ la lista de sus anuncios y las alertas a las cuales Ud. est&aacute; subscrito, e
 ?$credit
 {$h2}Su cr&eacute;dito:{$_h2}
 {$p}
-Su cr&eacute;dito actual es de ${$credit} USD. 
+Su cr&eacute;dito actual es de <b>${$credit}</b>. 
 <!--{ Para recargar su cr&eacute;dito visite la web <a href="http://apretaste.com/recargar">http://apretaste.com/recargar</a>. }-->
 {$_p}
 $credit?

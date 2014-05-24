@@ -91,9 +91,6 @@ $subscribes?
 	</tr>
 	[/$sms]
 	</table>
-@else@
-	{$h2}&Uacute;ltimos SMS enviados:{$_h2}
-	{$p}Usted no ha enviado ningún SMS usando Apretaste!{$_p}
 $sms?
 
 ?$services

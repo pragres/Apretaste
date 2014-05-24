@@ -1,21 +1,21 @@
 {= *AnswerSubject: Su estado en {$apretaste} =}
 
 {$p}
-A continuaci&oacute;n se muestra informaci&oacute;n sobre su estado en {$apretaste}, como es
-la lista de sus anuncios y las alertas a las cuales Ud. est&aacute; subscrito. Este reporte puede cambiar durante
-el tiempo, por lo que puede <a href = "mailto:{$reply_to}?subject=ESTADO&Haga clic en Enviar para obtener el reporte de su estado en {$apretaste}" style ="{$element-a}">solicitarlo nuevamente.</a>\
+A continuaci&oacute;n se muestra un reporte con informaci&oacute;n detallada de su estado en {$apretaste}, como puede ser su cr&eacute;dito,
+la lista de sus anuncios y las alertas a las cuales Ud. est&aacute; subscrito, etc. Si lo desea puede <a href = "mailto:{$reply_to}?subject=ESTADO&Haga clic en Enviar para obtener el reporte de su estado
+ en {$apretaste}" style ="{$element-a}">solicitarlo nuevamente</a> para obtenerlo actualizado.
 {$_p}
 
 ?$credit
 {$h2}Su cr&eacute;dito:{$_h2}
 {$p}
-Su cr&eacute;dito actual es de ${$credit} USD. Para recargar su cr&eacute;dito visite la web <a href="http://apretaste.com/recargar">http://apretaste.com/recargar</a>.
+Su cr&eacute;dito actual es de ${$credit} USD. 
+<!--{ Para recargar su cr&eacute;dito visite la web <a href="http://apretaste.com/recargar">http://apretaste.com/recargar</a>. }-->
 {$_p}
 $credit?
 
-}-->
-{$h2}Sus anuncios publicados{$_h2}
 ?$announcements
+{$h2}Sus anuncios publicados{$_h2}
 	<table width="790" style="{$font}">
 		<tr style = "font-weight: bold;">
 			<th align="left" width="150">Ticket</th>
@@ -50,12 +50,10 @@ $credit?
 			<td></td><td></td>
 		</tr>
 	</table>
-@else@
-	{$p}Usted no tiene anuncios publicados.{$_p}
 $announcements?
 
-{$h2}Sus alertas por correo{$_h2}
 ?$subscribes
+{$h2}Sus alertas por correo{$_h2}
 	<table style="{$font}">
 		<tr style = "font-weight: bold;">
 			<th align="left">Identificador</th><th align="left">Fecha</th><th align="left">Frase de b&uacute;squeda</th><th></th>
@@ -74,8 +72,6 @@ $announcements?
 			<td></td>
 		</tr>
 	</table>
-@else@
-	<p style="{$font}">Usted no est&aacute; subscrito a ninguna alerta.</p>
 $subscribes?
 
 ?$sms
@@ -91,9 +87,6 @@ $subscribes?
 	</tr>
 	[/$sms]
 	</table>
-@else@
-{$h2}&Uacute;ltimos SMS enviados:{$_h2}
-{$p}Usted no ha enviado SMS a trav&eacute;s de Apretaste!.{$_p}
 $sms?
 
 ?$services

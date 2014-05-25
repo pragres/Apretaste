@@ -67,6 +67,8 @@ function av($array = array(), $index = 0, $default = null){
 	return $array[$index];
 }
 
+
+
 /**
  * Complete object/array properties
  *
@@ -74,7 +76,6 @@ function av($array = array(), $index = 0, $default = null){
  * @param mixed $prop
  */
 function cop(&$source, $complement){
-var_dump($source);
 	$null = null;
 	if (is_null($source)) return $complement;
 	if (is_null($complement)) return $complement;

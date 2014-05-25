@@ -24,7 +24,7 @@ function __autoload($class){
 // Libs
 include "../lib/independent.php";
 
-div::logOn("../log/div.log");
+//div::logOn("../log/div.log");
 
 // CLI Mode
 if (div::isCli()) {

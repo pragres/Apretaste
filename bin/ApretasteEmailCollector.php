@@ -87,9 +87,12 @@ class ApretasteEmailCollector {
 			
 			return false;
 		}
-		
+
+		$this->log("Expunge IMAP connection");
+		imap_expunge($this->imap);
+				
 		imap_sort($this->imap, SORTARRIVAL, 1);
-		
+				
 		$status = imap_status($this->imap, $server['mailbox'], $options = SA_MESSAGES);
 		
 		$this->log($status->messages . " messages to process");

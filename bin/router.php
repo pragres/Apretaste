@@ -8,6 +8,10 @@ date_default_timezone_set("America/New_York");
 
 set_include_path("../;../lib/;../bin/;../tpl/;../lib/PEAR/");
 
+error_reporting(E_ALL | E_STRICT);
+
+ini_set('display_errors', 1);
+
 // Autoload classes
 function __autoload($class){
 	if (file_exists("../bin/{$class}.php")) {

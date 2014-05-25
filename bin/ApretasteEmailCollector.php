@@ -56,7 +56,7 @@ class ApretasteEmailCollector {
 		do {
 			$try ++;
 			echo "[INFO] " . date("Y-m-d h:i:s") . " Trying to connect to inbox -  try = $try\n";
-			$this->imap = @imap_open($mailbox = $server['mailbox'], $username = $server['username'], $password = $server['password']);
+			$this->imap = imap_open($mailbox = $server['mailbox'], $username = $server['username'], $password = $server['password']);
 		} while ( $this->imap === false && $try < $maxtry );
 		
 		if ($this->imap === false) {

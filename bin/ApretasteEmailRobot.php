@@ -32,7 +32,7 @@ class ApretasteEmailRobot {
 				$cmdpath = "../cmds/{$command['operation']}.php";
 				$answer = array();
 				
-				$class->account = $account;
+				$clase->account = $account;
 				
 				if (file_exists($cmdpath)) {
 					include_once $cmdpath;

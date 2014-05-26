@@ -126,17 +126,16 @@ class ApretasteAnswerEmail {
 			echo $this->verbose ? "All OK with this address\n":"";
 			
 			$message = '';
-			
 			echo $this->verbose ? "Send email \n" : "";
+			ob_start();
 			
 			$result = $smtp_server->send($this->to, $this->headers, $this->message->getMessageBody());
 			
 			if ($result !== true) {
+				echo serialize($result);
 				if (! isset($froms[$i + 1])) {
-					ob_start();
 					echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
 					echo "<br/>\n";
-					
 					//echo div::asThis($result);
 					$serv = $this->servers[$from];
 					echo "From: " . $serv['host'] . "<br/>";
@@ -145,11 +144,8 @@ class ApretasteAnswerEmail {
 					echo "Headers: <br/>\n";
 					echo div::asThis($this->headers);
 					echo "<br/>\n";
-					
-					//echo "Trying with other server ...\n";
-					
+					// echo "Trying with other server ...\n";
 					$message = ob_get_contents();
-					ob_end_clean();
 					
 					$headers = 'MIME-Version: 1.0' . "\r\n";
 					$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
@@ -158,7 +154,6 @@ class ApretasteAnswerEmail {
 					$headers .= 'X-Mailer: PHP/' . phpversion();
 					
 					mail('soporte@apretaste.com', "Error sending from $from to {$this->to}", $message, $headers);
-					
 					break;
 				}
 				
@@ -168,7 +163,7 @@ class ApretasteAnswerEmail {
 			
 			$ya = true;
 			
-			
+			ob_end_clean();
 			echo $this->verbose ? "Save answer\n" : "";
 			Apretaste::saveAnswer($this->headers, $this->type, $this->msg_id);
 			

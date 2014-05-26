@@ -7,7 +7,6 @@
  * @version 1.0
  */
 class ApretasteWeb {
-	
 	static function Run(){
 		include "../tpl/web/index.html";
 	}
@@ -23,7 +22,7 @@ class ApretasteWeb {
 	 * @param number $offset
 	 * @return Ambigous <multitype:, multitype:multitype: number boolean , multitype:boolean integer number Ambigous <string, string, mixed> multitype:unknown Ambigous <boolean, multitype:unknown > >
 	 */
-	function search($phrase, $pricemin = null, $pricemax = null, $photo = null, $phone = null, $offset = 0){
+	static function search($phrase, $pricemin = null, $pricemax = null, $photo = null, $phone = null, $offset = 0){
 		Apretaste::connect();
 		$filter = array();
 		if (! is_null($pricemin))
@@ -62,19 +61,18 @@ class ApretasteWeb {
 		
 		return $results;
 	}
-	
-	function getAd($id){
+	static function getAd($id){
 		Apretaste::connect();
 		$a = Apretaste::getAnnouncement($id);
 		$a['image'] = "{$a['image']}" != '';
 		return $a;
 	}
-	function didyoumean($query){
+	static function didyoumean($query){
 		Apretaste::connect();
 		$r = Apretaste::didYouMean($query);
 		return $r;
 	}
-	function help(){
+	static function help(){
 		$help = new div("../tpl/alone/help.es.html.tpl", array(
 				"font" => "font-family: Arial,Helvetica,sans-serif",
 				"from" => "you@somemail.com",
@@ -86,7 +84,7 @@ class ApretasteWeb {
 		
 		return $help;
 	}
-	function terms(){
+	static function terms(){
 		$help = new div("../tpl/alone/terms.es.html.tpl", array(
 				"font" => "font-family: Arial,Helvetica,sans-serif",
 				"from" => "you@somemail.com",

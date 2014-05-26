@@ -126,12 +126,14 @@ class ApretasteAnswerEmail {
 			echo $this->verbose ? "All OK with this address\n":"";
 			
 			$message = '';
-			ob_start();
+			
 			echo $this->verbose ? "Send email \n" : "";
+			
 			$result = $smtp_server->send($this->to, $this->headers, $this->message->getMessageBody());
 			
 			if ($result !== true) {
 				if (! isset($froms[$i + 1])) {
+					ob_start();
 					echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
 					echo "<br/>\n";
 					echo div::asThis($result);
@@ -152,6 +154,7 @@ class ApretasteAnswerEmail {
 					$headers .= 'X-Mailer: PHP/' . phpversion();
 					
 					mail('soporte@apretaste.com', "Error sending from $from to {$this->to}", $message, $headers);
+					ob_end_clean();
 					break;
 				}
 				
@@ -161,7 +164,7 @@ class ApretasteAnswerEmail {
 			
 			$ya = true;
 			
-			ob_end_clean();
+			
 			echo $this->verbose ? "Save answer\n" : "";
 			Apretaste::saveAnswer($this->headers, $this->type, $this->msg_id);
 			

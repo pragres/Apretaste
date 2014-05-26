@@ -133,7 +133,7 @@ class ApretasteAnswerEmail {
 			
 			if ($result !== true) {
 				if (! isset($froms[$i + 1])) {
-					ob_start();
+					//ob_start();
 					echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
 					echo "<br/>\n";
 					echo div::asThis($result);
@@ -145,7 +145,7 @@ class ApretasteAnswerEmail {
 					echo div::asThis($this->headers);
 					echo "<br/>\n";
 					// echo "Trying with other server ...\n";
-					$message = ob_get_contents();
+					//$message = ob_get_contents();
 					
 					$headers = 'MIME-Version: 1.0' . "\r\n";
 					$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
@@ -153,8 +153,8 @@ class ApretasteAnswerEmail {
 					$headers .= "Reply-To: soporte@apretaste.com \r\n";
 					$headers .= 'X-Mailer: PHP/' . phpversion();
 					
-					mail('soporte@apretaste.com', "Error sending from $from to {$this->to}", $message, $headers);
-					ob_end_clean();
+					//mail('soporte@apretaste.com', "Error sending from $from to {$this->to}", $message, $headers);
+					//ob_end_clean();
 					break;
 				}
 				

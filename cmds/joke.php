@@ -16,6 +16,9 @@
 function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 	for($i = 0; $i < 10; $i ++) { // 10 intentos por si acaso falla
 	                              // $page = file_get_contents("http://localhost/chiste.xml");
+	                              
+		$robot->log("Trying a JOKE - $i ");
+		
 		$page = file_get_contents("http://feeds.feedburner.com/ChistesD4w?format=xml");
 				
 		$mark = '<description>';
@@ -30,7 +33,8 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 				$j = $joke;
 				
 				$j = Apretaste::repairUTF8($j);
-				$j = html_entity_decode($j);
+				
+				//$j = html_entity_decode($j);
 				$p = strpos($j, '<br xml:base="');
 				
 				if ($p !== false)
@@ -61,7 +65,7 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 			
 			$j = $jokes[mt_rand(1, count($jokes) - 1)];
 			
-			echo $robot->log("JOKE = ".$j);
+			$robot->log("JOKE = ".$j);
 			
 			return array(
 					"answer_type" => "joke",

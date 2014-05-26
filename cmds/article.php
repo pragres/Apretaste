@@ -31,11 +31,6 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 		
 		$page = html_entity_decode($page);
 		
-		if (!Apretaste::isUTF8($page))
-			$page = utf8_encode($page);
-		
-		//$page = htmlspecialchars($page);
-		
 		// ---------------------
 		$p1 = strpos($page, '<page pageid=');
 		$p2 = strpos($page, '<revisions');

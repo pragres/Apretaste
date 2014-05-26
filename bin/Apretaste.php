@@ -1752,10 +1752,8 @@ class Apretaste {
 	 * @param string $ad
 	 */
 	static function outbox($ad, $email){
-		if (self::isExcluded($email))
-			return false;
 		
-		if (self::checkEmailAddress($email) == false)
+		if (self::isExcluded($email))
 			return false;
 		
 		echo "[INFO] " . date("Y-m-d h:i:s") . " - Analyzing $ad of $email for outbox\n";

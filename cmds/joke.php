@@ -18,6 +18,8 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 	                              // $page = file_get_contents("http://localhost/chiste.xml");
 		$page = file_get_contents("http://feeds.feedburner.com/ChistesD4w?format=xml");
 		
+		echo $page;
+		
 		$mark = '<description>';
 		$jokes = array();
 		$last_pos = 0;

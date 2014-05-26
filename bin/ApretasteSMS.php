@@ -73,6 +73,9 @@ class ApretasteSMS {
 		$code = null;
 		$codes = self::getCountryCodes();
 		
+		if ($number[0] == '0')
+			$number = substr($number, 1);
+		
 		if (strlen($number) == 8 && $number[0] == '5')
 			$code = 53; // to cuba
 		
@@ -321,8 +324,8 @@ class ApretasteSMS {
 	}
 	
 	/**
-	 * Returns the last sms 
-	 * 
+	 * Returns the last sms
+	 *
 	 * @param string $email
 	 * @param number $limit
 	 * @return array

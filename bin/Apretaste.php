@@ -654,7 +654,11 @@ class Apretaste {
 			$text = utf8_decode($text);
 		
 		$text = html_entity_decode($text);
+		
+		$original = ''; // parche para server amazon
 		$text = htmlentities($text);
+		if ($text == '')
+			$text = $original;
 		
 		$tildes = array(
 				'&aacute;' => '[a]',
@@ -1752,7 +1756,6 @@ class Apretaste {
 	 * @param string $ad
 	 */
 	static function outbox($ad, $email){
-		
 		if (self::isExcluded($email))
 			return false;
 		

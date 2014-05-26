@@ -17,9 +17,7 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 	for($i = 0; $i < 10; $i ++) { // 10 intentos por si acaso falla
 	                              // $page = file_get_contents("http://localhost/chiste.xml");
 		$page = file_get_contents("http://feeds.feedburner.com/ChistesD4w?format=xml");
-		
-		echo $page;
-		
+				
 		$mark = '<description>';
 		$jokes = array();
 		$last_pos = 0;
@@ -58,13 +56,13 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 				$last_pos = $p2;
 			}
 		} while ( $p1 !== false );
-		
-		var_dump($jokes);
-		
+				
 		if (isset($jokes[1])) {
 			
 			$j = $jokes[mt_rand(1, count($jokes) - 1)];
-			echo $j;
+			
+			echo $robot->log("JOKE = ".$j);
+			
 			return array(
 					"answer_type" => "joke",
 					"command" => "joke",

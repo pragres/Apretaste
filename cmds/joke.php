@@ -57,10 +57,12 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 			}
 		} while ( $p1 !== false );
 		
+		var_dump($jokes);
+		
 		if (isset($jokes[1])) {
 			
 			$j = $jokes[mt_rand(1, count($jokes) - 1)];
-			
+			echo $j;
 			return array(
 					"answer_type" => "joke",
 					"command" => "joke",

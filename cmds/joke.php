@@ -32,11 +32,9 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 				$joke = substr($page, $p1 + strlen($mark), $p2 - $p1 - strlen($mark));
 				$j = $joke;
 				
-				$j = Apretaste::repairUTF8($j);
+				//$j = Apretaste::repairUTF8($j);
 				
-				if ($j == '') $j = $joke;
-				
-				//$j = html_entity_decode($j);
+				$j = html_entity_decode($j);
 				$p = strpos($j, '<br xml:base="');
 				
 				if ($p !== false)

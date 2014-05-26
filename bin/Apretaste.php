@@ -653,13 +653,8 @@ class Apretaste {
 		if (self::isUTF8($text))
 			$text = utf8_decode($text);
 		
-		$original = ''; // parche para server amazon
-		
 		$text = html_entity_decode($text);
-		
 		$text = htmlentities($text);
-		if ($text == '')
-			$text = $original;
 		
 		$tildes = array(
 				'&aacute;' => '[a]',

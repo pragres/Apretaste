@@ -112,10 +112,11 @@ class ApretasteAnswerEmail {
 			echo $this->verbose ? "delivering to " . $this->to . "\n" : "";
 			
 			// Checking black and white list
-			
+			echo $this->verbose ? "getting black and white list\n" : "";
 			$blacklist = Apretaste::getEmailBlackList();
 			$whitelist = Apretaste::getEmailWhiteList();
 			
+			echo $this->verbose ? "checking address in black and white list\n":"";
 			if ((Apretaste::matchEmailPlus($this->to, $blacklist) == true && Apretaste::matchEmailPlus($this->to, $whitelist) == false)) {
 				// imap_delete($this->imap, $message_number_iterator);
 				echo $this->verbose ? "[INFO] ignore email address {$this->to}\n" : "";
@@ -124,7 +125,7 @@ class ApretasteAnswerEmail {
 			
 			$message = '';
 			ob_start();
-			
+			echo $this->verbose ? "Send email \n" : "";
 			$result = $smtp_server->send($this->to, $this->headers, $this->message->getMessageBody());
 			
 			if ($result !== true) {
@@ -159,7 +160,7 @@ class ApretasteAnswerEmail {
 			$ya = true;
 			
 			ob_end_clean();
-			
+			echo $this->verbose ? "Save answer\n" : "";
 			Apretaste::saveAnswer($this->headers, $this->type, $this->msg_id);
 			
 			echo $this->verbose ? "Send result: " . $result . "\n" : "";
@@ -216,7 +217,7 @@ class ApretasteAnswerEmail {
 			$tpl_title = $plain_body->__memory['AnswerSubject'];
 			
 			$pbody = ApretasteView::htmlToText($plain_body->__src);
-
+			
 			while ( strpos($pbody, "\n\n") !== false )
 				$pbody = str_replace("\n\n", "\n", $pbody);
 			

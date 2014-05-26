@@ -1,3 +1,3 @@
 #!/bin/bash
-cd /var/www/com.apretaste/bin
+cd /var/www/apretaste.com/bin
 php router.php $1 $2

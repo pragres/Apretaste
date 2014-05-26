@@ -123,6 +123,8 @@ class ApretasteAnswerEmail {
 				return false;
 			}
 			
+			echo $this->verbose ? "All OK with this address\n":"";
+			
 			$message = '';
 			ob_start();
 			echo $this->verbose ? "Send email \n" : "";

@@ -22,7 +22,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 	
 	if (strpos($page, 'missing=""') === false) {
 		
-		$page = Apretaste::repairUTF8($page);
+		$page = Apretaste::reparaTildes($text);
 		
 		$p1 = strpos($page, '<page pageid=');
 		$p2 = strpos($page, '<revisions');

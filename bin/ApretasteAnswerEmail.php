@@ -186,6 +186,7 @@ class ApretasteAnswerEmail {
 	 * @param boolean $build_html
 	 */
 	function _buildMessage($build_plain = false, $build_html = true){
+				
 		$data = array(
 				'buttons' => $this->buttons,
 				'ads' => $this->ads,
@@ -211,7 +212,7 @@ class ApretasteAnswerEmail {
 		
 		if ($build_plain) {
 			
-			echo $this->debug ? "building " . $this->type . " text message\n" : "";
+			echo "building " . $this->type . " text message\n" ;
 			$data['builder'] = 'plain';
 			$data['content'] = $tpl_plain;
 			
@@ -232,12 +233,14 @@ class ApretasteAnswerEmail {
 		}
 		
 		if ($build_html) {
-			echo $this->debug ? "building " . $this->type . " html message\n" : "";
+			echo "building " . $this->type . " html message\n" ;
 			
 			$data['content'] = $tpl_html;
 			$data['builder'] = 'html';
 			
 			$html_body = new ApretasteView("../tpl/alone/answer", $data);
+			
+			
 			$html_body->parse();
 			
 			$tpl_title = $html_body->__memory['AnswerSubject'];
@@ -262,6 +265,7 @@ class ApretasteAnswerEmail {
 			}
 		}
 		
+		echo "Adding email headers...\n";
 		// $this->message->setTXTBody('');
 		$this->addHeaders($this->message->headers());
 		

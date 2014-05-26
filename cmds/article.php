@@ -34,8 +34,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 		if (!Apretaste::isUTF8($page))
 			$page = utf8_encode($page);
 		
-		
-		$page = htmlspecialchars($page);
+		//$page = htmlspecialchars($page);
 		
 		// ---------------------
 		$p1 = strpos($page, '<page pageid=');

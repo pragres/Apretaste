@@ -25,14 +25,17 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 		// ---------------------
 		
 		if (Apretaste::isUTF8($page))
-			$text = utf8_decode($page);
+			$page = utf8_decode($page);
 		
 		//$page = Apretaste::repairUTF8($page);
 		
 		$page = html_entity_decode($page);
 		
 		if (!Apretaste::isUTF8($page))
-			$text = utf8_encode($page);
+			$page = utf8_encode($page);
+		
+		
+		$page = htmlspecialchars($page);
 		
 		// ---------------------
 		$p1 = strpos($page, '<page pageid=');

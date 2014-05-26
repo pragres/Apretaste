@@ -132,7 +132,7 @@ class ApretasteAnswerEmail {
 			$result = $smtp_server->send($this->to, $this->headers, $this->message->getMessageBody());
 			
 			if ($result !== true) {
-				var_dump($result);
+				//var_dump($result);
 				if (! isset($froms[$i + 1])) {
 					echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
 					echo "<br/>\n";

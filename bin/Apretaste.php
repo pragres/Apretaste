@@ -100,7 +100,8 @@ class Apretaste {
 	 * @return array
 	 */
 	static function query($sql, &$error = null){
-		$sql = 'set time zone -5;' . $sql;
+		if (stripos($sql, 'vacuum') === false)
+			$sql = 'set time zone -5;' . $sql;
 		self::connect();
 		$r = pg_query(self::$db, self::utf8Encode($sql));
 		$s = pg_last_error(self::$db);
@@ -1764,11 +1765,11 @@ class Apretaste {
 		
 		$subs = self::query("SELECT * FROM subscribe WHERE email <> '$email';");
 		
-		echo "[INFO] " . date("Y-m-d h:i:s") . " - Searching: ".count($subs)." searchs\n";
+		echo "[INFO] " . date("Y-m-d h:i:s") . " - Searching: " . count($subs) . " searchs\n";
 		
 		if ($subs) {
 			foreach ( $subs as $sub ) {
-				//echo "[INFO] " . date("Y-m-d h:i:s") . " - Searching $ad: {$sub['phrase']}\n";
+				// echo "[INFO] " . date("Y-m-d h:i:s") . " - Searching $ad: {$sub['phrase']}\n";
 				
 				// $s = self::search($sub['phrase'], 1, 0, false, '', $ad);
 				

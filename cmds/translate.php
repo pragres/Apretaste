@@ -110,7 +110,7 @@ function cmd_translate($robot, $from, $argument, $body = '', $images = array()){
 	
 	$text = Apretaste::cleanText($text);
 	
-	$text = html_entity_decode($text);
+	$text = html_entity_decode($text,ENT_COMPAT | ENT_HTML401 , 'ISO-8859-1');
 	
 	if ($text == '') {
 		$robot->log("Text is empty after clear, try another strategy...");

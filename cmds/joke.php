@@ -16,11 +16,11 @@
 function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 	for($i = 0; $i < 10; $i ++) { // 10 intentos por si acaso falla
 	                              // $page = file_get_contents("http://localhost/chiste.xml");
-	                              
+		
 		$robot->log("Trying a JOKE - $i ");
 		
 		$page = file_get_contents("http://feeds.feedburner.com/ChistesD4w?format=xml");
-				
+		
 		$mark = '<description>';
 		$jokes = array();
 		$last_pos = 0;
@@ -32,9 +32,9 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 				$joke = substr($page, $p1 + strlen($mark), $p2 - $p1 - strlen($mark));
 				$j = $joke;
 				
-				//$j = Apretaste::repairUTF8($j);
+				// $j = Apretaste::repairUTF8($j);
 				
-				$j = html_entity_decode($j,ENT_COMPAT | ENT_HTML401 , 'ISO-8859-1');
+				$j = html_entity_decode($j, ENT_COMPAT | ENT_HTML401, 'ISO-8859-1');
 				$p = strpos($j, '<br xml:base="');
 				
 				if ($p !== false)
@@ -60,12 +60,12 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 				$last_pos = $p2;
 			}
 		} while ( $p1 !== false );
-				
+		
 		if (isset($jokes[1])) {
 			
 			$j = $jokes[mt_rand(1, count($jokes) - 1)];
 			
-			$robot->log("JOKE = ".$j);
+			$robot->log("JOKE = " . $j);
 			
 			return array(
 					"answer_type" => "joke",

@@ -3,7 +3,6 @@
 /**
  * Apretaste!com
  */
-
 date_default_timezone_set("America/New_York");
 
 set_include_path("../;../lib/;../bin/;../tpl/;../lib/PEAR/");
@@ -23,6 +22,13 @@ function __autoload($class){
 
 // Libs
 include "../lib/independent.php";
+
+$conex = Apretaste::connect();
+
+if ($conex) {
+	echo "[FATAL] Servidor de base de datos no responde, intentar mas tarde!";
+	exit();
+}
 
 // CLI Mode
 if (div::isCli()) {

@@ -196,7 +196,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 			return array(
 					"answer_type" => "article",
 					"command" => "article",
-					"title" => "ARTICULO: $title",
+					"title" => "Art&iacute;culo: $title",
 					"query" => $query,
 					"body" => $page,
 					"showimages" => $showimages,
@@ -453,7 +453,7 @@ function cmd_article($robot, $from, $argument, $body = '', $images = array()){
 			"answer_type" => "article_not_found",
 			"command" => "article",
 			"query" => $query,
-			"title" => "Art&iacute;culo - $argument - no encontrado",
+			"title" => "No se ha encontr&oacute; art&iacute;culo para: $argument ",
 			"compactmode" => true
 	);
 }

@@ -34,7 +34,7 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 				
 				//$j = Apretaste::repairUTF8($j);
 				
-				$j = html_entity_decode($j);
+				$j = html_entity_decode($j,ENT_COMPAT | ENT_HTML401 , 'ISO-8859-1');
 				$p = strpos($j, '<br xml:base="');
 				
 				if ($p !== false)

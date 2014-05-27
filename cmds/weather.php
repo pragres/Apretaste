@@ -388,7 +388,7 @@ function cmd_weather_clean_txt($text){
 				$line = '<h2 style="{$font}">' . $line . '</h2><p align="justify" style="{$font}">';
 			if (substr($line, 0, 3) == '...')
 				$line = "<i>$line</i>";
-			if (strlen(html_entity_decode($line)) > 15)
+			if (strlen(html_entity_decode($line,ENT_COMPAT | ENT_HTML401 , 'ISO-8859-1')) > 15)
 				$text .= $line . ' '; // .'<br/>';
 			if (trim($line) == '')
 				$text .= '<br/><br/>';

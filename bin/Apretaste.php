@@ -657,7 +657,7 @@ class Apretaste {
 		if (self::isUTF8($text))
 			$text = utf8_decode($text);
 		
-		$text = html_entity_decode($text);
+		$text = html_entity_decode($text, ENT_COMPAT | ENT_HTML401, 'ISO-8859-1');
 		$text = htmlentities($text);
 		
 		$tildes = array(
@@ -678,7 +678,7 @@ class Apretaste {
 		foreach ( $tildes as $s => $r )
 			$text = str_replace($s, $r, $text);
 		
-		$text = html_entity_decode($text);
+		$text = html_entity_decode($text, ENT_COMPAT | ENT_HTML401, 'ISO-8859-1');
 		
 		foreach ( $tildes as $s => $r ) {
 			$text = str_replace($r, $s, $text);
@@ -1056,7 +1056,7 @@ class Apretaste {
 		$text = str_replace('&', '', $text);
 		$text = str_replace('tilde;', '', $text);
 		$text = str_replace('acute;', '', $text);
-		$text = html_entity_decode($text);
+		$text = html_entity_decode($text, ENT_COMPAT | ENT_HTML401, 'ISO-8859-1');
 		
 		return $text;
 	}
@@ -2754,7 +2754,7 @@ class Apretaste {
 		);
 		
 		// Building the query from the title
-		$q = self::depura(html_entity_decode(strtolower($a['title'])));
+		$q = self::depura(html_entity_decode(strtolower($a['title']), ENT_COMPAT | ENT_HTML401, 'ISO-8859-1'));
 		
 		// Detecting ad type...
 		$ksv = array();

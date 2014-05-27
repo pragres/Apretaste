@@ -1766,7 +1766,7 @@ class Apretaste {
 		
 		if ($subs) {
 			foreach ( $subs as $sub ) {
-				echo "[INFO] " . date("Y-m-d h:i:s") . " - Searching $ad: {$sub['phrase']}\n";
+				//echo "[INFO] " . date("Y-m-d h:i:s") . " - Searching $ad: {$sub['phrase']}\n";
 				
 				// $s = self::search($sub['phrase'], 1, 0, false, '', $ad);
 				

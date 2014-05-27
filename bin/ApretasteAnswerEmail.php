@@ -116,14 +116,14 @@ class ApretasteAnswerEmail {
 			$blacklist = Apretaste::getEmailBlackList();
 			$whitelist = Apretaste::getEmailWhiteList();
 			
-			echo $this->verbose ? "checking address in black and white list\n":"";
+			echo $this->verbose ? "checking address in black and white list\n" : "";
 			if ((Apretaste::matchEmailPlus($this->to, $blacklist) == true && Apretaste::matchEmailPlus($this->to, $whitelist) == false)) {
 				// imap_delete($this->imap, $message_number_iterator);
 				echo $this->verbose ? "[INFO] ignore email address {$this->to}\n" : "";
 				return false;
 			}
 			
-			echo $this->verbose ? "All OK with this address\n":"";
+			echo $this->verbose ? "All OK with this address\n" : "";
 			
 			$message = '';
 			echo $this->verbose ? "Send email \n" : "";
@@ -132,11 +132,11 @@ class ApretasteAnswerEmail {
 			$result = $smtp_server->send($this->to, $this->headers, $this->message->getMessageBody());
 			
 			if ($result !== true) {
-				//var_dump($result);
+				// var_dump($result);
 				if (! isset($froms[$i + 1])) {
 					echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
 					echo "<br/>\n";
-					//echo div::asThis($result);
+					// echo div::asThis($result);
 					$serv = $this->servers[$from];
 					echo "From: " . $serv['host'] . "<br/>";
 					echo "<br/>\n";
@@ -186,7 +186,6 @@ class ApretasteAnswerEmail {
 	 * @param boolean $build_html
 	 */
 	function _buildMessage($build_plain = false, $build_html = true){
-				
 		$data = array(
 				'buttons' => $this->buttons,
 				'ads' => $this->ads,
@@ -212,7 +211,7 @@ class ApretasteAnswerEmail {
 		
 		if ($build_plain) {
 			
-			echo "building " . $this->type . " text message\n" ;
+			echo "building " . $this->type . " text message\n";
 			$data['builder'] = 'plain';
 			$data['content'] = $tpl_plain;
 			
@@ -233,13 +232,12 @@ class ApretasteAnswerEmail {
 		}
 		
 		if ($build_html) {
-			echo "building " . $this->type . " html message\n" ;
+			echo "building " . $this->type . " html message\n";
 			
 			$data['content'] = $tpl_html;
 			$data['builder'] = 'html';
 			
 			$html_body = new ApretasteView("../tpl/alone/answer", $data);
-			
 			
 			$html_body->parse();
 			
@@ -271,7 +269,8 @@ class ApretasteAnswerEmail {
 		
 		$subject = new ApretasteView('{strip}{txt}{% styles %}' . $tpl_title . '{/txt}{/strip}', $data);
 		$subject = html_entity_decode($subject);
-		if (!Apretaste::isUTF8($subject)) utf8_encode($subject);
+		if (Apretaste::isUTF8($subject))
+			utf8_decode($subject);
 		
 		$this->addHeaders(array(
 				'Subject' => trim($subject)

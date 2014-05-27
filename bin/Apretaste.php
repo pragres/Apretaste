@@ -1768,17 +1768,23 @@ class Apretaste {
 			foreach ( $subs as $sub ) {
 				echo "[INFO] " . date("Y-m-d h:i:s") . " - Searching $ad: {$sub['phrase']}\n";
 				
-				$s = self::search($sub['phrase'], 1, 0, false, '', $ad);
+				// $s = self::search($sub['phrase'], 1, 0, false, '', $ad);
 				
-				$s = $s['results'];
-				if (isset($s[0])) {
-					if ($s[0]['id'] == $ad) {
-						// if ($s[0]['rank_title'] * 1 > 0) {
-						$r = self::query("SELECT * FROM outbox WHERE announcement = '$ad' AND email = '{$sub['email']}'");
-						if (! $r)
-							self::query("INSERT INTO outbox(announcement, subscribe, email) VALUES ('$ad','{$sub['id']}','{$sub['email']}');");
-						// }
-					}
+				// only FTS, more fast
+				$sql = "SELECT to_tsquery('" . str_replace("'", "''", $sub['phrase']) . "') @@ to_tsvector(title || ' ' || body) as result FROM announcement WHERE id = '$ad';";
+				$s = self::query($sql);
+				$s = $s[0];
+				
+				if ($s['result'] == 't') {
+					// $s = $s['results'];
+					// if (isset($s[0])) {
+					// if ($s[0]['id'] == $ad) {
+					// if ($s[0]['rank_title'] * 1 > 0) {
+					$r = self::query("SELECT * FROM outbox WHERE announcement = '$ad' AND email = '{$sub['email']}'");
+					if (! $r)
+						self::query("INSERT INTO outbox(announcement, subscribe, email) VALUES ('$ad','{$sub['id']}','{$sub['email']}');");
+					// }
+					// }
 				}
 			}
 		}

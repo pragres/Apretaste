@@ -26,10 +26,10 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 		
 		if (Apretaste::isUTF8($page))
 			$page = utf8_decode($page);
+			
+			// $page = Apretaste::repairUTF8($page);
 		
-		//$page = Apretaste::repairUTF8($page);
-		
-		$page = html_entity_decode($page);
+		$page = html_entity_decode($page, ENT_COMPAT | ENT_HTML401, 'ISO-8859-1');
 		
 		// ---------------------
 		$p1 = strpos($page, '<page pageid=');
@@ -406,7 +406,7 @@ function cmd_article($robot, $from, $argument, $body = '', $images = array()){
 	
 	// getting the query
 	$query = $argument;
-	$query = Apretaste::depura($query, " abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ" . html_entity_decode("&aacute;&eacute;&iacute;&oacute;&uacute;&Aacute;&Eacute;&Iacute;&Uacute;&Oacute;&ntilde;&Ntilde;"));
+	$query = Apretaste::depura($query, " abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ" . html_entity_decode("&aacute;&eacute;&iacute;&oacute;&uacute;&Aacute;&Eacute;&Iacute;&Uacute;&Oacute;&ntilde;&Ntilde;", ENT_COMPAT | ENT_HTML401, 'ISO-8859-1'));
 	
 	// log the search for stadistics
 	$robot->log("[INFO] Search for an articule in Wikipedia: $query");

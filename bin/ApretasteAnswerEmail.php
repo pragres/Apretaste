@@ -273,11 +273,7 @@ class ApretasteAnswerEmail {
 		
 		if (! Apretaste::isUTF8($subject))
 			utf8_encode($subject);
-		$subject = ApretasteEncoding::fixUTF8($subject);
-		
-		/*
-		 *
-		 */
+		//$subject = ApretasteEncoding::fixUTF8($subject);
 		
 		$this->addHeaders(array(
 				'Subject' => trim($subject)

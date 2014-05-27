@@ -2,6 +2,5 @@
 
 // put here test code
 
-$r = Apretaste::matchEmail("POSTMASTER <postmaster@cneuro.edu.cu>", "*CU");
-
+$r = ApretasteSMS::splitNumber('593 0987867343');
 var_dump($r);

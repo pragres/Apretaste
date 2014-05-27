@@ -8,9 +8,9 @@
 		</p>
 		<hr/>
 	$showimages!
-	<h1 style="{$element-h1};{$font}">{$title}</h1>
+	{$h1}{$title}{$_h1}
 	{$body}
 @else@
-	<p style="{$font}">No se encontraron art&iacute;culos para <b>{$query}</b></p>
+	{$p}No se encontraron art&iacute;culos para <b>{$query}</b>{$_p}
 $body?
-<hr/>
+{$hr}

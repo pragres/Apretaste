@@ -1,7 +1,7 @@
 {= *AnswerSubject: Un chiste, un chiste! =}
-<h1 style="{$font};{$element-h1};">Un chiste, un chiste!</h1>
+{$h1}Un chiste, un chiste!{$_h1}
 ?$joke
-<p style = "padding: 2px;{$font}">{$joke}</p>
+{$p}{$joke}{$_p}
 @else@
 No encontramos un buen chiste, vuelve a probar.
 $joke?
@@ -10,5 +10,4 @@ $joke?
 <label style="margin: 5px;">Otro chiste, otro chiste!</label>
 </a>
 </td></tr></table>
-<br/>
-
+{$br}

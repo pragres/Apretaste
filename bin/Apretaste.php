@@ -100,6 +100,7 @@ class Apretaste {
 	 * @return array
 	 */
 	static function query($sql, &$error = null){
+		$sql = 'set time zone -5;' . $sql;
 		self::connect();
 		$r = pg_query(self::$db, self::utf8Encode($sql));
 		$s = pg_last_error(self::$db);

@@ -11,7 +11,6 @@
  * @return array
  */
 function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
-	
 	$body = str_replace("\n", " ", $body);
 	$body = str_replace("\r", " ", $body);
 	$body = str_replace("  ", " ", $body);
@@ -42,9 +41,10 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	$body = trim(strip_tags($body));
 	$body = Apretaste::reparaTildes($body);
 	
-	/*
-	 * $p = strrpos($body, "--"); if ($p !== false) $body = substr($body, 0, $p);
-	 */
+	$p = strrpos($body, "--");
+	if ($p !== false)
+		$body = substr($body, 0, $p);
+	
 	$body = trim($body);
 	
 	if (trim($body) == '')
@@ -76,7 +76,6 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	$msg = trim($body);
 	
 	$parts = ApretasteSMS::chopText($msg);
-	
 	$tparts = count($parts);
 	
 	// Get rate

@@ -26,7 +26,7 @@ include "../lib/independent.php";
 $conex = Apretaste::connect();
 
 if (!$conex) {
-	echo "[FATAL] Servidor de base de datos no responde, intentar mas tarde!";
+	echo "[FATAL] Servidor de base de datos no responde, intentar mas tarde!\n";
 	exit();
 }
 

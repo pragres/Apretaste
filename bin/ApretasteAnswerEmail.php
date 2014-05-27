@@ -268,12 +268,15 @@ class ApretasteAnswerEmail {
 		$this->addHeaders($this->message->headers());
 		
 		$subject = new ApretasteView('{strip}{txt}{% styles %}' . $tpl_title . '{/txt}{/strip}', $data);
+		
 		$subject = html_entity_decode($subject, ENT_COMPAT | ENT_HTML401, 'ISO-8859-1');
-		if (!Apretaste::isUTF8($subject)) utf8_encode($subject);
-		// $subject = ApretasteEncoding::fixUTF8($subject);
+		
+		if (! Apretaste::isUTF8($subject))
+			utf8_encode($subject);
+		$subject = ApretasteEncoding::fixUTF8($subject);
 		
 		/*
-		 * 
+		 *
 		 */
 		
 		$this->addHeaders(array(

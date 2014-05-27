@@ -1737,11 +1737,6 @@ class Apretaste {
 	 * Clean the subcribes data
 	 */
 	static function cleanSubscribes(){
-		
-		// Cleanning subscribes
-		if (self::isCli())
-			echo "[INFO] " . date("Y-m-d h:i:s") . " - Cleanning subscribes...\n";
-		
 		self::query("DELETE FROM subscribe WHERE phrase is null;");
 		self::query("DELETE FROM subscribe WHERE trim(phrase) = '';");
 		self::query("UPDATE subscribe SET phrase = lower(phrase);");
@@ -1764,9 +1759,6 @@ class Apretaste {
 		self::cleanSubscribes();
 		
 		$subs = self::query("SELECT * FROM subscribe WHERE email <> '$email';");
-		
-		echo "[INFO] " . date("Y-m-d h:i:s") . " - Searching: " . count($subs) . " searchs\n";
-		
 		if ($subs) {
 			foreach ( $subs as $sub ) {
 				// echo "[INFO] " . date("Y-m-d h:i:s") . " - Searching $ad: {$sub['phrase']}\n";

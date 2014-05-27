@@ -1764,6 +1764,8 @@ class Apretaste {
 		
 		$subs = self::query("SELECT * FROM subscribe WHERE email <> '$email';");
 		
+		echo "[INFO] " . date("Y-m-d h:i:s") . " - Searching: ".count($subs)." searchs\n";
+		
 		if ($subs) {
 			foreach ( $subs as $sub ) {
 				//echo "[INFO] " . date("Y-m-d h:i:s") . " - Searching $ad: {$sub['phrase']}\n";

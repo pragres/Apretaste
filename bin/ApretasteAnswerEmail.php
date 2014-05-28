@@ -271,11 +271,15 @@ class ApretasteAnswerEmail {
 		
 		if (! Apretaste::isUTF8($subject)) {
 			$subject = ApretasteEncoding::toUTF8($subject);
-			$subject = ApretasteEncoding::fixUTF8($subject);			
+			//$subject = ApretasteEncoding::fixUTF8($subject);			
 		}
 		
-		$subject = Apretaste::reparaTildes($subject);
-		
+		$subject = htmlentities($subject, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
+		$subject = str_replace('&', '', $subject);
+		$subject = str_replace('tilde;', '', $subject);
+		$subject = str_replace('acute;', '', $subject);
+		$subject = html_entity_decode($subject, ENT_COMPAT | ENT_HTML401, 'UTF-8');
+				
 		// $subject = html_entity_decode(htmlentities($subject, null, 'UTF-8', false));
 		
 		$this->addHeaders(array(

@@ -269,14 +269,15 @@ class ApretasteAnswerEmail {
 		
 		$subject = new ApretasteView('{strip}{txt}{% styles %}' . $tpl_title . '{/txt}{/strip}', $data);
 		
-		$subject = Apretaste::reparaTildes($subject);
-		/*$subject = html_entity_decode($subject, ENT_COMPAT | 0, 'ISO-8859-1');
+		// $subject = Apretaste::reparaTildes($subject);
 		
-		if (! Apretaste::isUTF8($subject)){
+		$subject = html_entity_decode(htmlentities($subject, null, 'UTF-8', false));
+		
+		if (! Apretaste::isUTF8($subject)) {
 			$subject = ApretasteEncoding::fixUTF8($subject);
 			$subject = ApretasteEncoding::toUTF8($subject);
 		}
-			*/	
+		
 		$this->addHeaders(array(
 				'Subject' => $subject
 		));

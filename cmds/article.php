@@ -196,7 +196,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 			return array(
 					"answer_type" => "article",
 					"command" => "article",
-					"title" => "Art&iacute;culo: $title",
+					"title" => "$title",
 					"query" => $query,
 					"body" => $page,
 					"showimages" => $showimages,

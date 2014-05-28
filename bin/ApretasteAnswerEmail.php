@@ -272,7 +272,7 @@ class ApretasteAnswerEmail {
 		$subject = html_entity_decode($subject, ENT_COMPAT | 0, 'ISO-8859-1');
 		
 		if (! Apretaste::isUTF8($subject))
-			ApretasteEncoding::toUTF8($subject);
+			$subject = ApretasteEncoding::toUTF8($subject);
 		
 		//$subject = ApretasteEncoding::fixUTF8($subject);
 		

@@ -1,5 +1,4 @@
 <table width="100%" style="{$font}">
-
 [$search_results]
 
 		?$cota

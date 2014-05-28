@@ -270,9 +270,8 @@ class ApretasteAnswerEmail {
 		$subject = new ApretasteView('{strip}{txt}{% styles %}' . $tpl_title . '{/txt}{/strip}', $data);
 		
 		if (! Apretaste::isUTF8($subject)) {
-			$subject = ApretasteEncoding::fixUTF8($subject);
-			$subject = utf8_decode($subject);
 			$subject = ApretasteEncoding::toUTF8($subject);
+			$subject = ApretasteEncoding::fixUTF8($subject);			
 		}
 		
 		$subject = Apretaste::reparaTildes($subject);

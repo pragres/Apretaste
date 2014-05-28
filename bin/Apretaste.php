@@ -1052,7 +1052,7 @@ class Apretaste {
 	 * @return string
 	 */
 	static function reparaTildes($text){
-		$text = htmlentities($text);
+		$text = htmlentities($text, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
 		$text = str_replace('&', '', $text);
 		$text = str_replace('tilde;', '', $text);
 		$text = str_replace('acute;', '', $text);

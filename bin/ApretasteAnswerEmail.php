@@ -269,7 +269,7 @@ class ApretasteAnswerEmail {
 		
 		$subject = new ApretasteView('{strip}{txt}{% styles %}' . $tpl_title . '{/txt}{/strip}', $data);
 		
-		$subject = Apretaste::repairUTF8($subject);
+		$subject = Apretaste::reparaTildes($subject);
 		/*$subject = html_entity_decode($subject, ENT_COMPAT | 0, 'ISO-8859-1');
 		
 		if (! Apretaste::isUTF8($subject)){

@@ -269,17 +269,18 @@ class ApretasteAnswerEmail {
 		
 		$subject = new ApretasteView('{strip}{txt}{% styles %}' . $tpl_title . '{/txt}{/strip}', $data);
 		
-		if (! Apretaste::isUTF8($subject)) {
-			$subject = ApretasteEncoding::toUTF8($subject);
-			//$subject = ApretasteEncoding::fixUTF8($subject);			
-		}
+		$subject = ApretasteEncoding::UTF8FixWin1252Chars($subject);
 		
+		if (! Apretaste::isUTF8($subject)) {
+			$subject = ApretasteEncoding::toUTF8($subject);		
+		}
+		/*
 		$subject = htmlentities($subject, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);
 		$subject = str_replace('&', '', $subject);
 		$subject = str_replace('tilde;', '', $subject);
 		$subject = str_replace('acute;', '', $subject);
 		$subject = html_entity_decode($subject, ENT_COMPAT | ENT_HTML401, 'UTF-8');
-				
+				*/
 		// $subject = html_entity_decode(htmlentities($subject, null, 'UTF-8', false));
 		
 		$this->addHeaders(array(

@@ -61,19 +61,36 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 			}
 		} while ( $p1 !== false );
 		
+		$j = 'El rey hace un pase de visita a los soldados de guardia y al primero le pregunta: <br/>
+			- A ver ¿por que un soldado de la guardia real tiene que cumplir su tarea ante cualquier 
+			circunstancia?! <br/>Y el soldado le responde: <br/> - Si chico, a ver porque eh?! porque eh?!';
+		
 		if (isset($jokes[1])) {
 			
 			$j = $jokes[mt_rand(1, count($jokes) - 1)];
 			
 			$robot->log("JOKE = " . $j);
+			$jj = str_replace("''", "'", $j);
 			
-			return array(
-					"answer_type" => "joke",
-					"command" => "joke",
-					"title" => "Un chiste, un chiste!",
-					"joke" => $j,
-					"compactmode" => true
-			);
+			Apretaste::query("INSERT INTO cache_jokes (joke) 
+			SELECT '$jj' AS joke 
+			WHERE NOT EXISTS(SELECT * FROM cache_jokes WHERE joke = '$jj');");
+		} else {
+			
+			// read from cache
+			
+			$jj = Apretaste::query("SELECT * FROM cache_jokes ORDER BY random() LIMIT 1;");
+			
+			if (isset($jj[0]))
+				$j = $jj[0]['joke'];
 		}
+		
+		return array(
+				"answer_type" => "joke",
+				"command" => "joke",
+				"title" => "Un chiste, un chiste!",
+				"joke" => $j,
+				"compactmode" => true
+		);
 	}
 }

@@ -11,7 +11,10 @@ error_reporting(E_ALL | E_STRICT);
 
 ini_set('display_errors', 1);
 
-// Autoload classes
+if (! defined('ENT_HTML401'))
+	define('ENT_HTML401', 0);
+	
+	// Autoload classes
 function __autoload($class){
 	if (file_exists("../bin/{$class}.php")) {
 		include "../bin/{$class}.php";
@@ -25,7 +28,7 @@ include "../lib/independent.php";
 
 $conex = Apretaste::connect();
 
-if (!$conex) {
+if (! $conex) {
 	echo "[FATAL] Servidor de base de datos no responde, intentar mas tarde!\n";
 	exit();
 }

@@ -56,36 +56,33 @@
 				</td>
 			</tr>
 		</table>
-		
-		<hr/>
 	[/$provincias]
 $provincias?
 
 ?$satelite
-	<h2 style="{$font}">Imagen del Sat&eacute;lite - WSI Corporation</h2>
-	<img src="cid:wsi" width="700"><br/>
+	{$h2}Imagen del Sat&eacute;lite - WSI Corporation{$_h2}
+	<img src="cid:wsi" width="700">{$br}
 $satelite?
 
 ?$nasa
-	<h2 style="{$font}">Imagen del Sat&eacute;lite de la NASA - GOES Project Science</h2>
-	<img src="cid:goes" width="700"><br/>
+	{$h2}Imagen del Sat&eacute;lite de la NASA - GOES Project Science{$_h2}
+	<img src="cid:goes" width="700">{$br}
 $nasa?
 
 ?$radar
-	<h2 style="{$font}">Imagen del radar</h2>
+	{$h2}Imagen del radar{$_h2}
 	<img src="cid:radar">
 	<p style="color:gray;">NOTA: Esta imagen es animada (GIF) y en algunos clientes de correo electr&oacute;nico no se visualiza bien como es el caso de Outlook 2010.</p>
 $radar?
 
 ?$mapa
-	<h2 style="{$font}">Mapa de Presi&oacute;n Superficial</h2>
-	<img src="cid:pronostico"><br/>
+	{$h2}Mapa de Presi&oacute;n Superficial{$_h2}
+	<img src="cid:pronostico">{$br}
 $mapa?
 <br/>
-<p>
+{$p}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA satelite">Imagen del sat&eacute;lite</a> {$splitter} 
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA nasa">Imagen de la NASA </a> {$splitter}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA radar">Imagen del radar</a> {$splitter} 
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA mapa">Mapa de presi&oacute;n superficial</a>
-</p>
-<hr/>
+{$_p}

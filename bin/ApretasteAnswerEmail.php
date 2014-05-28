@@ -274,7 +274,6 @@ class ApretasteAnswerEmail {
 			$subject = ApretasteEncoding::toUTF8($subject);
 		}
 		
-		$subject = htmlentities($subject, null, 'UTF-8', false);
 		$subject = Apretaste::reparaTildes($subject);
 		
 		// $subject = html_entity_decode(htmlentities($subject, null, 'UTF-8', false));

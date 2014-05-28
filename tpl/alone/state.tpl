@@ -78,6 +78,7 @@ $announcements?
 	{$p}Usted no est&aacute; subscrito(a) a ninguna alerta{$_p}
 $subscribes?
 
+{$br}
 ?$sms
 {$h2}&Uacute;ltimos SMS enviados:{$_h2}
 <table>
@@ -93,6 +94,7 @@ $subscribes?
 	</table>
 $sms?
 
+{$br}
 ?$services
 {$h2}Servicios que no ha utilizado{$_h2}
 <ul>

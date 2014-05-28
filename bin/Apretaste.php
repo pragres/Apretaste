@@ -101,7 +101,7 @@ class Apretaste {
 	 */
 	static function query($sql, &$error = null){
 		if (stripos($sql, 'vacuum') === false)
-			$sql = 'set time zone -5;' . $sql;
+			$sql = 'set time zone -4;' . $sql;
 		self::connect();
 		$r = pg_query(self::$db, self::utf8Encode($sql));
 		$s = pg_last_error(self::$db);

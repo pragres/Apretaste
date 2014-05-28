@@ -1,4 +1,6 @@
 <div class="anuncio" style="{$font}">
+{$br}
+{$h1}{$title}{$_h1}{$br}
     <table width="100%" style="{$font}">
         <tr>
             <td valign="top">
@@ -55,7 +57,7 @@
                     </tr>
                 </table>
 
-                <hr/>
+                {$hr}
                 ?$body
                 {$body}
                 $body?

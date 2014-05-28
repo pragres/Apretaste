@@ -453,7 +453,7 @@ function cmd_article($robot, $from, $argument, $body = '', $images = array()){
 			"answer_type" => "article_not_found",
 			"command" => "article",
 			"query" => $query,
-			"title" => "No se ha encontr&oacute; art&iacute;culo para: $argument ",
+			"title" => "No se encontr&oacute; art&iacute;culo para: $argument ",
 			"compactmode" => true
 	);
 }

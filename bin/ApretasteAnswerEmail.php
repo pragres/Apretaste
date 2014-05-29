@@ -127,30 +127,35 @@ class ApretasteAnswerEmail {
 			
 			$message = '';
 			echo $this->verbose ? "Send email \n" : "";
-			ob_start();
+			
 			
 			$result = $smtp_server->send($this->to, $this->headers, $this->message->getMessageBody());
 			
 			if ($result !== true) {
-				// var_dump($result);
 				if (! isset($froms[$i + 1])) {
+					ob_start();
 					echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
 					echo "<h2>The message will be send from PHP</h2>\n";
 					echo "<br/>\n";
 					
-					// echo div::asThis($result);
+					echo "Result = ".serialize($result);
 					
 					$serv = $this->servers[$from];
+
 					echo "From: " . $serv['host'] . "<br/>";
 					echo "<br/>\n";
 					echo "To: " . $this->to . "<br/>\n";
 					echo "Headers: <br/>\n";
+					
 					echo div::asThis($this->headers);
+					
 					echo "<br/>\n";
 					
 					// echo "Trying with other server ...\n";
 					
 					$message = ob_get_contents();
+					
+					ob_end_clean();
 					
 					$headers = 'MIME-Version: 1.0' . "\r\n";
 					$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
@@ -183,8 +188,9 @@ class ApretasteAnswerEmail {
 			
 			$ya = true;
 			
-			ob_end_clean();
+			
 			echo $this->verbose ? "Save answer\n" : "";
+			
 			Apretaste::saveAnswer($this->headers, $this->type, $this->msg_id);
 			
 			echo $this->verbose ? "Send result: " . $result . "\n" : "";

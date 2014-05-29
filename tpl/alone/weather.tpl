@@ -59,30 +59,17 @@
 	[/$provincias]
 $provincias?
 
-?$satelite
-	{$h2}Imagen del Sat&eacute;lite - WSI Corporation{$_h2}
-	<img src="cid:wsi" width="700">{$br}
-$satelite?
+?$climaimagen
+	{$h21}{$title}{$_h1}
+	<img src="cid:climaimagen" width="700">{$br}
+$climaimagen?
 
-?$nasa
-	{$h2}Imagen del Sat&eacute;lite de la NASA - GOES Project Science{$_h2}
-	<img src="cid:goes" width="700">{$br}
-$nasa?
-
-?$radar
-	{$h2}Imagen del radar{$_h2}
-	<img src="cid:radar">
-	<p style="color:gray;">NOTA: Esta imagen es animada (GIF) y en algunos clientes de correo electr&oacute;nico no se visualiza bien como es el caso de Outlook 2010.</p>
-$radar?
-
-?$mapa
-	{$h2}Mapa de Presi&oacute;n Superficial{$_h2}
-	<img src="cid:pronostico">{$br}
-$mapa?
 <br/>
 {$p}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA satelite">Imagen del sat&eacute;lite</a> {$splitter} 
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA nasa">Imagen de la NASA </a> {$splitter}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA radar">Imagen del radar</a> {$splitter} 
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA mapa">Mapa de presi&oacute;n superficial</a>
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA radar">Imagen del radar</a> {$br}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA temperatura">An&aacute;lisis de la temperatura del mar</a> {$splitter}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA superficie">An&aacute;lisis de la superficie del Atl&aacute;ntico y el Caribe</a> {$splitter}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA atlantico">An&aacute;lisis del estado del Atl&aacute;ntico</a> {$splitter}
 {$_p}

@@ -15,7 +15,7 @@ function cmd_recharge($robot, $from, $argument, $body = '', $images = array()){
 	if (isset($r[0]))
 		if ($r[0]['code'] == $argument) {
 			
-			Apretaste::query("UPDATE recharge_card SET email = '$from' WHERE code = '$code';");
+			Apretaste::query("UPDATE recharge_card SET email = '$from', recharge_date = now() WHERE code = '$code';");
 			
 			$newcredit = ApretasteMoney::getCreditOf($from);
 			

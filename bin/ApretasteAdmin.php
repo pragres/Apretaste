@@ -477,7 +477,7 @@ class ApretasteAdmin {
 		$r = $r[0];
 		
 		$r['extra_data'] = unserialize($r['extra_data']);
-		$r['author'] = str_replace("From: ", "", iconv_mime_decode("From: {$r['author']}", 0, "ISO-8859-1"));
+		$r['author'] = str_replace("From: ", "", iconv_mime_decode("From: {$r['author']}", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "ISO-8859-1"));
 		$r['author'] = htmlentities($r['author']);
 		$r['author_email'] = Apretaste::extractEmailAddress($r['author']);
 		

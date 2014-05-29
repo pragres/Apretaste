@@ -405,13 +405,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"command" => "weather",
 					"title" => "El clima en Cuba [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
-					"satelite" => false,
-					"radar" => false,
-					"mapa" => false,
-					"i18n" => $weatherDesc,
-					/*"pronostico_hoy" => "$pronostico_hoy",
-					"pronostico_manana" => "$pronostico_manana",
-					"pronostico_extendido" => "$rss",*/
+					"climaimagen" => false,
 					"images" => $images,
 					"provincias" => $provincias
 			);

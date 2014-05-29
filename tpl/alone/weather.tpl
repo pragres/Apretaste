@@ -60,7 +60,7 @@
 $provincias?
 
 ?$climaimagen
-	{$h21}{$title}{$_h1}
+	{$h1}{$title}{$_h1}
 	<img src="cid:climaimagen" width="700">{$br}
 $climaimagen?
 

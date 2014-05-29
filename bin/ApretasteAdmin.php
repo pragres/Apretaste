@@ -486,7 +486,7 @@ class ApretasteAdmin {
 		// Last messages
 		$r = Apretaste::query("SELECT * FROM message order by moment desc limit 20;");
 		foreach ( $r as $k => $v ) {
-			$r[$k]['author'] = str_replace("From: ", "", iconv_mime_decode("From: {$r[$k]['author']}", 0, "ISO-8859-1"));
+			$r[$k]['author'] = str_replace("From: ", "", iconv_mime_decode("From: {$r[$k]['author']}", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "ISO-8859-1"));
 			$r[$k]['author'] = htmlentities($r[$k]['author']);
 			$r[$k]['author_email'] = Apretaste::extractEmailAddress($r[$k]['author']);
 		}

@@ -87,18 +87,30 @@ class ApretasteEmailCollector {
 			
 			return false;
 		}
-
+		
 		$this->log("Expunge IMAP connection");
 		imap_expunge($this->imap);
-				
+		
 		imap_sort($this->imap, SORTARRIVAL, 1);
-				
+		
 		$status = imap_status($this->imap, $server['mailbox'], $options = SA_MESSAGES);
+		
+		$max_time = Apretaste::getConfiguration("cron_max_time", 120);
+		
+		$t1 = microtime(true);
 		
 		$this->log($status->messages . " messages to process");
 		
 		if ($status->messages > 0)
 			for($message_number_iterator = 1; $message_number_iterator <= $status->messages; $message_number_iterator ++) {
+				
+				$t2 = microtime(true);
+				
+				if ($t2 - $t1 > $max_time) {
+					$this->log("[INFO] Stoping the collector by time limit: max_time = $max_time and timmer = " . $t2 - $t1);
+					$this->log("[INFO] --> $message_number_iterator of {$status->messages} messages was processed");
+					break;
+				}
 				
 				$headers = imap_headerinfo($this->imap, $message_number_iterator);
 				

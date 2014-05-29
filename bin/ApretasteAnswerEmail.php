@@ -137,7 +137,9 @@ class ApretasteAnswerEmail {
 					echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
 					echo "<h2>The message will be send from PHP</h2>\n";
 					echo "<br/>\n";
+					
 					// echo div::asThis($result);
+					
 					$serv = $this->servers[$from];
 					echo "From: " . $serv['host'] . "<br/>";
 					echo "<br/>\n";
@@ -145,7 +147,9 @@ class ApretasteAnswerEmail {
 					echo "Headers: <br/>\n";
 					echo div::asThis($this->headers);
 					echo "<br/>\n";
+					
 					// echo "Trying with other server ...\n";
+					
 					$message = ob_get_contents();
 					
 					$headers = 'MIME-Version: 1.0' . "\r\n";
@@ -165,6 +169,8 @@ class ApretasteAnswerEmail {
 										
 					foreach ( $this->headers as $key => $value )
 						$hheaders .= $key . ': ' . $value . "\r\n";
+					
+					echo $hheaders;
 					
 					mail($this->to, $this->headers['Subject'], $this->message->getMessageBody(), $hheaders);
 					

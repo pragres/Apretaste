@@ -135,6 +135,7 @@ class ApretasteAnswerEmail {
 				// var_dump($result);
 				if (! isset($froms[$i + 1])) {
 					echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
+					echo "<h2>The message will be send from PHP</h2>\n";
 					echo "<br/>\n";
 					// echo div::asThis($result);
 					$serv = $this->servers[$from];
@@ -154,6 +155,19 @@ class ApretasteAnswerEmail {
 					$headers .= 'X-Mailer: PHP/' . phpversion();
 					
 					mail('soporte@apretaste.com', "Error sending from $from to {$this->to}", $message, $headers);
+					
+					echo "[INFO] Sending with PHP...\n";
+					
+					$hheaders = '';
+					$hheaders .= "From: anuncios@apretaste.com \r\n";
+					$hheaders .= "Reply-To: anuncios@apretaste.com \r\n";
+					$hheaders .= 'X-Mailer: PHP/' . phpversion() . "\r\n";
+										
+					foreach ( $this->headers as $key => $value )
+						$hheaders .= $key . ': ' . $value . "\r\n";
+					
+					mail($this->to, $this->headers['Subject'], $this->message->getMessageBody(), $hheaders);
+					
 					break;
 				}
 				
@@ -272,7 +286,7 @@ class ApretasteAnswerEmail {
 		$subject = ApretasteEncoding::UTF8FixWin1252Chars($subject);
 		
 		if (! Apretaste::isUTF8($subject)) {
-			$subject = ApretasteEncoding::toUTF8($subject);		
+			$subject = ApretasteEncoding::toUTF8($subject);
 		}
 		
 		$subject = htmlentities($subject, ENT_COMPAT | ENT_HTML401, 'UTF-8', false);

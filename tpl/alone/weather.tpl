@@ -74,6 +74,6 @@
 $provincias?
 
 ?$climaimagen
-	<img src="cid:climaimagen" width="700">{$br}
+	<img src="cid:climaimagen" width="700">
 $climaimagen?
 

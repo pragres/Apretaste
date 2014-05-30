@@ -52,20 +52,14 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"command" => "weather",
 					"title" => "Tiempo en Cuba: Imagen del sat&eacute;lite WSI Corporation [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
-					"pronostico_hoy" => false,
-					"pronostico_manana" => false,
-					"pronostico_extendido" => false,
-					"mapa" => false,
-					"satelite" => true,
-					"nasa" => false,
-					"radar" => false,
+					"climaimagen" => true,
 					"images" => array(
 							array(
 									"type" => "image/gif",
 									"content" => $img,
 									"name" => "Imagen del Satelite - WSI Corporation [" . date("Y-m-d h:i:s") . "].gif",
-									"id" => "wsi",
-									"src" => "cid:wsi"
+									"id" => "climaimagen",
+									"src" => "cid:climaimagen"
 							)
 					)
 			);
@@ -81,20 +75,14 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"command" => "weather",
 					"title" => "Tiempo en Cuba: Imagen del sat&eacute;lite de la NASA[" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
-					"pronostico_hoy" => false,
-					"pronostico_manana" => false,
-					"pronostico_extendido" => false,
-					"mapa" => false,
-					"satelite" => false,
-					"radar" => false,
-					"nasa" => true,
+					"climaimagen" => true,
 					"images" => array(
 							array(
 									"type" => "image/jpeg",
 									"content" => $last_goes,
 									"name" => "Imagen del Satelite - GOES Project Science [" . date("Y-m-d h:i:s") . "].jpg",
-									"id" => "goes",
-									"src" => "cid:goes"
+									"id" => "climaimagen",
+									"src" => "cid:climaimagen"
 							)
 					)
 			);
@@ -110,25 +98,97 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"command" => "weather",
 					"title" => "Tiempo en Cuba: Imagen del radar [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
-					"pronostico_hoy" => false,
-					"pronostico_manana" => false,
-					"pronostico_extendido" => false,
-					"mapa" => false,
-					"satelite" => false,
-					"radar" => true,
+					"climaimagen" => true,
 					"images" => array(
 							array(
 									"type" => "image/gif",
 									"content" => $radar,
-									"name" => "Imagen del [" . date("Y-m-d h:i:s") . "]radar.gif",
-									"id" => "radar",
-									"src" => "cid:radar"
+									"name" => "Imagen del radar[" . date("Y-m-d h:i:s") . "].gif",
+									"id" => "climaimagen",
+									"src" => "cid:climaimagen"
 							)
 					)
 			);
 			
 			break;
-		case 'presion superficial' :
+		case 'temperatura':
+			
+			// Analisis de la temperatura del mar (NOAA/NHC)
+			//http://www.nhc.noaa.gov/tafb/atl_anal.gif
+			
+			echo "[INFO] Download Temperature Image [composite] \n";
+			$img = file_get_contents("http://www.nhc.noaa.gov/tafb/atl_anal.gif");
+				
+			return array(
+					"answer_type" => "weather",
+					"command" => "weather",
+					"title" => "An&aacute;lisis de la temperatura del mar (NOAA/NHC) [" . date("Y-m-d h:i:s") . "]",
+					"compactmode" => true,
+					"climaimagen" => true,
+					"images" => array(
+							array(
+								"type" => "image/gif",
+								"content" => $img,
+								"name" => "Imagen de temperatura [" . date("Y-m-d h:i:s") . "].gif",
+								"id" => "climaimagen",
+								"src" => "cid:climaimagen"
+							)
+					)
+			);
+				
+			break;
+		case 'superficie':
+			//Analisis de superficie del Atlántico y el Caribe (NOAA/NHC)
+			//http://dadecosurf.com/images/tanal.1.gif
+			
+			echo "[INFO] Download Surface Image [composite] \n";
+			$img = file_get_contents("http://dadecosurf.com/images/tanal.1.gif");
+			
+			return array(
+					"answer_type" => "weather",
+					"command" => "weather",
+					"title" => "An&aacute;lisis de superficie del Atl&aacute;ntico y el Caribe (NOAA/NHC) [" . date("Y-m-d h:i:s") . "]",
+					"compactmode" => true,
+					"climaimagen" => true,
+					"images" => array(
+							array(
+									"type" => "image/gif",
+									"content" => $img,
+									"name" => "Analisis de superficie [" . date("Y-m-d h:i:s") . "].gif",
+									"id" => "climaimagen",
+									"src" => "cid:climaimagen"
+							)
+					)
+			);
+			
+			break;
+			
+		case 'atlantico':
+			//Analisis del estado del Atlántico (NOAA/NHC)
+			//http://www.nhc.noaa.gov/tafb_latest/atlsea_latestBW.gif
+			echo "[INFO] Download Atlantic Image [composite] \n";
+			$img = file_get_contents("http://www.nhc.noaa.gov/tafb_latest/atlsea_latestBW.gif");
+				
+			return array(
+					"answer_type" => "weather",
+					"command" => "weather",
+					"title" => "An&aacute;lisis del estado del Atl&aacute;ntico (NOAA/NHC) [" . date("Y-m-d h:i:s") . "]",
+					"compactmode" => true,
+					"climaimagen" => true,
+					"images" => array(
+							array(
+									"type" => "image/gif",
+									"content" => $img,
+									"name" => "Analisis del estado del atlantico [" . date("Y-m-d h:i:s") . "].gif",
+									"id" => "climaimagen",
+									"src" => "cid:climaimagen"
+							)
+					)
+			);
+				
+			break;
+			
+		/*case 'presion superficial' :
 		case 'mapa' :
 			echo "[INFO] Download Mapa Presion Superficial\n";
 			
@@ -155,7 +215,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 							)
 					)
 			);
-			break;
+			break;*/
 		default :
 			
 			/*$pronostico_hoy = @file_get_contents("http://www.met.inf.cu/Pronostico/pttn.txt");
@@ -345,13 +405,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"command" => "weather",
 					"title" => "El clima en Cuba [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
-					"satelite" => false,
-					"radar" => false,
-					"mapa" => false,
-					"i18n" => $weatherDesc,
-					/*"pronostico_hoy" => "$pronostico_hoy",
-					"pronostico_manana" => "$pronostico_manana",
-					"pronostico_extendido" => "$rss",*/
+					"climaimagen" => false,
 					"images" => $images,
 					"provincias" => $provincias
 			);

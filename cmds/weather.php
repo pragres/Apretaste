@@ -263,11 +263,11 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			);
 				
 			break;
-			case 'vapor de agua':
-			case 'vapor':
+		case 'vapor de agua':
+		case 'vapor':
 				//Imagen de Vapor de Agua
 				//http://www.goes.noaa.gov/GIFS/HUWV.JPG
-				echo "[INFO] Download IR Image [composite] \n";
+				echo "[INFO] Download Vapor de Agua [composite] \n";
 				$img = file_get_contents("http://www.goes.noaa.gov/GIFS/HUWV.JPG");
 			
 				return array(

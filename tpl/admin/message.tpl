@@ -10,13 +10,14 @@
 	<div id = "page">
 		<h1><a href = "?path=admin&page=dashboard">Apretaste!com</a> - <a href="?path=admin&page=message">Message detail</a></h1>
 		{% menu %}
-		 
+		 <hr/>
 		?$message
 		<p>
 			<table width="100%">
 			
 			[$message]
-			<tr><td width="250" align="right"><b>{$_key}:</b></td><td> ?$value {$value} @else@ unknown $value? </td></tr>
+			<tr><td width="250" align="right"><b>{$_key}:</b></td>
+			<td> ?$value {$value} @else@ unknown $value? </td></tr>
 			[/$message]
 			</table>
 		</p>

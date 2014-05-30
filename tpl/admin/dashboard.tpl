@@ -18,13 +18,8 @@
     </head>
     <body>
 	<div id ="page">
-	    <table>
-	    <tr><td>
-	    <a href = "?path=admin">{% ../alone/logohtml.tpl %}</a> <br/>
-	    </td><td>
+		<h1><a href = "?path=admin&page=dashboard">Apretaste!com</a> - <a href="?path=admin&page=dashboard">Dashboard</a></h1>
 	    {% menu %}
-	    </td></tr></table>
-		
 		
 		<!--{ BEGIN Hourly access }-->
 		<h2>Access by hour</h2>
@@ -77,7 +72,7 @@
 						if ($X == 0 && $Y == 0)
 							echo '<td width="80" style="border-left: 1px solid #eeeeee; border-top: 1px solid #eeeeee;">&nbsp;</td>';
 						else
-							echo '<td width="80" align="center" style="border-left: 1px solid #eeeeee; border-top: 1px solid #eeeeee;font-size:10px;background:' . $bg . '; color: '.$cl.';"><a href="?path=admin&page=hour_activity&hour='.$_key.'&date='.$ah[$__key]['date'].'"><b>' . $X . "/" . $Y.'</b></a></td>';
+							echo '<td width="80" align="center" style="border-left: 1px solid #eeeeee; border-top: 1px solid #eeeeee;font-size:10px;background:' . $bg . '; color: '.$cl.';"><a style="color:black;" href="?path=admin&page=hour_activity&hour='.$_key.'&date='.$ah[$__key]['date'].'"><b>' . $X . "/" . $Y.'</b></a></td>';
 					}
 					echo '</tr>';
 				}
@@ -184,7 +179,7 @@
 					foreach($best_users as $m => $v){
 						echo '<td width="33%" valign="top"><strong>'.$months[$m-1].'</strong><br/><hr/>';
 						foreach($v as $x){
-							echo "<a href=\"mailto:{$x['xauthor']}\">{$x['xauthor']}</a> - {$x['messages']}<br/>";
+							echo "<a href=\"?path=admin&page=user_activity&user={$x['xauthor']}\">{$x['xauthor']}</a> - {$x['messages']}<br/>";
 						}
 						echo '</td>';
 					}

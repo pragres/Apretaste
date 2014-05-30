@@ -113,3 +113,10 @@ input.text{
 input.submit{
 	float: right;
 }
+
+.tabla td,.tabla th{
+	border-right: 1px solid gray;
+	border-bottom: 1px solid gray;
+	padding: 5px;
+	
+}

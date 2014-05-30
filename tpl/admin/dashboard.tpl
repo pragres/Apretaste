@@ -18,9 +18,14 @@
     </head>
     <body>
 	<div id ="page">
-	    <h1><a style="float:right;" href="?page=dashboard">Dashboard</a></h1>
-		<a href = "?page=admin">{% ../alone/logohtml.tpl %}</a> <br/>
-				{% menu %}
+	    <table>
+	    <tr><td>
+	    <a href = "?path=admin">{% ../alone/logohtml.tpl %}</a> <br/>
+	    </td><td>
+	    {% menu %}
+	    </td></tr></table>
+		
+		
 		<!--{ BEGIN Hourly access }-->
 		<h2>Access by hour</h2>
 		<p style="color:gray;">Number of emails received and sent every hour (last 20 days)</p>
@@ -72,7 +77,7 @@
 						if ($X == 0 && $Y == 0)
 							echo '<td width="80" style="border-left: 1px solid #eeeeee; border-top: 1px solid #eeeeee;">&nbsp;</td>';
 						else
-							echo '<td width="80" align="center" style="border-left: 1px solid #eeeeee; border-top: 1px solid #eeeeee;font-size:10px;background:' . $bg . '; color: '.$cl.';"><b>' . $X . "/" . $Y.'</b></td>';
+							echo '<td width="80" align="center" style="border-left: 1px solid #eeeeee; border-top: 1px solid #eeeeee;font-size:10px;background:' . $bg . '; color: '.$cl.';"><a href="?path=admin&page=hour_activity&hour='.$_key.'&date='.$ah[$__key]['date'].'"><b>' . $X . "/" . $Y.'</b></a></td>';
 					}
 					echo '</tr>';
 				}

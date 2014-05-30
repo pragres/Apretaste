@@ -70,6 +70,79 @@ class ApretasteAdmin {
 	}
 	
 	// Pages
+	static function page_hour_activity(){
+		$date = $_GET['date'];
+		$hour = $_GET['hour'];
+		
+		$data = array();
+		$data['date'] = $date;
+		$data['hour'] = $hour;
+		$data['user'] = self::getUser();
+		
+		$sql = "SELECT id,moment, extract_email(author) as author, command, extra_data, (select count(*) from answer where message.id=answer.message) as answers FROM message WHERE moment::date = '$date' and extract(hour from moment) = $hour;";
+		
+		$data['messages'] = Apretaste::query($sql);
+		foreach ( $data['messages'] as $k => $v ) {
+			$e = unserialize($v['extra_data']);
+			$data['messages'][$k]['subject'] = $e['headers']->subject;
+		}
+		echo new div("../tpl/admin/hour_activity.tpl", $data);
+	}
+	static function page_user_activity(){
+		$user = false;
+		$data = array();
+		
+		if (isset($_GET['user'])) {
+			$user = array();
+			$user['email'] = strtolower($_GET['user']);
+			$user['credit'] = ApretasteMoney::getCreditOf($_GET['user']);
+			
+			$user['messages'] = Apretaste::query("SELECT *,(select count(*) from answer where message.id=answer.message) as answers FROM message WHERE extract_email(author) = '{$user['email']}' order by moment desc limit 20;");
+			
+			if (is_array($user['messages']))
+				foreach ( $user['messages'] as $k => $v ) {
+					$e = unserialize($v['extra_data']);
+					$user['messages'][$k]['subject'] = $e['headers']->subject;
+				}
+		}
+		
+		$data['client'] = $user;
+		$data['user'] = self::getUser();
+		echo new div("../tpl/admin/user_activity.tpl", $data);
+	}
+	static function page_message(){
+		$id = $_GET['id'];
+		
+		$data = array();
+		$data['user'] = self::getUser();
+		$data['message'] = Apretaste::query("SELECT * FROM message WHERE id = '$id';");
+		$data['message'] = $data['message'][0];
+		$headers = unserialize($data['message']['extra_data']);
+		$headers = get_object_vars($headers['headers']);
+		
+		foreach ( $headers as $h => $v ) {
+			if (is_scalar($v))
+				$data['message']['header-' . $h] = "$v";
+			else
+				$data['message']['header-' . $h] = json_encode($v);
+		}
+		
+		$headers = unserialize($data['message']['extra_data']);
+		
+		unset($headers['headers']);
+		
+		foreach ( $headers as $h => $v ) {
+			
+			if (is_scalar($v))
+				$data['message'][$h] = "$v";
+			else
+				$data['message'][$h] = json_encode($v);
+		}
+		
+		unset($data['message']['extra_data']);
+		
+		echo new div("../tpl/admin/message.tpl", $data);
+	}
 	static function page_admin(){
 		self::page_home();
 	}
@@ -396,6 +469,7 @@ class ApretasteAdmin {
 		$sql = "
 			SELECT 
 				q::date - current_date + " . ($lastdays - 1) . " + 1 as orden,
+				q::date as date,
 				extract(day from q) as dia, 
 				extract(dow from q) as wdia 
 			FROM generate_series(current_date - " . ($lastdays - 1) . ", current_date, '1 day') as q;";

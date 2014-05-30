@@ -188,7 +188,6 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				
 			break;
 		
-		
 		case 'caribe':
 			//Imagen del Caribe (Weather Channel)
 			//http://image.weather.com/images/sat/caribsat_600x405.jpg
@@ -214,6 +213,81 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			
 			break;
 			
+		case 'sector':
+		case 'sector visible':
+				//Imagen del Sector Visible
+				//http://www.goes.noaa.gov/GIFS/HUVS.JPG
+				echo "[INFO] Download Visible Sector [composite] \n";
+				$img = file_get_contents("http://www.goes.noaa.gov/GIFS/HUVS.JPG");
+					
+				return array(
+						"answer_type" => "weather",
+						"command" => "weather",
+						"title" => "Imagen del Sector Visible [" . date("Y-m-d h:i:s") . "]",
+						"compactmode" => true,
+						"climaimagen" => true,
+						"images" => array(
+								array(
+										"type" => "image/jpeg",
+										"content" => $img,
+										"name" => "Imagen del Sector Visible [" . date("Y-m-d h:i:s") . "].jpg",
+										"id" => "climaimagen",
+										"src" => "cid:climaimagen"
+								)
+						)
+				);
+					
+				break;
+
+		case 'infrarojo':
+			//Imagen Infrarroja
+			//http://www.goes.noaa.gov/GIFS/HUVS.JPG
+			echo "[INFO] Download IR Image [composite] \n";
+			$img = file_get_contents("http://www.goes.noaa.gov/GIFS/HUIR.JPG");
+				
+			return array(
+					"answer_type" => "weather",
+					"command" => "weather",
+					"title" => "Imagen Infrarroja [" . date("Y-m-d h:i:s") . "]",
+					"compactmode" => true,
+					"climaimagen" => true,
+					"images" => array(
+							array(
+									"type" => "image/jpeg",
+									"content" => $img,
+									"name" => "Imagen Infrarroja [" . date("Y-m-d h:i:s") . "].jpg",
+									"id" => "climaimagen",
+									"src" => "cid:climaimagen"
+							)
+					)
+			);
+				
+			break;
+			case 'vapor de agua':
+			case 'vapor':
+				//Imagen de Vapor de Agua
+				//http://www.goes.noaa.gov/GIFS/HUWV.JPG
+				echo "[INFO] Download IR Image [composite] \n";
+				$img = file_get_contents("http://www.goes.noaa.gov/GIFS/HUWV.JPG");
+			
+				return array(
+						"answer_type" => "weather",
+						"command" => "weather",
+						"title" => "Imagen del Vapor de Agua [" . date("Y-m-d h:i:s") . "]",
+						"compactmode" => true,
+						"climaimagen" => true,
+						"images" => array(
+								array(
+										"type" => "image/jpeg",
+										"content" => $img,
+										"name" => "Imagen del Vapor de Agua [" . date("Y-m-d h:i:s") . "].jpg",
+										"id" => "climaimagen",
+										"src" => "cid:climaimagen"
+								)
+						)
+				);
+			
+				break;
 		/*case 'presion superficial' :
 		case 'mapa' :
 			echo "[INFO] Download Mapa Presion Superficial\n";

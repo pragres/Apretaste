@@ -13,11 +13,14 @@
 {$p}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA satelite">Imagen del sat&eacute;lite</a> {$splitter} 
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA nasa">Imagen de la NASA </a> {$splitter}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA caribe">Imagen del Caribe</a> {$splitter}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA radar">Imagen del radar</a> {$br}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA temperatura">An&aacute;lisis de la temperatura del mar</a> {$splitter}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA superficie">An&aacute;lisis de la superficie del Atl&aacute;ntico y el Caribe</a> {$splitter}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA atlantico">An&aacute;lisis del estado del Atl&aacute;ntico</a> {$splitter}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA caribe">El Caribe</a> {$splitter}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA radar">Radar</a> {$br}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA sector">Sector visible</a> {$splitter}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA vapor">Infrarroja</a> {$splitter}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA vapor">Vapor de Agua</a> {$br}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA temperatura">Temperatura del mar</a> {$splitter}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA superficie">Superficie del Atl&aacute;ntico y el Caribe</a> {$splitter}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA atlantico">Estado del Atl&aacute;ntico</a> {$splitter}
 {$_p}
 {$hr}
 ?$provincias

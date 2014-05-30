@@ -3065,23 +3065,23 @@ class Apretaste {
 		
 		$sql = "insert into address_list (email, source)
 		select * from (
-			select extract_email(author) as email, 'apretaste.public.messages' as source
+			select lower(extract_email(author)) as email, 'apretaste.public.messages' as source
 			from message
 			group by email,source
 			) as subq
-		where not exists(select * from address_list where address_list.email = subq.email);";
+		where not exists(select * from address_list where address_list.email = lower(subq.email));";
 		
 		self::query($sql);
 		
 		// From internal ads
 		$sql = "insert into address_list (email, source)
 		select * from (
-			select extract_email(author) as email, 'apretaste.public.announcement' as source 
+			select lower(extract_email(author)) as email, 'apretaste.public.announcement' as source 
 			from announcement 
 			where external_id is null 
 			group by email,source
 		) as subq
-		where not exists(select * from address_list where address_list.email = subq.email);";
+		where not exists(select * from address_list where address_list.email = lower(subq.email));";
 		
 		self::query($sql);
 		
@@ -3089,12 +3089,12 @@ class Apretaste {
 		
 		$sql = "insert into address_list (email, source)	
 		select email::text, source::text from (
-			select extract_email(author) as email, 'apretaste.public.external_ads'::text as source
+			select lower(extract_email(author)) as email, 'apretaste.public.external_ads'::text as source
 			from announcement
 			where not external_id is null and not author ~* 'in.revolico.net'
 		) as subq
 		WHERE
-		not exists(select * from address_list where address_list.email::text = email::text)
+		not exists(select * from address_list where address_list.email::text = lower(email::text))
 		group by email,source";
 		
 		self::query($sql);
@@ -3103,22 +3103,22 @@ class Apretaste {
 		// authors
 		$sql = "insert into address_list (email, source)
 		select * from (
-			select extract_email(author) as email, 'apretaste.public.invitation' as source 
+			select lower(extract_email(author)) as email, 'apretaste.public.invitation' as source 
 			from invitation 
 			group by email,source
 			) as subq
-		where not exists(select * from address_list where address_list.email = subq.email);";
+		where not exists(select * from address_list where address_list.email = lower(subq.email));";
 		
 		self::query($sql);
 		
 		// guests
 		$sql = "insert into address_list (email, source)
 		select * from (
-			select extract_email(guest) as email, 'apretaste.public.guests' as source
+			select lower(extract_email(guest)) as email, 'apretaste.public.guests' as source
 			from invitation
 			group by email,source
 			) as subq
-		where not exists(select * from address_list where address_list.email = subq.email);";
+		where not exists(select * from address_list where address_list.email = lower(subq.email));";
 		
 		self::query($sql);
 		
@@ -3126,11 +3126,11 @@ class Apretaste {
 		
 		$sql = "insert into address_list (email, source)
 		select * from (
-			select extract_email(email) as email, 'apretaste.public.authors' as source
+			select lower(extract_email(email)) as email, 'apretaste.public.authors' as source
 			from authors
 			group by email,source
 			) as subq
-		where not exists(select * from address_list where address_list.email = subq.email);";
+		where not exists(select * from address_list where address_list.email = lower(subq.email));";
 		
 		self::query($sql);
 		

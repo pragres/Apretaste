@@ -29,6 +29,7 @@ function cmd_recharge($robot, $from, $argument, $body = '', $images = array()){
 			
 			return array(
 				"answer_type" => "recharge_fail",
+				"command" => "recharge",
 				"code" => $code,
 				"from" => $from
 			);
@@ -36,6 +37,7 @@ function cmd_recharge($robot, $from, $argument, $body = '', $images = array()){
 	
 	return array(
 			"answer_type" => "recharge_card_wrong",
+			"command" => "recharge",
 			"code" => $code,
 			"from" => $from
 	);

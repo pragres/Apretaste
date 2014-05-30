@@ -2,7 +2,7 @@
 {?( "{$user.user_role}" == "admin" )?}
 <a href="?path=admin&page=dashboard">Dashboard</a> |
 <a href="?path=admin&page=config">Configurations</a> |
-<a href="?path=admin&page=users">Users</a> |
+<a href="?path=admin&page=users">Admin users</a> |
 <a href="?path=admin&page=accusations">Accusations</a> |
 <a href="?path=admin&page=tips">Tips</a> |
 <a href="?path=admin&page=dictionary">Dictionary</a> |
@@ -11,3 +11,6 @@
 {/?}
 <a href="?path=admin&page=logout">Logout</a>
 <hr>
+{?( "{$user.user_role}" == "admin" )?}
+<a href="?path=admin&page=user_activity">User activity</a> 
+{/?}

@@ -187,6 +187,32 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			);
 				
 			break;
+		
+		
+		case 'caribe':
+			//Imagen del Caribe (Weather Channel)
+			//http://image.weather.com/images/sat/caribsat_600x405.jpg
+			echo "[INFO] Download Weather Channel Caribean Image [composite] \n";
+			$img = file_get_contents("http://image.weather.com/images/sat/caribsat_600x405.jpg");
+			
+			return array(
+					"answer_type" => "weather",
+					"command" => "weather",
+					"title" => "Imagen del Caribe (Weather Channel) [" . date("Y-m-d h:i:s") . "]",
+					"compactmode" => true,
+					"climaimagen" => true,
+					"images" => array(
+							array(
+									"type" => "image/gif",
+									"content" => $img,
+									"name" => "Imagen del Caribe (Weather Channel) [" . date("Y-m-d h:i:s") . "].gif",
+									"id" => "climaimagen",
+									"src" => "cid:climaimagen"
+							)
+					)
+			);
+			
+			break;
 			
 		/*case 'presion superficial' :
 		case 'mapa' :

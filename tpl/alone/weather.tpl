@@ -13,6 +13,7 @@
 {$p}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA satelite">Imagen del sat&eacute;lite</a> {$splitter} 
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA nasa">Imagen de la NASA </a> {$splitter}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA caribe">Imagen del Caribe</a> {$splitter}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA radar">Imagen del radar</a> {$br}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA temperatura">An&aacute;lisis de la temperatura del mar</a> {$splitter}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA superficie">An&aacute;lisis de la superficie del Atl&aacute;ntico y el Caribe</a> {$splitter}

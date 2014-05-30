@@ -79,7 +79,13 @@ class ApretasteAdmin {
 		$data['hour'] = $hour;
 		$data['user'] = self::getUser();
 		
-		$sql = "SELECT id,moment, extract_email(author) as author, command, extra_data, (select count(*) from answer where message.id=answer.message) as answers FROM message WHERE moment::date = '$date' and extract(hour from moment) = $hour;";
+		$sql = "SELECT id,moment, extract_email(author) as author, command, extra_data, 
+		(select count(*) from answer where message.id=answer.message) as answers,
+		(select send_date from answer where message.id=answer.message limit 1) as answer_date,
+		(select extract_email(sender) from answer where message.id=answer.message limit 1) as answer_sender,
+		(select subject from answer where message.id=answer.message limit 1) as answer_subject,
+		(select type from answer where message.id=answer.message limit 1) as answer_type
+		FROM message WHERE moment::date = '$date' and extract(hour from moment) = $hour;";
 		
 		$data['messages'] = Apretaste::query($sql);
 		foreach ( $data['messages'] as $k => $v ) {
@@ -97,7 +103,13 @@ class ApretasteAdmin {
 			$user['email'] = strtolower($_GET['user']);
 			$user['credit'] = ApretasteMoney::getCreditOf($_GET['user']);
 			
-			$user['messages'] = Apretaste::query("SELECT *,(select count(*) from answer where message.id=answer.message) as answers FROM message WHERE extract_email(author) = '{$user['email']}' order by moment desc limit 20;");
+			$user['messages'] = Apretaste::query("SELECT *,
+					(select count(*) from answer where message.id=answer.message) as answers ,
+					(select send_date from answer where message.id=answer.message limit 1) as answer_date,
+					(select extract_email(sender) from answer where message.id=answer.message limit 1) as answer_sender,
+					(select subject from answer where message.id=answer.message limit 1) as answer_subject,
+					(select type from answer where message.id=answer.message limit 1) as answer_type
+					FROM message WHERE extract_email(author) = '{$user['email']}' order by moment desc limit 20;");
 			
 			if (is_array($user['messages']))
 				foreach ( $user['messages'] as $k => $v ) {

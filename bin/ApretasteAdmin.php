@@ -804,4 +804,16 @@ class ApretasteAdmin {
 		
 		echo new div("../tpl/admin/subscribes", $data);
 	}
+	static function page_mailboxes(){
+		$data = array();
+		
+		if (isset($_POST['btnAdd'])){
+			$mailbox = $_POST['mailbox'];
+			ApretasteMailboxes::createMailbox($mailbox);
+		}
+		
+		$data['mailboxes'] = ApretasteMailboxes::getMailBoxes();
+		$data['user'] = self::getUser();
+		echo new div("../tpl/admin/mailboxes.tpl", $data);
+	}
 }

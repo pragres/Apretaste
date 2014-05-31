@@ -694,6 +694,7 @@ class Apretaste {
 	 * @return string
 	 */
 	static function getFTSPhrase($phrase){
+		
 		$phrase = str_replace("+", " + ", $phrase);
 		$phrase = str_replace("-", " - ", $phrase);
 		$phrase = str_replace("&", " ", $phrase);

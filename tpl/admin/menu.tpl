@@ -8,6 +8,7 @@
 <a href="?path=admin&page=dictionary">Dictionary</a> |
 <a href="?path=admin&page=address_list">Address list</a> |
 <a href="?path=admin&page=user_activity">User activity</a> |
+<a href="?path=admin&page=mailboxes">Mailboxes</a> |
 <a href="?path=admin&page=subscribes">Subscribes</a> |
 {/?}
 <a href="?path=admin&page=logout">Logout</a>

@@ -19,7 +19,11 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 		
 		$robot->log("Trying a JOKE - $i ");
 		
-		$page = file_get_contents("http://feeds.feedburner.com/ChistesD4w?format=xml");
+		$page = @file_get_contents("http://feeds.feedburner.com/ChistesD4w?format=xml");
+		
+		if ($page == false) {
+			echo "[ERROR] Jokes source not work!\n";
+		}
 		
 		$mark = '<description>';
 		$jokes = array();

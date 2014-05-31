@@ -29,6 +29,22 @@
 		[/$messages]
 		</table>
 		$messages?
+		<hr/>
+		<h2>{$answers} shipments</h2> 
+		?$answers
+			<table width="100%" class="tabla"><tr><th>ID</th><th>Moment</th><th>Author</th><th>Type</th><th>Subject</th><th>Message</th>
+			</tr>
+		[$answers]
+			<tr><td>{$id}</td>
+			<td>{$send_date:10,6}</td>
+			<td><a href="?path=admin&page=user_activity&user={$receiver}">{$receiver}</a></td>
+			<td align="center">{$type}</td>
+			<td align="center">{$subject}</td>
+			<td><a href="?path=admin&page=message&id={$id}">{$message}</a></td>
+			</tr>
+		[/$answers]
+		</table>
+		$answers?
 	</div>
 </body>
 </html>

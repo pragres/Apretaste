@@ -91,10 +91,17 @@ class ApretasteAdmin {
 		FROM message WHERE moment::date = '$date' and extract(hour from moment) = $hour;";
 		
 		$data['messages'] = Apretaste::query($sql);
-		foreach ( $data['messages'] as $k => $v ) {
-			$e = unserialize($v['extra_data']);
-			$data['messages'][$k]['subject'] = $e['headers']->subject;
-		}
+		
+		if (is_array($data['messages']))
+			foreach ( $data['messages'] as $k => $v ) {
+				$e = unserialize($v['extra_data']);
+				$data['messages'][$k]['subject'] = $e['headers']->subject;
+			}
+			
+		$sql = "SELECT * FROM answer WHERE send_date::date = '$date' AND extract(hour from send_date) = $hour;";
+		
+		$data['answers'] = Apretaste::query($sql);
+		
 		echo new div("../tpl/admin/hour_activity.tpl", $data);
 	}
 	

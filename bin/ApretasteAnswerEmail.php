@@ -66,38 +66,47 @@ class ApretasteAnswerEmail {
 	function addImages($images){
 		$this->images = array_merge($this->images, $images);
 	}
-	function send_answer($from = null){
-		$i = 0;
+	function send_answer($xfrom = null){
 		$froms = array_keys($this->servers);
-		$first = true;
-		$ya = false;
 		
 		if (trim($this->to) == '')
 			return false;
+		
+		$mailboxescount = ApretasteMailboxes::getMailboxesCount();
+		
+		$sended = false;
+		$i = 0;
 		do {
+			$i ++;
 			
-			if ($i > 0) {
-				
-				// No more servers for send
-				if (! isset($froms[$i])) {
-					echo "[FATAL] No more servers!?\n";
-					break;
-				}
-				
-				$from = $froms[$i];
+			if ($i > $mailboxescount) {
+				echo "\n [FATAL] ---------------------------------\n";
+				echo "[FATAL] No more servers!\n";
+				echo "\n [FATAL] ---------------------------------\n";
+				break;
 			}
+			
+			do {
+				$from = ApretasteMailboxes::getBestMailbox($this->to, $xfrom);
+				
+				if (! isset($this->servers[$from]))
+					ApretasteMailboxes::deleteMailBox($from);
+				else
+					break;
+			} while ( ! isset($this->servers[$from]) );
+			
+			$this->headers = array(
+					"From" => "Apretaste! <$from>",
+					"To" => $this->to
+			);
 			
 			echo "[INFO] $i Trying send answer with $from \n";
 			
-			if (is_null($from))
-				
-				$from = $this->from;
-			if (! isset($this->servers[$from]))
-				$from = $this->from;
-			
 			$this->config['reply_to'] = $from;
 			
-			if ($i == 0)
+			// Build message one time
+			
+			if ($i == 1)
 				$this->_buildMessage();
 			
 			echo $this->verbose ? "conecting to " . $from . " (" . $this->servers[$from]['host'] . ":" . $this->servers[$from]['port'] . ")\n" : "";
@@ -126,83 +135,87 @@ class ApretasteAnswerEmail {
 			echo $this->verbose ? "All OK with this address\n" : "";
 			
 			$message = '';
-			echo $this->verbose ? "Send email \n" : "";
 			
+			echo $this->verbose ? "Send email \n" : "";
 			
 			$result = $smtp_server->send($this->to, $this->headers, $this->message->getMessageBody());
 			
 			if ($result !== true) {
-				if (! isset($froms[$i + 1])) {
-					ob_start();
-					echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
-					echo "<h2>The message will be send from PHP</h2>\n";
-					echo "<br/>\n";
-					
-					echo "Result = ".serialize($result);
-					
-					$serv = $this->servers[$from];
-
-					echo "From: " . $serv['host'] . "<br/>";
-					echo "<br/>\n";
-					echo "To: " . $this->to . "<br/>\n";
-					echo "Headers: <br/>\n";
-					
-					echo div::asThis($this->headers);
-					
-					echo "<br/>\n";
-					
-					// echo "Trying with other server ...\n";
-					
-					$message = ob_get_contents();
-					
-					ob_end_clean();
-					
-					$headers = 'MIME-Version: 1.0' . "\r\n";
-					$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-					$headers .= "From: soporte@apretaste.com \r\n";
-					$headers .= "Reply-To: soporte@apretaste.com \r\n";
-					$headers .= 'X-Mailer: PHP/' . phpversion();
-					
-					mail('soporte@apretaste.com', "Error sending from $from to {$this->to}", $message, $headers);
-					
-					echo "[INFO] Sending with PHP...\n";
-					
-					$hheaders = '';
-					$hheaders .= "From: anuncios@apretaste.com \r\n";
-					$hheaders .= "Reply-To: anuncios@apretaste.com \r\n";
-					$hheaders .= 'X-Mailer: PHP/' . phpversion() . "\r\n";
-										
-					foreach ( $this->headers as $key => $value )
-						$hheaders .= $key . ': ' . $value . "\r\n";
-					
-					echo $hheaders;
-					
-					mail($this->to, $this->headers['Subject'], $this->message->getMessageBody(), $hheaders);
-					
-					break;
-				}
+				ob_start();
+				echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
+				echo "<h2>The message will be send from PHP</h2>\n";
+				echo "<br/>\n";
 				
-				$i ++;
-				continue;
-			}
-			
-			$ya = true;
-			
-			
-			echo $this->verbose ? "Save answer\n" : "";
-			
-			Apretaste::saveAnswer($this->headers, $this->type, $this->msg_id);
-			
-			echo $this->verbose ? "Send result: " . $result . "\n" : "";
-			echo ($this->debug) ? $this->message->getHTMLBody() : "";
-			echo ($this->debug) ? $this->message->getTXTBody() : "";
-			
-			$first = false;
-			
-			return true;
-		} while ( ! $ya || ! isset($froms[$i + 1]) );
+				echo "Result = " . serialize($result);
+				
+				$serv = $this->servers[$from];
+				
+				echo "From: " . $serv['host'] . "<br/>";
+				echo "<br/>\n";
+				echo "To: " . $this->to . "<br/>\n";
+				echo "Headers: <br/>\n";
+				
+				echo div::asThis($this->headers);
+				
+				echo "<br/>\n";
+				
+				// echo "Trying with other server ...\n";
+				
+				$message = ob_get_contents();
+				
+				ob_end_clean();
+				
+				$headers = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+				$headers .= "From: soporte@apretaste.com \r\n";
+				$headers .= "Reply-To: soporte@apretaste.com \r\n";
+				$headers .= 'X-Mailer: PHP/' . phpversion();
+				
+				mail('soporte@apretaste.com', "Error sending from $from to {$this->to}", $message, $headers);
+				
+				ApretasteMailboxes::saveShipmentError($from);
+			} else
+				$sended = true;
+		} while ( $sended == false );
 		
-		return false;
+		if (! $sended) {
+			
+			echo "[INFO] Sending with PHP...\n";
+			
+			$hheaders = '';
+			$hheaders .= "From: anuncios@apretaste.com \r\n";
+			$hheaders .= "Reply-To: anuncios@apretaste.com \r\n";
+			$hheaders .= 'X-Mailer: PHP/' . phpversion() . "\r\n";
+			
+			foreach ( $this->headers as $key => $value )
+				$hheaders .= $key . ': ' . $value . "\r\n";
+			
+			$subject = 'Apretaste!';
+			
+			if (isset($this->headers->subject))
+				$subject = $this->headers->subject;
+			if (isset($this->headers->Subject))
+				$subject = $this->headers->Subject;
+			
+			$r = mail($this->to, $subject, $this->message->getMessageBody(), $hheaders);
+			
+			if ($r == false)
+				return false;
+			
+			$from = 'anuncios@apretaste.com';
+		}
+		
+		echo $this->verbose ? "Save answer\n" : "";
+		
+		ApretasteMailboxes::addShipment($from);
+		
+		Apretaste::saveAnswer($this->headers, $this->type, $this->msg_id);
+		
+		echo $this->verbose ? "Send result: " . $result . "\n" : "";
+		echo ($this->debug) ? $this->message->getHTMLBody() : "";
+		echo ($this->debug) ? $this->message->getTXTBody() : "";
+		
+		return true;
 	}
 	
 	/**

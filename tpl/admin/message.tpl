@@ -10,7 +10,6 @@
 	<div id = "page">
 		<h1><a href = "?path=admin&page=dashboard">Apretaste!com</a> - <a href="?path=admin&page=message">Message detail</a></h1>
 		{% menu %}
-		 <hr/>
 		?$message
 		<p>
 			<table width="100%">

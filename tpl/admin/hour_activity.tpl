@@ -13,9 +13,7 @@
 		<h2>Day {$date}, hour {$hour}, {$messages} messages</h2> 
 		?$messages
 			<table class="tabla"><tr><th>ID</th><th>Moment</th><th>Author</th><th>Command</th><th>Subject</th><th>Answers</th>
-			<th>Answer date</th>
-			<th>Answer sender</th>
-			<th>Answer subject</th>
+			<th>Answer detail</th>
 			</tr>
 		[$messages]
 			<tr><td><a href="?path=admin&page=message&id={$id}">{$id}</a></td>
@@ -23,9 +21,10 @@
 			<td align="center">{$command}</td>
 			<td align="center">{$subject}</td>
 			<td align="center">{?( {$answers} < 1 )?} <span style="color:red;">{$answers}</span> @else@ {$answers} {/?}</td>
-				<td>{$answer_date:10,6}</td>
-				<td>{$answer_sender}</td>
-				<td>{$answer_subject}</td>
+				<td>
+				{$answer_date:10,6} hrs<br/>
+				<i>{$answer_sender}</i><br/>
+				<b>{$answer_subject}</b></td>
 				</tr>
 		[/$messages]
 		</table>

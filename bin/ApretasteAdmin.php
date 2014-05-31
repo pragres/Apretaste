@@ -97,7 +97,7 @@ class ApretasteAdmin {
 				$e = unserialize($v['extra_data']);
 				$data['messages'][$k]['subject'] = $e['headers']->subject;
 			}
-			
+		
 		$sql = "SELECT * FROM answer WHERE send_date::date = '$date' AND extract(hour from send_date) = $hour;";
 		
 		$data['answers'] = Apretaste::query($sql);
@@ -130,8 +130,9 @@ class ApretasteAdmin {
 			
 			if (is_array($user['messages']))
 				foreach ( $user['messages'] as $k => $v ) {
-					$e = unserialize($v['extra_data']);
-					$user['messages'][$k]['subject'] = $e['headers']->subject;
+					$e = @unserialize($v['extra_data']);
+					if (isset($e['headers']->subject))
+						$user['messages'][$k]['subject'] = $e['headers']->subject;
 				}
 		}
 		

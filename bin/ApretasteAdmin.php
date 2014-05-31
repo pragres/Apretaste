@@ -71,6 +71,9 @@ class ApretasteAdmin {
 	
 	// Pages
 	static function page_hour_activity(){
+		if (! self::verifyLogin())
+			die('Access denied');
+		
 		$date = $_GET['date'];
 		$hour = $_GET['hour'];
 		
@@ -94,7 +97,14 @@ class ApretasteAdmin {
 		}
 		echo new div("../tpl/admin/hour_activity.tpl", $data);
 	}
+	
+	/**
+	 * User acivity
+	 */
 	static function page_user_activity(){
+		if (! self::verifyLogin())
+			die('Access denied');
+		
 		$user = false;
 		$data = array();
 		
@@ -123,6 +133,9 @@ class ApretasteAdmin {
 		echo new div("../tpl/admin/user_activity.tpl", $data);
 	}
 	static function page_message(){
+		if (! self::verifyLogin())
+			die('Access denied');
+		
 		$id = $_GET['id'];
 		
 		$data = array();
@@ -805,6 +818,9 @@ class ApretasteAdmin {
 		echo new div("../tpl/admin/subscribes", $data);
 	}
 	static function page_mailboxes(){
+		if (! self::verifyLogin())
+			die('Access denied');
+		
 		$data = array();
 		
 		if (isset($_POST['btnAdd'])) {
@@ -830,5 +846,61 @@ class ApretasteAdmin {
 		$data['mailboxes'] = ApretasteMailboxes::getMailBoxes();
 		$data['user'] = self::getUser();
 		echo new div("../tpl/admin/mailboxes.tpl", $data);
+	}
+	static function page_sms(){
+		if (! self::verifyLogin())
+			die('Access denied');
+		
+		$data = array();
+		$data['user'] = self::getUser();
+		$data['lastdays'] = 20;
+		
+		// Access by hour
+		$lastdays = 20;
+		
+		$access_by_hour = array();
+		
+		for($i = 0; $i <= 23; $i ++) {
+			$access_by_hour[$i] = array();
+			for($j = 1; $j <= $lastdays; $j ++)
+				$access_by_hour[$i][$j] = 0;
+		}
+		
+		$r = ApretasteAnalitics::getSMSByHour($lastdays);
+		
+		if (is_array($r)) foreach ( $r as $rx ) {
+			$access_by_hour[$rx['hora']][$rx['orden']] = intval($rx['total']);
+		}
+		
+		$sql = "
+		SELECT
+		q::date - current_date + " . ($lastdays - 1) . " + 1 as orden,
+		q::date as date,
+				extract(day from q) as dia,
+				extract(dow from q) as wdia
+			FROM generate_series(current_date - " . ($lastdays - 1) . ", current_date, '1 day') as q;";
+		
+		$r = Apretaste::query($sql);
+		
+		$wdias = array(
+				'Su',
+				'Mo',
+				'Tu',
+				'We',
+				'Tr',
+				'Fr',
+				'Sa'
+		);
+		
+		$ah = array();
+		
+		foreach ( $r as $row ) {
+			$ah[$row['orden']] = $row;
+			$ah[$row['orden']]['wdia'] = $wdias[$ah[$row['orden']]['wdia']];
+		}
+		
+		$data['access_by_hour'] = $access_by_hour;
+		$data['ah'] = $ah;
+		echo new div("../tpl/admin/sms.tpl", $data);
 	}
 }

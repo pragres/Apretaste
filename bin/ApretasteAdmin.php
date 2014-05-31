@@ -116,6 +116,9 @@ class ApretasteAdmin {
 		$data = array();
 		
 		if (isset($_GET['user'])) {
+			
+			$_GET['user'] = Apretaste::extractEmailAddress($_GET['user']);
+			
 			$user = array();
 			$user['email'] = strtolower($_GET['user']);
 			$user['credit'] = ApretasteMoney::getCreditOf($_GET['user']);

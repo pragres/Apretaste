@@ -14,7 +14,8 @@
 		?$mailboxes
 		<table class="tabla"><tr><th>Mailbox</th><th>Shipments</th><th>Last shipment</th><th>Last error</th></tr>
 		[$mailboxes]
-			<tr><td>{$mailbox}</td><td>{$shipments}</td><td>{$last_shipment_date:0,16}</td><td>?$last_error {$last_error} - {$last_error_date:0,16} $last_error?</td><td><a href="{$path}&delete={$mailbox}">Delete</a></td></tr>
+			<tr><td>{$mailbox}</td><td>{$shipments}</td><td>{$last_shipment_date:0,16}</td>
+			<td>{$last_error} - {$last_error_date:0,16}</td><td><a href="{$path}&delete={$mailbox}">Delete</a></td></tr>
 		[/$mailboxes]
 		$mailboxes?
 		</table>

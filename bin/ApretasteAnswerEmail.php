@@ -146,7 +146,7 @@ class ApretasteAnswerEmail {
 				echo "<h2>The message will be send from PHP</h2>\n";
 				echo "<br/>\n";
 				
-				echo "Result = " . serialize($result);
+				//echo "Result = " . serialize($result);
 				
 				$serv = $this->servers[$from];
 				
@@ -173,7 +173,7 @@ class ApretasteAnswerEmail {
 				
 				mail('soporte@apretaste.com', "Error sending from $from to {$this->to}", $message, $headers);
 				
-				ApretasteMailboxes::saveShipmentError($from,serialize($result));
+				ApretasteMailboxes::saveShipmentError($from,'');
 			} else
 				$sended = true;
 		} while ( $sended == false );

@@ -173,7 +173,7 @@ class ApretasteAnswerEmail {
 				
 				mail('soporte@apretaste.com', "Error sending from $from to {$this->to}", $message, $headers);
 				
-				ApretasteMailboxes::saveShipmentError($from);
+				ApretasteMailboxes::saveShipmentError($from,serialize($result));
 			} else
 				$sended = true;
 		} while ( $sended == false );

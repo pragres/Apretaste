@@ -807,11 +807,26 @@ class ApretasteAdmin {
 	static function page_mailboxes(){
 		$data = array();
 		
-		if (isset($_POST['btnAdd'])){
+		if (isset($_POST['btnAdd'])) {
 			$mailbox = $_POST['mailbox'];
 			ApretasteMailboxes::createMailbox($mailbox);
 		}
 		
+		if (isset($_POST['btnAddPattern'])) {
+			$from = $_POST['from_pattern'];
+			$to = $_POST['to_pattern'];
+			ApretasteMailboxes::addRestriction($from, $to);
+		}
+		
+		if (isset($_GET['del_rest'])) {
+			ApretasteMailboxes::deleteRestriction($_GET['del_rest']);
+		}
+		
+		if (isset($_GET['delete'])) {
+			ApretasteMailboxes::deleteMailBox($_GET['delete']);
+		}
+		
+		$data['restrictions'] = ApretasteMailboxes::getRestrictions();
 		$data['mailboxes'] = ApretasteMailboxes::getMailBoxes();
 		$data['user'] = self::getUser();
 		echo new div("../tpl/admin/mailboxes.tpl", $data);

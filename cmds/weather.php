@@ -507,7 +507,8 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"compactmode" => true,
 					"climaimagen" => false,
 					"images" => $images,
-					"provincias" => $provincias
+					"provincias" => $provincias,
+					"i18n" => $weatherDesc
 			);
 			break;
 	}

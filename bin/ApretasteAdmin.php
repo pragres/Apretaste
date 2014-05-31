@@ -121,8 +121,11 @@ class ApretasteAdmin {
 			
 			$user = array();
 			$user['email'] = strtolower($_GET['user']);
+			
+			// credit
 			$user['credit'] = ApretasteMoney::getCreditOf($_GET['user']);
 			
+			// messages
 			$user['messages'] = Apretaste::query("SELECT *,
 					(select count(*) from answer where message.id=answer.message) as answers ,
 					(select send_date from answer where message.id=answer.message limit 1) as answer_date,
@@ -137,6 +140,14 @@ class ApretasteAdmin {
 					if (isset($e['headers']->subject))
 						$user['messages'][$k]['subject'] = $e['headers']->subject;
 				}
+				
+				// ads
+			
+			$user['ads'] = Apretaste::query("SELECT * FROM announcement WHERE extract_email(author) = '{$_GET['user']}';");
+			
+			// subscribes
+			$user['subscribes'] = Apretaste::getSubscribesOf($_GET['user']);
+			
 		}
 		
 		$data['client'] = $user;
@@ -961,5 +972,18 @@ class ApretasteAdmin {
 		$data['lastdays'] = $lastdays;
 		
 		echo new div("../tpl/admin/sms.tpl", $data);
+	}
+	static function page_ad(){
+		if (! self::verifyLogin())
+			die('Access denied');
+		
+		$data = array();
+		$id = $_GET['id'];
+		$data['user'] = self::getUser();
+		
+		$data['ad'] = Apretaste::getAnnouncement($id);
+		
+		$data['ad']['image'] = '<img width="200" src="data:'.$data['ad']['image_type'].';base64,'.$data['ad']['image'].'">';
+		echo new div("../tpl/admin/ad.tpl", $data);
 	}
 }

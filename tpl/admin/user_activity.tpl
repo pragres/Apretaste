@@ -23,17 +23,18 @@
 		</form> 
 		<hr>
 		?$client
-			<h1 style="float:right;">{$client.email}</h1>
-			 Credit: ${$client.credit}
+			<h1>Activity of {$client.email}</h1>
+			
+			 <fieldset style="background:green;color:white;font-weight:bold">Credit: ${$client.credit}</fieldset>
 			 <h2>Last messages</h2>
 			 ?$client.messages
-			<table class="tabla"><tr><th>ID</th><th>Moment</th><th>Command</th><th>Subject</th><th>Answers</th>
+			<table class="tabla"><tr><th width="200">ID</th><th>Moment</th><th>Command</th><th>Subject</th><th>Answers</th>
 			<th>Answer date</th>
 			<th>Answer sender</th>
 			<th>Answer subject</th>
 			</tr>
 			[$client.messages]
-				<tr><td><a href="?path=admin&page=message&id={$id}">{$id}</a></td>
+				<tr><td style="font-family:Courier"><a href="?path=admin&page=message&id={$id}">{$id}</a></td>
 				<td>{$moment:0,16}</td>
 				<td align="center">{$command}</td>
 				<td align="center">{$subject}</td>
@@ -44,7 +45,35 @@
 				</tr>
 			[/$client.messages]
 			</table>
-			$client.messages? 
+			$client.messages?
+			<hr>
+			<h2>Ads</h2>
+			?$client.ads
+			<table width="100%" class="tabla">
+			<tr><th width="200">ID</th><th>Title</th><th>Post date</th><th>Image</th></tr>
+			[$client.ads]
+			<tr><td style="font-family:Courier"><a href="?path=admin&page=ad&id={$id}">{$id}</a></td>
+			<td>{$title}</td>
+			<td>{$post_date}</td>
+			<td>?$image Yes @else@ No $image?</td>
+			</tr>
+			[/$client.ads]
+			</table>
+			$client.ads?
+			 
+			 
+			 ?$client.subscribes
+			 <h2>Subscribes</h2>
+			 	<table width="100%" class="tabla">	
+			 	<tr><th width="200">ID</th><th>Phrase</th><th>Last shipment</th></tr>
+			 	[$client.subscribes]
+			 	<tr><td style="font-family:Courier">{$id}</td>
+			 	<td>{$phrase}</td>
+			 	<td>{$last_alert:0.16}</td>
+			 	</tr>
+			 	[/$client.subscribes]
+			 	</table>
+			 $client.subscribes? 
 		$client? 
 	</div>
 </body>

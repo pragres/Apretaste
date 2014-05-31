@@ -428,6 +428,24 @@ class ApretasteAnalitics {
 		
 		return $r;
 	}
+	
+	static function getSMSByHour($lastdays = 30){
+		$sql = '
+			select
+				send_date::date - current_date + ' . ($lastdays - 1) . ' + 1 as orden,
+				extract(day from send_date::date) as dia,
+				extract(hour from send_date) as hora, count(*) as total
+			from sms
+			where send_date::date >= current_date - ' . ($lastdays - 1) . '
+			group by orden, dia, hora
+			order by orden, dia, hora;';
+
+		$r = Apretaste::query($sql);
+	
+		return $r;
+	}
+	
+	
 	static function getAnswerByHour($lastdays = 30){
 		$sql = '
 			select

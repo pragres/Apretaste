@@ -10,7 +10,7 @@
 	<div id = "page">
 		<h1><a href = "?path=admin&page=dashboard">Apretaste!com</a> - <a href="?path=admin&page=mailboxes">Mailboxes</a></h1>
 		{% menu %}
-		
+		<h1>Mailboxes</h1>
 		?$mailboxes
 		<table class="tabla"><tr><th>Mailbox</th><th>Shipments</th><th>Last shipment</th><th>Last error</th></tr>
 		[$mailboxes]
@@ -20,7 +20,19 @@
 		</table>
 		<form action="{$path}" method="post">
 			<input class="text" name="mailbox"><input type="submit" name="btnAdd" value="Add">
-		</form> 
+		</form>
+		<h1>Restrictions</h1>
+		<table class="tabla"><tr><th>ID</th><th>From pattern</th><th>To pattern</th></tr>
+		?$restrictions
+			[$restrictions]
+				<tr><td>{$id}</td><td>{$from_pattern}</td><td>{$to_pattern}</td><td><a href="{$path}&del_rest={$id}">Delete</a></td></tr>
+			[/$restrictions]
+		$restrictions?
+		</table> 
+		<form action="{$path}" method="post">
+			New: From = <input class="text" name="from_pattern"> To = <input class="text" name="to_pattern">
+			<input type="submit" name="btnAddPattern" value="Add">
+		</form>
 	</div>
 </body>
 </html>

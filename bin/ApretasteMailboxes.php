@@ -91,4 +91,13 @@ class ApretasteMailboxes {
 	static function getMailBoxes(){
 		return Apretaste::query("SELECT * FROM mailboxes;");
 	}
+	static function addRestriction($from, $to){
+		Apretaste::query("Insert into mailboxes_restrictions (from_pattern,to_pattern) values('$from','$to');");
+	}
+	static function getRestrictions(){
+		return Apretaste::query("select * from mailboxes_restrictions;");
+	}
+	static function deleteRestriction($id){
+		Apretaste::query("DELETE from mailboxes_restrictions where id=$id;");
+	}
 }

@@ -43,7 +43,7 @@ class ApretasteMailboxes {
 	static function saveShipmentError($mailbox, $error = ''){
 		self::createMailbox($mailbox);
 		
-		Apretaste::query("UPDATE mailboxes SET = last_error_date = now(), last_error='$error' WHERE mailbox='$mailbox';");
+		Apretaste::query("UPDATE mailboxes SET last_error_date = now(), last_error='$error' WHERE mailbox='$mailbox';");
 	}
 	
 	/**

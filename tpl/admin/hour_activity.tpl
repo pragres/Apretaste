@@ -17,7 +17,7 @@
 			</tr>
 		[$messages]
 			<tr><td><a href="?path=admin&page=message&id={$id}">{$id}</a></td>
-			<td>{$moment:10,6}</td><td><a href="?path=admin&page=user_activity&user={$author}">{$author}</a></td>
+			<td>{$moment:10,6}</td><td><a href="?path=admin&page=user_activity&user={$author}">{html:author}</a></td>
 			<td align="center">{$command}</td>
 			<td align="center">{$subject}</td>
 			<td align="center">{?( {$answers} < 1 )?} <span style="color:red;">{$answers}</span> @else@ {$answers} {/?}</td>
@@ -37,7 +37,7 @@
 		[$answers]
 			<tr><td>{$id}</td>
 			<td>{$send_date:10,6}</td>
-			<td><a href="?path=admin&page=user_activity&user={$receiver}">{$receiver}</a></td>
+			<td><a href="?path=admin&page=user_activity&user={$receiver}">{html:receiver}</a></td>
 			<td align="center">{$type}</td>
 			<td align="center">{$subject}</td>
 			<td><a href="?path=admin&page=message&id={$id}">{$message}</a></td>

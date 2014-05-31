@@ -12,6 +12,9 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	if (stripos($argument, 'satelital'))
 		$oStaticMap->setMapType("satellite");
 	
+	if (stripos($argument, 'satelite'))
+		$oStaticMap->setMapType("satellite");
+	
 	if (stripos($argument, 'carreteras'))
 		$oStaticMap->setMapType("roadmap");
 	

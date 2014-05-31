@@ -429,7 +429,7 @@ class ApretasteAnalitics {
 		return $r;
 	}
 	
-	static function getSMSByHour($lastdays = 30){
+	static function getSMSByHour($lastdays = 30, $national = true){
 		$sql = '
 			select
 				send_date::date - current_date + ' . ($lastdays - 1) . ' + 1 as orden,
@@ -437,6 +437,7 @@ class ApretasteAnalitics {
 				extract(hour from send_date) as hora, count(*) as total
 			from sms
 			where send_date::date >= current_date - ' . ($lastdays - 1) . '
+			'.($national?"and strpos(phone,'(+53)')>0":"and strpos(phone,'(+53)')=0").'
 			group by orden, dia, hora
 			order by orden, dia, hora;';
 

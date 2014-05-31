@@ -52,7 +52,7 @@ class ApretasteMailboxes {
 	 * @param string $to
 	 */
 	static function getBestMailbox($to = null, $default = null){
-		$sql = "select mailbox from mailboxes where last_error_date::date <> current_date ";
+		$sql = "select mailbox from mailboxes where (date_part('hour', now() - last_error_date) > 23 OR last_error_date is null)  ";
 		
 		if (! is_null($to))
 			$sql .= " and not exists(select * from mailboxes_restrictions 

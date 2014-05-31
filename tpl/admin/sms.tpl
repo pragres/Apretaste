@@ -18,9 +18,11 @@
 				<th></th>
 				<?
 					$totals_by_day = array();
+					$totals_by_day_a = array();
 					for ($i = 1; $i <= $lastdays; $i++) {
 						echo '<th width="80" style="font-size: 10px;">' . $ah[$i]['wdia']. '</th>';
 						$totals_by_day[$i] = 0;
+						$totals_by_day_a[$i] = 0;
 					}					
 				?>
 			</tr>
@@ -39,8 +41,13 @@
 						
 						$value = intval($value);
 						$X = $value;
+						if (isset($answer_by_hour[$_key][$__key]))
+							$Y = intval($answer_by_hour[$_key][$__key]);
+						else
+							$Y = 0;
 						
 						if (isset($totals_by_day[$__key])) $totals_by_day[$__key] += $X;
+						if (isset($totals_by_day_a[$__key])) $totals_by_day_a[$__key] += $Y;
 						
 						$bg = 'white';
 						$cl = 'black';
@@ -50,10 +57,11 @@
 						if ($value >= 30) {$bg = '#1b6923'; $cl = 'white';}
 						
 						if ($X==0) $X='-';
-						if ($X == 0)
+						if ($Y==0) $Y='-';
+						if ($X == 0 && $Y == 0)
 							echo '<td width="80" style="border-left: 1px solid #eeeeee; border-top: 1px solid #eeeeee;">&nbsp;</td>';
 						else
-							echo '<td width="80" align="center" style="border-left: 1px solid #eeeeee; border-top: 1px solid #eeeeee;font-size:10px;background:' . $bg . '; color: '.$cl.';"><a style="color:black;" href="?path=admin&page=hour_activity&hour='.$_key.'&date='.$ah[$__key]['date'].'"><b>' . $X .'</b></a></td>';
+							echo '<td width="80" align="center" style="border-left: 1px solid #eeeeee; border-top: 1px solid #eeeeee;font-size:10px;background:' . $bg . '; color: '.$cl.';"><a style="color:black;" href="?path=admin&page=hour_activity&hour='.$_key.'&date='.$ah[$__key]['date'].'"><b>' . $X . "/" . $Y.'</b></a></td>';
 					}
 					echo '</tr>';
 				}
@@ -63,8 +71,10 @@
 				<?
 					for ($i = 1; $i <= $lastdays; $i++) {
 						$x = $totals_by_day[$i];
+						$y = $totals_by_day_a[$i];
 						if ($x < 1)	$x = '-';
-						echo '<th width="80" style="font-size: 10px;border-left: 1px solid #eeeeee;border-top: 1px solid #eeeeee;"><b>' . $x .'</b></th>';
+						if ($y < 1)	$y = '-';
+						echo '<th width="80" style="font-size: 10px;border-left: 1px solid #eeeeee;border-top: 1px solid #eeeeee;"><b>' . $x . '/'. $y .'</b></th>';
 					}
 				?>
 			</tr>

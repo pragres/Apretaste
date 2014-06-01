@@ -13,12 +13,13 @@
 		<h1>Mailboxes</h1>
 		<h2>Use of mailboxes (incomming messages)</h2>
 		<table>
-		<tr><td valign="top" >[$mbuse]
-		{$servidor} <b>({$cant})</b> <br/>
+		[$mbuse]
+		<tr>
+		<td valign="top" >{$servidor} <b>({$cant}) </b> </td>
+		<td><div style="width:(# {$cant} / {$max:mbuse-cant} * 100 * 2: 0,2 #)px;height: 20px; background: blue;"></div></td>
+		</tr>
 		[/$mbuse]
-		</td><td valign="top" >
-		<img src="?path=admin&chart=mailboxes_use">
-		</td></tr></table>
+		</table>
 		
 		?$mailboxes
 		<table class="tabla"><tr><th>Mailbox</th><th>Shipments</th><th>Last shipment</th><th>Last error</th></tr>

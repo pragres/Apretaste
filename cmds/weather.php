@@ -97,20 +97,21 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				"http://www.met.inf.cu/Radar/03Cienfuegos/psjMAXw01a.gif", // Pico san juan
 				"http://www.met.inf.cu/Radar/04Camaguey/cmwMAXw01a.gif", // Camaguey
 				"http://www.met.inf.cu/Radar/05Pilon/plnMAXw01a.gif", // Pilon,
-				"http://www.met.inf.cu/Radar/00Pinar%20del%20Rio/lbjMAXw01a.gif" // Pinar del rio
+				"http://www.met.inf.cu/Radar/00Pinar%20del%20Rio/lbjMAXw01a.gif", // Pinar del rio
+				"../cache/radar.gif" // cache
 			);
 			
 			$radar = '';
-			if (file_exists("../cache/radar.gif"))
-				$radar = file_get_contents("../cache/radar.gif");
 			
 			foreach($radares as $url){
-				$radar = file_get_contents($url);
+				echo "[INFO] Trying URL = $url \n";
+				$radar = @file_get_contents($url);
 				if ($radar !== false) {
+					// Saving cache
 					file_put_contents("../cache/radar.gif", $radar);
 					break;
 				}
-			}
+			}	
 			
 			return array(
 					"answer_type" => "weather",

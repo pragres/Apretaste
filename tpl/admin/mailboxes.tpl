@@ -12,15 +12,16 @@
 		{% menu %}
 		<h1>Mailboxes</h1>
 		<h2>Use of mailboxes (incomming messages)</h2>
-		<table>
+		<table class="tabla">
 		[$mbuse]
 		<tr>
 		<td valign="top" >{$servidor} <b>({$cant}) </b> </td>
-		<td><div style="width:(# {$cant} / {$max:mbuse-cant} * 100 * 2:0 #)px;height: 20px; background: blue;"></div></td>
+		<td><div style="width:(# {$cant} / {$max:mbuse-cant} * 100 * 3:0 #)px;height: 20px; background: blue;"></div></td>
 		</tr>
 		[/$mbuse]
 		</table>
 		
+		<h2>Shipments</h2>
 		?$mailboxes
 		<table class="tabla"><tr><th>Mailbox</th><th>Shipments</th><th>Last shipment</th><th>Last error</th></tr>
 		[$mailboxes]

@@ -3,10 +3,12 @@ Apretaste::connect();
 
 $limit = 4;
 
-$sql = "select addressee as servidor, count(*) as cant
-		from message
-		group by addressee
-		order by cant";
+$sql = "select mailboxes.mailbox as servidor, 
+count(*) as cant
+from message inner join mailboxes on
+lower(extract_email(addressee)) ~* mailboxes.mailbox 
+group by servidor
+order by cant;";
 
 $servers = Apretaste::query($sql);
 

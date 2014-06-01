@@ -4,7 +4,6 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	$oStaticMap->setCenter("$argument");
 	$oStaticMap->setHeight(400);
 	$oStaticMap->setWidth(640);
-	$oStaticMap->setZoom(18);
 	$oStaticMap->setHttps(true);
 	
 	$argument = trim(strtolower($argument));
@@ -28,7 +27,7 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 		$oStaticMap->setZoom(5);
 	
 	if (stripos($argument, 'cerca'))
-		$oStaticMap->setZoom(5);
+		$oStaticMap->setZoom(22);
 	
 	if (stripos($argument, 'grande')) {
 		$oStaticMap->setHeight(640);

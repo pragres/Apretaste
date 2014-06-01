@@ -80,6 +80,17 @@
 			</tr>
 	    </table>
 		<!--{ END Hourly access }-->
+		
+		<h2>Use of servers</h2>
+		<table class="tabla">
+		?$servers
+			[$servers]
+			<tr>
+			<td valign="top" >{$servidor} <b>({$cant}) </b> </td>
+			<td><div style="width:(# {$cant} / {$max:servers-cant} * 100 * 3:0 #)px;height: 20px; background: blue;"></div></td>
+			</tr>
+			[/$servers]
+		$servers?
 	</div>
 </body>
 </html>

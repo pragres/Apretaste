@@ -21,6 +21,6 @@ foreach ( $servers as $s ) {
 	$points[] = $s['cant'];
 }
 
-$g = new ApretasteDefaultPieChart($points, $labels, "Mailboxes use", "Mailboxes use", true, 750,500);
+$g = new ApretasteDefaultPieChart($points, $labels, "", "", true, 600,400);
 
 // End of file

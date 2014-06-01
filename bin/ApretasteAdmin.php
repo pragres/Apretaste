@@ -147,7 +147,6 @@ class ApretasteAdmin {
 			
 			// subscribes
 			$user['subscribes'] = Apretaste::getSubscribesOf($_GET['user']);
-			
 		}
 		
 		$data['client'] = $user;
@@ -864,6 +863,13 @@ class ApretasteAdmin {
 			ApretasteMailboxes::deleteMailBox($_GET['delete']);
 		}
 		
+		$data['mbuse'] = Apretaste::query("select mailboxes.mailbox as servidor, 
+		count(*) as cant
+		from message inner join mailboxes on
+		lower(extract_email(addressee)) ~* mailboxes.mailbox 
+		group by servidor
+		order by cant desc;");
+		
 		$data['restrictions'] = ApretasteMailboxes::getRestrictions();
 		$data['mailboxes'] = ApretasteMailboxes::getMailBoxes();
 		$data['user'] = self::getUser();
@@ -983,7 +989,7 @@ class ApretasteAdmin {
 		
 		$data['ad'] = Apretaste::getAnnouncement($id);
 		
-		$data['ad']['image'] = '<img width="200" src="data:'.$data['ad']['image_type'].';base64,'.$data['ad']['image'].'">';
+		$data['ad']['image'] = '<img width="200" src="data:' . $data['ad']['image_type'] . ';base64,' . $data['ad']['image'] . '">';
 		echo new div("../tpl/admin/ad.tpl", $data);
 	}
 }

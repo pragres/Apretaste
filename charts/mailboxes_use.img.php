@@ -8,7 +8,8 @@ count(*) as cant
 from message inner join mailboxes on
 lower(extract_email(addressee)) ~* mailboxes.mailbox 
 group by servidor
-order by cant;";
+order by cant desc
+limit 4;";
 
 $servers = Apretaste::query($sql);
 

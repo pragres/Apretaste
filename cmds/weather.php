@@ -91,7 +91,26 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 		case 'radar' :
 			
 			echo "[INFO] Download last Cuban Radar Image [composite] \n";
-			$radar = file_get_contents("http://www.met.inf.cu/Radar/NacComp200Km.gif");
+			
+			$radares = array(
+				"http://www.met.inf.cu/Radar/NacComp200Km.gif", // mosaico
+				"http://www.met.inf.cu/Radar/03Cienfuegos/psjMAXw01a.gif", // Pico san juan
+				"http://www.met.inf.cu/Radar/04Camaguey/cmwMAXw01a.gif", // Camaguey
+				"http://www.met.inf.cu/Radar/05Pilon/plnMAXw01a.gif", // Pilon,
+				"http://www.met.inf.cu/Radar/00Pinar%20del%20Rio/lbjMAXw01a.gif" // Pinar del rio
+			);
+			
+			$radar = '';
+			if (file_exists("../cache/radar.gif"))
+				$radar = file_get_contents("../cache/radar.gif");
+			
+			foreach($radares as $url){
+				$radar = file_get_contents($url);
+				if ($radar !== false) {
+					file_put_contents("../cache/radar.gif", $radar);
+					break;
+				}
+			}
 			
 			return array(
 					"answer_type" => "weather",

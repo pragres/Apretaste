@@ -81,7 +81,7 @@
 	    </table>
 		<!--{ END Hourly access }-->
 		
-		<h2>Email's servers sending SMS</h2>
+		<h2>Email servers sending SMS</h2>
 		<table class="tabla">
 		?$servers
 			[$servers]

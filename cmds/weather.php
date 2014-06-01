@@ -238,7 +238,9 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				);
 					
 				break;
-
+				
+		case 'infraroja':
+			
 		case 'infrarroja':
 			//Imagen Infrarroja
 			//http://www.goes.noaa.gov/GIFS/HUVS.JPG

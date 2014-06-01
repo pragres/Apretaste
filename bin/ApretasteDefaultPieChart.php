@@ -52,10 +52,10 @@ class ApretasteDefaultPieChart extends pImage {
 				"DrawLabels" => TRUE
 			));
 		} else {
-			$PieChart->draw3DPie($w/2, $h / 2, array(
+			$PieChart->draw3DPie($w / 2, $h / 2, array(
 					"Radius" => $w / 4,
-					"DataGapAngle" => 18,
-					"DataGapRadius" => 15,
+					"DataGapAngle" => 9,
+					"DataGapRadius" => 5,
 					/*"Border" => FALSE,*/
 					"DrawLabels" => TRUE
 			));

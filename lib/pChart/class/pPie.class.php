@@ -619,7 +619,7 @@
            $this->pChartObject->drawAntialiasPixel($Xc,$Yc,$Settings);
            if ($i < 270 && $i > 90 ) { $this->pChartObject->drawAntialiasPixel($Xc,$Yc+$SliceHeight,$Settings); }
           }
-         $this->pChartObject->drawLine($Xc,$Yc,$X0,$Y0,$Settings);
+         @$this->pChartObject->drawLine($Xc,$Yc,$X0,$Y0,$Settings);
 
          $Offset = $i - $DataGapAngle; $ID--;
         }

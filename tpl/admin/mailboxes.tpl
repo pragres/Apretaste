@@ -11,6 +11,7 @@
 		<h1><a href = "?path=admin&page=dashboard">Apretaste!com</a> - <a href="?path=admin&page=mailboxes">Mailboxes</a></h1>
 		{% menu %}
 		<h1>Mailboxes</h1>
+		<img src="?path=admin&chart=mailboxes_use" >
 		?$mailboxes
 		<table class="tabla"><tr><th>Mailbox</th><th>Shipments</th><th>Last shipment</th><th>Last error</th></tr>
 		[$mailboxes]

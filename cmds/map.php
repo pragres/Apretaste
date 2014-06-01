@@ -5,6 +5,7 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	$oStaticMap->setHeight(400);
 	$oStaticMap->setWidth(640);
 	$oStaticMap->setHttps(true);
+	$oStaticMap->setMapType("hybrid");
 	
 	$argument = trim(strtolower($argument));
 	

@@ -16,7 +16,7 @@
 		[$mbuse]
 		<tr>
 		<td valign="top" >{$servidor} <b>({$cant}) </b> </td>
-		<td><div style="width:(# {$cant} / {$max:mbuse-cant} * 100 * 2: 0,2 #)px;height: 20px; background: blue;"></div></td>
+		<td><div style="width:(# {$cant} / {$max:mbuse-cant} * 100 * 2:0 #)px;height: 20px; background: blue;"></div></td>
 		</tr>
 		[/$mbuse]
 		</table>

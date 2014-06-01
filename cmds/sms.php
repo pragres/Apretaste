@@ -75,8 +75,12 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	// Split message
 	$msg = trim($body);
 	
-	$parts = ApretasteSMS::chopText($msg);
-	$tparts = count($parts);
+	// $parts = ApretasteSMS::chopText($msg);
+	// $tparts = count($parts);
+	$parts = array(
+			substr($body, 0, 160)
+	);
+	$tparts = 1;
 	
 	// Get rate
 	$discount = ApretasteSMS::getRate($code);
@@ -102,6 +106,11 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 		ApretasteSMS::send($code, $number, $from, $part, $discount);
 	}
 	
+	if (strlen($body) > 160) {
+		$body = substr($body, 160);
+	} else
+		$body = false;
+	
 	$newcredit = ApretasteMoney::getCreditOf($from);
 	
 	return array(
@@ -110,6 +119,7 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 			"newcredit" => $newcredit,
 			"discount" => $discount,
 			"smsparts" => $parts,
+			"bodyextra" => $body,
 			"totaldiscount" => $discount * $tparts,
 			"as_plain_text" => $as_plain_text
 	);

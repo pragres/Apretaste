@@ -14,7 +14,7 @@ class ApretasteDefaultPieChart extends pImage {
 	 * @param boolean $autoOutput
 	 * @return ApretasteDefaultLinearGraph
 	 */
-	public function ApretasteDefaultPieChart($points, $labels, $description, $title = "", $autoOutput = true, $w = 500, $h = 400){
+	public function ApretasteDefaultPieChart($points, $labels, $description, $title = "", $autoOutput = true, $w = 500, $h = 400, $in3d = false){
 		$palette = array();
 		
 		foreach ( $points as $k => $p ) {
@@ -43,14 +43,23 @@ class ApretasteDefaultPieChart extends pImage {
 		));
 		$PieChart = new pPie($this, $d);
 		
-		$PieChart->draw2DPie($w / 2, $h / 2, array(
-				"Radius" => $w / 5 - 20,
-				"DataGapAngle" => 8,
-				"DataGapRadius" => 5,
+		if (! $in3d) {
+			$PieChart->draw2DPie($w / 2, $h / 2, array(
+					"Radius" => $w / 5 - 20,
+					"DataGapAngle" => 8,
+					"DataGapRadius" => 5,
 				/*"Border" => FALSE,*/
 				"DrawLabels" => TRUE
-		));
-		
+			));
+		} else {
+			$PieChart->draw3DPie($w/2, $h / 2, array(
+					"Radius" => $w / 4,
+					"DataGapAngle" => 18,
+					"DataGapRadius" => 15,
+					/*"Border" => FALSE,*/
+					"DrawLabels" => TRUE
+			));
+		}
 		/*
 		 * $PieChart->drawPieLegend(5, 15, array( "Style" => LEGEND_NOBORDER, "Mode" => LEGEND_VERTICAL ));
 		 */

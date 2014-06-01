@@ -869,6 +869,7 @@ class ApretasteAdmin {
 		lower(extract_email(addressee)) ~* mailboxes.mailbox 
 		group by servidor
 		order by cant desc;");
+			
 		
 		$data['restrictions'] = ApretasteMailboxes::getRestrictions();
 		$data['mailboxes'] = ApretasteMailboxes::getMailBoxes();
@@ -976,6 +977,14 @@ class ApretasteAdmin {
 		$data['ah'] = $ah;
 		$data['ans'] = $ah;
 		$data['lastdays'] = $lastdays;
+		
+		$data['servers'] = Apretaste::query("
+		select get_email_domain(extract_email(author)) as servidor, count(*) as cant
+		from message
+		where command = 'sms'
+		group by servidor
+		order by cant desc
+		limit 20;");
 		
 		echo new div("../tpl/admin/sms.tpl", $data);
 	}

@@ -12,7 +12,7 @@
 		{% menu %}
 		<!--{ BEGIN Hourly access }-->
 		<h2>SMS by hour</h2>
-		<p style="color:gray;">Number of sms sended every hour (last 20 days)</p>
+		<p style="color:gray;">Number of sms sent by hour (last 20 days, national/international)</p>
 		<table width="100%">
 			<tr>
 				<th></th>
@@ -81,7 +81,7 @@
 	    </table>
 		<!--{ END Hourly access }-->
 		
-		<h2>Use of servers</h2>
+		<h2>Email's servers sending SMS</h2>
 		<table class="tabla">
 		?$servers
 			[$servers]

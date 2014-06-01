@@ -16,7 +16,7 @@
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA caribe">El Caribe</a> {$splitter}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA radar">Radar</a> {$br}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA sector">Sector visible</a> {$splitter}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA vapor">Infrarroja</a> {$splitter}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA infrarroja">Infrarroja</a> {$splitter}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA vapor">Vapor de Agua</a> {$br}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA temperatura">Temperatura del mar</a> {$splitter}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA superficie">Superficie del Atl&aacute;ntico y el Caribe</a> {$splitter}

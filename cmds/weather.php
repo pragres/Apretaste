@@ -239,7 +239,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					
 				break;
 
-		case 'infrarojo':
+		case 'infrarroja':
 			//Imagen Infrarroja
 			//http://www.goes.noaa.gov/GIFS/HUVS.JPG
 			echo "[INFO] Download IR Image [composite] \n";

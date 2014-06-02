@@ -36,19 +36,28 @@ if (! $conex) {
 // CLI Mode
 if (div::isCli()) {
 	$t1 = microtime(true);
-	echo "[INFO] " . date("Y-m-d h:i:s") . " - Starting Apretaste!com cron job \n";
-	$args = array();
-	$first = true;
-	foreach ( $_SERVER['argv'] as $arg ) {
-		if ($first) {
-			$first = false;
-			continue;
+	
+	Apretaste::loadSetup();
+	
+	if (! isset(Apretaste::$config['pause']))
+		Apretaste::$config['pause'] = '0';
+	
+	if (Apretaste::$config['pause'] . "" == '0') {
+		echo "[INFO] " . date("Y-m-d h:i:s") . " - Starting Apretaste!com cron job \n";
+		$args = array();
+		$first = true;
+		foreach ( $_SERVER['argv'] as $arg ) {
+			if ($first) {
+				$first = false;
+				continue;
+			}
+			$args[] = $arg;
 		}
-		$args[] = $arg;
+		
+		ApretasteAlone::Run($args);
+	} else {
+		echo "[INFO] " . date("Y-m-d h:i:s") . " - Apretaste is PAUSED! \n";
 	}
-	
-	ApretasteAlone::Run($args);
-	
 	echo "[INFO] " . date("Y-m-d h:i:s") . " - Finished Apretaste!com cron job \n";
 	$t2 = microtime(true);
 	echo "[INFO] Total execution time: " . number_format($t2 - $t1, 5) . " secs\n";

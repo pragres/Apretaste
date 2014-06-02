@@ -1058,7 +1058,6 @@ class Apretaste {
 		$text = str_replace('tilde;', '', $text);
 		$text = str_replace('acute;', '', $text);
 		$text = html_entity_decode($text, ENT_COMPAT | ENT_HTML401, 'ISO-8859-1');
-		
 		return $text;
 	}
 	

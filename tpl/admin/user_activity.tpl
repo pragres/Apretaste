@@ -81,7 +81,7 @@
 			</tr>
 			 	[$client.answers]
 			 	<tr><td>{$id}</td>
-			<td>{$send_date:10,6}</td>
+			<td>{$send_date:0,16}</td>
 			<td><a href="?path=admin&page=user_activity&user={$receiver}">{html:receiver}</a></td>
 			<td align="center">{$type}</td>
 			<td align="center">{$subject}</td>

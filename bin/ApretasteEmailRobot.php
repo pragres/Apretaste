@@ -142,11 +142,14 @@ class ApretasteEmailRobot {
 		$imaps = $configuration->documentElement->getElementsByTagName('imap');
 		$this->imap_servers = array();
 		for($i = 0; $i < $imaps->length; $i ++) {
-			$this->imap_servers[$imaps->item($i)->getAttribute('address')] = array(
-					'mailbox' => $imaps->item($i)->getAttribute('mailbox'),
-					'username' => $imaps->item($i)->getAttribute('username'),
-					'password' => $imaps->item($i)->getAttribute('password')
-			);
+			$enable = $imaps->item($i)->getAttribute('enable');
+			if ("$enable" == "true") {
+				$this->imap_servers[$imaps->item($i)->getAttribute('address')] = array(
+						'mailbox' => $imaps->item($i)->getAttribute('mailbox'),
+						'username' => $imaps->item($i)->getAttribute('username'),
+						'password' => $imaps->item($i)->getAttribute('password')
+				);
+			}
 		}
 		
 		// Answers configuration

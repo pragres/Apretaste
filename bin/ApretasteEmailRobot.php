@@ -237,7 +237,7 @@ class ApretasteEmailRobot {
 			$actual_command = $this->commands[Apretaste::$config["default_command"]];
 			$parameters = array(
 					$from,
-					implode(' ', $command),
+					$subj,
 					$body,
 					$anounce['images']
 			);

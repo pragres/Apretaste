@@ -58,6 +58,7 @@
                 </table>
 
                 {$hr}
+                
                 ?$body
                 {$body}
                 $body?

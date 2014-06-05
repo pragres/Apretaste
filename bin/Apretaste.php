@@ -364,7 +364,7 @@ class Apretaste {
 		$r['title'] = str_replace("\n\r", " ", $r['title']);
 		$r['title'] = strtolower($r['title']);
 		$r['title'] = self::cleanTextJunk($r['title']);
-		$r['body'] = self::cleanTextJunk($r['body'], true);
+		$r['body'] = self::cleanText($r['body']);
 		
 		$r['title'] = str_replace('<br />', ' ', $r['title']);
 		$r['title'] = str_replace('<br/>', ' ', $r['title']);
@@ -2565,7 +2565,7 @@ class Apretaste {
 		foreach ( $abreviaturas as $abv => $repl )
 			$text = str_ireplace($abv, $repl, $text);
 		
-		//$text = mb_convert_encoding($text, 'UTF-8', 'ASCII,UTF-8,ISO-8859-1');
+		$text = mb_convert_encoding($text, 'UTF-8', 'ASCII,UTF-8,ISO-8859-1');
 		
 		if (substr($text, 0, 3) == pack("CCC", 0xEF, 0xBB, 0xBF))
 			$text = substr($text, 3);

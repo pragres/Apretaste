@@ -24,10 +24,10 @@
 		<h1><i>{$ad.title}</i> of <a href="?path=admin&page=user_activity&user={$ad.author}">{html:ad.author}</a></h1>
 		<p>
 			<table width="100%">
-			<!--{ [$ad]
+			[$ad]
 			<tr><td width="250" align="right"><b>{$_key}:</b></td>
 			<td> {$value} </td></tr>
-			[/$ad] }-->
+			[/$ad]
 			</table>
 		</p>
 		@else@

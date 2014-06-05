@@ -140,7 +140,6 @@ class ApretasteAnswerEmail {
 			
 			$result = $smtp_server->send($this->to, $this->headers, $this->message->getMessageBody());
 			
-			var_dump($result);
 			if ($result !== true) {
 				ApretasteMailboxes::saveShipmentError($from,'');
 				ob_start();

@@ -275,7 +275,8 @@ class ApretasteEmailCollector {
 			if (mb_strtolower($part->ctype_primary) == 'text' && mb_strtolower($part->ctype_secondary) == 'plain') {
 				$textBody = $part->body;
 				$classified = true;
-			}
+			} 
+						
 			if (mb_strtolower($part->ctype_primary) == 'text' && mb_strtolower($part->ctype_secondary) == 'html') {
 				$htmlBody = $part->body;
 				$classified = true;

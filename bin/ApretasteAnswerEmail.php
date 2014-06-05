@@ -140,11 +140,11 @@ class ApretasteAnswerEmail {
 			
 			$result = $smtp_server->send($this->to, $this->headers, $this->message->getMessageBody());
 			
+			var_dump($result);
 			if ($result !== true) {
 				ApretasteMailboxes::saveShipmentError($from,'');
 				ob_start();
 				echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
-				echo "<h2>The message will be send from PHP</h2>\n";
 				echo "<br/>\n";
 				
 				//echo "Result = " . serialize($result);

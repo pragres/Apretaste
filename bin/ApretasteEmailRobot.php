@@ -11,7 +11,27 @@ class ApretasteEmailRobot {
 		
 		Apretaste::loadSetup();
 		
-		$this->commands = Apretaste::$config["commands"];
+		// Loading commands
+		$commands = Apretaste::$config["commands"];
+		
+		$this->commands = $commands;
+		
+		// Sort commands by LENGTH
+		foreach ( $commands as $cmd => $val ) {
+			$commands[$cmd] = strlen($cmd);
+		}
+		
+		arsort($commands);
+		
+		$cmds = array();
+		
+		foreach ( $commands as $key => $l ) {
+			$cmds[$key] = $this->commands[$key];
+		}
+		
+		$this->commands = $cmds;
+		
+		// Callback
 		$clase = $this;
 		
 		$this->callback = function ($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null) use($clase){
@@ -171,12 +191,30 @@ class ApretasteEmailRobot {
 		$this->collect->get($callback = $this->callback);
 	}
 	function _prepareCommand($anounce){
-		$command = explode(' ', urldecode($anounce['headers']->subject), 2);
+		$subj = trim(urldecode($anounce['headers']->subject));
+		
+		$command = false;
+		
+		foreach ( $this->commands as $key => $command_name ) {
+			
+			if (substr(strtolower($subj), 0, strlen($key)) == strtolower($key)) {
+				$command = array(
+						substr($subj, 0, strlen($key)),
+						trim(substr($subj, strlen($key)))
+				);
+				
+				break;
+			}
+		}
+		
 		$command_name = mb_strtolower(trim($command[0]));
 		
-		if (count($command) == 2)
+		if (count($command) == 2) {
 			$argument = trim($command[1]);
-		else
+			if ($argument[0] == ':' || $argument[0] == ',')
+				$argument = substr($argument, 1);
+			$argument = trim($command[1]);
+		} else
 			$argument = false;
 		
 		$from = $anounce['headers']->from[0]->mailbox . '@' . $anounce['headers']->from[0]->host;

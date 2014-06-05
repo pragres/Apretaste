@@ -24,10 +24,13 @@
 		<h1><i>{$ad.title}</i> of <a href="?path=admin&page=user_activity&user={$ad.author}">{html:ad.author}</a></h1>
 		<p>
 			<table width="100%">
+			<tr><td width="250" align="right"><b>Body:</b></td><td> {$ad.body} </td></tr>
+			<tr><td width="250" align="right"><b>Post date:</b></td><td> {$ad.post_date} </td></tr>
+			<!--{
 			[$ad]
 			<tr><td width="250" align="right"><b>{$_key}:</b></td>
 			<td> {$value} </td></tr>
-			[/$ad]
+			[/$ad] }-->
 			</table>
 		</p>
 		@else@

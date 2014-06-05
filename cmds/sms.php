@@ -96,7 +96,7 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	if ($credit < $discount * $tparts) {
 		// no credit
 		return array(
-				"answer_type" => "sms_wrong_number",
+				"answer_type" => "sms_not_enought_funds",
 				"credit" => $credit,
 				"discount" => $discount * $tparts,
 				"smsparts" => $parts,

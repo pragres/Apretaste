@@ -277,12 +277,17 @@ class Mail_mimeDecode extends PEAR {
 		}
 		
 		if (isset($content_transfer_encoding))
-			echo "[INFO] PEAR: Message content-type: {$content_type['value']}, transfer-encoding: {$content_transfer_encoding['value']}\n";
-		else 
+			echo "[INFO] PEAR: Message content-transfer-encoding: {$content_transfer_encoding['value']}\n";
+		else
 			echo "[INFO] PEAR: Missing content-transfer-encoding header\n";
 		
+		if (isset($content_type))
+			echo "[INFO] PEAR: Message content-type: {$content_type['value']}\n";
+		else
+			echo "[INFO] PEAR: Missing content-type header\n";
+		
 		if (isset($content_type)) {
-			echo "[INFO] PEAR: Message content-type: ".$content_type['value']. ", transfer-encoding: $content_transfer_encoding\n";
+			echo "[INFO] PEAR: Message content-type: " . $content_type['value'] . ", transfer-encoding: $content_transfer_encoding\n";
 			switch (strtolower($content_type['value'])) {
 				case 'text/plain' :
 					$encoding = isset($content_transfer_encoding) ? $content_transfer_encoding['value'] : '7bit';

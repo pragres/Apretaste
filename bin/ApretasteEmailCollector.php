@@ -228,11 +228,13 @@ class ApretasteEmailCollector {
 								
 				// Important fix for mobile devices (like as Samsung)
 				$this->log("Detecting base64 encoded body");
-				if (ApretasteEncoding::is_base64_encoded($textBody))
+				
+				/*if (ApretasteEncoding::is_base64_encoded($textBody))
 					$textBody = base64_decode($textBody);
 				
 				if (ApretasteEncoding::is_base64_encoded($htmlBody))
 					$htmlBody = base64_decode($htmlBody);
+				*/
 				
 				// Call to callback
 				$this->log("Callback the message $message_number_iterator");

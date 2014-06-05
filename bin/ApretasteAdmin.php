@@ -599,7 +599,7 @@ class ApretasteAdmin {
 		$r = Apretaste::query("SELECT * FROM message WHERE moment = (SELECT max(moment) FROM message);");
 		$r = $r[0];
 		
-		$r['extra_data'] = unserialize($r['extra_data']);
+		$r['extra_data'] = @unserialize($r['extra_data']);
 		$r['author'] = str_replace("From: ", "", iconv_mime_decode("From: {$r['author']}", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "ISO-8859-1"));
 		$r['author'] = htmlentities($r['author']);
 		$r['author_email'] = Apretaste::extractEmailAddress($r['author']);

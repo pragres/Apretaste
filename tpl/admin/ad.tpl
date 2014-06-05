@@ -26,7 +26,7 @@
 			<table width="100%">
 			<!--{ [$ad]
 			<tr><td width="250" align="right"><b>{$_key}:</b></td>
-			<td> ?$value {$value} @else@ - $value? </td></tr>
+			<td> {$value} </td></tr>
 			[/$ad] }-->
 			</table>
 		</p>

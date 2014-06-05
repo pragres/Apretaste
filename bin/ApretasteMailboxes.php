@@ -59,7 +59,7 @@ class ApretasteMailboxes {
 			where match_email(mailboxes.mailbox,from_pattern) = true
 			and match_email('$to',to_pattern))";
 		
-		$sql .= "order by shipments, last_shipment_date limit 1;";
+		$sql .= "order by last_shipment_date limit 1;";
 		
 		$r = Apretaste::query($sql);
 		

@@ -150,7 +150,6 @@ class ApretasteAdmin {
 			
 			// answers
 			$user['answers'] = Apretaste::query("SELECT * FROM answer WHERE extract_email(receiver) = '{$_GET['user']}' order by send_date desc limit 20;");
-			
 		}
 		
 		$data['client'] = $user;
@@ -873,7 +872,6 @@ class ApretasteAdmin {
 		lower(extract_email(addressee)) ~* mailboxes.mailbox 
 		group by servidor
 		order by cant desc;");
-			
 		
 		$data['restrictions'] = ApretasteMailboxes::getRestrictions();
 		$data['mailboxes'] = ApretasteMailboxes::getMailBoxes();
@@ -997,12 +995,22 @@ class ApretasteAdmin {
 			die('Access denied');
 		
 		$data = array();
-		$id = $_GET['id'];
 		$data['user'] = self::getUser();
+		if (isset($_GET['id'])) {
+			$id = $_GET['id'];
+			
+			
+			$data['ad'] = Apretaste::getAnnouncement($id);
+			if ($data['ad'] != APRETASTE_ANNOUNCEMENT_NOTFOUND) {
+				$data['ad']['image'] = '<img width="200" src="data:' . $data['ad']['image_type'] . ';base64,' . $data['ad']['image'] . '">';
+			} else{
+				$data['ad'] = false;
+				$data['notfound'] = true;
+			}
+		} else
+			$data['ad'] = false;
 		
-		$data['ad'] = Apretaste::getAnnouncement($id);
 		
-		$data['ad']['image'] = '<img width="200" src="data:' . $data['ad']['image_type'] . ';base64,' . $data['ad']['image'] . '">';
 		echo new div("../tpl/admin/ad.tpl", $data);
 	}
 }

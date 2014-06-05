@@ -59,9 +59,10 @@
 
                 {$hr}
                 
-                ?$body
+                {= body: "" =}
+                
                 {$body}
-                $body?
+                
             </td>
         </tr>
     </table>

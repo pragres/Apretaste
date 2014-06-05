@@ -211,8 +211,9 @@ class ApretasteEmailRobot {
 		
 		if (count($command) == 2) {
 			$argument = trim($command[1]);
-			if ($argument[0] == ':' || $argument[0] == ',')
-				$argument = substr($argument, 1);
+			if (isset($argument[0]))
+				if ($argument[0] == ':' || $argument[0] == ',')
+					$argument = substr($argument, 1);
 			$argument = trim($command[1]);
 		} else
 			$argument = false;

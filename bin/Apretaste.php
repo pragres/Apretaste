@@ -2570,7 +2570,7 @@ class Apretaste {
 		if (substr($text, 0, 3) == pack("CCC", 0xEF, 0xBB, 0xBF))
 			$text = substr($text, 3);
 		
-		$text = htmlspecialchars_decode($text);
+		//$text = htmlspecialchars_decode($text);
 		
 		$text = str_replace("\n\r", "\n", $text);
 		$text = str_replace("\r", "\n", $text);

@@ -262,4 +262,21 @@ class ApretasteEncoding {
 		if ($encodingLabel == 'ISO-8859-1')
 			return self::toLatin1($text);
 	}
+	
+	/**
+	 * Detect if a data is base64 encoded
+	 *
+	 * @param string $data
+	 * @return boolean
+	 */
+	public static function is_base64_encoded($data){
+		$data = str_replace("\n", "", $data);
+		$data = str_replace("\r", "", $data);
+		$data = str_replace(" ", "", $data);
+		if (preg_match('%^[a-zA-Z0-9/+]*={0,2}$%', $data)) {
+			return true;
+		}
+		
+		return false;
+	}
 }

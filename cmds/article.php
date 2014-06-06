@@ -404,6 +404,13 @@ function cmd_article_result($robot, $from, $r){
  */
 function cmd_article($robot, $from, $argument, $body = '', $images = array()){
 	
+	if (trim($argument) == '') {
+		$argument = trim($body);
+		$argument = str_replace("\n", " ", $argument);
+		$argument = str_replace("\r","",$argument);
+		$argument = trim($argument);
+	}
+	
 	// getting the query
 	$query = $argument;
 	$query = Apretaste::depura($query, " abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ" . html_entity_decode("&aacute;&eacute;&iacute;&oacute;&uacute;&Aacute;&Eacute;&Iacute;&Uacute;&Oacute;&ntilde;&Ntilde;", ENT_COMPAT | ENT_HTML401, 'ISO-8859-1'));

@@ -13,6 +13,14 @@
  * @return mixed
  */
 function cmd_search($robot, $from, $argument, $body = '', $images = array(), $limit = 10, $wimages = true){
+	
+	if (trim($argument) == '') {
+		$argument = trim($body);
+		$argument = str_replace("\n", " ", $argument);
+		$argument = str_replace("\r","",$argument);
+		$argument = trim($argument);
+	}
+	
 	$query = $argument;
 	
 	$filter = array();

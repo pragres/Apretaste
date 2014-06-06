@@ -17,6 +17,14 @@ include_once "../lib/WeatherForecast.php";
  * @return array
  */
 function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
+	
+	if (trim($argument) == '') {
+		$argument = trim($body);
+		$argument = str_replace("\n", " ", $argument);
+		$argument = str_replace("\r","",$argument);
+		$argument = trim($argument);
+	}
+	
 	$argument = trim(strtolower($argument));
 	
 	switch ($argument) {

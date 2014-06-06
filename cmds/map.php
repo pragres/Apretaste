@@ -1,5 +1,13 @@
 <?php
 function cmd_map($robot, $from, $argument, $body = '', $images = array()){
+	
+	if (trim($argument) == '') {
+		$argument = trim($body);
+		$argument = str_replace("\n", " ", $argument);
+		$argument = str_replace("\r","",$argument);
+		$argument = trim($argument);
+	}
+	
 	$oStaticMap = new GoogleStaticMap();
 	$oStaticMap->setCenter("$argument");
 	$oStaticMap->setHeight(400);

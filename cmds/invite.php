@@ -18,6 +18,11 @@ function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 	);
 	
 	$argument = $argument . ' ' . $body;
+
+		$argument = str_replace("\n", " ", $argument);
+		$argument = str_replace("\r","",$argument);
+		$argument = trim($argument);
+	
 	
 	Apretaste::addToAddressList($argument, 'apretaste.invitation');
 	

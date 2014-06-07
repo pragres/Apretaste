@@ -116,7 +116,9 @@ class ApretasteAnswerEmail {
 			if (get_class($smtp_server) != "Mail_smtp")
 				die("Wrong mail driver");
 			
-			else if (get_class($smtp_server) == 'PEAR_Error') {}
+			else if (get_class($smtp_server) == 'PEAR_Error') {
+				echo "[ERROR] PEAR: ".$smtp_server->message."\n";
+			}
 			
 			echo $this->verbose ? "delivering to " . $this->to . "\n" : "";
 			

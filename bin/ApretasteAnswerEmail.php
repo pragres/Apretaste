@@ -106,8 +106,8 @@ class ApretasteAnswerEmail {
 			
 			// Build message one time
 			
-			//if ($i == 1)
-				$this->_buildMessage();
+			// if ($i == 1)
+			$this->_buildMessage();
 			
 			echo $this->verbose ? "conecting to " . $from . " (" . $this->servers[$from]['host'] . ":" . $this->servers[$from]['port'] . ")\n" : "";
 			
@@ -140,8 +140,8 @@ class ApretasteAnswerEmail {
 			
 			echo $this->verbose ? "Send email \n" : "";
 			
-			//if ($i == 1)
-				$messageBody = $this->message->getMessageBody();
+			// if ($i == 1)
+			$messageBody = $this->message->getMessageBody();
 			
 			$result = $smtp_server->send($this->to, $this->headers, $messageBody);
 			
@@ -237,6 +237,7 @@ class ApretasteAnswerEmail {
 		
 		$data = array_merge($data, $this->config);
 		$data = array_merge($data, $this->data);
+		$data['images'] = array();
 		
 		$tpl_plain = "{$this->type}";
 		$tpl_html = "{$this->type}";

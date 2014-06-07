@@ -89,7 +89,7 @@ class ApretasteMailboxes {
 		Apretaste::query("DELETE from mailboxes WHERE mailbox='$mailbox';");
 	}
 	static function getMailBoxes(){
-		return Apretaste::query("SELECT * FROM mailboxes;");
+		return Apretaste::query("SELECT * FROM mailboxes order by mailbox;");
 	}
 	static function addRestriction($from, $to){
 		Apretaste::query("Insert into mailboxes_restrictions (from_pattern,to_pattern) values('$from','$to');");

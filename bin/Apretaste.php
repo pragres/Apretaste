@@ -694,7 +694,6 @@ class Apretaste {
 	 * @return string
 	 */
 	static function getFTSPhrase($phrase){
-		
 		$phrase = str_replace("+", " + ", $phrase);
 		$phrase = str_replace("-", " - ", $phrase);
 		$phrase = str_replace("&", " ", $phrase);
@@ -1058,6 +1057,38 @@ class Apretaste {
 		$text = str_replace('tilde;', '', $text);
 		$text = str_replace('acute;', '', $text);
 		$text = html_entity_decode($text, ENT_COMPAT | ENT_HTML401, 'ISO-8859-1');
+		return $text;
+	}
+	static function removeTildes($text){
+		if (! self::isUTF8($string)) {
+			$text = utf8_encode($text);
+		}
+		
+		$acutes = array(
+				'A',
+				'E',
+				'I',
+				'O',
+				'U',
+				'a',
+				'e',
+				'i',
+				'o',
+				'u'
+		);
+		$tildes = array(
+				'N',
+				'n'
+		);
+		
+		foreach ( $acutes as $a ) {
+			$text = str_replace(html_entity_decode('&' . $a . 'acute;'), '$a', $text);
+		}
+		
+		foreach ( $tildes as $a ) {
+			$text = str_replace(html_entity_decode('&' . $a . 'tilde;'), '$a', $text);
+		}
+		
 		return $text;
 	}
 	

@@ -39,11 +39,7 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	
 	$body = quoted_printable_decode($body);
 	$body = trim(strip_tags($body));
-	$body = htmlentities($body);
-	$body = str_replace('&', '', $body);
-	$body = str_replace('tilde;', '', $body);
-	$body = str_replace('acute;', '', $body);
-	$body = html_entity_decode($body);
+	$body = Apretaste::removeTildes($body);
 	
 	$p = strrpos($body, "--");
 	

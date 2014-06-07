@@ -52,6 +52,9 @@ class ApretasteMailboxes {
 	 * @param string $to
 	 */
 	static function getBestMailbox($to = null, $default = null){
+		
+		Apretaste::query('update mailboxes set last_shipment_date = current_date - 200 where last_shipment_date is null;');
+		
 		$sql = "select mailbox from mailboxes where (date_part('hour', now() - last_error_date) > 12 OR last_error_date is null)  ";
 		
 		if (! is_null($to))

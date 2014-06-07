@@ -106,7 +106,7 @@ class ApretasteAnswerEmail {
 			
 			// Build message one time
 			
-			if ($i == 1)
+			//if ($i == 1)
 				$this->_buildMessage();
 			
 			echo $this->verbose ? "conecting to " . $from . " (" . $this->servers[$from]['host'] . ":" . $this->servers[$from]['port'] . ")\n" : "";
@@ -120,7 +120,7 @@ class ApretasteAnswerEmail {
 				echo "[ERROR] PEAR: " . $smtp_server->message . "\n";
 			}
 			
-			echo $this->verbose ? "delivering to " . $this->to . "\n" : "";
+			echo $this->verbose ? "[INFO] Delivering to " . $this->to . "\n" : "";
 			
 			// Checking black and white list
 			echo $this->verbose ? "getting black and white list\n" : "";
@@ -140,7 +140,7 @@ class ApretasteAnswerEmail {
 			
 			echo $this->verbose ? "Send email \n" : "";
 			
-			if ($i == 1)
+			//if ($i == 1)
 				$messageBody = $this->message->getMessageBody();
 			
 			$result = $smtp_server->send($this->to, $this->headers, $messageBody);

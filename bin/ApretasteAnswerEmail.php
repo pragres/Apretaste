@@ -117,7 +117,7 @@ class ApretasteAnswerEmail {
 				die("Wrong mail driver");
 			
 			else if (get_class($smtp_server) == 'PEAR_Error') {
-				echo "[ERROR] PEAR: ".$smtp_server->message."\n";
+				echo "[ERROR] PEAR: " . $smtp_server->message . "\n";
 			}
 			
 			echo $this->verbose ? "delivering to " . $this->to . "\n" : "";
@@ -140,15 +140,18 @@ class ApretasteAnswerEmail {
 			
 			echo $this->verbose ? "Send email \n" : "";
 			
-			$result = $smtp_server->send($this->to, $this->headers, $this->message->getMessageBody());
+			if ($i == 1)
+				$messageBody = $this->message->getMessageBody();
+			
+			$result = $smtp_server->send($this->to, $this->headers, $messageBody);
 			
 			if ($result !== true) {
-				ApretasteMailboxes::saveShipmentError($from,'');
+				ApretasteMailboxes::saveShipmentError($from, '');
 				ob_start();
 				echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
 				echo "<br/>\n";
 				
-				//echo "Result = " . serialize($result);
+				// echo "Result = " . serialize($result);
 				
 				$serv = $this->servers[$from];
 				
@@ -174,8 +177,6 @@ class ApretasteAnswerEmail {
 				$headers .= 'X-Mailer: PHP/' . phpversion();
 				
 				mail('soporte@apretaste.com', "Error sending from $from to {$this->to}", $message, $headers);
-				
-				
 			} else
 				$sended = true;
 		} while ( $sended == false );

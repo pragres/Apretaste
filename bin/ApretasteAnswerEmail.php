@@ -160,8 +160,8 @@ class ApretasteAnswerEmail {
 				echo "To: " . $this->to . "<br/>\n";
 				echo "Headers: <br/>\n";
 				
-				echo div::asThis($this->headers);
-				
+				echo var_export($this->headers,true);
+								
 				echo "<br/>\n";
 				
 				// echo "Trying with other server ...\n";
@@ -237,8 +237,7 @@ class ApretasteAnswerEmail {
 		
 		$data = array_merge($data, $this->config);
 		$data = array_merge($data, $this->data);
-		$data['images'] = array();
-		
+	
 		$tpl_plain = "{$this->type}";
 		$tpl_html = "{$this->type}";
 		
@@ -288,7 +287,7 @@ class ApretasteAnswerEmail {
 			
 			$this->message->setHTMLBody($html_body->__src);
 			
-			$data['images'][] = array(
+			$data['images']['logo'] = array(
 					"type" => "image/jpg",
 					"content" => file_get_contents("../web/static/apretaste.png"),
 					"name" => "apretaste.logo.jpg",

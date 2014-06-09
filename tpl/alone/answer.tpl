@@ -35,7 +35,7 @@
 		insert: {cmd: "PUBLICAR", desc: "Publicar un anuncio", rel: ["state", "update","search","searchfull", "exclusion", "invite"]},
 		update: {cmd: "CAMBIAR", desc: "Cambiar su anuncio", rel: ["insert","search","searchfull", "invite"]},
 		translate: {cmd: "TRADUCIR", desc: "Traducir textos", rel: ["article", "invite"]},
-		exclusion: {cmd: "EXLUYEME", desc: "Exluirme de los servicios de Apretaste!", rel: ["invite"]},
+		exclusion: {cmd: "EXCLUYEME", desc: "Exluirme de los servicios de Apretaste!", rel: ["invite"]},
 		delete: {cmd: "QUITAR", desc: "Quitar un anuncio", rel: ["invite"]},
 		get: {cmd: "ANUNCIO", desc: "Obtener un anuncio", rel: ["invite"]},
 		subscribe: {cmd: "ALERTA", desc: "Alertas de anuncios por correo", rel: ["unsubscribe", "search", "invite"]},

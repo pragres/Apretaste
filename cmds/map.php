@@ -1,10 +1,20 @@
 <?php
+
+/**
+ * Apretaste Map Command
+ *
+ * @param ApretasteRobot $robot
+ * @param string $from
+ * @param string $argument
+ * @param string $body
+ * @param array $images
+ * @return array
+ */
 function cmd_map($robot, $from, $argument, $body = '', $images = array()){
-	
 	if (trim($argument) == '') {
 		$argument = trim($body);
 		$argument = str_replace("\n", " ", $argument);
-		$argument = str_replace("\r","",$argument);
+		$argument = str_replace("\r", "", $argument);
 		$argument = trim($argument);
 	}
 	
@@ -16,6 +26,18 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	$oStaticMap->setMapType("hybrid");
 	
 	$argument = trim(strtolower($argument));
+	
+	$zoom = null;
+	// Detecting zoom
+	for($i = 1; $i <= 22; $i ++) {
+		if (stripos($argument, $i . 'x') !== false) {
+			$zoom = $i;
+			$argument = str_ireplace($i . 'x', '', $argument);
+		}
+	}
+	
+	if (! is_null($zoom))
+		$oStaticMap->setZoom($zoom);
 	
 	if (stripos($argument, 'satelital'))
 		$oStaticMap->setMapType("satellite");
@@ -32,26 +54,8 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	if (stripos($argument, 'terreno'))
 		$oStaticMap->setMapType("terrain");
 	
-	if (stripos($argument, 'lejos'))
-		$oStaticMap->setZoom(5);
-	
-	if (stripos($argument, 'cerca'))
-		$oStaticMap->setZoom(22);
-	
-	if (stripos($argument, 'grande')) {
-		$oStaticMap->setHeight(640);
-		$oStaticMap->setWidth(640);
-	}
-	
-	if (stripos($argument, 'mediano')) {
-		$oStaticMap->setHeight(320);
-		$oStaticMap->setWidth(320);
-	}
-	
-	if (stripos($argument, 'pequeno')) {
-		$oStaticMap->setHeight(120);
-		$oStaticMap->setWidth(120);
-	}
+	$oStaticMap->setHeight(640);
+	$oStaticMap->setWidth(640);
 	
 	$argument = str_replace(array(
 			"satelital",
@@ -59,20 +63,17 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 			"hibrido",
 			"terreno",
 			" del ",
-			" de ",
-			"lejos",
-			"cerca",
-			"grande",
-			"mediano",
-			"pequeno"
+			" de "
 	), '', $argument);
 	
-	$argument = str_replace('habana','havana', $argument);
-	 
+	$argument = str_replace('habana', 'havana', $argument);
+	
 	$oStaticMap->setLanguage("es");
 	
 	$url = "$oStaticMap";
+	
 	$robot->log("Getting map $url");
+	
 	$img = file_get_contents($url);
 	
 	return array(

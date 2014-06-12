@@ -29,7 +29,7 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	
 	$zoom = null;
 	// Detecting zoom
-	for($i = 1; $i <= 22; $i ++) {
+	for($i = 22; $i >= 1; $i --) {
 		if (stripos($argument, $i . 'x') !== false) {
 			$zoom = $i;
 			$argument = str_ireplace($i . 'x', '', $argument);

@@ -61,7 +61,7 @@
                 
                 {= body: "" =}
                 
-                {$body}
+                {br:body}
                 
             </td>
         </tr>

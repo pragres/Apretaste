@@ -1062,7 +1062,8 @@ class Apretaste {
 		return $text;
 	}
 	static function removeTildes($text){
-		if (! self::isUTF8($string)) {
+		
+		if (! self::isUTF8($text)) {
 			$text = utf8_encode($text);
 		}
 		
@@ -2132,9 +2133,8 @@ class Apretaste {
 	 * @return string constant
 	 */
 	static function invite($from, $guest){
-		$from = trim($from);
-		
-		$guest = trim($guest);
+		$from = strtolower(trim($from));
+		$guest = strtolower(trim($guest));
 		
 		if ($guest == '')
 			return APRETASTE_INVITATION_GUEST_MISSING;

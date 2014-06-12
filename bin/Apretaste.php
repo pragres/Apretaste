@@ -357,14 +357,16 @@ class Apretaste {
 		
 		$r['title'] = self::repairUTF8($r['title']);
 		$r['title-raw'] = self::rawTitle($r['title']);
-		$r['body'] = self::repairUTF8($r['body']);
+		//$r['body'] = self::repairUTF8($r['body']);
+		if (self::isUTF8($r['body']))
+			$text = utf8_decode($r['body']);
 		$r['title'] = str_replace("\n", " ", $r['title']);
 		$r['title'] = str_replace("\r", " ", $r['title']);
 		$r['title'] = str_replace("\r\n", " ", $r['title']);
 		$r['title'] = str_replace("\n\r", " ", $r['title']);
 		$r['title'] = strtolower($r['title']);
 		$r['title'] = self::cleanTextJunk($r['title']);
-		$r['body'] = self::cleanText($r['body']);
+		$r['body'] = self::cleanTextJunk($r['body']);
 		
 		$r['title'] = str_replace('<br />', ' ', $r['title']);
 		$r['title'] = str_replace('<br/>', ' ', $r['title']);

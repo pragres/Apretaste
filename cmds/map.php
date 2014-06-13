@@ -52,9 +52,8 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	$oStaticMap->setWidth(640);
 	
 	$argument = str_replace(array(
-			"satelital",
-			"carreteras",
-			"hibrido",
+			"fisico",
+			"politico",
 			"terreno",
 			" del ",
 			" de "

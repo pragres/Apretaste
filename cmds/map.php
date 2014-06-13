@@ -39,17 +39,11 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	if (! is_null($zoom))
 		$oStaticMap->setZoom($zoom);
 	
-	if (stripos($argument, 'satelital'))
+	if (stripos($argument, 'fisico'))
 		$oStaticMap->setMapType("satellite");
-	
-	if (stripos($argument, 'satelite'))
-		$oStaticMap->setMapType("satellite");
-	
-	if (stripos($argument, 'carreteras'))
+
+	if (stripos($argument, 'politico'))
 		$oStaticMap->setMapType("roadmap");
-	
-	if (stripos($argument, 'hibrido'))
-		$oStaticMap->setMapType("hybrid");
 	
 	if (stripos($argument, 'terreno'))
 		$oStaticMap->setMapType("terrain");

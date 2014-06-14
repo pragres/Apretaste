@@ -54,14 +54,16 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	$argument = str_replace(array(
 			"fisico",
 			"politico",
-			"terreno",
-			" del ",
-			" de "
+			"terreno"
 	), '', $argument);
 	
 	$argument = str_replace('habana', 'havana', $argument);
 	
 	$oStaticMap->setLanguage("es");
+	
+	$argument = trim($argument);
+	if (substr($argument,0,3)=='de ') $argument = substr($argument,3);
+	if (substr($argument,0,4)=='del ') $argument = substr($argument,4);
 	
 	$oStaticMap->setCenter("$argument");
 	

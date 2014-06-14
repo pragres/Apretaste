@@ -73,6 +73,13 @@ class ApretasteSMS {
 		$code = null;
 		$codes = self::getCountryCodes();
 		
+		if (isset($number[1]))
+			if (substr($number, 0, 2) == '00')
+				$number = substr($number, 2);
+		
+		if ($number[0] == '0')
+			$number = substr($number, 1);
+		
 		if ($number[0] == '0')
 			$number = substr($number, 1);
 		

@@ -19,7 +19,7 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	}
 	
 	$oStaticMap = new GoogleStaticMap();
-	$oStaticMap->setCenter("$argument");
+	
 	$oStaticMap->setHeight(400);
 	$oStaticMap->setWidth(640);
 	$oStaticMap->setHttps(true);
@@ -62,6 +62,8 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	$argument = str_replace('habana', 'havana', $argument);
 	
 	$oStaticMap->setLanguage("es");
+	
+	$oStaticMap->setCenter("$argument");
 	
 	$url = "$oStaticMap";
 	

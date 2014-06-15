@@ -46,7 +46,7 @@ class ApretasteAdmin {
 			if ($user['user_role'] == 'investor' && $url != 'logout') {
 				$url = 'dashboard';
 			}
-			
+					
 			eval('self::page_' . $url . '();');
 		} elseif (isset($_GET['chart'])) {
 			
@@ -999,18 +999,45 @@ class ApretasteAdmin {
 		if (isset($_GET['id'])) {
 			$id = $_GET['id'];
 			
-			
 			$data['ad'] = Apretaste::getAnnouncement($id);
 			if ($data['ad'] != APRETASTE_ANNOUNCEMENT_NOTFOUND) {
-				$data['ad']['image'] = false; //'<img width="200" src="data:' . $data['ad']['image_type'] . ';base64,' . $data['ad']['image'] . '">';
-			} else{
+				$data['ad']['image'] = false; // '<img width="200" src="data:' . $data['ad']['image_type'] . ';base64,' . $data['ad']['image'] . '">';
+			} else {
 				$data['ad'] = false;
 				$data['notfound'] = true;
 			}
 		} else
 			$data['ad'] = false;
 		
-		
 		echo new div("../tpl/admin/ad.tpl", $data);
+	}
+	
+	static public function page_raffles(){
+		if (! self::verifyLogin())
+			die('Access denied');
+		
+		$data = array();
+		$data['user'] = self::getUser();
+		
+		if (isset($_GET['delete'])) {
+			$_GET['delete'] = str_replace("'", "''", $_GET['delete']);
+			Apretaste::query("DELETE FROM raffles where id = '{$_GET['delete']}';");
+		}
+		
+		if (isset($_GET['addraffle'])) {
+			$desc = $_POST['description'];
+			$df = $_POST['date_from'];
+			$dt = $_POST['date_to'];
+			
+			if (isset($_FILES['image']))
+				$image = base64_encode(file_get_contents($_FILES['image']['tmp_name']));
+			
+			Apretaste::query("INSERT INTO raffles (description, date_from, date_to, image)
+					VALUES ('$desc', '$df', '$dt', '$image');");
+		}
+		
+		$data['raffles'] = Apretaste::query("SELECT * FROM xraffles");
+		
+		echo new div("../tpl/admin/raffles.tpl", $data);
 	}
 }

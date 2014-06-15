@@ -48,6 +48,7 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	if (stripos($argument, 'terreno') !== false)
 		$oStaticMap->setMapType("terrain");
 	
+	$oStaticMap->setScale(1);
 	$oStaticMap->setHeight(640);
 	$oStaticMap->setWidth(640);
 	
@@ -55,7 +56,7 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 			"fisico",
 			"politico",
 			"terreno"
-	), '', $argument);
+	), '', $argument) ;
 	
 	$argument = str_replace('habana', 'havana', $argument);
 	

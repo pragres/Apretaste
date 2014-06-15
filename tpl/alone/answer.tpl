@@ -49,7 +49,8 @@
 		sms: {cmd: "SMS", desc: "Enviar un SMS", rel:["invite", "sms"]},
 		linker: {cmd: "ANUNCIOS", desc: "Anuncios", rel:["insert","search","subscribe"]},
 		recharge: {cmd: "RECARGA", desc: "Recargar su cr&eacute;dito", rel:["state"]},
-		map: {cmd: "MAPA", desc: "Mapas", rel:["weather","article"]}
+		map: {cmd: "MAPA", desc: "Mapas", rel:["weather","article"]},
+		raffle: {cmd: "RIFA", desc: "Rifas", rel:["invite"]}
 	}
 =}
 

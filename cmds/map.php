@@ -39,23 +39,25 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	if (! is_null($zoom))
 		$oStaticMap->setZoom($zoom);
 	
+	$type = 'hibrido';
 	if (stripos($argument, 'fisico') !== false) {
 		$oStaticMap->setMapType("satellite");
-		$argument = str_replace('fisico', '', $argument, 1);
+		$argument = str_replace_count('fisico', '', $argument, 1);
+		$type = 'fisico';
 	} elseif (stripos($argument, 'politico') !== false) {
-		$argument = str_replace('politico', '', $argument, 1);
+		$argument = str_replace_count('politico', '', $argument, 1);
 		$oStaticMap->setMapType("roadmap");
+		$type = 'politico';
 	} elseif (stripos($argument, 'terreno') !== false) {
-		$argument = str_replace('terreno', '', $argument, 1);
+		$argument = str_replace_count('terreno', '', $argument, 1);
 		$oStaticMap->setMapType("terrain");
+		$type = 'terreno';
 	}
 	
 	$oStaticMap->setScale(1);
 	$oStaticMap->setHeight(640);
 	$oStaticMap->setWidth(640);
-	
-	$argument = str_replace('habana', 'havana', $argument);
-	
+		
 	$oStaticMap->setLanguage("es");
 	
 	$argument = trim($argument);
@@ -75,12 +77,12 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	return array(
 			"answer_type" => "map",
 			"command" => "map",
-			"title" => "Mapa de $argument",
+			"title" => "Mapa de $argument [$type] - " . date("Y-m-d"),
 			"images" => array(
 					array(
 							"type" => "image/png",
 							"content" => $img,
-							"name" => "mapa.png",
+							"name" => "Mapa de $argument [$type] - " . date("Y-m-d") . "png",
 							"id" => "mapa",
 							"src" => "cid:mapa"
 					)

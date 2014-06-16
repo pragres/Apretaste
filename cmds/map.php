@@ -39,32 +39,30 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	if (! is_null($zoom))
 		$oStaticMap->setZoom($zoom);
 	
-	if (stripos($argument, 'fisico') !== false)
+	if (stripos($argument, 'fisico') !== false) {
 		$oStaticMap->setMapType("satellite");
-	
-	if (stripos($argument, 'politico') !== false)
+		$argument = str_replace('fisico', '', $argument, 1);
+	} elseif (stripos($argument, 'politico') !== false) {
+		$argument = str_replace('politico', '', $argument, 1);
 		$oStaticMap->setMapType("roadmap");
-	
-	if (stripos($argument, 'terreno') !== false)
+	} elseif (stripos($argument, 'terreno') !== false) {
+		$argument = str_replace('terreno', '', $argument, 1);
 		$oStaticMap->setMapType("terrain");
+	}
 	
 	$oStaticMap->setScale(1);
 	$oStaticMap->setHeight(640);
 	$oStaticMap->setWidth(640);
-	
-	$argument = str_replace(array(
-			"fisico",
-			"politico",
-			"terreno"
-	), '', $argument) ;
 	
 	$argument = str_replace('habana', 'havana', $argument);
 	
 	$oStaticMap->setLanguage("es");
 	
 	$argument = trim($argument);
-	if (substr($argument,0,3)=='de ') $argument = substr($argument,3);
-	if (substr($argument,0,4)=='del ') $argument = substr($argument,4);
+	if (substr($argument, 0, 3) == 'de ')
+		$argument = substr($argument, 3);
+	if (substr($argument, 0, 4) == 'del ')
+		$argument = substr($argument, 4);
 	
 	$oStaticMap->setCenter("$argument");
 	

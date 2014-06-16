@@ -709,11 +709,12 @@ class ApretasteAlone {
 		$i = 0;
 		foreach ( $r as $a ) {
 			
-			$i++;
+			$i ++;
 			
 			$email = strtolower($a['email']);
 			
-			if (!Apretaste::checkAddress($email)) continue;
+			if (! Apretaste::checkAddress($email))
+				continue;
 			
 			if ((Apretaste::matchEmailPlus($email, $blacklist) == true && Apretaste::matchEmailPlus($email, $whitelist) == false)) {
 				$robot->log("Ignore email address {$email}");
@@ -739,6 +740,15 @@ class ApretasteAlone {
 	}
 	static function test(){
 		include "../dev/test.php";
+	}
+	static function goRaffleWinners(){
+		echo "[INFO] Go raffle winners - connecting to DB...\n";
+		
+		Apretaste::connect();
+		
+		$r = Apretaste::query("SELECT go_raffle_winner() as result;");
+		
+		echo "[INFO] Result = " . $r[0]['result'];
 	}
 }
 

@@ -14,7 +14,7 @@ function cmd_raffle($robot, $from, $argument, $body = '', $images = array()){
 				"images" => array(
 						array(
 								"type" => "image/jpeg",
-								"content" => $r['image'],
+								"content" => base64_decode($r['image']),
 								"name" => "Rifa_de_Apretaste.jpg",
 								"id" => "raffle_image",
 								"src" => "cid:raffle_image"

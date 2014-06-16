@@ -1,7 +1,9 @@
 {= *AnswerSubject: $title =}
 
 {$h1}{$AnswerSubject}{$_h1}
-<img src="cid:raffle_image">
+<img align="center" width="400" src="cid:raffle_image">
+{$br}
+{$hr}
 {$p}{$description}{$_p}
-Desde: {$date_from} |
-Hasta: {$date_to}
+{$p}Desde: <b>{$date_from}</b>{$_p}
+{$p}Hasta: <b>{$date_to}</b>{$_p}

@@ -7,3 +7,5 @@
 {$p}{$description}{$_p}
 {$p}Desde: <b>{$date_from}</b>{$_p}
 {$p}Hasta: <b>{$date_to}</b>{$_p}
+{$hr}
+{$p}Usted tiene hasta ahora en esta rifa <b>{$total_tickets} tickets</b>.{$_p}

@@ -42,14 +42,14 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	$type = 'hibrido';
 	if (stripos($argument, 'fisico') !== false) {
 		$oStaticMap->setMapType("satellite");
-		$argument = str_replace_count('fisico', '', $argument, 1);
+		$argument = str_replace('fisico', '', $argument);
 		$type = 'fisico';
 	} elseif (stripos($argument, 'politico') !== false) {
-		$argument = str_replace_count('politico', '', $argument, 1);
+		$argument = str_replace('politico', '', $argument);
 		$oStaticMap->setMapType("roadmap");
 		$type = 'politico';
 	} elseif (stripos($argument, 'terreno') !== false) {
-		$argument = str_replace_count('terreno', '', $argument, 1);
+		$argument = str_replace('terreno', '', $argument);
 		$oStaticMap->setMapType("terrain");
 		$type = 'terreno';
 	}
@@ -57,7 +57,9 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 	$oStaticMap->setScale(1);
 	$oStaticMap->setHeight(640);
 	$oStaticMap->setWidth(640);
-		
+	
+	//$argument = str_replace('habana', 'havana', $argument);
+	
 	$oStaticMap->setLanguage("es");
 	
 	$argument = trim($argument);

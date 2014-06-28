@@ -1025,7 +1025,7 @@ class ApretasteAdmin {
 		}
 		
 		if (isset($_GET['addraffle'])) {
-			$desc = $_POST['description'];
+			$desc = str_replace("'","''",$_POST['description']);
 			$df = $_POST['date_from'];
 			$dt = $_POST['date_to'];
 			

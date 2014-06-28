@@ -36,7 +36,9 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 	
 	$sms = ApretasteSMS::getLastSMSOf($from);
 	
-	$tks = Apretaste::query("SELECT count_user_raffle_tickets('{$r['id']}','$from') as total;");
+	$from = strtolower($from);
+	$rf = Apretaste::query("SELECT * FROM xraffles where active = true and closed = false limit 1;");
+	$tks = Apretaste::query("SELECT count_user_raffle_tickets('{$rf['id']}','$from') as total;");
 	
 	return array(
 			"command" => "state",

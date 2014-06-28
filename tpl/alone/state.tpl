@@ -105,8 +105,6 @@ $sms?
 {$p}Para saber como utilizar estos servicios consulte <a href="mailto:{$reply_to}?subject=AYUDA">la Ayuda</a>.{$_p}
 $services?
 
-?$tickets
-{$h2}Rifa actual{$_h2}
-{$p}Usted tiene <b>{$tickets}</b> tickets en la rifa actual. Para conocer 
-detalles de la rifa actual haga click <a href="mailto:{$reply_to}?subject=RIFA">aqu&iacute;</a>.{$_p}
+{$h2}Rifa{$_h2}
+{$p}Usted tiene <b>{$tickets}</b> tickets para nuestra <a href="mailto:{$reply_to}?subject=RIFA">rifa</a> en curso.{$_p}
 $tickets?

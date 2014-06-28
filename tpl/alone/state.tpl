@@ -106,4 +106,4 @@ $sms?
 $services?
 
 {$h2}Rifa{$_h2}
-{$p}Usted tiene <b>{$tickets}</b> tickets para nuestra <a href="mailto:{$reply_to}?subject=RIFA">rifa</a> en curso.{$_p}
+{$p}Usted tiene <b>{$tickets}</b> tickets para nuestra <a href="mailto:{$reply_to}?subject=RIFA">rifa en curso</a>.{$_p}

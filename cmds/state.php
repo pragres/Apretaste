@@ -38,6 +38,7 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 	
 	$from = strtolower($from);
 	$rf = Apretaste::query("SELECT * FROM xraffles where active = true and closed = false limit 1;");
+	$rf = $rf[0];
 	$tks = Apretaste::query("SELECT count_user_raffle_tickets('{$rf['id']}','$from') as total;");
 	
 	return array(

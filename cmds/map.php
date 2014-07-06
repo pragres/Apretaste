@@ -54,6 +54,9 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 		$type = 'terreno';
 	}
 	
+	if (stripos($argument, 'hibrido') !== false) 
+		$argument = str_replace_count('hibrido', '', $argument, 1);
+	
 	$oStaticMap->setScale(1);
 	$oStaticMap->setHeight(640);
 	$oStaticMap->setWidth(640);
@@ -80,6 +83,8 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 			"answer_type" => "map",
 			"command" => "map",
 			"title" => "Mapa de $argument [$type] - " . date("Y-m-d"),
+			"argument" => "$type $argument",
+			"zoom" => $zoom,
 			"images" => array(
 					array(
 							"type" => "image/png",

@@ -169,7 +169,7 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 			<ul>
     			<li>Grados, minutos y segundos (DMS): <b>MAPA 41° 24' 12.1674", 2° 10' 26.508"</b></li>
     			<li>Grados y minutos decimales (DMM): <b>MAPA 41 24.2028, 2 10.4418</b><a href="mailto:{$reply_to}?subject=MAPA 41 24.2028, 2 10.4418">(ejemplo)</a></li>
-    			<li>Grados decimales (DDD): <b>MAPA 41.40338, 2.17403</b><a href="mailto:{$reply_to}?subject=MAPA 41.40338, 2.17403">(ejemplo)</a></li>
+    			<li>Grados decimales (DDD): <b>MAPA -0.062004,51.462564</b><a href="mailto:{$reply_to}?subject=MAPA -0.062004,51.462564">(ejemplo)</a></li>
 			</ul>
 			</li>
 			<li><i>Descriptiva</i>: dirección, ciudad, pa&iacute;s o lugar conocido. Por ejemplo: <i>Capitolio, Habana, Cuba</i>. Tambi&eacute;n puedes usar el t&eacute;rmino "cerca" para buscar una categor&iacute;a de lugares 

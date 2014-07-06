@@ -8,7 +8,7 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
         <th>Cuerpo del correo</th>
 		<th width = "40%">Breve explicaci&oacute;n de la opci&oacute;n</th>
 	</tr>
-	<tr><td colspan="3" align="center" style="font-size: 14px;"><b>Compra/Venta</b></td></tr>
+	<tr><td colspan="3" align="center" style="font-size: 24px;"><b>Compra/Venta</b></td></tr>
 	<tr style="background:#eeeeee;">
 		<td valign="top">
                 <strong>PUBLICAR</strong> T&iacute;tulo del anuncio.<br/>
@@ -97,17 +97,7 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 		<td valign="top" style="text-align:justify;" align="justify">Detener la subscripci&oacute;n de una alerta por correo. El identificador
 		de la alerta puede conocerlo consultando <a href="mailto:{$reply_to}&subject=ESTADO&body=Ahora haga clic en Enviar">su estado</a>.</td>
 	</tr>
-	<tr style="background:#eeeeee;">
-		<td valign="top">
-                <strong>ESTADO</strong>
-                </td>
-                <td valign="top">
-                    - en blanco -
-                </td>
-		<td valign="top" style="text-align:justify;" align="justify">Devuelve un reporte con la lista de sus anuncios, las alertas por correo a las cuales Ud. est&aacute; subscrito,
-		entre otras informaciones, junto a algunas estad&iacute;sticas de sus anuncios.</td>
-	</tr>
-	<tr><td colspan="3"  align="center" style="font-size: 14px;"><b>Entretenimiento y juegos</b></td></tr>
+	<tr><td colspan="3"  align="center" style="font-size: 24px;"><b>Entretenimiento y juegos</b></td></tr>
 	<tr>
 		<td valign="top">
                 <strong>CHISTE</strong>
@@ -126,7 +116,7 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
                 </td>
 		<td valign="top" style="text-align:justify;" align="justify">Devuelve un SUDOKU para jugar. Puede responderlo en el mismo correo o imprimirlo si desea.</td>
 	</tr>
-	<tr><td colspan="3"  align="center" style="font-size: 14px;"><b>Acad&eacute;micos</b></td></tr>
+	<tr><td colspan="3"  align="center" style="font-size: 24px;"><b>Acad&eacute;micos</b></td></tr>
 	<tr>
 		<td valign="top">
                 <strong>ARTICULO frase de b&uacute;squeda</strong>
@@ -149,7 +139,57 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 		<li>Si se especifican los dos idiomas, entonces el primer idioma es el del texto y el segundo el que se desea obtener.</li>
 		</ul></td>
 	</tr>
-	<tr><td colspan="3" align="center" style="font-size: 14px;"><b>Otros servicios</b></td></tr>
+	<tr>
+		<td valign="top">
+                <b>MAPA</b> tipo<i>(opcional)</i> profundidad<i>(opcional)</i> localizaci&oacute;n (obligatorio) <br/>
+                Ejemplos:<br/>
+                Dirección: <b>MAPA 1600 Amphitheatre Parkway Mountain View CA</b><br/>
+				Buscar en las inmediaciones: <b>MAPA cafetería cerca de central park</b><br/>
+				Lugar: <b>MAPA MAD o Aeropuerto de Madrid</b><br/>
+				Accidente geográfico: <b>MAPA Monte Everest, Nepal</b><br/>
+				Coordenadas: <b>MAPA 41.40338, 2.17403</b><br/>
+                </td>
+                <td valign="top">
+                   - en blanco - 
+                </td>
+		<td valign="top" style="text-align:justify;" align="justify">
+		<p>Devuelve una imagen con el mapa de la localizaci&oacute;n especificada en el asunto. Los <b>tipos de mapas</b> son: 
+		<ul>
+			<li><i>fisico</i>: imagen satelital <a href="mailto:{$reply_to}?subject=MAPA fisico habana">(ejemplo)</a></li>
+			<li><i>politico</i>: calles y lugares <a href="mailto:{$reply_to}?subject=MAPA politico vedado,habana">(ejemplo)</a></li>
+			<li><i>terreno</i>: calles con delimitaciones de los terrenos <a href="mailto:{$reply_to}?subject=MAPA terreno capitolio,habana">(ejemplo)</a></li>
+			<li><i>hibrido</i>: mezcla entre fisico y politico <a href="mailto:{$reply_to}?subject=MAPA 12x capitolio, habana">(ejemplo)</a></li>
+		</ul>
+		<p>Por defecto el mapa devuelto es de tipo h&iacute;brido.</p>
+		<p>La <b>profundidad</b> se especifica con un n&uacute;mero entre 1 y 20 seguido de una x, por ejemplo 1x, 2x o 20x. Mientras 
+		m&aacute;s grande sea el n&uacute;mero, m&aacute;s cerca del nivel del mar se ver&aacute; el mapa.</p>
+		<p>La <b>localizaci&oacute;n</b> puede ser de 2 tipos:</p>
+		<ul>
+			<li><i>Coordenadas</i>: Se especifican la longitud y la latitud separados por una coma en ese orden. Los formatos aceptados para las coordenadas son:			
+			<ul>
+    			<li>Grados, minutos y segundos (DMS): <b>MAPA 41° 24' 12.1674", 2° 10' 26.508"</b></li>
+    			<li>Grados y minutos decimales (DMM): <b>MAPA 41 24.2028, 2 10.4418</b><a href="mailto:{$reply_to}?subject=MAPA 41 24.2028, 2 10.4418">(ejemplo)</a></li>
+    			<li>Grados decimales (DDD): <b>MAPA 41.40338, 2.17403</b><a href="mailto:{$reply_to}?subject=MAPA 41.40338, 2.17403">(ejemplo)</a></li>
+			</ul>
+			</li>
+			<li><i>Descriptiva</i>: dirección, ciudad, pa&iacute;s o lugar conocido. Por ejemplo: <i>Capitolio, Habana, Cuba</i>. Tambi&eacute;n puedes usar el t&eacute;rmino "cerca" para buscar una categor&iacute;a de lugares 
+		cerca de una ubicaci&oacute;n. Por ejemplo, "cafeter&iacute;a cerca del parque del Retiro" devolver&aacute; 
+		sitios para tomar un caf&eacute; cerca del parque.</li>
+		</ul>
+		
+		</td>
+	</tr>
+	<tr><td colspan="3" align="center" style="font-size: 24px;"><b>Otros servicios</b></td></tr>
+	<tr style="background:#eeeeee;">
+		<td valign="top">
+                <strong>ESTADO</strong>
+                </td>
+                <td valign="top">
+                    - en blanco -
+                </td>
+		<td valign="top" style="text-align:justify;" align="justify">Devuelve un reporte con la lista de sus anuncios, las alertas por correo a las cuales Ud. est&aacute; subscrito,
+		entre otras informaciones, junto a algunas estad&iacute;sticas de sus anuncios.</td>
+	</tr>
 	<tr>
 		<td valign="top">
                 <strong>INVITAR</strong> direcci&oacute;n email de su amigo<br/>
@@ -180,7 +220,7 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 		<td valign="top" style="text-align:justify;" align="justify">Excluir su direcci&oacute;n de correo electr&oacute;nico de los servicios de Apretaste!com. Para
 		ser incorporado nuevamente, basta con seguir utilizando el servicio.</td>
 	</tr>
-        <tr style="background:#eeeeee;">
+    <tr style="background:#eeeeee;">
 		<td valign="top">
                 <strong>BUZONES</strong>
                 </td>

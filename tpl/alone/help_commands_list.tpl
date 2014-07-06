@@ -142,12 +142,12 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 	<tr>
 		<td valign="top">
                 <b>MAPA</b> tipo<i>(opcional)</i> profundidad<i>(opcional)</i> localizaci&oacute;n (obligatorio) <br/>
-                Ejemplos:<br/>
-                Dirección: <b>MAPA 1600 Amphitheatre Parkway Mountain View CA</b><br/>
-				Buscar en las inmediaciones: <b>MAPA cafetería cerca de central park</b><br/>
-				Lugar: <b>MAPA MAD o Aeropuerto de Madrid</b><br/>
-				Accidente geográfico: <b>MAPA Monte Everest, Nepal</b><br/>
-				Coordenadas: <b>MAPA 41.40338, 2.17403</b><br/>
+                Ejemplos:<br/><br/>
+                Dirección: <br/><a href="mailto:{$reply_to}?subject=MAPA 1600 Amphitheatre Parkway Mountain View CA">MAPA 1600 Amphitheatre Parkway Mountain View CA</a><br/><br/>
+				Buscar en las inmediaciones: <br/><a href="mailto:{$reply_to}?subject=MAPA cafetería cerca de central park">MAPA cafetería cerca de central park</a><br/><br/>
+				Lugar: <br/><a href="mailto:{$reply_to}?subject=MAPA Aeropuerto de Madrid">MAPA Aeropuerto de Madrid</a><br/><br/>
+				Accidente geográfico: <br/><a href="mailto:{$reply_to}?subject=MAPA Monte Everest, Nepal">MAPA Monte Everest, Nepal</a><br/><br/>
+				Coordenadas: <br/><a href="mailto:{$reply_to}?subject=MAPA 41.40338, 2.17403">MAPA 41.40338, 2.17403</a><br/><br/>
                 </td>
                 <td valign="top">
                    - en blanco - 

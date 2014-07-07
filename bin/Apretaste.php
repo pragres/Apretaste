@@ -353,8 +353,8 @@ class Apretaste {
 		
 		$c = self::query("SELECT author, body FROM comment WHERE announcement = '$id';");
 		
-		$original = $r;
 		$r = $r[0];
+		$original = $r;
 		
 		$r['title'] = self::repairUTF8($r['title']);
 		$r['title-raw'] = self::rawTitle($r['title']);

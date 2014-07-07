@@ -1483,13 +1483,14 @@ class Apretaste {
 				
 				$sql .= "id = '{$v['id']}' OR ";
 				
-				if ($results[$k]['phones'] != "") {
-					$phones = explode(",", $results[$k]['phones']);
-					$results[$k]['phones'] = array();
-					foreach ( $phones as $phone )
-						$results[$k]['phones'][] = trim($phone);
-				} else
-					$results[$k]['phones'] = false;
+				if (! is_array($results[$k]['phones']))
+					if ($results[$k]['phones'] != "") {
+						$phones = explode(",", $results[$k]['phones']);
+						$results[$k]['phones'] = array();
+						foreach ( $phones as $phone )
+							$results[$k]['phones'][] = trim($phone);
+					} else
+						$results[$k]['phones'] = false;
 				
 				$results[$k]['body'] = self::highlight($results[$k]['body'], $words);
 				$results[$k]['body'] = str_replace(array(

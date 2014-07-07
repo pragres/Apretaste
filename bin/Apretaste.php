@@ -1455,6 +1455,12 @@ class Apretaste {
 			foreach ( $results as $k => $v ) {
 				
 				$adx = self::getAnnouncement($results[$k]['id']);
+				
+				if ($adx == APRETASTE_ANNOUNCEMENT_NOTFOUND) {
+					unset($results[$k]);
+					continue;
+				}
+				
 				if (is_array($adx))
 					$results[$k] = array_merge($results[$k], $adx);
 				

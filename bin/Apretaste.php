@@ -1453,17 +1453,11 @@ class Apretaste {
 			$sql = "UPDATE announcement SET appears = appears + 1 WHERE ";
 			$yacota = false;
 			foreach ( $results as $k => $v ) {
-				$results[$k]['title'] = self::repairUTF8($results[$k]['title']);
-				$results[$k]['title-raw'] = self::rawTitle($results[$k]['title']);
-				$results[$k]['body'] = self::repairUTF8($results[$k]['body']);
-				$results[$k]['title'] = str_replace("\n", " ", $results[$k]['title']);
-				$results[$k]['title'] = str_replace("\r", " ", $results[$k]['title']);
-				$results[$k]['title'] = str_replace("\r\n", " ", $results[$k]['title']);
-				$results[$k]['title'] = str_replace("\n\r", " ", $results[$k]['title']);
-				$results[$k]['title'] = strtolower($results[$k]['title']);
-				$results[$k]['title'] = self::cleanTextJunk($results[$k]['title']);
-				$results[$k]['body'] = self::cleanTextJunk($results[$k]['body']);
-				$results[$k]['price'] = $results[$k]['price'] * 1;
+				
+				$adx = self::getAnnouncement($results[$k]['id']);
+				
+				$results[$k] = array_merge($results[$k], $adx);
+				
 				$results[$k]['cota'] = false;
 				
 				$rank_global = $results[$k]['rank_global'] * 1;

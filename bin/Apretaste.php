@@ -2007,17 +2007,6 @@ class Apretaste {
 					
 					$results = $data['search_results'];
 					foreach ( $results as $k => $v ) {
-						$results[$k]['title'] = htmlentities(utf8_decode($results[$k]['title']));
-						$results[$k]['title-raw'] = self::rawTitle($results[$k]['title']);
-						$results[$k]['body'] = htmlentities(utf8_decode($results[$k]['body']));
-						$results[$k]['title'] = str_replace("\n", " ", $results[$k]['title']);
-						$results[$k]['title'] = str_replace("\r", " ", $results[$k]['title']);
-						$results[$k]['title'] = str_replace("\r\n", " ", $results[$k]['title']);
-						$results[$k]['title'] = str_replace("\n\r", " ", $results[$k]['title']);
-						$results[$k]['title'] = strtolower($results[$k]['title']);
-						$results[$k]['title'] = self::cleanTextJunk($results[$k]['title']);
-						$results[$k]['body'] = self::cleanTextJunk($results[$k]['body']);
-						$results[$k]['price'] = $results[$k]['price'] * 1;
 						
 						// Analyzing images
 						if (isset($v['image']))
@@ -2028,19 +2017,6 @@ class Apretaste {
 						$item = $v;
 						if (isset($item['image'])) {
 							if ("{$item['image']}" != '') {
-								
-								if (isset($item['image_type']))
-									$item['image_type'] = str_replace("image/", "", $item['image_type']);
-								
-								if (! isset($data['images']))
-									$data['images'] = array();
-								
-								$data['images'][] = array(
-										"type" => "image/{$item['image_type']}",
-										"content" => base64_decode($item['image']),
-										"name" => $item['image_name'],
-										"id" => $item['id']
-								);
 								$data['search_results'][$k]['image'] = true;
 							} else {
 								$data['search_results'][$k]['image'] = false;

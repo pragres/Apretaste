@@ -1455,8 +1455,8 @@ class Apretaste {
 			foreach ( $results as $k => $v ) {
 				
 				$adx = self::getAnnouncement($results[$k]['id']);
-				
-				$results[$k] = array_merge($results[$k], $adx);
+				if (is_array($adx))
+					$results[$k] = array_merge($results[$k], $adx);
 				
 				$results[$k]['cota'] = false;
 				

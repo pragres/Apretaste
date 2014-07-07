@@ -353,11 +353,12 @@ class Apretaste {
 		
 		$c = self::query("SELECT author, body FROM comment WHERE announcement = '$id';");
 		
+		$original = $r;
 		$r = $r[0];
 		
 		$r['title'] = self::repairUTF8($r['title']);
 		$r['title-raw'] = self::rawTitle($r['title']);
-		//$r['body'] = self::repairUTF8($r['body']);
+		// $r['body'] = self::repairUTF8($r['body']);
 		if (self::isUTF8($r['body']))
 			$text = utf8_decode($r['body']);
 		$r['title'] = str_replace("\n", " ", $r['title']);
@@ -370,6 +371,23 @@ class Apretaste {
 		
 		$r['title'] = str_replace('<br />', ' ', $r['title']);
 		$r['title'] = str_replace('<br/>', ' ', $r['title']);
+		
+		$r['title'] = trim($r['title']);
+		
+		if ($r['title'] == '') {
+			$r['title'] = trim($original['title']);
+			if ($r['title'] == '') {
+				$r['title'] = trim(str_replace(array(
+						"\n",
+						"\r"
+				), " ", substr($r['body'], 0, 100)));
+				$r['title'] = trim(self::replaceRecursive("  ", " ", $r['title']));
+				if ($r['title'] == '') {
+					Apretaste::query("DELETE FROM announcement WHERE id = '{$r['id']}';");
+					return APRETASTE_ANNOUNCEMENT_NOTFOUND;
+				}
+			}
+		}
 		
 		$r['emails'] = self::getAddressFrom($r['title'] . ' ' . $r['body']);
 		$r['body'] = self::convertEmailToLinks($r['body'], $r['emails']);
@@ -1062,7 +1080,6 @@ class Apretaste {
 		return $text;
 	}
 	static function removeTildes($text){
-		
 		if (! self::isUTF8($text)) {
 			$text = utf8_encode($text);
 		}
@@ -1981,9 +1998,11 @@ class Apretaste {
 					
 					foreach ( $ads as $adx ) {
 						$ad = self::getAnnouncement($adx['announcement']);
-						self::query("DELETE FROM outbox WHERE announcement = '{$adx['announcement']}';");
-						$ad['tax'] = $adx['phrase'];
-						$data['search_results'][] = $ad;
+						if ($ad != APRETASTE_ANNOUNCEMENT_NOTFOUND) {
+							self::query("DELETE FROM outbox WHERE announcement = '{$adx['announcement']}';");
+							$ad['tax'] = $adx['phrase'];
+							$data['search_results'][] = $ad;
+						}
 					}
 					
 					$results = $data['search_results'];

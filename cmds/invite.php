@@ -14,7 +14,7 @@ function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 			APRETASTE_INVITATION_REPEATED => "ya ha sido invitado anteriormente por Ud.",
 			APRETASTE_INVITATION_STUPID => "es Ud., y Ud. no puede invitarse a si mismo.",
 			APRETASTE_INVITATION_UNNECESASARY => "ya utiliza Apretaste!",
-			APRETASTE_INVITATION_SUCCESSFULL => "ha sido invitado satisfactoriamente"
+			APRETASTE_INVITATION_SUCCESSFULL => "se la ha enviado la invitaci&oacute;n"
 	);
 	
 	// $argument = $argument . ' ' . $body;

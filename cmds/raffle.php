@@ -19,6 +19,8 @@ function cmd_raffle($robot, $from, $argument, $body = '', $images = array()){
 		
 		$total = Apretaste::query("SELECT count_user_raffle_tickets('{$r['id']}','$from') as total;");
 		
+		$r['description'] = Apretaste::repairUTF8($r['description']);
+		
 		return array(
 				'command' => 'raffle',
 				'answer_type' => 'raffle',

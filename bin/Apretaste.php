@@ -387,6 +387,7 @@ class Apretaste {
 					return APRETASTE_ANNOUNCEMENT_NOTFOUND;
 				}
 			}
+			$r['title'] = htmlentities(ApretasteEncoding::fixUTF8($r['title']), null, null, false);
 		}
 		
 		$r['emails'] = self::getAddressFrom($r['title'] . ' ' . $r['body']);

@@ -85,7 +85,7 @@ $subscribes?
 	<table style="{$font}">
 	<tr><th>Fecha</th><th>Tel&eacute;fono</th><th>Mensaje</th><th>Descuento</th></tr>
 	[$sms]
-	<tr><td>{$send_date}</td>
+	<tr><td>{$send_date:0,16}</td>
 	<td>{$phone}</td>
 	<td>{$message}</td>
 	<td>${$discount} USD</td>

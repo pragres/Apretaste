@@ -17,12 +17,11 @@ function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 			APRETASTE_INVITATION_SUCCESSFULL => "ha sido invitado satisfactoriamente"
 	);
 	
-	$argument = $argument . ' ' . $body;
-
-		$argument = str_replace("\n", " ", $argument);
-		$argument = str_replace("\r","",$argument);
-		$argument = trim($argument);
+	// $argument = $argument . ' ' . $body;
 	
+	$argument = str_replace("\n", " ", $argument);
+	$argument = str_replace("\r", "", $argument);
+	$argument = trim($argument);
 	
 	Apretaste::addToAddressList($argument, 'apretaste.invitation');
 	

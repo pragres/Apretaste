@@ -1056,7 +1056,10 @@ class Apretaste {
 	 */
 	static function convertEmailToLinks($text, $addresses = null){
 		if (is_null($addresses))
-			$addresses = self::getAddressFrom($text);
+			$addresses = $text;
+		
+		if (! is_array($addresses))
+			$addresses = self::getAddressFrom($addresses);
 		
 		foreach ( $addresses as $address ) {
 			$text = str_ireplace($address, '<a href="mailto:' . $address . '">' . $address . '</a>', $text);

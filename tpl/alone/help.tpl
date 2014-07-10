@@ -46,9 +46,7 @@
 		<td valign="top">
 			{$p}Invite a sus amigos y familia a conocer Apretaste.{$_p}
 			
-			{$p}Env&iacute;e un email a <a style="color:green;" href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a> y en el asunto escriba <span style="color:green;">INVITAR email@deSuAmigo.cu</span>. En menos de 3 minutos le mandaremos un email de confirmaci&oacute;n.{$_p}
-			
-			{$p}Recuerde reemplazar <span style="color: green;">email@deSuAmigo.cu</span> por el correo electr&oacute;nico de la persona que quiera invitar.{$_p}
+			{$p}Env&iacute;e un email a <a style="color:green;" href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a> y en el asunto escriba la palabra <span style="color:green;">INVITAR</span> seguida de la direcci&oacute;n email de su amigo. En menos de 3 minutos le mandaremos un email de confirmaci&oacute;n.{$_p}
 			
 			<table align="center">
 				<tr>
@@ -63,7 +61,7 @@
 		<td valign="top">
 			 [[_
         	 	{= wintitle: "Invitar a un amigo" =}
-	            {= asunto: "INVITAR email@deSuAmigo.cu" =}
+	            {= asunto: "INVITAR email@de.su.amigo.cu" =}
 	            {= cuerpo: "" =}
 	            {% email_client %}
              _]]

@@ -103,7 +103,7 @@
 						<small>
 								<a href="mailto:{$reply_to}?subject=AYUDA">Ayuda</a> 
 								{$separatorLinks}
-								<a href="mailto:{$reply_to}?subject=INVITAR escribe aqui el email de tu amigo">Invitar</a>
+								<a href="mailto:{$reply_to}?subject=INVITAR escriba aqui las direcciones email de sus amigos">Invitar</a>
 								{$separatorLinks}
 								<a href="mailto:{$reply_to}?subject=SERVICIOS">M&aacute;s servicios</a>
 						</small>

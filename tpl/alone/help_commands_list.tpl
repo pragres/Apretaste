@@ -179,6 +179,27 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 		
 		</td>
 	</tr>
+	<tr><td colspan="3" align="center" style="font-size: 24px;"><b>Comunicaciones</b></td></tr>
+	<tr style="background:#eeeeee;">
+		<td valign="top">
+                <strong>SMS</strong> [codigo del pais][numero de celular]<br/>
+                </td>
+                <td valign="top">
+                    Texto del mensaje
+                </td>
+		<td valign="top" style="text-align:justify;" align="justify">Env&iacute;a un SMS al n&uacute;mero 
+		de celular especificado en el asunto. El c&oacute;digo del pa&iacute;s debe ir delante del 
+		n&uacute;mero de celular. El c&oacute;digo por defecto es el de Cuba +53. Por ejemplo: Cuba es +535#######, Espa&ntilde;a +34#########..., USA +1###########..., etc.</td>
+	</tr>
+	<tr>
+		<td valign="top">
+                <strong>SMS</strong> CODIGOS<br/>
+                </td>
+                <td valign="top">
+                    - en blanco -
+                </td>
+		<td valign="top" style="text-align:justify;" align="justify">Devuelve la lista de los c&oacute;digos de cada pa&iacute;s para enviar SMS. </td>
+	</tr>
 	<tr><td colspan="3" align="center" style="font-size: 24px;"><b>Otros servicios</b></td></tr>
 	<tr style="background:#eeeeee;">
 		<td valign="top">

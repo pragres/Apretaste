@@ -136,7 +136,7 @@ Apretaste <i>permite revisar servicios en Internet mediante el email</i>. Usando
         <td valign="top">
         	 [[_
         	 	{= wintitle: "Invitar a un amigo" =}
-	            {= asunto: "INVITAR email@deSuAmigo.cu" =}
+	            {= asunto: "INVITAR email@de.su.amigo.cu" =}
 	            {= cuerpo: "" =}
 	            {% email_client %}
              _]]

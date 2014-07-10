@@ -25,7 +25,7 @@ bombo y enviaremos un email con la lista de ganadores. Como en todas las rifas, 
 {$br}
 <center>
 	<table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
-	<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" href="mailto:anuncios@apretaste.com?subject=INVITAR su_amigo@correo.cu&body=Reemplace en el asunto 'su_amigo@correo.cu' por el email del su amigo o familiar y envie el correo. Puede agregar mas de un email separandolos con comas. Por ejemplo: INVITAR amigo1@correo.cu, amigo2@correo.cu">
+	<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" href="mailto:anuncios@apretaste.com?subject=INVITAR escriba aqui las direcciones email de sus amigos">
 	<label style="margin: 5px;">Invitar y Ganar Tickets!</label>
 	</a></td></tr></table>
 	{$br}

@@ -97,7 +97,7 @@ function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 				return array(
 						"command" => "invite",
 						"answer_type" => "invite_successfull",
-						"title" => "Se le ha enviado la invitacion a su contacto {$address[0]}",
+						"title" => "Se le ha enviado la invitaci&oacute;n a su contacto {$address[0]}",
 						"compactmode" => true,
 						"guest" => $address[0],
 						"addresses" => false,

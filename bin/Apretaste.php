@@ -391,7 +391,7 @@ class Apretaste {
 		}
 		
 		$r['emails'] = self::getAddressFrom($r['title'] . ' ' . $r['body']);
-		$r['body'] = self::convertEmailToLinks($r['body'], $r['emails']);
+		//$r['body'] = self::convertEmailToLinks($r['body'], $r['emails']);
 		
 		$r['image_type'] = str_replace("image/", "", $r['image_type']);
 		if ($r['image_type'] == '')

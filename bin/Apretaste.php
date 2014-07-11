@@ -1511,8 +1511,8 @@ class Apretaste {
 						"\n",
 						"\n\r"
 				), " ", $results[$k]['body']);
-				$results[$k]['emails'] = self::getAddressFrom($results[$k]['title'] . ' ' . $results[$k]['body']);
-				$results[$k]['body'] = self::convertEmailToLinks($results[$k]['body'], $results[$k]['emails']);
+				//$results[$k]['emails'] = self::getAddressFrom($results[$k]['title'] . ' ' . $results[$k]['body']);
+				//$results[$k]['body'] = self::convertEmailToLinks($results[$k]['body'], $results[$k]['emails']);
 			}
 			
 			$sql .= " FALSE;";

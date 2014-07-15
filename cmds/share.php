@@ -15,6 +15,7 @@ function cmd_share($robot, $from, $argument, $body = '', $images = array()){
 				"guest" => $friend,
 				"author" => $from,
 				"sentence" => $argument,
+				"sharethis" => $argument,
 				"title" => "$from a compartido algo contigo"
 		);
 		

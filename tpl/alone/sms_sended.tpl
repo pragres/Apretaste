@@ -3,6 +3,6 @@
 {$br}
 {$p}Su cr&eacute;dito actual es de <b>${#newcredit:2.#}</b>.{$_p}
 ?$bodyextra
-{$p}Se enviaron solamente los primeros 160 caracteres. El siguiente texto no fue enviado:{$_p}
-{$p}<b>{$bodyextra}</b>{$_p}
+{$p}Se enviaron solamente los primeros 160 caracteres. El texto en negrita no fue enviado:{$_p}
+{$p}{$bodysended}<b>{$bodyextra}</b>{$_p}
 $bodyextra?

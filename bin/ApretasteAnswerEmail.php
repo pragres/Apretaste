@@ -160,8 +160,8 @@ class ApretasteAnswerEmail {
 				echo "To: " . $this->to . "<br/>\n";
 				echo "Headers: <br/>\n";
 				
-				echo var_export($this->headers,true);
-								
+				echo var_export($this->headers, true);
+				
 				echo "<br/>\n";
 				
 				// echo "Trying with other server ...\n";
@@ -237,7 +237,7 @@ class ApretasteAnswerEmail {
 		
 		$data = array_merge($data, $this->config);
 		$data = array_merge($data, $this->data);
-	
+		
 		$tpl_plain = "{$this->type}";
 		$tpl_html = "{$this->type}";
 		
@@ -283,7 +283,12 @@ class ApretasteAnswerEmail {
 			
 			$html_body->parse();
 			
-			$tpl_title = $html_body->__memory['AnswerSubject'];
+			if (isset($html_body->__memory['AnswerSubject']))
+				$tpl_title = $html_body->__memory['AnswerSubject'];
+			else if (isset($data['subject']))
+				$tpl_title = $data['subject'];
+			else if (isset($data['title']))
+				$tpl_title = $data['title'];
 			
 			$this->message->setHTMLBody($html_body->__src);
 			

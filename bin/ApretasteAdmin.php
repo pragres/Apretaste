@@ -320,6 +320,7 @@ class ApretasteAdmin {
 			Apretaste::setConfiguration("phones_regexp", $_POST['edtPhonesRegExp']);
 			Apretaste::setConfiguration("enable_history", isset($_POST['chkEnableHistorial']));
 			Apretaste::setConfiguration("outbox.max", intval($_POST['edtOutboxmax']));
+			Apretaste::setConfiguration("sms_free", isset($_POST['chkSmsFree']));
 			$data['msg'] = "The configuration was been saved";
 		}
 		

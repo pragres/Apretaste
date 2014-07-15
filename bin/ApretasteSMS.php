@@ -26,7 +26,13 @@ class ApretasteSMS {
 		
 		if (Apretaste::isCli())
 			echo "[INFO] Getting: " . $URL . "\n";
+		
 		$r = file_get_contents($URL);
+		
+		$c = Apretaste::getConfiguration("sms_free", false);
+		
+		if ($c == true)
+			$discount = 0;
 		
 		Apretaste::query("INSERT INTO sms (email, phone, message, discount)
 				VALUES ('$sender', '(+$prefix)$number', '$message', $discount);");

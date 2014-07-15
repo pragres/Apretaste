@@ -391,7 +391,7 @@ class Apretaste {
 		}
 		
 		$r['emails'] = self::getAddressFrom($r['title'] . ' ' . $r['body']);
-		//$r['body'] = self::convertEmailToLinks($r['body'], $r['emails']);
+		// $r['body'] = self::convertEmailToLinks($r['body'], $r['emails']);
 		
 		$r['image_type'] = str_replace("image/", "", $r['image_type']);
 		if ($r['image_type'] == '')
@@ -1511,8 +1511,8 @@ class Apretaste {
 						"\n",
 						"\n\r"
 				), " ", $results[$k]['body']);
-				//$results[$k]['emails'] = self::getAddressFrom($results[$k]['title'] . ' ' . $results[$k]['body']);
-				//$results[$k]['body'] = self::convertEmailToLinks($results[$k]['body'], $results[$k]['emails']);
+				// $results[$k]['emails'] = self::getAddressFrom($results[$k]['title'] . ' ' . $results[$k]['body']);
+				// $results[$k]['body'] = self::convertEmailToLinks($results[$k]['body'], $results[$k]['emails']);
 			}
 			
 			$sql .= " FALSE;";
@@ -1585,6 +1585,34 @@ class Apretaste {
 		ob_end_clean();
 		unlink("$folder/$fname");
 		return $rimage;
+	}
+	static function convertImageToJpg($originalImage, $quality = 100){
+		
+		// jpg, png, gif or bmp?
+		$exploded = explode('.', $originalImage);
+		$ext = $exploded[count($exploded) - 1];
+		
+		if (preg_match('/jpg|jpeg/i', $ext))
+			$imageTmp = imagecreatefromjpeg($originalImage);
+		else if (preg_match('/png/i', $ext))
+			$imageTmp = imagecreatefrompng($originalImage);
+		else if (preg_match('/gif/i', $ext))
+			$imageTmp = imagecreatefromgif($originalImage);
+		else if (preg_match('/bmp/i', $ext))
+			$imageTmp = imagecreatefrombmp($originalImage);
+		else
+			return 0;
+		
+		$newimage = '';
+		ob_start();
+		// quality is a value from 0 (worst) to 100 (best)
+		imagejpeg($imageTmp, null, $quality);
+		$newimage = ob_get_contents();
+		ob_end_clean();
+		
+		imagedestroy($imageTmp);
+		
+		return $newimage;
 	}
 	
 	/**
@@ -2061,7 +2089,7 @@ class Apretaste {
 								"\n\r"
 						), " ", $results[$k]['body']);
 						$results[$k]['emails'] = self::getAddressFrom($results[$k]['title'] . ' ' . $results[$k]['body']);
-						//$results[$k]['body'] = self::convertEmailToLinks($results[$k]['body'], $results[$k]['emails']);
+						// $results[$k]['body'] = self::convertEmailToLinks($results[$k]['body'], $results[$k]['emails']);
 					}
 					
 					$data['search_results'] = $results;
@@ -2957,7 +2985,7 @@ class Apretaste {
 		$email = strtolower($email);
 		$email = trim($email);
 		
-		if (self::checkAddress($email)) {
+		if (self::checkAddress($email) || $email = 'newuser@localhost') {
 			
 			self::connect();
 			
@@ -2987,8 +3015,18 @@ class Apretaste {
 			 */
 		}
 	}
+	
+	/**
+	 * Save author information
+	 *
+	 * @param string $email
+	 * @param array $data
+	 */
+	static function saveProfile($email, $data){
+		self::saveAuthor($email, $data);
+	}
 	static function getAuthor($email){
-		$r = self::query("SELECT * FROM author WHERE author = '$email';");
+		$r = self::query("SELECT * FROM authors WHERE email = '$email';");
 		
 		if (! isset($r[0]))
 			return array(

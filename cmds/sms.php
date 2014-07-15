@@ -107,10 +107,12 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 		ApretasteSMS::send($code, $number, $from, $part, $discount);
 	}
 	
+	$bodyextra = false;
+	
 	if (strlen($body) > 160) {
-		$body = substr($body, 160);
-	} else
-		$body = false;
+		$bodyextra = substr($body, 160);
+		$bodysended = substr($body,0,160);
+	} 
 	
 	$newcredit = ApretasteMoney::getCreditOf($from);
 	
@@ -120,7 +122,8 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 			"newcredit" => $newcredit,
 			"discount" => $discount,
 			"smsparts" => $parts,
-			"bodyextra" => $body,
+			"bodyextra" => $bodyextra,
+			"bodysended" => $bodysended,
 			"totaldiscount" => $discount * $tparts,
 			"as_plain_text" => $as_plain_text
 	);

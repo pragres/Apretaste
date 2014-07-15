@@ -3000,7 +3000,7 @@ class Apretaste {
 				if ($key == 'phones')
 					$where .= " AND (phones is null)";
 				
-				if (($key == 'historical_ads' || $key == 'historical_msgs' || $key == 'historical_searchs') and trim($value) !== '') {
+				if (($key == 'historical_ads' || $key == 'historical_msgs' || $key == 'historical_searchs') && trim($value) !== '' && !is_bool($value)) {
 					$sql = "UPDATE authors SET $key = $value WHERE email = '$email' AND ($where);";
 				} else {
 					$sql = "UPDATE authors SET $key = '$value' WHERE email = '$email' AND ($where);";

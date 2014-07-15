@@ -15,6 +15,14 @@
  * @return array
  */
 function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
+	$email = $from;
+	$from = strtolower($from);
+	
+	$argument = trim($argument);
+	
+	if (Apretaste::checkAddress($argument) || $argument == 'newuser@localhost')
+		$email = strtolower($argument);
+	
 	$properties = array(
 			"name" => array(
 					"nombre"
@@ -55,53 +63,88 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 			),
 			"interest" => array(
 					"interes",
+					"intereses",
 					"interesado en"
 			)
 	);
 	
-	$body = strip_tags($body);
+	$updated = false;
 	
-	$lines = explode("\n", $body);
-	
-	$profile = array();
-	
-	foreach ( $lines as $line ) {
-		$line = trim($line);
-		if (strlen($line) > 3) {
-			$p = strpos($line, ":");
-			if ($p !== false) {
-				$prop = substr($line, 0, $p);
-				$value = substr($line, $p + 1);
-				
-				$prop = trim(strtolower($prop));
-				$prop = Apretaste::replaceRecursive("  ", " ", $prop);
-				
-				$value = trim($value);
-				
-				foreach ( $properties as $key => $val ) {
-					foreach ( $val as $kk => $vv )
-						if ($vv == $prop) {
-							$profile[$key] = $value;
-							break 2;
-						}
+	if ($email == $from) {
+		$body = strip_tags($body);
+		
+		$lines = explode("\n", $body);
+		
+		$profile = array();
+		foreach ( $lines as $line ) {
+			$line = trim($line);
+			if (strlen($line) > 3) {
+				$p = strpos($line, ":");
+				if ($p !== false) {
+					$prop = substr($line, 0, $p);
+					$value = substr($line, $p + 1);
+					
+					$prop = trim(strtolower($prop));
+					$prop = Apretaste::replaceRecursive("  ", " ", $prop);
+					
+					$value = trim($value);
+					
+					foreach ( $properties as $key => $val ) {
+						foreach ( $val as $kk => $vv )
+							if ($vv == $prop) {
+								
+								switch ($key) {
+									case 'sex' :
+										$value = strtolower($value);
+										$value = ($value[0] == 'm') ? "M" : "F";
+										break;
+								}
+								$updated = true;
+								
+								$value = str_replace("'", "''", $value);
+								
+								$value = substr($value, 0, 100);
+								
+								$profile[$key] = $value;
+								
+								break 2;
+							}
+					}
 				}
 			}
 		}
+		
+		if (isset($images[0])) {
+			$profile['picture'] = $images[0]['content'];
+			$updated = true;
+		}
+		
+		Apretaste::saveProfile($email, $profile);
 	}
 	
-	if (isset($images[0]))
-		$profile['picture'] = $images[0]['content'];
+	$profile = Apretaste::getAuthor($email);
 	
-	Apretaste::saveProfile($from, $profile);
+	if ($profile['sex'] == '1' || $profile['sex'] == 'true' || $profile['sex'] == 't')
+		$profile['sex'] = 'Masculino';
+	elseif ($profile['sex'] == '0' || $profile['sex'] == 'false' || $profile['sex'] == 'f')
+		$profile['sex'] = 'Femenino';
 	
-	$profile = Apretaste::getAuthor($from);
+	$profile['cupid'] = ($profile['cupid'] == '1' || $profile['cupid'] == 'true' || $profile['cupid'] == 't');
 	
-	$data = array(
-			"answer_type" => "profile_saved",
-			"command" => "profile",
-			"profile" => $profile,
-			"title" => "Su perfil ha sido actualizado"
-	);
+	if ($updated)
+		$data = array(
+				"answer_type" => "profile_saved",
+				"command" => "profile",
+				"profile" => $profile,
+				"title" => "Su perfil ha sido actualizado"
+		);
+	else
+		$data = array(
+				"answer_type" => "profile",
+				"command" => "profile",
+				"profile" => $profile,
+				"title" => $email == $from ? "Su perfil en Apretaste!" : "Perfil de $email en Apretaste!"
+		);
 	
 	if (isset($profile['picture']))
 		if ($profile['picture'] !== '') {

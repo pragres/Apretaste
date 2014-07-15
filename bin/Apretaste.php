@@ -21,7 +21,6 @@ define("APRETASTE_ACCUSATION_DUPLICATED", "APRETASTE_ACCUSATION_DUPLICATED");
 define("APRETASTE_ACCUSATION_SUCCESSFULL", "APRETASTE_ACCUSATION_SUCCESSFULL");
 define("APRETASTE_COMMENT_SUCCESSFULL", "APRETASTE_COMMENT_SUCCESSFULL");
 define("APRETASTE_MAX_WORD_LENGTH", 60);
-
 class Apretaste {
 	static $db = null;
 	static $config = null;
@@ -2179,11 +2178,18 @@ class Apretaste {
 		if ($r)
 			return APRETASTE_INVITATION_UNNECESASARY;
 		
-		$r = self::query("SELECT * FROM announcement where author = '$guest' and (external_id is null or external_id = '');");
-		if ($r)
+		$r = self::query("SELECT * FROM message where extract_email(author) = '$guest';");
+		
+		if ($r) {
+			$r = self::query("SELECT * from invitation where author = '$from' and guest = '$guest';");
+			if (! $r)
+				self::query("INSERT INTO invitation (author, guest, processed) VALUES ('$from','$guest', true);");
+			
 			return APRETASTE_INVITATION_UNNECESASARY;
+		}
 		
 		$r = self::query("SELECT * FROM historial where author = '$guest' and (external_id is null or external_id = '');");
+		
 		if ($r)
 			return APRETASTE_INVITATION_UNNECESASARY;
 		
@@ -3001,7 +3007,7 @@ class Apretaste {
 				if ($key == 'phones')
 					$where .= " AND (phones is null)";
 				
-				if (($key == 'historical_ads' || $key == 'historical_msgs' || $key == 'historical_searchs') && trim($value) !== '' && !is_bool($value)) {
+				if (($key == 'historical_ads' || $key == 'historical_msgs' || $key == 'historical_searchs') && trim($value) !== '' && ! is_bool($value)) {
 					$sql = "UPDATE authors SET $key = $value WHERE email = '$email' AND ($where);";
 				} else {
 					$sql = "UPDATE authors SET $key = '$value' WHERE email = '$email' AND ($where);";

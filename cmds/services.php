@@ -18,5 +18,6 @@ function cmd_services($robot, $from, $argument, $body = '', $images = array()){
 	
 	$data['images'] = array();
 	$data['compactmode'] = true;
+	
 	return $data;
 }

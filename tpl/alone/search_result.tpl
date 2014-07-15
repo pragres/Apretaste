@@ -48,6 +48,8 @@
 					<a href="mailto:{$reply_to}?subject=QUITAR {$id}">Quitar el anuncio</a> {$splitter}
 				{/?}				
 				{$post_date:10}
+				{$splitter}
+				<a href="mailto:{$reply_to}?subject=COMPARTIR ANUNCIO {$id}">Compartir</a>
 				</span>
 			</span>
 			</td>

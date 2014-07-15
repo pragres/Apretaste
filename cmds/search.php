@@ -13,11 +13,10 @@
  * @return mixed
  */
 function cmd_search($robot, $from, $argument, $body = '', $images = array(), $limit = 10, $wimages = true){
-	
 	if (trim($argument) == '') {
 		$argument = trim($body);
 		$argument = str_replace("\n", " ", $argument);
-		$argument = str_replace("\r","",$argument);
+		$argument = str_replace("\r", "", $argument);
 		$argument = trim($argument);
 	}
 	
@@ -118,6 +117,8 @@ function cmd_search($robot, $from, $argument, $body = '', $images = array(), $li
 						"content" => htmlentities(Apretaste::utf8Decode($tip['tip']))
 				)
 		);
+	
+	$data['sharethis'] = 'BUSCAR ' . $argument;
 	
 	return $data;
 }

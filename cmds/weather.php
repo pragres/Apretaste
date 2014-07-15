@@ -61,6 +61,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"title" => "Tiempo en Cuba: Imagen del sat&eacute;lite WSI Corporation [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
 					"climaimagen" => true,
+					"sharethis" => 'CLIMA SATELITE',
 					"images" => array(
 							array(
 									"type" => "image/gif",
@@ -84,6 +85,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"title" => "Tiempo en Cuba: Imagen del sat&eacute;lite de la NASA [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
 					"climaimagen" => true,
+					"sharethis" => 'CLIMA NASA',
 					"images" => array(
 							array(
 									"type" => "image/jpeg",
@@ -127,6 +129,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"title" => "Tiempo en Cuba: Imagen del radar [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
 					"climaimagen" => true,
+					"sharethis" => 'CLIMA RADAR',
 					"images" => array(
 							array(
 									"type" => "image/gif",
@@ -153,6 +156,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"title" => "An&aacute;lisis de la temperatura del mar (NOAA/NHC) [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
 					"climaimagen" => true,
+					"sharethis" => 'CLIMA TEMPERATURA',
 					"images" => array(
 							array(
 								"type" => "image/gif",
@@ -178,6 +182,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"title" => "An&aacute;lisis de superficie del Atl&aacute;ntico y el Caribe (NOAA/NHC) [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
 					"climaimagen" => true,
+					"sharethis" => 'CLIMA SUPERFICIE',
 					"images" => array(
 							array(
 									"type" => "image/gif",
@@ -203,6 +208,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"title" => "An&aacute;lisis del estado del Atl&aacute;ntico (NOAA/NHC) [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
 					"climaimagen" => true,
+					"sharethis" => 'CLIMA ATLANTICO',
 					"images" => array(
 							array(
 									"type" => "image/gif",
@@ -228,6 +234,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"title" => "Imagen del Caribe (Weather Channel) [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
 					"climaimagen" => true,
+					"sharethis" => 'CLIMA CARIBE',
 					"images" => array(
 							array(
 									"type" => "image/gif",
@@ -254,6 +261,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 						"title" => "Imagen del Sector Visible [" . date("Y-m-d h:i:s") . "]",
 						"compactmode" => true,
 						"climaimagen" => true,
+						"sharethis" => 'CLIMA SECTOR',
 						"images" => array(
 								array(
 										"type" => "image/jpeg",
@@ -281,6 +289,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"title" => "Imagen Infrarroja [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
 					"climaimagen" => true,
+					"sharethis" => 'CLIMA INFRARROJA',
 					"images" => array(
 							array(
 									"type" => "image/jpeg",
@@ -306,6 +315,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 						"title" => "Imagen del Vapor de Agua [" . date("Y-m-d h:i:s") . "]",
 						"compactmode" => true,
 						"climaimagen" => true,
+						"sharethis" => 'CLIMA VAPOR',
 						"images" => array(
 								array(
 										"type" => "image/jpeg",
@@ -538,7 +548,8 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"climaimagen" => false,
 					"images" => $images,
 					"provincias" => $provincias,
-					"i18n" => $weatherDesc
+					"i18n" => $weatherDesc,
+					"sharethis" => 'CLIMA',
 			);
 			break;
 	}

@@ -403,11 +403,10 @@ function cmd_article_result($robot, $from, $r){
  * @return array
  */
 function cmd_article($robot, $from, $argument, $body = '', $images = array()){
-	
 	if (trim($argument) == '') {
 		$argument = trim($body);
 		$argument = str_replace("\n", " ", $argument);
-		$argument = str_replace("\r","",$argument);
+		$argument = str_replace("\r", "", $argument);
 		$argument = trim($argument);
 	}
 	
@@ -425,42 +424,50 @@ function cmd_article($robot, $from, $argument, $body = '', $images = array()){
 	
 	$r = wiki_get($robot, $from, $argument, $body = '', $images = array(), $query, $keyword);
 	
-	if ($r != false)
-		return cmd_article_result($robot, $from, $r);
-		
-		// Step 2: Search for an article
-	
-	$s = wiki_search($robot, $from, $argument, $body = '', $images = array(), $query, $keyword);
-	
-	if ($s != false) {
-		
-		$r = wiki_get($robot, $from, $s[0], $body = '', $images = array(), $s[0], urlencode($s[0]));
-		
-		if ($r != false) {
-			
-			// Step 3: Add links of others articles
-			
-			$art = array_shift($s);
-			
-			if (isset($s[0])) {
-				$r['body'] .= '<br/><hr/><h2>Art&iacute;culos relacionados</h2>';
-				
-				foreach ( $s as $si ) {
-					$si = utf8_decode($si);
-					$r['body'] .= ' - <a href="mailto:{$reply_to}?subject=ARTICULO ' . $si . '">' . $si . '</a><br/>';
-				}
-			}
-			
-			return cmd_article_result($robot, $from, $r);
-		}
-	}
-	
-	// Step 4: No results
-	return array(
+	// By default no results
+	$result = array(
 			"answer_type" => "article_not_found",
 			"command" => "article",
 			"query" => $query,
 			"title" => "No se encontr&oacute; art&iacute;culo para: $argument ",
 			"compactmode" => true
 	);
+	
+	if ($r != false)
+		$result = cmd_article_result($robot, $from, $r);
+	else {
+		// Step 2: Search for an article
+		
+		$s = wiki_search($robot, $from, $argument, $body = '', $images = array(), $query, $keyword);
+		
+		if ($s != false) {
+			
+			$r = wiki_get($robot, $from, $s[0], $body = '', $images = array(), $s[0], urlencode($s[0]));
+			
+			if ($r != false) {
+				
+				// Step 3: Add links of others articles
+				
+				$art = array_shift($s);
+				
+				if (isset($s[0])) {
+					$r['body'] .= '<br/><hr/><h2>Art&iacute;culos relacionados</h2>';
+					
+					foreach ( $s as $si ) {
+						$si = utf8_decode($si);
+						$r['body'] .= ' - <a href="mailto:{$reply_to}?subject=ARTICULO ' . $si . '">' . $si . '</a><br/>';
+					}
+				}
+				
+				$result = cmd_article_result($robot, $from, $r);
+			}
+		}
+	}
+	
+	if (isset($result['_answers'])) {
+		foreach ( $result['_answers'] as $k => $v )
+			$result['_answers'][$k]['sharethis'] = 'ARTICULO ' . $argument;
+	}
+	
+	return $result;
 }

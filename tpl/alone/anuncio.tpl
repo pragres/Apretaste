@@ -27,7 +27,7 @@
                                         Email(s):
                                         [$emails]
                                         <a href ="mailto:{$value}">{$value}</a>&nbsp;
-                                        <a href="mailto:{$reply_to}?subject={$value}" title="Buscar anuncios con esta direcci&oacute;n" style="{$font};font-size:9px;color:gray;text-decoration: none;">[?]</a>&nbsp;
+                                        <a href="mailto:{$reply_to}?subject=BUSCAR {$value}" title="Buscar anuncios con esta direcci&oacute;n" style="{$font};font-size:9px;color:gray;text-decoration: none;">[?]</a>&nbsp;
                                         <a href="mailto:{$reply_to}?subject=ALERTA {$value}" title="Seguir los anuncios con esta direcci&oacute;n" style="{$font};font-size:9px;color:gray;text-decoration: none;">[&gt;&gt;]</a>
                                         !$_is_last, $_is_last!
                                         [/$emails]

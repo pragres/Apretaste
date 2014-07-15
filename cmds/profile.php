@@ -124,12 +124,18 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 	
 	$profile = Apretaste::getAuthor($email);
 	
-	if ($profile['sex'] == '1' || $profile['sex'] == 'true' || $profile['sex'] == 't')
-		$profile['sex'] = 'Masculino';
-	elseif ($profile['sex'] == '0' || $profile['sex'] == 'false' || $profile['sex'] == 'f')
-		$profile['sex'] = 'Femenino';
+	if (isset($profile['sex'])) {
+		if ($profile['sex'] == '1' || $profile['sex'] == 'true' || $profile['sex'] == 't')
+			$profile['sex'] = 'Masculino';
+		elseif ($profile['sex'] == '0' || $profile['sex'] == 'false' || $profile['sex'] == 'f')
+			$profile['sex'] = 'Femenino';
+	} else
+		$profile['sex'] = 'Indefinido';
 	
-	$profile['cupid'] = ($profile['cupid'] == '1' || $profile['cupid'] == 'true' || $profile['cupid'] == 't');
+	if (! isset($profile['cupid']))
+		$profile['cupid'] = false;
+	else
+		$profile['cupid'] = ($profile['cupid'] == '1' || $profile['cupid'] == 'true' || $profile['cupid'] == 't');
 	
 	if ($updated)
 		$data = array(
@@ -150,7 +156,7 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 		if ($profile['picture'] !== '') {
 			$img = base64_decode($profile['picture']);
 			// $img = Apretaste::convertImageToJpg($img);
-			$img = base64_decode(Apretaste::resizeImage(base64_encode($img), 100));
+			$img = base64_decode(Apretaste::resizeImage(base64_encode($img), 80));
 			
 			$data['images'] = array(
 					
@@ -163,6 +169,8 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 					)
 			);
 		}
-	
+	$data['sharethis'] = 'PERFIL ' . $email;
+	$data['email'] = $email;
+	$data['from'] = $from;
 	return $data;
 }

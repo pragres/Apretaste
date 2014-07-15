@@ -11,6 +11,7 @@
  * @return array
  */
 function cmd_map($robot, $from, $argument, $body = '', $images = array()){
+	
 	if (trim($argument) == '') {
 		$argument = trim($body);
 		$argument = str_replace("\n", " ", $argument);
@@ -40,6 +41,7 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 		$oStaticMap->setZoom($zoom);
 	
 	$type = 'hibrido';
+	
 	if (stripos($argument, 'fisico') !== false) {
 		$oStaticMap->setMapType("satellite");
 		$argument = str_replace_count('fisico', '', $argument, 1);
@@ -85,6 +87,7 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 			"title" => "Mapa de $argument [$type] - " . date("Y-m-d"),
 			"argument" => "$type $argument",
 			"zoom" => $zoom,
+			"sharethis" => "MAPA $argument",
 			"images" => array(
 					array(
 							"type" => "image/png",

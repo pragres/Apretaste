@@ -17,6 +17,7 @@ function is_possible_row($number, $row, $sudoku){
 	}
 	return $possible;
 }
+
 function is_possible_col($number, $col, $sudoku){
 	$possible = true;
 	for($x = 0; $x <= 8; $x ++) {
@@ -263,9 +264,11 @@ function cmd_sudoku($robot, $from, $argument, $body = '', $images = array(), $qu
 	$htmlproblem = print_sudoku($sudoku);
 	$htmlsolution = print_sudoku($solution);
 	$forprint = print_sudoku($sudoku, true);
+	
 	/*
 	 * $problemtxt = ""; for($x = 0; $x <= 8; $x ++) { for($y = 0; $y <= 8; $y ++) { $problemtxt .= $sudoku[$x * 9 + $y];
 	 */
+	
 	return array(
 			"answer_type" => "sudoku",
 			"command" => "sudoku",

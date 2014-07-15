@@ -29,6 +29,7 @@ function cmd_raffle($robot, $from, $argument, $body = '', $images = array()){
 				'date_from' => $r['date_from'],
 				'date_to' => $r['date_to'],
 				'total_tickets' => $total[0]['total'],
+				'sharethis' => 'RIFA',
 				"images" => array(
 						array(
 								"type" => "image/jpeg",

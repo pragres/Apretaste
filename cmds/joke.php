@@ -14,10 +14,23 @@
  * @return array
  */
 function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
-	for($i = 0; $i < 10; $i ++) { // 10 intentos por si acaso falla
-	                              // $page = file_get_contents("http://localhost/chiste.xml");
+	$id = trim($argument) * 1;
+	
+	if ($id > 0) {
 		
-		$robot->log("Trying a JOKE - $i ");
+		$robot->log("Getting JOKE #$id ");
+		
+		$jj = Apretaste::query("SELECT * FROM cache_jokes where id = $id;");
+		
+		if (isset($jj[0]))
+			$j = $jj[0]['joke'];
+		
+	} else {
+		
+		// for($i = 0; $i < 10; $i ++) { // 10 intentos por si acaso falla
+		// $page = file_get_contents("http://localhost/chiste.xml");
+		
+		$robot->log("Trying a JOKE ");
 		
 		$page = @file_get_contents("http://feeds.feedburner.com/ChistesD4w?format=xml");
 		
@@ -89,12 +102,18 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 				$j = $jj[0]['joke'];
 		}
 		
-		return array(
-				"answer_type" => "joke",
-				"command" => "joke",
-				"title" => "Un chiste, un chiste!",
-				"joke" => $j,
-				"compactmode" => true
-		);
+		// Get id of joke
+		$jj = Apretaste::query("SELECT id FROM cache_jokes where joke = '" . str_replace("''", "'", $j) . "';");
+		$id = $jj[0]['id'];
 	}
+	
+	return array(
+			"answer_type" => "joke",
+			"command" => "joke",
+			"title" => "Un chiste, un chiste!",
+			"joke" => $j,
+			"sharethis" => 'CHISTE ' . $id,
+			"compactmode" => true
+	);
+	// }
 }

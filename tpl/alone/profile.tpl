@@ -1,5 +1,5 @@
 {= *AnswerSubject: $titile =}
-{$h1}{$profile.name}{$_h1}
+?$profile.name {$h1}{$profile.name}{$_h1} $profile.name?
 
 ?$profile.picture
 <img src="cid:profile_picture" style="float:left;margin-right:10px;">
@@ -16,3 +16,6 @@ $profile.picture?
 ?$profile.interest {$p}Intereses: <b>{$profile.interest}</b>{$_p} $profile.interest?
 {$p}Buscando pareja:  <b>?$profile.cupid S&iacute; @else@ No $profile.cupid? </b>{$_p}
 
+{?( "{$from}" == "{$email}" )?}
+<a href="mailto:{$reply_to}?subject=PEFIL&body=Nombre:{$profile.name}%0AFecha de nacimiento:{$profile.birthdate}%0AOcupacion: {$profile.ocupation}">Modificar</a>{$br}
+{/?} 

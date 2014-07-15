@@ -51,7 +51,7 @@
 		recharge: {cmd: "RECARGA", desc: "Recargar su cr&eacute;dito", rel:["state"]},
 		map: {cmd: "MAPA", desc: "Mapas", rel:["weather","article"]},
 		raffle: {cmd: "RIFA", desc: "Rifas", rel:["invite"]},
-		profile: {cmd: "PERFIL", desc: "Ver o modificar su perfil", rel:[]},
+		profile: {cmd: "PERFIL", desc: "Ver o modificar su perfil", rel:["invite"]},
 		lock: {cmd: "BLOQUEAR", desc: "Bloquear a un usuario", rel:[]},
 		share: {cmd: "COMPARTIR", desc: "Compartir algo con un amigo", rel:["invite"]}
 	}
@@ -174,6 +174,7 @@
 						!$_is_last {$separatorLinks} $_is_last!
 						[/$commands.{$command}.rel]
 						<!--{ END related }--> 
+						?$sharethis {$separatorLinks} <a href="mailto:{$reply_to}?subject=COMPARTIR {$sharethis}" title="Compartir esto con tus amigos">Compartir</a> $sharethis?
 					</td>
 				</tr>
 				$command?

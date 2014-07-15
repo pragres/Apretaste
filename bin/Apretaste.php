@@ -2194,6 +2194,7 @@ class Apretaste {
 			return APRETASTE_INVITATION_UNNECESASARY;
 		
 		$r = self::query("SELECT * from invitation where author = '$from' and guest = '$guest';");
+		
 		if (! $r)
 			self::query("INSERT INTO invitation (author, guest, processed) VALUES ('$from','$guest', true);");
 		

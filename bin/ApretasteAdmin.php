@@ -325,6 +325,7 @@ class ApretasteAdmin {
 		}
 		
 		$data['chkEnableHistorial'] = Apretaste::getConfiguration("enable_history");
+		$data['chkSmsFree'] = Apretaste::getConfiguration("sms_free");
 		$data['edtPriceRegExp'] = Apretaste::getConfiguration("price_regexp");
 		$data['edtPhonesRegExp'] = Apretaste::getConfiguration("phones_regexp");
 		$data['edtOutboxmax'] = Apretaste::getConfiguration("outbox.max");

@@ -115,6 +115,7 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	}
 	
 	$bodyextra = false;
+	$bodysended = $body;
 	
 	if (strlen($body) > 160) {
 		$bodyextra = substr($body, 160);

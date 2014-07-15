@@ -89,7 +89,12 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	// Verify credit
 	$credit = ApretasteMoney::getCreditOf($from);
 	
-	if ($credit < $discount * $tparts) {
+	$c = Apretaste::getConfiguration("sms_free", false);
+	
+	if ($c == true)
+		$discount = 0;
+	
+	if ($credit < $discount * $tparts && $c == false) {
 		// no credit
 		return array(
 				"answer_type" => "sms_not_enought_funds",
@@ -99,6 +104,8 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 				"as_plain_text" => $as_plain_text
 		);
 	}
+	
+	
 	
 	// Send message
 	

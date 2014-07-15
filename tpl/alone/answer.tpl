@@ -41,7 +41,7 @@
 		subscribe: {cmd: "ALERTA", desc: "Alertas de anuncios por correo", rel: ["unsubscribe", "search", "invite"]},
 		unsubscribe: {cmd: "DETENER", desc: "Detener alerta por correo", rel: ["subscribe", "invite"]},
 		spam: {cmd: "DENUNCIAR", desc: "Denunciar un anuncio", rel: ["invite"]},
-		invite: {cmd: "INVITAR", desc: "Invitar a un amigo a Apretaste!", rel: ["invite"]},
+		invite: {cmd: "INVITAR", desc: "Invitar a un amigo a Apretaste!", rel: ["invite", "profile"]},
 		addresses: {cmd: "BUZONES", desc: "Buzones de Apretaste!", rel: ["invite"]},
 		terms: {cmd: "TERMINOS", desc: "T&eacute;rminos de uso", rel: ["invite"]}	,
 		google: {cmd: "GOOGLE", desc: "Buscar con Google", rel: ["invite"]}	,
@@ -51,7 +51,9 @@
 		recharge: {cmd: "RECARGA", desc: "Recargar su cr&eacute;dito", rel:["state"]},
 		map: {cmd: "MAPA", desc: "Mapas", rel:["weather","article"]},
 		raffle: {cmd: "RIFA", desc: "Rifas", rel:["invite"]},
-		profile: {cmd: "PERFIL", desc: "Perfil", rel:[]}
+		profile: {cmd: "PERFIL", desc: "Ver o modificar su perfil", rel:[]},
+		lock: {cmd: "BLOQUEAR", desc: "Bloquear a un usuario", rel:[]},
+		share: {cmd: "COMPARTIR", desc: "Compartir algo con un amigo", rel:["invite"]}
 	}
 =}
 
@@ -163,7 +165,7 @@
 				<!--services related-->
 				<tr>
 					<td align="left" style="padding: 0px 5px;">
-						{$space30} 
+						{$space10} 
 						<!--{ START related }-->
 						[$commands.{$command}.rel]
 						<nobr>

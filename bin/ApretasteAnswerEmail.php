@@ -26,7 +26,7 @@ class ApretasteAnswerEmail {
 	 * @param unknown_type $verbose
 	 * @param unknown_type $debug
 	 */
-	function __construct($config, $to, $servers, $data, $send = false, $verbose = false, $debug = false, $msg_id = null){
+	function __construct($config, $to, $servers, $data, $send = false, $verbose = false, $debug = false, $msg_id = null, $save_on_fail = true){
 		$this->msg_id = $msg_id;
 		$this->config = $config;
 		$this->to = $to;
@@ -52,7 +52,7 @@ class ApretasteAnswerEmail {
 		if (isset($data['images']))
 			$this->addImages($data['images']);
 		if (isset($send))
-			$this->send_answer($config['reply_to']);
+			$this->send_answer($config['reply_to'], $save_on_fail);
 	}
 	function addHeaders($headers){
 		$this->headers = array_merge($this->headers, $headers);
@@ -66,7 +66,7 @@ class ApretasteAnswerEmail {
 	function addImages($images){
 		$this->images = array_merge($this->images, $images);
 	}
-	function send_answer($xfrom = null){
+	function send_answer($xfrom = null, $save_on_fail = true){
 		$froms = array_keys($this->servers);
 		
 		if (trim($this->to) == '')
@@ -184,10 +184,10 @@ class ApretasteAnswerEmail {
 			 * echo "[INFO] Sending with PHP...\n"; $hheaders = ''; $hheaders .= "From: anuncios@apretaste.com \r\n"; $hheaders .= "Reply-To: anuncios@apretaste.com \r\n"; $hheaders .= 'X-Mailer: PHP/' . phpversion() . "\r\n"; foreach ( $this->headers as $key => $value ) $hheaders .= $key . ': ' . $value . "\r\n"; $subject = 'Apretaste!'; if (isset($this->headers->subject)) $subject = $this->headers->subject; if (isset($this->headers->Subject)) $subject = $this->headers->Subject; $r = mail($this->to, $subject, $this->message->getMessageBody(), $hheaders); if ($r == false) return false; $from = 'anuncios@apretaste.com';
 			 */
 			
-			echo "[INFO] Saving email in outbox for {$this->to}\n";
-			
-			Apretaste::query("INSERT INTO email_outbox (email, headers, body) VALUES ('{$this->to}','{$this->headers}','" . serialize($messageBody) . "');");
-			
+			if ($save_on_fail) {
+				echo "[INFO] Saving email in outbox for {$this->to}\n";
+				Apretaste::query("INSERT INTO email_outbox (data) VALUES ('" . serialize($this) . "');");
+			}
 			return false;
 		}
 		

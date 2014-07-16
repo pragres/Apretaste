@@ -790,5 +790,25 @@ class ApretasteAlone {
 			Apretaste::query("UPDATE announcement SET image = '" . base64_encode($photo) . "', image_type='$type' WHERE id = '{$ad[0]['id']}';");
 		}
 	}
+	
+	static function sendOutbox(){
+		
+		echo "[INFO] Send emails on outbox...\n";
+		
+		Apretaste::connect();
+		
+		if (isset($_SERVER['argv'][1]))
+			$max = $_SERVER['argv'][1];
+		else
+			$max = 100;
+		
+		$emails = Apretaste::query("SELECT * FROM email_outbox LIMIT $max;");
+		if (is_array($emails)){
+			foreach($emails as $email){
+				
+			}
+		}
+		
+	}
 }
 

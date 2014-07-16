@@ -11,11 +11,12 @@
 {= profile.sentimental: '' =}
 
 ?$profile.name {$h1}{$profile.name}{$_h1} @else@ ?$email {$email} $email? $profile.name?
-
+<table>
+<tr><td valign="top">
 ?$profile.picture
 <img src="cid:profile_picture" style="float:left;margin-right:10px;">
 $profile.picture?
-
+</td><td valign="top">
 ?$email
 {$p}Email: <a href="mailto:{$email}">{$email}</a>{$_p}
 $email?
@@ -34,13 +35,14 @@ $email?
 ?$profile.interest {$p}Intereses: <b>{$profile.interest}</b>{$_p} $profile.interest?
 
 <!--{ {$p}Buscando pareja:  <b>?$profile.cupid S&iacute; @else@ No $profile.cupid? </b>{$_p} }-->
+</td></tr></table>
 
 ?$profile.friends
 {$h2}Amigos{$_h2}
 <table width="100%" style="{$font}">
 [$profile.friends]
 	<tr ?$_is_odd style = " background: #eeeeee; color: black;" $_is_odd?>
-		<td><a href="mailto:{$reply_to}?subject=PERFIL {$xemail}">{$name}</a></td><td><a href="mailto:{$reply_to}?subject=BLOQUEAR {$xemail}">bloquear</a></td>
+		<td><a href="mailto:{$reply_to}?subject=PERFIL $profile.friends.{$_key}.xemail">{$name}</a></td><td><a href="mailto:{$reply_to}?subject=BLOQUEAR {$xemail}">bloquear</a></td>
 	</tr>
 [/$profile.friends]
 </table>

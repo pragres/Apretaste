@@ -65,6 +65,10 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 					"interes",
 					"intereses",
 					"interesado en"
+			),
+			"cupid" => array(
+					"busco pareja",
+					"cupido"
 			)
 	);
 	

@@ -2155,7 +2155,7 @@ class Apretaste {
 	
 	/**
 	 * Is user this email
-	 * 
+	 *
 	 * @param string $email
 	 * @return boolean
 	 */
@@ -3167,6 +3167,11 @@ class Apretaste {
 		where not exists(select * from address_list where address_list.email = lower(subq.email));";
 		
 		self::query($sql);
+		
+		$sql = "UPDATE address_list set source = 'apretaste.public.messages' 
+				WHERE exists(select * FROM message WHERE extract_email(message.author) = address_list.email);";
+		
+		// self::query($sql);
 		
 		// From internal ads
 		$sql = "insert into address_list (email, source)

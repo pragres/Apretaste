@@ -173,7 +173,7 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 		);
 	else {
 		if ($email == $from) {
-			include "../cmds/state.php";
+			include_once "../cmds/state.php";
 			$data = cmd_state($robot, $from, $argument, $body, $images);
 		} else
 			$data = array(
@@ -204,5 +204,6 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 	$data['sharethis'] = 'PERFIL ' . $email;
 	$data['email'] = $email;
 	$data['from'] = $from;
+	
 	return $data;
 }

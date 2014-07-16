@@ -12,7 +12,7 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 	$stats = Apretaste::getUserStats($from);
 	
 	$services = array(
-			"search" => "<b>BUSCAR</b>: Busar anuncios",
+			"search" => "<b>BUSCAR</b>: Buscar anuncios",
 			"insert" => "<b>PUBLICAR</b>: Publicar un anuncio",
 			"joke" => "<b>CHISTE</b>: Leer un chiste",
 			"sudoku" => "<b>SUDOKU</b>: Resolver un Sudoku",

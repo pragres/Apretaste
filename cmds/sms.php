@@ -55,7 +55,18 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 				"as_plain_text" => $as_plain_text
 		);
 		
-		// Get country code
+		// Remove ugly chars
+	
+	$n = '';
+	$l = strlen($argument);
+	for($i = 0; $i < $l; $i ++)
+		if (strpos('1234567890', $argument[$i]) !== false)
+			$n .= $argument[$i];
+	
+	$argument = $n;
+	
+	// Get country code
+	
 	$parts = ApretasteSMS::splitNumber($argument);
 	
 	if ($parts === false) {
@@ -105,8 +116,6 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 		);
 	}
 	
-	
-	
 	// Send message
 	
 	foreach ( $parts as $i => $part ) {
@@ -119,8 +128,8 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	
 	if (strlen($body) > 160) {
 		$bodyextra = substr($body, 160);
-		$bodysended = substr($body,0,160);
-	} 
+		$bodysended = substr($body, 0, 160);
+	}
 	
 	$newcredit = ApretasteMoney::getCreditOf($from);
 	

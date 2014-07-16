@@ -762,8 +762,8 @@ class ApretasteAlone {
 		
 		for($i = 0; $i < $total; $i ++) {
 			
-		   $ad = Apretaste::query("SELECT id, external_id FROM announcement WHERE $where limit 1;");
-						
+			$ad = Apretaste::query("SELECT id, external_id FROM announcement WHERE $where limit 1;");
+			
 			$url = $ad[0]['external_id'];
 			
 			$arr = explode("-", $url);
@@ -782,17 +782,15 @@ class ApretasteAlone {
 			}
 			
 			Apretaste::query("UPDATE announcement SET check_image = true WHERE id = '{$ad[0]['id']}';");
-			if ($photo == false)				
+			if ($photo == false)
 				continue;
-				
+			
 			echo "[INFO] Fix photo of {$ad[0]['id']}\n";
 			
 			Apretaste::query("UPDATE announcement SET image = '" . base64_encode($photo) . "', image_type='$type' WHERE id = '{$ad[0]['id']}';");
 		}
 	}
-	
 	static function sendOutbox(){
-		
 		echo "[INFO] Send emails on outbox...\n";
 		
 		Apretaste::connect();
@@ -803,12 +801,20 @@ class ApretasteAlone {
 			$max = 100;
 		
 		$emails = Apretaste::query("SELECT * FROM email_outbox LIMIT $max;");
-		if (is_array($emails)){
-			foreach($emails as $email){
-				
+		
+		if (is_array($emails)) {
+			foreach ( $emails as $email ) {
+				$ans = unserialize($email['data']);
+				echo "[INFO] Sending again email {$email['id']} to {$ans->to}\n";
+				$r = $ans->send_answer(null, false);
+				if ($r == true)
+					Apretaste::query("DELETE FROM email_outbox WHERE id = '{$email['id']};");
+				else {
+					echo "[INFO] ... Error when sending email, abort operations!";
+					break;
+				}
 			}
 		}
-		
 	}
 }
 

@@ -70,6 +70,27 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 			"cupid" => array(
 					"busco pareja",
 					"cupido"
+			),
+			"hair" => array(
+					"pelo",
+					"color de pelo",
+					"color_pelo"
+			),
+			"piel" => array(
+					"piel",
+					"color de piel",
+					"color_piel"
+			),
+			"eyes" => array(
+					"ojos",
+					"color de ojos",
+					"color_ojos",
+					"color de los ojos"
+			),
+			"school_level" => array(
+					"pelo",
+					"color de pelo",
+					"color_pelo"
 			)
 	);
 	

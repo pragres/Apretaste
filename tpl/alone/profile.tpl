@@ -10,12 +10,14 @@
 {= profile.interest: '' =}
 {= profile.sentimental: '' =}
 
-?$profile.name {$h1}{$profile.name}{$_h1} @else@ {$email} $profile.name?
+?$profile.name {$h1}{$profile.name}{$_h1} @else@ ?$email {$email} $email? $profile.name?
 
 ?$profile.picture
 <img src="cid:profile_picture" style="float:left;margin-right:10px;">
 $profile.picture?
+?$email
 {$p}Email: <a href="mailto:{$email}">{$email}</a>{$_p}
+$email?
 ?$profile.birthdate {$p}Cumplea&ntilde;os: <b>{$profile.birthdate}</b>{$_p} $profile.birthdate?
 ?$profile.sex {$p}Sexo: <b>{$profile.sex}</b>{$_p} $profile.sex?
 ?$profile.ocupation {$p}Ocupaci&oacute;n: <b>{$profile.ocupation}</b>{$_p} $profile.ocupation?

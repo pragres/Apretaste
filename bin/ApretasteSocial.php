@@ -30,4 +30,20 @@ class ApretasteSocial {
 		
 		return $friends;
 	}
+	
+	/**
+	 * Make friends
+	 * 
+	 * @param string $friend1
+	 * @param string $friend2
+	 * @return boolean
+	 */
+	static function makeFriends($friend1, $friend2){
+		$f = self::getFriendsOf($friend1);
+		if (array_search($friend2, $f) === false) {
+			Apretaste::query("INSERT INTO friends (friend1, friend2) VALUES ('$friend1','$friend2');");
+			return true;
+		}
+		return false;
+	}
 }

@@ -2154,6 +2154,22 @@ class Apretaste {
 	}
 	
 	/**
+	 * Is user this email
+	 * 
+	 * @param string $email
+	 * @return boolean
+	 */
+	static function isUser($email){
+		$email = strtolower(trim($email));
+		if (self::checkEmailAddress($email)) {
+			$r = self::query("SELECT count(*) as total FROM message WHERE extract_email(author)='$email';");
+			if ($r[0]['total'] * 1 > 0)
+				return true;
+		}
+		return false;
+	}
+	
+	/**
 	 * Invitation
 	 *
 	 * @param string $from

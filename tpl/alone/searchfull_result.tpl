@@ -19,6 +19,7 @@
 					?$emails <a href ="mailto:{$emails.0}">{$emails.0}</a> {$splitter} $emails?
 					?$image <span style = "color: #5dbd00;">(foto)</span> {$splitter} $image?
 					{$post_date:10}
+					{$splitter} <a href="mailto:{$reply_to}?subject=COMPARTIR ANUNCIO {$id}">Compartir</a>
 				</span>
 				</td> 
 			</tr>

@@ -54,12 +54,13 @@ $didyoumean?
 	<p style="{$font}">Su b&uacute;squeda "<strong>{$query}</strong>" no produjo resultados.</p>
 $search_results?
 {$hr}
+<!--{
 ?$pricing
 					{$br}
 					{$h2}Precios{$_h2}
 					<table align="center">
 						<tr>
-							<!--{<th style="border-right: 1px solid gray;">Altos</th>}-->
+			
 							[$pricing] price =>
 							?$price.0
 							<td style="{$font}; font-size: 14px; color: black; ">$<strong>{$price.0}</strong> &nbsp; </td>
@@ -69,6 +70,7 @@ $search_results?
 					</table>
 					<br/>
 					$pricing?
+}-->
 					<br/>
                     ?$related_phrases
                     <h2 style="margin-top: 0px; margin-bottom: 0px; font-size: 20px; color: green;{$font}">Lo que otros usuarios han buscado</h2>

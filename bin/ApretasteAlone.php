@@ -741,7 +741,6 @@ class ApretasteAlone {
 	static function test(){
 		include "../dev/test.php";
 	}
-	
 	static function goRaffleWinners(){
 		echo "[INFO] Go raffle winners - connecting to DB...\n";
 		
@@ -750,6 +749,40 @@ class ApretasteAlone {
 		$r = Apretaste::query("SELECT go_raffle_winner() as result;");
 		
 		echo "[INFO] Result = " . $r[0]['result'];
+	}
+	static function fixPhotos(){
+		echo "[INFO] Fixing ad's photos...\n";
+		
+		Apretaste::connect();
+		
+		// Revolico.com
+		$total = Apretaste::query("SELECT count(*) as  total FROM announcement WHERE image = '' OR image is NULL and external_id is not null and (external_id ~* 'revolico' || external_id ~* 'lok.myvnc.com');");
+		$total = $total[0]['total'] * 1;
+		
+		for($i = 0; $i < $total; $i ++) {
+			$ad = Apretaste::query("SELECT id, external_id FROM announcement WHERE image = '' OR image is NULL and external_id is not null and (external_id ~* 'revolico' || external_id ~* 'lok.myvnc.com') limit 1 offset $i;");
+			
+			$url = $ad[0]['external_id'];
+			
+			$arr = explode("-", $url);
+			$id = str_replace(".html", "", $arr[count($arr) - 1]);
+			
+			$type = 'jpeg';
+			$photo = @file_get_contents("http://revolico.com/images/photos/{$id}a.jpg");
+			if ($photo === false) {
+				$type = 'png';
+				$photo = @file_get_contents("http://revolico.com/images/photos/{$id}a.png");
+				if ($photo === false)
+					$type = 'gif';
+				$photo = @file_get_contents("http://revolico.com/images/photos/{$id}a.gif");
+			}
+			
+			if ($photo == false)
+				continue;
+			
+			echo "[INFO] Fix photo of {$ad[0]['id']}\n";
+			Apretaste::query("UPDATE announcement SET image = '" . base64_encode($photo) . "', image_type='$type' WHERE id = '{$ad[0]['id']}';");
+		}
 	}
 }
 

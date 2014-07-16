@@ -31,6 +31,8 @@ function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 	$r = false;
 	$results = array();
 	
+	$friends = array();
+	
 	if (! isset($address[0]))
 		$results = array(
 				APRETASTE_INVITATION_GUEST_MISSING
@@ -43,6 +45,9 @@ function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 			if (! isset($results[$guest])) {
 				$robot->log("Invite $guest");
 				$results[$guest] = Apretaste::invite($from, $guest, $body);
+				
+				if (Apretaste::isUser($guest))
+					$friends[$guest] = ApretasteSocial::makeFriends($from, $guest);
 			}
 		}
 	}

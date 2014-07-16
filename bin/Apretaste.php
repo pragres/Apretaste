@@ -3096,7 +3096,6 @@ class Apretaste {
 				
 				$friends[] = array(
 						'xemail' => $pp,
-						'email' => $pp,
 						'name' => $ppname
 				);
 			}

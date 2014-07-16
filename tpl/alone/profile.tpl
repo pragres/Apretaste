@@ -42,7 +42,7 @@ $email?
 <table width="100%" style="{$font}">
 [$profile.friends]
 	<tr ?$_is_odd style = " background: #eeeeee; color: black;" $_is_odd?>
-		<td><a href="mailto:{$reply_to}?subject=PERFIL $profile.friends.{$_key}.xemail">{$name}</a></td><td><a href="mailto:{$reply_to}?subject=BLOQUEAR {$xemail}">bloquear</a></td>
+		<td><a href="mailto:{$reply_to}?subject=PERFIL {$profile.friends.{$_key}.xemail}">{$profile.friends.{$_key}.name}</a></td><td><a href="mailto:{$reply_to}?subject=BLOQUEAR {$profile.friends.{$_key}.xemail}">bloquear</a></td>
 	</tr>
 [/$profile.friends]
 </table>

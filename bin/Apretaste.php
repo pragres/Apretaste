@@ -3074,7 +3074,7 @@ class Apretaste {
 			elseif ($profile['sex'] == '0' || $profile['sex'] == 'false' || $profile['sex'] == 'f')
 				$profile['sex'] = 'Femenino';
 		} else
-			$profile['sex'] = 'Indefinido';
+			$profile['sex'] = false;
 		
 		if (! isset($profile['cupid']))
 			$profile['cupid'] = false;

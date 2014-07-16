@@ -2863,7 +2863,7 @@ class div {
 				if (strpos($this->__src, $prefix . $key . $suffix) !== false) {
 					if (self::fileExists($value . "." . DIV_DEFAULT_TPL_FILE_EXT))
 						$value .= "." . DIV_DEFAULT_TPL_FILE_EXT;
-					$this->__src = str_replace($prefix . $key . $suffix, $prefix . $value . $suffix, $pre);
+					$this->__src = str_replace($prefix . $key . $suffix, $prefix . $value . $suffix, $this->__src);
 				}
 			}
 		

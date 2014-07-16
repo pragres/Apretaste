@@ -129,6 +129,14 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	
 	foreach ( $parts as $i => $part ) {
 		$robot->log("Sending sms part $i - $part to $code - $number");
+		
+		foreach ( $propaganda as $prop ) {
+			if (strlen($part) + strlen($prop) <= 160) {
+				$part .= $prop;
+				break;
+			}
+		}
+		
 		ApretasteSMS::send($code, $number, $from, $part, $discount);
 	}
 	
@@ -138,13 +146,6 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	if (strlen($body) > 160) {
 		$bodyextra = substr($body, 160);
 		$bodysended = substr($body, 0, 160);
-	} else {
-		foreach ( $propaganda as $prop ) {
-			if (strlen($bodysended) + strlen($prop) <= 160) {
-				$bodysended .= $prop;
-				break;
-			}
-		}
 	}
 	
 	$newcredit = ApretasteMoney::getCreditOf($from);

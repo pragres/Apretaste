@@ -43,40 +43,39 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 	
 	$profile = Apretaste::getAuthor($from);
 	
-	if (isset($profile['picture']))
-		
-		$data = array(
-				"email" => $from,
-				"command" => "state",
-				"compactmode" => true,
-				"answer_type" => "state",
-				"title" => "Su estado en Apretaste!",
-				"announcements" => $r,
-				"subscribes" => $s,
-				"stats" => $stats,
-				"services" => $services,
-				"credit" => $credit,
-				"sms" => $sms,
-				"tickets" => $tks[0]['total'],
-				"profile" => $profile
-		);
+	$data = array(
+			"email" => $from,
+			"command" => "state",
+			"compactmode" => true,
+			"answer_type" => "state",
+			"title" => "Su estado en Apretaste!",
+			"announcements" => $r,
+			"subscribes" => $s,
+			"stats" => $stats,
+			"services" => $services,
+			"credit" => $credit,
+			"sms" => $sms,
+			"tickets" => $tks[0]['total'],
+			"profile" => $profile
+	);
 	
-	if ($profile['picture'] !== '') {
-		$img = base64_decode($profile['picture']);
-		// $img = Apretaste::convertImageToJpg($img);
-		$img = base64_decode(Apretaste::resizeImage(base64_encode($img), 80));
-		
-		$data['images'] = array(
-				
-				array(
-						"type" => "image/jpeg",
-						"content" => $img,
-						"name" => "$from.jpg",
-						"id" => "profile_picture",
-						"src" => "cid:profile_picture"
-				)
-		);
-	}
+	if (isset($profile['picture']))
+		if ($profile['picture'] !== '') {
+			$img = base64_decode($profile['picture']);
+			// $img = Apretaste::convertImageToJpg($img);
+			$img = base64_decode(Apretaste::resizeImage(base64_encode($img), 80));
+			
+			$data['images'] = array(
+					
+					array(
+							"type" => "image/jpeg",
+							"content" => $img,
+							"name" => "$from.jpg",
+							"id" => "profile_picture",
+							"src" => "cid:profile_picture"
+					)
+			);
+		}
 	
 	return $data;
 }

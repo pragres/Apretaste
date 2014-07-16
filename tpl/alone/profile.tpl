@@ -15,9 +15,11 @@
 ?$profile.picture
 <img src="cid:profile_picture" style="float:left;margin-right:10px;">
 $profile.picture?
+
 ?$email
 {$p}Email: <a href="mailto:{$email}">{$email}</a>{$_p}
 $email?
+
 ?$profile.birthdate {$p}Cumplea&ntilde;os: <b>{$profile.birthdate}</b>{$_p} $profile.birthdate?
 ?$profile.sex {$p}Sexo: <b>{$profile.sex}</b>{$_p} $profile.sex?
 ?$profile.ocupation {$p}Ocupaci&oacute;n: <b>{$profile.ocupation}</b>{$_p} $profile.ocupation?
@@ -30,7 +32,7 @@ $email?
 
 ?$profile.friends
 {$h2}Amigos{$_h2}
-<table>
+<table width="790" style="{$font}">
 [$profile.friends]
 	<tr><td><a href="mailto:{$reply_to}?subject=PERFIL {$address}">{$name}</a></td><td><a href="mailto:{$reply_to}?subject=BLOQUEAR {$value}">bloquear</a></td><td></td></tr>
 [/$profile.friends]

@@ -2,4 +2,4 @@
 
 // put here test code
 
-echo urlencode("\n");
+echo urlencode("=");

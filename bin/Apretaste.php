@@ -3092,11 +3092,11 @@ class Apretaste {
 				$ppname = trim($pp['name']);
 				
 				if ($ppname == '')
-					$ppname = $pp;
+					$ppname = $ff;
 				
 				$friends[] = array(
-						'xemail' => $pp,
-						'name' => $ppname
+						'xemail' => $ff,
+						'xname' => $ppname
 				);
 			}
 		}

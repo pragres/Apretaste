@@ -168,7 +168,6 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 		$data = array(
 				"answer_type" => "profile_saved",
 				"command" => "profile",
-				"profile" => $profile,
 				"title" => "Su perfil ha sido actualizado"
 		);
 	else {
@@ -179,7 +178,6 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 			$data = array(
 					"answer_type" => "profile",
 					"command" => "profile",
-					"profile" => $profile,
 					"title" => $email == $from ? "Su perfil en Apretaste!" : "Perfil de $email en Apretaste!"
 			);
 	}
@@ -204,6 +202,7 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 	$data['sharethis'] = 'PERFIL ' . $email;
 	$data['email'] = $email;
 	$data['from'] = $from;
+	$data = array_merge($data, $profile);
 	
 	return $data;
 }

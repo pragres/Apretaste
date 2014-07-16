@@ -56,8 +56,7 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 			"services" => $services,
 			"credit" => $credit,
 			"sms" => $sms,
-			"tickets" => $tks[0]['total'],
-			"profile" => $profile
+			"tickets" => $tks[0]['total']
 	);
 	
 	if (isset($profile['picture']))
@@ -78,5 +77,7 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 			);
 		}
 	
+	$data = array_merge($data, $profile);
+
 	return $data;
 }

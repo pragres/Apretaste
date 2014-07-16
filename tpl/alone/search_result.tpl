@@ -41,14 +41,13 @@
 				?$phones Tel&eacute;fono: <b>{$phones.0}</b> {$splitter} $phones?
 				?$emails <a href ="mailto:{$emails.0}">{$emails.0}</a> {$splitter} $emails?
 				?$hits {$hits} {?( {$hits} > 1)?} veces @else@ vez {/?} visto {$splitter} $hits?
+				{$post_date:10} {$splitter}
 				<span style="font-size: small;font-size: small; margin-top: 10px;"> 
 				<a href="mailto:{$reply_to}?subject=DENUNCIAR {$id}&body=Haga clic en Enviar para denunciar el anuncio." title="¿Piensa que este anuncio no cumple funci&oacute;n alguna en el sitio?">Denunciar</a>
 				{$splitter}
 				{?( "{$from}" === "{$author}")?}
 					<a href="mailto:{$reply_to}?subject=QUITAR {$id}">Quitar el anuncio</a> {$splitter}
-				{/?}				
-				{$post_date:10}
-				{$splitter}
+				{/?}
 				<a href="mailto:{$reply_to}?subject=COMPARTIR ANUNCIO {$id}">Compartir</a>
 				</span>
 			</span>

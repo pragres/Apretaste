@@ -6,6 +6,9 @@ la lista de sus anuncios y las alertas a las cuales Ud. est&aacute; subscrito, e
  en {$apretaste}" style ="{$element-a}">solicitarlo nuevamente</a> para obtenerlo actualizado.
 {$_p}
 
+
+{% profile %}
+
 {$h2}Su cr&eacute;dito:{$_h2}
 {$p}
 Su cr&eacute;dito actual es de <b>${#credit:2.#}</b>. 

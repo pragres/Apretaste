@@ -30,7 +30,8 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 			"birthdate" => array(
 					"fecha de nacimiento",
 					"nacimiento",
-					"fecha nacimiento"
+					"fecha nacimiento",
+					"cumpleanos"
 			),
 			"sex" => array(
 					"sexo",
@@ -84,6 +85,15 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 			$line = trim($line);
 			if (strlen($line) > 3) {
 				$p = strpos($line, ":");
+				$p1 = strpos($line, "=");
+				
+				if ($p !== false && $p1 !== false)
+					if ($p1 < $p)
+						$p = $p1;
+				
+				if ($p === false && $p1 !== false)
+					$p = $p1;
+				
 				if ($p !== false) {
 					$prop = substr($line, 0, $p);
 					$value = substr($line, $p + 1);
@@ -102,7 +112,12 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 										$value = strtolower($value);
 										$value = ($value[0] == 'm') ? "M" : "F";
 										break;
+									case 'cupid' :
+										$value = strtolower($value);
+										$value = $value[0] == 's' ? "true" : "false";
+										break;
 								}
+								
 								$updated = true;
 								
 								$value = str_replace("'", "''", $value);
@@ -128,19 +143,6 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 	
 	$profile = Apretaste::getAuthor($email);
 	
-	if (isset($profile['sex'])) {
-		if ($profile['sex'] == '1' || $profile['sex'] == 'true' || $profile['sex'] == 't')
-			$profile['sex'] = 'Masculino';
-		elseif ($profile['sex'] == '0' || $profile['sex'] == 'false' || $profile['sex'] == 'f')
-			$profile['sex'] = 'Femenino';
-	} else
-		$profile['sex'] = 'Indefinido';
-	
-	if (! isset($profile['cupid']))
-		$profile['cupid'] = false;
-	else
-		$profile['cupid'] = ($profile['cupid'] == '1' || $profile['cupid'] == 'true' || $profile['cupid'] == 't');
-	
 	if ($updated)
 		$data = array(
 				"answer_type" => "profile_saved",
@@ -148,13 +150,18 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 				"profile" => $profile,
 				"title" => "Su perfil ha sido actualizado"
 		);
-	else
-		$data = array(
-				"answer_type" => "profile",
-				"command" => "profile",
-				"profile" => $profile,
-				"title" => $email == $from ? "Su perfil en Apretaste!" : "Perfil de $email en Apretaste!"
-		);
+	else {
+		if ($email == $from) {
+			include "../cmds/state.php";
+			$data = cmd_state($robot, $from, $argument, $body, $images);
+		} else
+			$data = array(
+					"answer_type" => "profile",
+					"command" => "profile",
+					"profile" => $profile,
+					"title" => $email == $from ? "Su perfil en Apretaste!" : "Perfil de $email en Apretaste!"
+			);
+	}
 	
 	if (isset($profile['picture']))
 		if ($profile['picture'] !== '') {

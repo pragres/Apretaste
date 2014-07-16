@@ -435,6 +435,9 @@ class Apretaste {
 		else
 			$r['comments'] = array();
 		
+		if ($r['currency'] == '$')
+			$r['currency'] = 'CUC';
+		
 		return $r;
 	}
 	
@@ -3049,11 +3052,12 @@ class Apretaste {
 	static function saveProfile($email, $data){
 		self::saveAuthor($email, $data);
 	}
-	static function getAuthor($email){
+	static function getAuthor($email, $with_friends = true){
 		$r = self::query("SELECT * FROM authors WHERE email = '$email';");
 		
 		if (! isset($r[0]))
 			return array(
+					"name" => $email,
 					"email" => $email,
 					"linker" => false,
 					"verified" => false,
@@ -3063,7 +3067,43 @@ class Apretaste {
 					"historical_msgs" => 0
 			);
 		
-		return $r[0];
+		$profile = $r[0];
+		if (isset($profile['sex'])) {
+			if ($profile['sex'] == '1' || $profile['sex'] == 'true' || $profile['sex'] == 't')
+				$profile['sex'] = 'Masculino';
+			elseif ($profile['sex'] == '0' || $profile['sex'] == 'false' || $profile['sex'] == 'f')
+				$profile['sex'] = 'Femenino';
+		} else
+			$profile['sex'] = 'Indefinido';
+		
+		if (! isset($profile['cupid']))
+			$profile['cupid'] = false;
+		else
+			$profile['cupid'] = ($profile['cupid'] == '1' || $profile['cupid'] == 'true' || $profile['cupid'] == 't');
+		
+		$friends = array();
+		
+		if ($with_friends) {
+			
+			$f = ApretasteSocial::getFriendsOf($email);
+			
+			foreach ( $f as $ff ) {
+				$pp = self::getAuthor($ff, false); // reprevent infinite loop
+				$ppname = trim($pp['name']);
+				
+				if ($ppname == '')
+					$ppname = $pp;
+				
+				$friends[] = array(
+						'address' => $pp,
+						'name' => $ppname
+				);
+			}
+		}
+		
+		$profile['friends'] = $friends;
+		
+		return $profile;
 	}
 	static function generateRecommendedPhrases($phrase, $limit = 20){
 		$original = $phrase;
@@ -3168,9 +3208,9 @@ class Apretaste {
 		
 		self::query($sql);
 		
-		$sql = "UPDATE address_list set source = 'apretaste.public.messages' 
-				WHERE exists(select * FROM message WHERE extract_email(message.author) = address_list.email);";
-		
+		/*
+		 * $sql = "UPDATE address_list set source = 'apretaste.public.messages' WHERE exists(select * FROM message WHERE extract_email(message.author) = address_list.email);";
+		 */
 		// self::query($sql);
 		
 		// From internal ads

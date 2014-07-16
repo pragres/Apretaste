@@ -124,6 +124,9 @@ class ApretasteEmailRobot {
 						'subject' => $s
 				);
 				
+				$e = trim(strtolower(Apretaste::extractEmailAddress($rawCommand['headers']->fromaddress)));
+				Apretaste::query("UPDATE address_list SET source = 'apretaste.public.messages' WHERE email = '$e';");
+				
 				$answerMail = new ApretasteAnswerEmail($config = $clase->config_answer[$account], $to = $rawCommand['headers']->fromaddress, $servers = $clase->smtp_servers, $data = $ans, $send = true, $verbose = $clase->verbose, $debug = $clase->debug, $msg_id);
 			}
 		};

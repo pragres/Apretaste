@@ -80,9 +80,7 @@ class ApretasteAnswerEmail {
 			$i ++;
 			
 			if ($i > $mailboxescount) {
-				echo "\n [FATAL] ---------------------------------\n";
-				echo "[FATAL] No more servers!\n";
-				echo "\n [FATAL] ---------------------------------\n";
+				echo "[FATAL] No more servers! The answer will be saved in outbox \n";
 				break;
 			}
 			
@@ -182,30 +180,15 @@ class ApretasteAnswerEmail {
 		} while ( $sended == false );
 		
 		if (! $sended) {
+			/*
+			 * echo "[INFO] Sending with PHP...\n"; $hheaders = ''; $hheaders .= "From: anuncios@apretaste.com \r\n"; $hheaders .= "Reply-To: anuncios@apretaste.com \r\n"; $hheaders .= 'X-Mailer: PHP/' . phpversion() . "\r\n"; foreach ( $this->headers as $key => $value ) $hheaders .= $key . ': ' . $value . "\r\n"; $subject = 'Apretaste!'; if (isset($this->headers->subject)) $subject = $this->headers->subject; if (isset($this->headers->Subject)) $subject = $this->headers->Subject; $r = mail($this->to, $subject, $this->message->getMessageBody(), $hheaders); if ($r == false) return false; $from = 'anuncios@apretaste.com';
+			 */
 			
-			echo "[INFO] Sending with PHP...\n";
+			echo "[INFO] Saving email in outbox for {$this->to}\n";
 			
-			$hheaders = '';
-			$hheaders .= "From: anuncios@apretaste.com \r\n";
-			$hheaders .= "Reply-To: anuncios@apretaste.com \r\n";
-			$hheaders .= 'X-Mailer: PHP/' . phpversion() . "\r\n";
+			Apretaste::query("INSERT INTO email_outbox (email, headers, body) VALUES ('{$this->to}','{$this->headers}','" . serialize($messageBody) . "');");
 			
-			foreach ( $this->headers as $key => $value )
-				$hheaders .= $key . ': ' . $value . "\r\n";
-			
-			$subject = 'Apretaste!';
-			
-			if (isset($this->headers->subject))
-				$subject = $this->headers->subject;
-			if (isset($this->headers->Subject))
-				$subject = $this->headers->Subject;
-			
-			$r = mail($this->to, $subject, $this->message->getMessageBody(), $hheaders);
-			
-			if ($r == false)
-				return false;
-			
-			$from = 'anuncios@apretaste.com';
+			return false;
 		}
 		
 		echo $this->verbose ? "Save answer\n" : "";

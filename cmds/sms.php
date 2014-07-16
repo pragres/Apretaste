@@ -12,11 +12,12 @@
  */
 function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	$propaganda = array(
-			"SMS Enviado x Apretaste!",
-			"SMS Envia2 x Apretaste!",
-			"Enviado x Apretaste!",
-			"Envia2 x Apretaste!",
-			"SMS x Apretaste!"
+			"-SMS Enviado x Apretaste!",
+			"-SMS Envia2 x Apretaste!",
+			"-Enviado x Apretaste!",
+			"-Envia2 x Apretaste!",
+			"-SMS x Apretaste",
+			"-Apretaste SMS!"
 	);
 	
 	$body = str_replace("\n", " ", $body);

@@ -11,6 +11,14 @@
  * @return array
  */
 function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
+	$propaganda = array(
+			"SMS Enviado x Apretaste!",
+			"SMS Envia2 x Apretaste!",
+			"Enviado x Apretaste!",
+			"Envia2 x Apretaste!",
+			"SMS x Apretaste!"
+	);
+	
 	$body = str_replace("\n", " ", $body);
 	$body = str_replace("\r", " ", $body);
 	$body = str_replace("  ", " ", $body);
@@ -92,6 +100,7 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	$parts = array(
 			substr($body, 0, 160)
 	);
+	
 	$tparts = 1;
 	
 	// Get rate
@@ -129,6 +138,13 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	if (strlen($body) > 160) {
 		$bodyextra = substr($body, 160);
 		$bodysended = substr($body, 0, 160);
+	} else {
+		foreach ( $propaganda as $prop ) {
+			if (strlen($bodysended) + strlen($prop) <= 160) {
+				$bodysended .= $prop;
+				break;
+			}
+		}
 	}
 	
 	$newcredit = ApretasteMoney::getCreditOf($from);

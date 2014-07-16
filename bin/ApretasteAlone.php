@@ -763,9 +763,7 @@ class ApretasteAlone {
 		for($i = 0; $i < $total; $i ++) {
 			
 		   $ad = Apretaste::query("SELECT id, external_id FROM announcement WHERE $where limit 1;");
-			
-			var_dump($ad);
-			
+						
 			$url = $ad[0]['external_id'];
 			
 			$arr = explode("-", $url);

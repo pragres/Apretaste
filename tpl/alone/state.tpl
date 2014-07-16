@@ -8,6 +8,8 @@ la lista de sus anuncios y las alertas a las cuales Ud. est&aacute; subscrito, e
 
 {%% profile.tpl %%}
 
+{$br}
+
 {$h2}Su cr&eacute;dito:{$_h2}
 {$p}
 Su cr&eacute;dito actual es de <b>${#credit:2.#}</b>. 

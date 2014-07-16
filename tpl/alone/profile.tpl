@@ -32,9 +32,10 @@ $email?
 
 ?$profile.friends
 {$h2}Amigos{$_h2}
-<table width="790" style="{$font}">
+<table width="100%" style="{$font}">
 [$profile.friends]
-	<tr><td><a href="mailto:{$reply_to}?subject=PERFIL {$address}">{$name}</a></td><td><a href="mailto:{$reply_to}?subject=BLOQUEAR {$value}">bloquear</a></td><td></td></tr>
+	<tr ?$_is_odd style = " background: #eeeeee; color: black;" $_is_odd?>
+		<td><a href="mailto:{$reply_to}?subject=PERFIL {$address}">{$name}</a></td><td><a href="mailto:{$reply_to}?subject=BLOQUEAR {$address}">bloquear</a></td><td></td></tr>
 [/$profile.friends]
 </table>
 $profile.friends?

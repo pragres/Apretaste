@@ -18,7 +18,7 @@ Su cr&eacute;dito actual es de <b>${#credit:2.#}</b>.
 
 ?$announcements
 {$h2}Sus anuncios publicados{$_h2}
-	<table width="790" style="{$font}">
+	<table width="100%" style="{$font}">
 		<tr style = "font-weight: bold;">
 			<th align="left" width="150">Ticket</th>
 			<th align="left">Fecha</th>
@@ -59,7 +59,7 @@ $announcements?
 
 ?$subscribes
 {$h2}Sus alertas por correo{$_h2}
-	<table style="{$font}">
+	<table width="100%" style="{$font}">
 		<tr style = "font-weight: bold;">
 			<th align="left">Identificador</th><th align="left">Fecha</th><th align="left">Frase de b&uacute;squeda</th><th></th>
 		</tr>

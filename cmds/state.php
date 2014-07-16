@@ -45,6 +45,7 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 	
 	$data = array(
 			"email" => $from,
+			"from" => $from,
 			"command" => "state",
 			"compactmode" => true,
 			"answer_type" => "state",

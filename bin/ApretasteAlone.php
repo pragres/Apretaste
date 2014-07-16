@@ -756,12 +756,12 @@ class ApretasteAlone {
 		Apretaste::connect();
 		
 		// Revolico.com
-		$total = Apretaste::query("SELECT count(*) as  total FROM announcement WHERE image = '' OR image is NULL and external_id is not null and (external_id ~* 'revolico' or external_id ~* 'lok.myvnc.com');");
+		$total = Apretaste::query("SELECT count(*) as  total FROM announcement WHERE (image = '' OR image is NULL) and check_image is null and external_id is not null and (external_id ~* 'revolico' or external_id ~* 'lok.myvnc.com');");
 		$total = $total[0]['total'] * 1;
 		
 		for($i = 0; $i < $total; $i ++) {
 			
-			$ad = Apretaste::query("SELECT id, external_id FROM announcement WHERE (image = '' OR image is NULL) and image <> false and external_id is not null and (external_id ~* 'revolico' || external_id ~* 'lok.myvnc.com') limit 1 offset $i;");
+			$ad = Apretaste::query("SELECT id, external_id FROM announcement WHERE (image = '' OR image is NULL) and check_image is null and external_id is not null and (external_id ~* 'revolico' || external_id ~* 'lok.myvnc.com') limit 1 offset $i;");
 			
 			
 			$url = $ad[0]['external_id'];
@@ -781,12 +781,12 @@ class ApretasteAlone {
 				$photo = @file_get_contents("http://revolico.com/images/photos/{$id}a.gif");
 			}
 			
-			if ($photo == false){
-				Apretaste::query("UPDATE announcement SET image = false, image_type = false WHERE id = '{$ad[0]['id']}';");
+			Apretaste::query("UPDATE announcement SET check_image = true WHERE id = '{$ad[0]['id']}';");
+			if ($photo == false)				
 				continue;
-			}
 				
 			echo "[INFO] Fix photo of {$ad[0]['id']}\n";
+			
 			Apretaste::query("UPDATE announcement SET image = '" . base64_encode($photo) . "', image_type='$type' WHERE id = '{$ad[0]['id']}';");
 		}
 	}

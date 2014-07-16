@@ -40,7 +40,7 @@ $email?
 </table>
 $profile.friends?
 
-{?( "{$from}" == "{$email}" )?}
+{?( "{$from}" == "{$email}" || "{$command}" == "state" )?}
 <table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
 <a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" href="mailto:{$reply_to}?subject=PERFIL&body=Nombre:{$profile.name}%0ACumpleanos = {$profile.birthdate}%0AOcupacion: {$profile.ocupation}%0AProvincia/Estado: {$profile.state}%0AMunicipio/Ciudad:{$profile.city}%0AReparto/Pueblo/Localidad:{$profile.town}%0ASituacion sentimental = {$profile.sentimental}%0AIntereses = {$profile.interest}">
 <label style="margin: 5px;">Modificar perfil</label>

@@ -756,10 +756,11 @@ class ApretasteAlone {
 		Apretaste::connect();
 		
 		// Revolico.com
-		$total = Apretaste::query("SELECT count(*) as  total FROM announcement WHERE image = '' OR image is NULL and external_id is not null and (external_id ~* 'revolico' || external_id ~* 'lok.myvnc.com');");
+		$total = Apretaste::query("SELECT count(*) as  total FROM announcement WHERE image = '' OR image is NULL and external_id is not null and (external_id ~* 'revolico' or external_id ~* 'lok.myvnc.com');");
 		$total = $total[0]['total'] * 1;
 		
 		for($i = 0; $i < $total; $i ++) {
+			echo "[INFO] Checking $i of $total ... \n";
 			$ad = Apretaste::query("SELECT id, external_id FROM announcement WHERE image = '' OR image is NULL and external_id is not null and (external_id ~* 'revolico' || external_id ~* 'lok.myvnc.com') limit 1 offset $i;");
 			
 			$url = $ad[0]['external_id'];

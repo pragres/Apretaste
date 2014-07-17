@@ -1923,11 +1923,15 @@ class Apretaste {
 	 * @return mixed
 	 */
 	static function delete($from, $ticket){
+		
 		$ticket = str_replace(array(
 				"'",
 				" "
 		), "", $ticket);
-		$r = self::query("SELECT * FROM announcement WHERE ticket = '$ticket' AND author = '$from'");
+		
+		$ticket = strtolower($ticket);
+		
+		$r = self::query("SELECT * FROM announcement WHERE lower(ticket) = '$ticket' AND author = '$from'");
 		
 		if ($r) {
 			self::query("DELETE FROM announcement WHERE id = '{$r[0]['id']}';");

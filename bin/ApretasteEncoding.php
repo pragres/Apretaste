@@ -279,4 +279,21 @@ class ApretasteEncoding {
 		
 		return false;
 	}
+	
+	/**
+	 * Check if is base64, then decode
+	 *
+	 * @param unknown $text
+	 * @return string
+	 */
+	public static function base64Decode($text){
+		
+		if (self::is_base64_encoded($text))
+			if (base64_decode($text) !== false)
+				if (strpos($text, ' ') === false && strlen($text) > 15)
+					if (is_string(base64_decode($text)))
+						$text = base64_decode($text);
+		
+		return $text;
+	}
 }

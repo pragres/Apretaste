@@ -225,19 +225,34 @@ class ApretasteEmailCollector {
 				if (strpos($htmlBody, "--\n") !== false) {
 					$htmlBody = substr($htmlBody, 0, strpos($htmlBody, "--\n"));
 				}
-								
+				
 				// Important fix for mobile devices (like as Samsung)
 				$this->log("Detecting base64 encoded body");
 				
-				/*if (ApretasteEncoding::is_base64_encoded($textBody))
-					$textBody = base64_decode($textBody);
-				
-				if (ApretasteEncoding::is_base64_encoded($htmlBody))
-					$htmlBody = base64_decode($htmlBody);
-				*/
+				/*
+				 * if (ApretasteEncoding::is_base64_encoded($textBody)) $textBody = base64_decode($textBody); if (ApretasteEncoding::is_base64_encoded($htmlBody)) $htmlBody = base64_decode($htmlBody);
+				 */
 				
 				// Call to callback
 				$this->log("Callback the message $message_number_iterator");
+				
+				$cutbody = array(
+						"--",
+						"__________"
+				);
+				
+				foreach ( $cutbody as $cut ) {
+					$p = strpos($textBody, $cut);
+					
+					if ($p !== false)
+						$textBody = substr($textBody, 0, $p);
+					
+					$p = strpos($htmlBody, $cut);
+					
+					if ($p !== false)
+						$htmlBody = substr($htmlBody, 0, $p);
+				}
+				
 				$callback($headers, $textBody, $htmlBody, $images, $otherstuff, $address);
 			}
 		
@@ -275,8 +290,8 @@ class ApretasteEmailCollector {
 			if (mb_strtolower($part->ctype_primary) == 'text' && mb_strtolower($part->ctype_secondary) == 'plain') {
 				$textBody = $part->body;
 				$classified = true;
-			} 
-						
+			}
+			
 			if (mb_strtolower($part->ctype_primary) == 'text' && mb_strtolower($part->ctype_secondary) == 'html') {
 				$htmlBody = $part->body;
 				$classified = true;

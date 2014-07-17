@@ -50,11 +50,6 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	$body = trim(strip_tags($body));
 	$body = Apretaste::removeTildes($body);
 	
-	$p = strrpos($body, "--");
-	
-	if ($p !== false)
-		$body = substr($body, 0, $p);
-	
 	$body = trim($body);
 	
 	if (trim($body) == '')

@@ -791,7 +791,7 @@ class ApretasteAlone {
 		}
 	}
 	static function sendOutbox(){
-		echo "[INFO] Send emails on outbox...\n";
+		echo "[INFO] Send emails of outbox...\n";
 		
 		Apretaste::connect();
 		
@@ -805,12 +805,15 @@ class ApretasteAlone {
 		if (is_array($emails)) {
 			foreach ( $emails as $email ) {
 				$ans = unserialize($email['data']);
+				
 				echo "[INFO] Sending again email {$email['id']} to {$ans->to}\n";
+				
 				$r = $ans->send_answer(null, false);
+				
 				if ($r == true)
 					Apretaste::query("DELETE FROM email_outbox WHERE id = '{$email['id']};");
 				else {
-					echo "[INFO] ... Error when sending email, abort operations!";
+					echo "[INFO] ... Error when sending email, aborting all operations!";
 					break;
 				}
 			}

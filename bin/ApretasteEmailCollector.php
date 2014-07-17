@@ -236,6 +236,15 @@ class ApretasteEmailCollector {
 				// Call to callback
 				$this->log("Callback the message $message_number_iterator");
 				
+				if (strpos($from, '@nauta.cu')) {
+					if (strpos($textBody, ' ') === false && strlen($textBody) > 15) {
+						$textBody = base64_decode($textBody);
+					}
+					if (strpos($htmlBody, ' ') === false && strlen($htmlBody) > 15) {
+						$textBody = base64_decode($htmlBody);
+					}
+				}
+				
 				$cutbody = array(
 						"--",
 						"__________"

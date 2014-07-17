@@ -242,8 +242,10 @@ class ApretasteEmailCollector {
 				}
 				
 				$cutbody = array(
-						"--",
-						"__________"
+						"--\n",
+						"__________ ",
+						": : CUBAMOTRICIDAD",
+						"-----Mensaje original-----"
 				);
 				
 				foreach ( $cutbody as $cut ) {

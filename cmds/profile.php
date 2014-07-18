@@ -140,7 +140,8 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 					"verdes",
 					"azules",
 					"pardos",
-					"negros"
+					"negros",
+					"otros"
 			),
 			"school_level" => array(
 					'secundaria',

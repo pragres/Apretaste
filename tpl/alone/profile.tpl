@@ -63,7 +63,7 @@ $friends?
 {= pf2: Fecha de nacimiento, ejemplo: 1980-01-23%0ACumpleanos %3D {$birthdate}%0A%0A =}
 {= pf3: De ser posible use una sola palabra, ejemplo: Arquitecto%0AOcupacion %3D {$ocupation}%0A%0A =}
 {= pf4: Provincia, municipio y reparto donde reside%0AProvincia %3D {$state}%0A =}
-{= pf5: Municipio %3D {$city}%0A%0A =}
+{= pf5: Municipio %3D {$city}%0A =}
 {= pf6: Reparto %3D {$town}%0A%0A =}
 {= pf7: Casado, soltero, divorciado, viudo, comprometido u otro%0AEstado civil %3D {$sentimental}%0A%0A =}
 {= pf8: Intereses separados por coma, ejemplo: Trabajo, Aviones%0AIntereses %3D{$interest}%0A%0A =}

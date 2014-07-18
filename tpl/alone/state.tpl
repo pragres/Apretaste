@@ -85,12 +85,10 @@ $subscribes?
 {$h2}&Uacute;ltimos SMS enviados:{$_h2}
 <table>
 	<table style="{$font}">
-	<tr><th>Fecha</th><th>Tel&eacute;fono</th><th>Mensaje</th><th>Descuento</th></tr>
 	[$sms]
-	<tr ?$_is_odd style = " background: #eeeeee; color: black;" $_is_odd? ><td>{$send_date:0,16}</td>
-	<td>{$phone}</td>
-	<td>{$message}</td>
-	<td>${$discount} USD</td>
+	<tr ?$_is_odd style = " background: #eeeeee; color: black;" $_is_odd? >
+	<td valign="top">{$send_date:0,16}{$br}{$phone}</td>
+	<td valign="top">{$message}{$br}${$discount} USD</td>
 	</tr>
 	[/$sms]
 	</table>

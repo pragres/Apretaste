@@ -21,7 +21,6 @@ Su cr&eacute;dito actual es de <b>${#credit:2.#}</b>.
 	<table width="100%" style="{$font}">
 		<tr style = "font-weight: bold;">
 			<th align="left" width="150">Ticket</th>
-			<th align="left">Fecha</th>
 			<th align="left">T&iacute;tulo</th>
 			<th align="left">Expira</th>
 			<th align="left">Visitas</th>
@@ -31,7 +30,6 @@ Su cr&eacute;dito actual es de <b>${#credit:2.#}</b>.
 		[$announcements]
 		<tr ?$_is_odd style = " background: #eeeeee; color: black;" $_is_odd?>
 			<td style="font-family: Courier;">{$ticket}</td>
-			<td width = "60">{$post_date:8,2}/{$post_date:5,2}/{$post_date:4}</td>
 			<td><a href="mailto:{$reply_to}?subject=ANUNCIO {$id}&body=Haga clic en Enviar para obtener el anuncio solicitado">{$title}</a></td>
 			<td>?$expire {$expire:8,2}/{$expire:5,2}/{$expire:4} $expire?</td>
 			<td align="center">?$visits {$visits} @else@ 0 $visits?</td>
@@ -89,7 +87,7 @@ $subscribes?
 	<table style="{$font}">
 	<tr><th>Fecha</th><th>Tel&eacute;fono</th><th>Mensaje</th><th>Descuento</th></tr>
 	[$sms]
-	<tr><td>{$send_date:0,16}</td>
+	<tr ?$_is_odd style = " background: #eeeeee; color: black;" $_is_odd? ><td>{$send_date:0,16}</td>
 	<td>{$phone}</td>
 	<td>{$message}</td>
 	<td>${$discount} USD</td>

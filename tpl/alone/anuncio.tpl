@@ -45,14 +45,15 @@
                                         ?$appears
                                         Veces encontrado: <strong>{$appears}</strong> <br/>
                                         $appears?
-
-                            <span style="font-size: small;font-size: small; float: left; margin-top: 0px;">
-                                {?( "{$from}" === "{$author}")?}
-                                <a href="mailto:{$reply_to}?subject=QUITAR {$ticket}">Quitar el anuncio</a>
-                                @else@
-                                <a href="mailto:{$reply_to}?subject=DENUNCIAR {$id}&body=Haga clic en Enviar para denunciar el anuncio" title="&iquest;Piensa que este anuncio no cumple funci&oacute;n alguna en el sitio?">Denunciar</a>
-                                {/?}
-                            </span>
+                                        <span style="font-size: small;font-size: small; float: left; margin-top: 0px;">
+                 {?( "{$from}" === "{$author}")?}
+                 <a href="mailto:{$reply_to}?subject=QUITAR {$ticket}">Quitar el anuncio</a>
+                 @else@
+                 <a href="mailto:{$reply_to}?subject=DENUNCIAR {$id}&body=Haga clic en Enviar para denunciar el anuncio" title="&iquest;Piensa que este anuncio no cumple funci&oacute;n alguna en el sitio?">Denunciar</a>
+                 {/?}
+                 {$splitter} <a href="mailto:{$reply_to}?subject=COMENTAR {$id}">Comentar</a>
+                 </span>
+                            
                         </td>
                     </tr>
                 </table>
@@ -62,6 +63,15 @@
                 {= body: "" =}
                 
                 {br:body}
+                
+                 ?$comments
+                 {$space10}
+                 {$h2}Comentarios{$_h2}
+                 [$comments]
+                 <b>{$post_date}</b> - <a href="mailto:{$reply_to}&body=PERFIL {$author}">{$author}</a>{$br}
+                 {$p}{$body}{$_p}
+                 [/$comments]
+                 $comments?
                 
             </td>
         </tr>

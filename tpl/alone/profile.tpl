@@ -1,10 +1,14 @@
 {= *AnswerSubject: $titile =}
 
 {= name: '' =}
+{= sex: '' =}
+{= hair: '' =}
+{= skin: '' =}
+{= eyes: '' =}
+{= school_level: '' =}
+{= state: '' =}
 {= birthdate: '' =}
-{= cupid: '' =}
 {= ocupation: '' =}
-{= country: '' =}
 {= city: '' =}
 {= town: '' =}
 {= interest: '' =}
@@ -52,7 +56,23 @@ $friends?
 {?( "{$from}" == "{$email}" || "{$command}" == "state" )?}
 {$br}
 <table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
-<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" href="mailto:{$reply_to}?subject=PERFIL&body=Nombre%3D{$name}%0ACumpleanos%3D{$birthdate}%0AOcupacion%3D{$ocupation}%0AProvincia/Estado%3D{$state}%0AMunicipio/Ciudad%3D{$city}%0AReparto/Pueblo/Localidad%3D{$town}%0ASituacion sentimental%3D{$sentimental}%0AIntereses%3D{$interest}">
+
+{= pf1: Nombre %3D {$name}%0A =}
+{= pf2: Cumpleanos %3D {$birthdate}%0A =}
+{= pf3: Ocupacion %3D {$ocupation}%0A =}
+{= pf4: Provincia %3D {$state}%0A =}
+{= pf5: Municipio %3D {$city}%0A =}
+{= pf6: Reparto %3D {$town}%0A =}
+{= pf7: Situacion sentimental %3D {$sentimental}%0A =}
+{= pf8: Intereses %3D{$interest}%0A =}
+{= pf9: Sexo %3D {$sex}%0A =}
+{= pf10: Pelo %3D {$hair}%0A =}
+{= pf11: Piel %3D {$skin}%0A =}
+{= pf12: Ojos %3D {$eyes}%0A =}
+{= pf11: Nivel de escolaridad%3D{$school_level}%0A =}
+
+<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
+href="mailto:{$reply_to}?subject=PERFIL&body=[:1,11:]{$pf{$value}}[/]">
 <label style="margin: 5px;">Modificar perfil</label>
 </a>
 </td></tr></table>

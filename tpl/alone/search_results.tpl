@@ -51,7 +51,7 @@ $didyoumean?
 ?$search_results
 	{% tpl %}
 @else@
-	<p style="{$font}">Su b&uacute;squeda "<strong>{$query}</strong>" no produjo resultados.</p>
+{$h1}Su b&uacute;squeda "<strong>{$query}</strong>" no produjo resultados.{$_h1}
 $search_results?
 {$hr}
 <!--{

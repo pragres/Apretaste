@@ -10,24 +10,40 @@
  */
 function cmd_comment($robot, $from, $argument, $body = '', $images = array()){
 	$id = $argument;
-	$robot->log("Comment: $id from $from");
 	
-	$r = Apretaste::comment($from, $id, $body);
+	$robot->log("Comment ad: $id from $from");
 	
-	if ($r == APRETASTE_ANNOUNCEMENT_NOTFOUND) {
+	$body = strip_tags($body);
+	$body = trim($body);
+	$body = Apretaste::replaceRecursive("  ", " ", $body);
+	$body = htmlentities($body, null, 'UTF-8', false);
+	$body = substr($body, 0, 200);
+	$body = trim($body);
+	if ($body !== '') {
+		$r = Apretaste::comment($from, $id, $body);
+		
+		if ($r == APRETASTE_ANNOUNCEMENT_NOTFOUND) {
+			return array(
+					'command' => 'comment',
+					"compactmode" => true,
+					'answer_type' => 'comment_announcement_notfound'
+			);
+		}
+		
+		$r = Apretaste::getAnnouncement($id);
+		
 		return array(
 				'command' => 'comment',
 				"compactmode" => true,
-				'answer_type' => 'comment_announcement_notfound'
+				"ad" => $r,
+				'answer_type' => 'comment_successfull'
 		);
 	}
-	
-	$r = Apretaste::getAnnouncement($id);
 	
 	return array(
 			'command' => 'comment',
 			"compactmode" => true,
-			'answer_type' => 'comment_successfull',
-			'title' => $r['title']
+			"ad" => $r,
+			'answer_type' => 'comment_empty'
 	);
 }

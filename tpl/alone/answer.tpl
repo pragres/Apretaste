@@ -53,7 +53,8 @@
 		raffle: {cmd: "RIFA", desc: "Rifas", rel:["invite"]},
 		profile: {cmd: "PERFIL", desc: "Ver o modificar su perfil", rel:["invite"]},
 		lock: {cmd: "BLOQUEAR", desc: "Bloquear a un usuario", rel:[]},
-		share: {cmd: "COMPARTIR", desc: "Compartir algo con un amigo", rel:["invite"]}
+		share: {cmd: "COMPARTIR", desc: "Compartir algo con un amigo", rel:["invite"]},
+		comment: {cmd: "COMENTAR", desc: "Comentar un anuncio", rel:["insert"]} 
 	}
 =}
 

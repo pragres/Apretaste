@@ -47,7 +47,9 @@ $email?
 [$friends]
 	<tr ?$_is_odd style = " background: #eeeeee; color: black;" $_is_odd?>
 		<td><a href="mailto:{$reply_to}?subject=PERFIL {$xemail}">{$xname}</a></td>
+		{?( "{$from}" == "{$email}" || "{$command}" == "state" )?}
 		<td><a href="mailto:{$reply_to}?subject=BLOQUEAR {$xemail}">bloquear</a></td>
+		{/?}
 	</tr>
 [/$friends]
 </table>

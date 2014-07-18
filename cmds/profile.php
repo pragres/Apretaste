@@ -76,7 +76,7 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 					"color de pelo",
 					"color_pelo"
 			),
-			"piel" => array(
+			"skin" => array(
 					"piel",
 					"color de piel",
 					"color_piel"
@@ -91,6 +91,62 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 					"pelo",
 					"color de pelo",
 					"color_pelo"
+			)
+	);
+	
+	$options = array(
+			"name" => "*",
+			"birthdate" => "#date",
+			"sex" => array(
+					"masculino",
+					"femenino",
+					"m",
+					"f",
+					"desconocido"
+			),
+			"ocupation" => 1,
+			"country" => "*",
+			"state" => "*",
+			"city" => "*",
+			"town" => "*",
+			"sentimental" => array(
+					"casado",
+					"soltero",
+					"divorciado",
+					'viudo',
+					'comprometido',
+					'otro'
+			),
+			"interest" => '*',
+			"cupid" => array(
+					"si",
+					"no"
+			),
+			"hair" => array(
+					'rubio',
+					'trigueno',
+					'moreno',
+					'negro',
+					'otro'
+			),
+			"skin" => array(
+					"blanca",
+					"negra",
+					"amarilla"
+			),
+			"eyes" => array(
+					"verdes",
+					"azules",
+					"pardos",
+					"negros"
+			),
+			"school_level" => array(
+					'secundaria',
+					'tecnico',
+					'universidad',
+					'master',
+					'doctor',
+					'otro'
 			)
 	);
 	
@@ -127,6 +183,27 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 					foreach ( $properties as $key => $val ) {
 						foreach ( $val as $kk => $vv )
 							if ($vv == $prop) {
+								
+								if (isset($options[$key])) {
+									$os = $options[$key];
+									if (is_array($os)) {
+										$value = trim(strtolower($value));
+										if (array_search($value, $os) === false)
+											break;
+									} else if ($os == '#date') {
+										$value = trim(strtolower($value));
+										$date = strtotime($value);
+										
+										if ($date == - 1 || $date === false)
+											break;
+										
+										$value = date("Y-m-d", $date);
+									} else if ($os == 1) {
+										$value = trim($value);
+										$arr = explode(" ", $value);
+										$value = $arr[0];
+									}
+								}
 								
 								switch ($key) {
 									case 'sex' :

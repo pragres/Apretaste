@@ -143,10 +143,15 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 			"school_level" => array(
 					'secundaria',
 					'tecnico',
+					'tecnico medio',
 					'universidad',
+					'universitario',
 					'master',
 					'doctor',
-					'otro'
+					'otro',
+					'superior',
+					'media',
+					'primaria'
 			)
 	);
 	

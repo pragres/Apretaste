@@ -59,19 +59,19 @@ $friends?
 {$br}
 <table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
 
-{= pf1: Nombre %3D {$name}%0A =}
-{= pf2: Cumpleanos %3D {$birthdate}%0A =}
-{= pf3: Ocupacion %3D {$ocupation}%0A =}
-{= pf4: Provincia %3D {$state}%0A =}
-{= pf5: Municipio %3D {$city}%0A =}
-{= pf6: Reparto %3D {$town}%0A =}
-{= pf7: Situacion sentimental %3D {$sentimental}%0A =}
-{= pf8: Intereses %3D{$interest}%0A =}
-{= pf9: Sexo %3D {$sex}%0A =}
-{= pf10: Pelo %3D {$hair}%0A =}
-{= pf11: Piel %3D {$skin}%0A =}
-{= pf12: Ojos %3D {$eyes}%0A =}
-{= pf11: Nivel de escolaridad%3D{$school_level}%0A =}
+{= pf1: Escriba su nombre despues de la palabra Nombre, por ejemplo, Juan Perez Gutierres%0ANombre %3D {$name}%0A%0A =}
+{= pf2: Escriba su fecha de nacimiento de la forma AAAA-MM-DD, por ejemplo, 1980-01-23%0ACumpleanos %3D {$birthdate}%0A%0A =}
+{= pf3: Ocupacion %3D {$ocupation}%0A%0A =}
+{= pf4: Escriba el nombre de la provincia donde actualmente reside%0AProvincia %3D {$state}%0A%0A =}
+{= pf5: Escriba el nombre del municipio donde actualmente vive%0AMunicipio %3D {$city}%0A%0A =}
+{= pf6: Escriba el nombre del reparto o pueblo donde vive actualmente%0AReparto %3D {$town}%0A%0A =}
+{= pf7: Escriba una de las siguientes opciones: casado, soltero, divorciado, viudo, comprometido, otro%0ASituacion sentimental %3D {$sentimental}%0A%0A =}
+{= pf8: Escriba sus intereses separados por coma, por ejemplo: Trabajo, Aviones%0AIntereses %3D{$interest}%0A%0A =}
+{= pf9: Escriba una de las siguientes opciones: masculino, femenino, desconocido%0ASexo %3D {$sex}%0A%0A =}
+{= pf10: Escriba una de las siguientes opciones: rubio, trigueno, moreno, negro, otro%0APelo %3D {$hair}%0A%0A =}
+{= pf11: Escriba una de las siguientes opciones: blanca, negra, amarilla, india, mestiza, otra%0APiel %3D {$skin}%0A%0A =}
+{= pf12: Escriba una de las siguientes opciones: verde, pardo, azul, negro, otro%0AOjos %3D {$eyes}%0A%0A =}
+{= pf11: Escriba una de las siguientes opciones: secundaria, tecnico, universidad, master, doctor, otro%0ANivel escolar%3D{$school_level}%0A%0A =}
 
 <a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
 href="mailto:{$reply_to}?subject=PERFIL&body=[:1,11:]{$pf{$value}}[/]">

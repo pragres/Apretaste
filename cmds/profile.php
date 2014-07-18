@@ -88,9 +88,8 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 					"color de los ojos"
 			),
 			"school_level" => array(
-					"pelo",
-					"color de pelo",
-					"color_pelo"
+					"nivel escolar",
+					"nivel de escolaridad"
 			)
 	);
 	
@@ -132,7 +131,10 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 			"skin" => array(
 					"blanca",
 					"negra",
-					"amarilla"
+					"amarilla",
+					"mestiza",
+					"india",
+					"otra"
 			),
 			"eyes" => array(
 					"verdes",

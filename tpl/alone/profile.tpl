@@ -74,7 +74,8 @@ $friends?
 {= pf11: Escriba una de las siguientes opciones: secundaria, tecnico, universidad, master, doctor, otro%0ANivel escolar%3D{$school_level}%0A%0A =}
 
 <a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
-href="mailto:{$reply_to}?subject=PERFIL&body=[:1,11:]{$pf{$value}}[/]">
+href="mailto:{$reply_to}?subject=PERFIL&body=[:1,11:]{$pf{$value}}
+[/]">
 <label style="margin: 5px;">Modificar perfil</label>
 </a>
 </td></tr></table>

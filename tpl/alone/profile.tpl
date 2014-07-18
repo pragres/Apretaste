@@ -61,7 +61,7 @@ $friends?
 
 {= pf1: Escriba su nombre despues de la palabra Nombre, por ejemplo, Juan Perez Gutierres%0ANombre %3D {$name}%0A%0A =}
 {= pf2: Escriba su fecha de nacimiento de la forma AAAA-MM-DD, por ejemplo, 1980-01-23%0ACumpleanos %3D {$birthdate}%0A%0A =}
-{= pf3: Ocupacion %3D {$ocupation}%0A%0A =}
+{= pf3: Escriba su ocupacion. De ser posible use una sola palabra. Por ejemplo "Arquitecto"%0AOcupacion %3D {$ocupation}%0A%0A =}
 {= pf4: Escriba el nombre de la provincia donde actualmente reside%0AProvincia %3D {$state}%0A%0A =}
 {= pf5: Escriba el nombre del municipio donde actualmente vive%0AMunicipio %3D {$city}%0A%0A =}
 {= pf6: Escriba el nombre del reparto o pueblo donde vive actualmente%0AReparto %3D {$town}%0A%0A =}

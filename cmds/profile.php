@@ -103,7 +103,7 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 					"f",
 					"desconocido"
 			),
-			"ocupation" => 1,
+			"ocupation" => "*",
 			"country" => "*",
 			"state" => "*",
 			"city" => "*",

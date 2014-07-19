@@ -1061,6 +1061,15 @@ class ApretasteAdmin {
 			
 			$data['email'] = $_GET['sales'];
 			
+			if (isset($_GET['pdf'])){
+				
+				
+				
+				
+				return true;
+			}
+			
+			
 			if (isset($_GET['cards'])) {
 				
 				$data['cards'] = ApretasteMoney::getSaleCards($_GET['cards']);

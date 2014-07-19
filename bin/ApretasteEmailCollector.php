@@ -245,7 +245,8 @@ class ApretasteEmailCollector {
 						"--\n",
 						"__________ ",
 						": : CUBAMOTRICIDAD",
-						"-----Mensaje original-----"
+						"-----Mensaje original-----",
+						"50 Aniversario de la Cujae"
 				);
 				
 				foreach ( $cutbody as $cut ) {

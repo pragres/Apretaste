@@ -13,6 +13,7 @@
 <a href="?path=admin&page=subscribes">Subscribes</a> |
 <a href="?path=admin&page=ad">Ads</a> |
 <a href="?path=admin&page=raffles">Raffles</a> | 
+<a href="?path=admin&page=dispatchers">Dispatchers</a> |
 {/?}
 <a href="?path=admin&page=logout">Logout</a>
 <hr/>

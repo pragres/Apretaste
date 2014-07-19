@@ -46,7 +46,7 @@ class ApretasteAdmin {
 			if ($user['user_role'] == 'investor' && $url != 'logout') {
 				$url = 'dashboard';
 			}
-					
+			
 			eval('self::page_' . $url . '();');
 		} elseif (isset($_GET['chart'])) {
 			
@@ -1013,7 +1013,6 @@ class ApretasteAdmin {
 		
 		echo new div("../tpl/admin/ad.tpl", $data);
 	}
-	
 	static public function page_raffles(){
 		if (! self::verifyLogin())
 			die('Access denied');
@@ -1027,11 +1026,11 @@ class ApretasteAdmin {
 		}
 		
 		if (isset($_GET['addraffle'])) {
-			$desc = str_replace("'","''",$_POST['description']);
+			$desc = str_replace("'", "''", $_POST['description']);
 			$df = $_POST['date_from'];
 			$dt = $_POST['date_to'];
 			
-			if (trim("{$_FILES['image']['tmp_name']}") !="")
+			if (trim("{$_FILES['image']['tmp_name']}") != "")
 				if (isset($_FILES['image']))
 					$image = base64_encode(file_get_contents($_FILES['image']['tmp_name']));
 			
@@ -1042,5 +1041,50 @@ class ApretasteAdmin {
 		$data['raffles'] = Apretaste::query("SELECT * FROM xraffles");
 		
 		echo new div("../tpl/admin/raffles.tpl", $data);
+	}
+	static public function page_dispatchers(){
+		if (! self::verifyLogin())
+			die('Access denied');
+		
+		$data = array();
+		$data['user'] = self::getUser();
+		
+		if (isset($_POST['btnAddDispatcher'])) {
+			ApretasteMoney::addDispatcher($_POST['edtEmail'], $_POST['edtName'], $_POST['edtContact']);
+		}
+		
+		if (isset($_GET['delete'])) {
+			ApretasteMoney::delDispatcher($_GET['delete']);
+		}
+		
+		if (isset($_GET['sales'])) {
+			
+			$data['email'] = $_GET['sales'];
+			
+			if (isset($_GET['cards'])) {
+				
+				$data['cards'] = ApretasteMoney::getSaleCards($_GET['cards']);
+				$data['sale'] = $_GET['cards'];
+				echo new div("../tpl/admin/recharge_cards.tpl", $data);
+				return true;
+			}
+			
+			if (isset($_POST['btnAddSale'])) {
+				ApretasteMoney::addRechargeCardSale($_GET['sales'], $_POST['edtQuantity'], $_POST['edtSalePrice'], $_POST['edtCardPrice']);
+			}
+			
+			if (isset($_GET['delete'])){
+				ApretasteMoney::delSale($_GET['delete']);
+			}
+			
+			$data['sales'] = ApretasteMoney::getRechargeCardSalesOf($_GET['sales']);
+			
+			echo new div("../tpl/admin/recharge_card_sales.tpl", $data);
+			return true;
+		}
+		
+		$data['dispatchers'] = ApretasteMoney::getDispatchers();
+		
+		echo new div("../tpl/admin/dispatchers.tpl", $data);
 	}
 }

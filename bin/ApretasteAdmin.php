@@ -1086,7 +1086,7 @@ class ApretasteAdmin {
 						$y += 55;
 					
 					$pdf->Rotate(0);
-					$pdf->Image('../tpl/admin/recharge_card.tpl.png', $x, $y);
+					$pdf->Image('../tpl/admin/recharge_card.tpl.png', $x, $y, -300);
 					
 					$pdf->SetFont('ErasITC-Bold', 'BI', 56);
 					$pdf->SetTextColor(200, 200, 200);

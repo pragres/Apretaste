@@ -9,7 +9,7 @@ $bodyextra?
 
 <br/><br/>
 <hr/>
-{$p}<b><span style="color:black;">&rArr;</span> <u>Apretaste!</u> es mucho m&aacute;s que SMS &iquest;Lo sab&iacute;as?</b>{$_p}
+{$p}<b><span style="color:black;">&rArr; Apretaste!</span> es mucho m&aacute;s que SMS &iquest;Lo sab&iacute;as?</b>{$_p}
 {$p}
 	Somos una pasarela de servicios por <i>email</i> que te permite:
 	<ul>

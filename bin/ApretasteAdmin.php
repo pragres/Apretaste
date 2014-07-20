@@ -1073,7 +1073,7 @@ class ApretasteAdmin {
 				$i = 0;
 				$x = 0;
 				$y = - 55;
-				$pdf->AddFont('ErasITC-Bold', 'BI', 'ERASBD.php');
+				$pdf->AddFont('ErasITC-Bold', '', 'ERASDEMI.php');
 				foreach ( $cards as $k => $card ) {
 					$i ++;
 					
@@ -1088,18 +1088,18 @@ class ApretasteAdmin {
 					$pdf->Rotate(0);
 					$pdf->Image('../tpl/admin/recharge_card.tpl.png', $x, $y, -300);
 					
-					$pdf->SetFont('ErasITC-Bold', 'BI', 56);
+					$pdf->SetFont('ErasITC-Bold', '', 68);
 					$pdf->SetTextColor(200, 200, 200);
 					
-					$pdf->Text(50 + $x, 20 + $y, '$' . $card['amount']);
+					$pdf->Text(44 + $x, 25 + $y, '$' . $card['amount']);
 					
-					$pdf->SetFont('ErasITC-Bold', 'BI', 13);
+					$pdf->SetFont('ErasITC-Bold', '', 13);
 					$pdf->SetTextColor(200, 0, 10);
 					
 					$pdf->Rotate(90);
 					$code = $card['code'];
 					$code = substr($code, 0, 4) . '-' . substr($code, 4, 4) . '-' . substr($code, 8, 4);
-					$pdf->Text(- 25 - $y, 100 + $x, $code);
+					$pdf->Text(- 27 - $y, 100 + $x, $code);
 					
 					if ($i % 10 == 0 && isset($cards[$k + 1])) {
 						$pdf->addPage('P', 'letter');

@@ -1073,7 +1073,8 @@ class ApretasteAdmin {
 				$i = 0;
 				$x = 0;
 				$y = - 55;
-				$pdf->AddFont('ErasITC-Bold', '', 'ERASDEMI.php');
+				$pdf->AddFont('ErasITC-Bold', '', 'ERASBD.php');
+				
 				foreach ( $cards as $k => $card ) {
 					$i ++;
 					

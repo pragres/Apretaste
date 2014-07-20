@@ -1061,14 +1061,73 @@ class ApretasteAdmin {
 			
 			$data['email'] = $_GET['sales'];
 			
-			if (isset($_GET['pdf'])){
+			if (isset($_GET['pdf'])) {
 				
+				include "../lib/fpdf17/fpdf.php";
 				
+				$pdf = new ApretastePDF();
+				$pdf->addPage();
 				
+				$cards = ApretasteMoney::getSaleCards($_GET['pdf']);
+				
+				$i = 0;
+				$x = 0;
+				$y = - 50;
+				
+				foreach ( $cards as $k => $card ) {
+					$i ++;
+					
+					if ($i % 2 == 0)
+						$x = 100;
+					else
+						$x = 0;
+					
+					if ($i % 2 != 0)
+						$y += 50;
+					
+					$pdf->Rotate(0);
+					$pdf->Image('../web/static/apretaste.logo.jpg', 10 + $x, 10 + $y);
+					
+					$pdf->SetTextColor(0, 0, 0);
+					
+					$pdf->SetFont('Arial', null, 10);
+					
+					$pdf->Text(10 + $x, 35 + $y, "1. Envíe un email a anuncios@apretaste.com");
+					$pdf->Text(10 + $x, 40 + $y, "2. Escriba en el asunto la palabra RECARGAR");
+					$pdf->Text(10 + $x, 45 + $y, "   seguido del número de esta tarjeta ");
+					
+					$pdf->SetTextColor(200, 200, 200);
+					
+					$pdf->Text(10 + $x, 45 + $y, "                                                                  - - - - - - - - ->");
+					
+					$pdf->SetTextColor(0, 0, 0);
+					$pdf->Text(10 + $x, 50 + $y, "3. En 3 minutos recibirá un email de confirmación");
+					
+					$pdf->SetFont('Helvetica', '', 56);
+					$pdf->SetTextColor(200, 200, 200);
+					
+					$pdf->Text(65 + $x, 25 + $y, '$' . $card['amount']);
+					
+					$pdf->SetFont('Arial', 'B', 20);
+					$pdf->SetTextColor(200, 0, 10);
+					
+					$pdf->Rotate(90);
+					$pdf->Text(- 35 - $y, 100 + $x, $card['code']);
+					$pdf->SetFont('Arial', '', 26);
+					$pdf->SetTextColor(0, 0, 0);
+					$pdf->Text(- 35 - $y, 90 + $x, ".............");
+					
+					if ($i % 10 == 0 && isset($cards[$k + 1])) {
+						$pdf->AddPage();
+						$x = 0;
+						$y = - 50;
+					}
+				}
+				
+				$pdf->Output('Apretaste Recharge Cards.pdf', 'D');
 				
 				return true;
 			}
-			
 			
 			if (isset($_GET['cards'])) {
 				
@@ -1082,7 +1141,7 @@ class ApretasteAdmin {
 				ApretasteMoney::addRechargeCardSale($_GET['sales'], $_POST['edtQuantity'], $_POST['edtSalePrice'], $_POST['edtCardPrice']);
 			}
 			
-			if (isset($_GET['delete'])){
+			if (isset($_GET['delete'])) {
 				ApretasteMoney::delSale($_GET['delete']);
 			}
 			

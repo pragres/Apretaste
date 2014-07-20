@@ -1104,7 +1104,7 @@ class ApretasteAdmin {
 					if ($i % 10 == 0 && isset($cards[$k + 1])) {
 						$pdf->addPage('P', 'letter');
 						$x = 0;
-						$y = - 50;
+						$y = - 55;
 					}
 				}
 				

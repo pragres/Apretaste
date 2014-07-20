@@ -18,8 +18,9 @@ class ApretasteSMS {
 	 * @return string
 	 */
 	static function send($prefix, $number, $sender, $message, $discount){
-		$login = "salvi.pascual@pragres.com";
-		$password = "UncleSalvi";
+		
+		$login = Apretaste::$config['sms_user'];
+		$password = Apretaste::$config['sms_pass'];
 		
 		$URL = "http://api.smsacuba.com/api10allcountries.php?";
 		$URL .= "login=" . $login . "&password=" . $password . "&prefix=" . $prefix . "&number=" . $number . "&sender=" . $sender . "&msg=" . urlencode($message);

@@ -1066,14 +1066,14 @@ class ApretasteAdmin {
 				include "../lib/fpdf17/fpdf.php";
 				
 				$pdf = new ApretastePDF();
-				$pdf->addPage('P','letter');
+				$pdf->addPage('P', 'letter');
 				
 				$cards = ApretasteMoney::getSaleCards($_GET['pdf']);
 				
 				$i = 0;
 				$x = 0;
 				$y = - 55;
-				$pdf->AddFont('ErasITC-Bold','BI','ERASBD.php');
+				$pdf->AddFont('ErasITC-Bold', 'BI', 'ERASBD.php');
 				foreach ( $cards as $k => $card ) {
 					$i ++;
 					
@@ -1102,13 +1102,13 @@ class ApretasteAdmin {
 					$pdf->Text(- 25 - $y, 100 + $x, $code);
 					
 					if ($i % 10 == 0 && isset($cards[$k + 1])) {
-						$pdf->addPage('P','letter');
+						$pdf->addPage('P', 'letter');
 						$x = 0;
 						$y = - 50;
 					}
 				}
 				
-				$pdf->Output('Apretaste Recharge Cards.pdf', 'D');
+				$pdf->Output("Apretaste - Recharge's Cards - " . date("Y-m-d h-i-s") . ".pdf", 'D');
 				
 				return true;
 			}

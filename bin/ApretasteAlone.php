@@ -773,12 +773,18 @@ class ApretasteAlone {
 			
 			$type = 'jpeg';
 			$photo = @file_get_contents("http://revolico.com/images/photos/{$id}a.jpg");
+			if ($photo === false)
+				$photo = @file_get_contents("http://lok.myvnc.com/images/photos/{$id}a.jpg");
 			if ($photo === false) {
 				$type = 'png';
 				$photo = @file_get_contents("http://revolico.com/images/photos/{$id}a.png");
 				if ($photo === false)
+					$photo = @file_get_contents("http://lok.myvnc.com/images/photos/{$id}a.png");
+				if ($photo === false)
 					$type = 'gif';
 				$photo = @file_get_contents("http://revolico.com/images/photos/{$id}a.gif");
+				if ($photo === false)
+					$photo = @file_get_contents("http://lok.myvnc.com/images/photos/{$id}a.gif");
 			}
 			
 			Apretaste::query("UPDATE announcement SET check_image = true WHERE id = '{$ad[0]['id']}';");

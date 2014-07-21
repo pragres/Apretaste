@@ -59,8 +59,8 @@ $friends?
 {$br}
 <table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
 
-{= pf1: Llene todos los campos de su perfil, que funcionara como su tarjeta de presentacion en Apretaste! Tambien nos ayudara a mejorar las busquedas y a personalizar Apretaste! para usted.%0A%0A =}
-{= pf2: Su perfil es una combinacion PROPIEDAD = Valor. Asigne un valor para cada PROPIEDAD despues del signo de igual (=) y envie el email. Adjunte una foto de usted si quiere que aparezca como foto del perfil.%0A%0A =} 
+{= pf1: Llene los campos de su perfil, una combinacion PROPIEDAD = Valor que funcionara como su tarjeta de presentacion en Apretaste! Tambien nos ayudara a personalizar Apretaste! para usted.%0A%0A =}
+{= pf2: Asigne cada valor y envie el email. Puede adjuntar una foto para su perfil.%0A%0A =} 
 {= pf3: Su nombre, ejemplo: Juan Perez Gutierres%0ANOMBRE %3D {$name}%0A%0A =}
 {= pf4: Fecha de nacimiento (dd/mm/aaaa), ejemplo: 23/08/1985%0ACUMPLEANOS %3D {$birthdate}%0A%0A =}
 {= pf5: A que te dedicas? Resumelo en una sola palabra, ejemplo: Arquitecto%0AOCUPACION %3D {$ocupation}%0A%0A =}

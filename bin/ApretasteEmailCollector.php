@@ -160,6 +160,31 @@ class ApretasteEmailCollector {
 				$t = str_ireplace("rv:", "", $t);
 				$headers->subject = trim($t);
 				
+				echo "[INFO} Message-ID: " . $headers->message_id . "\n";
+				
+				if (strpos($headers->message_id, '@') !== false) {
+					
+					$host = $headers->from[0]->host;
+					$msgid = Apretaste::extractEmailAddress($headers->message_id);
+					$msgid = substr($msgid, strpos($msgid, '@') + 1);
+					
+					if ($host != $msgid) {
+						echo "[INFO] host $host are not equal to $msgid message ID, mmmm...\n";
+						if (strpos($host, $msgid) === false && strpos($msgid, $host) === false) {
+							echo "[INFO] host is not inside msgid, and msgid is not inside host, mmmm...\n";
+							
+							$other = Apretaste::query("SELECT extra_data FROM message WHERE author ~* '@$host' AND extract_email(author) <> extract_email('$from') limit 1;");
+							if (isset($other[0])) {
+								$other = unserialize($other[0]['extra_data']);
+								$msgid2 = $other->headers->message_id;
+								$msgid2 = substr($msgid2, strpos($msgid2, '@') + 1);
+								if ($msgid != $msgid2)
+									echo "[WARN] _______________________ Suspicious message !!!";
+							}
+						}
+					}
+				}
+				
 				$body_structure = imap_fetchstructure($this->imap, $message_number_iterator);
 				
 				$textBody = false;

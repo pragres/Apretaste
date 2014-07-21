@@ -176,7 +176,7 @@ class ApretasteEmailCollector {
 							$other = Apretaste::query("SELECT extra_data FROM message WHERE author ~* '@$host' AND extract_email(author) <> extract_email('$from') limit 1;");
 							if (isset($other[0])) {
 								$other = unserialize($other[0]['extra_data']);
-								$msgid2 = $other->headers->message_id;
+								$msgid2 = $other['headers']->message_id;
 								$msgid2 = substr($msgid2, strpos($msgid2, '@') + 1);
 								if ($msgid != $msgid2)
 									echo "[WARN] _______________________ Suspicious message !!!";

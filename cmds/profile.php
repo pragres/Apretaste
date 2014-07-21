@@ -200,6 +200,14 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 											break;
 									} else if ($os == '#date') {
 										$value = trim(strtolower($value));
+										
+										if (strpos($value, '/') !== false) {
+											$arr = explode("/", $value);
+											if (isset($arr[2])) {
+												$value = $arr[2] . '-' . $arr[1] . '-' . $arr[0];
+											}
+										}
+										
 										$date = strtotime($value);
 										
 										if ($date == - 1 || $date === false)
@@ -284,6 +292,12 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 					)
 			);
 		}
+	
+	foreach ( $profile as $k => $v ) {
+		if ($k != 'picture' && $k != 'birthdate' && $k != 'sex' && $k != 'email')
+			if (is_string($v))
+				$profile[$k] = ucfirst($v);
+	}
 	$data['sharethis'] = 'PERFIL ' . $email;
 	$data['email'] = $email;
 	$data['from'] = $from;

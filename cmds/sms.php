@@ -49,6 +49,8 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	$body = quoted_printable_decode($body);
 	$body = trim(strip_tags($body));
 	$body = Apretaste::removeTildes($body);
+	$body = Apretaste::replaceRecursive("  ", " ", $body);
+	$body = Apretaste::replaceRecursive("--", "-", $body);
 	
 	$body = trim($body);
 	

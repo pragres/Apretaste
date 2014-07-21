@@ -243,10 +243,12 @@ class ApretasteEmailCollector {
 				
 				$cutbody = array(
 						"--\n",
+						"=0A--=0A",
 						"__________ ",
 						": : CUBAMOTRICIDAD",
 						"-----Mensaje original-----",
-						"50 Aniversario de la Cujae"
+						"50 Aniversario de la Cujae",
+						"Nunca digas nunca di mejor: gracias permiso"
 				);
 				
 				foreach ( $cutbody as $cut ) {

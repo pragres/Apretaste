@@ -68,13 +68,13 @@ $friends?
 {= pf6: Dinos por donde vives, llena todo lo que sepas%0APROVINCIA %3D {$state}%0A =}
 {= pf7: MUNICIPIO %3D {$city}%0A =}
 {= pf8: REPARTO %3D {$town}%0A%0A =}
-{= pf9: Escoja entre: Casado, Soltero, Divorciado, Viudo, Comprometido, Saliendo u Otro%0AESTADO CIVIL %3D {$sentimental}%0A%0A =}
+{= pf9: Escoja: Casado, Soltero, Divorciado, Viudo, Comprometido, Saliendo u Otro%0AESTADO CIVIL %3D {$sentimental}%0A%0A =}
 {= pf10: Intereses, separados por coma, ejemplo: Trabajo, Aviones%0AINTERESES %3D{$interest}%0A%0A =}
-{= pf11: Escoja entre: Masculino, Memenino u Desconocido%0ASEXO %3D {$sex}%0A%0A =}
-{= pf12: Escoja entre: Rubio, Trigueno, Moreno, Negro u Otro%0APELO %3D {$hair}%0A%0A =}
-{= pf13: Escoja entre: Blanca, negra, amarilla, india, mestiza, otra%0APIEL %3D {$skin}%0A%0A =}
-{= pf14: Escoja entre: Verdes, pardos, azules, negros, otros%0AOJOS %3D {$eyes}%0A%0A =}
-{= pf15: Escoja entre: Secundaria, Tecnico, Universidad, Master, Doctor, Otro%0ANIVEL ESCOLAR %3D{$school_level}%0A%0A =}
+{= pf11: Escoja: Masculino, Memenino u Desconocido%0ASEXO %3D {$sex}%0A%0A =}
+{= pf12: Escoja: Rubio, Trigueno, Moreno, Negro u Otro%0APELO %3D {$hair}%0A%0A =}
+{= pf13: Escoja: Blanca, negra, amarilla, india, mestiza, otra%0APIEL %3D {$skin}%0A%0A =}
+{= pf14: Escoja: Verdes, pardos, azules, negros, otros%0AOJOS %3D {$eyes}%0A%0A =}
+{= pf15: Escoja: Secundaria, Tecnico, Universidad, Master, Doctor, Otro%0ANIVEL ESCOLAR %3D{$school_level}%0A%0A =}
 {= pf16: Y recuerde adjuntar su foto! =}
 
 <table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">

@@ -21,6 +21,8 @@ define("APRETASTE_ACCUSATION_DUPLICATED", "APRETASTE_ACCUSATION_DUPLICATED");
 define("APRETASTE_ACCUSATION_SUCCESSFULL", "APRETASTE_ACCUSATION_SUCCESSFULL");
 define("APRETASTE_COMMENT_SUCCESSFULL", "APRETASTE_COMMENT_SUCCESSFULL");
 define("APRETASTE_MAX_WORD_LENGTH", 60);
+
+
 class Apretaste {
 	static $db = null;
 	static $config = null;
@@ -3356,5 +3358,25 @@ class Apretaste {
 		}
 		
 		$answerMail = new ApretasteAnswerEmail($config, $to, self::$robot->smtp_servers, $data, true, true, false);
+	}
+	
+	static function dropEmailAddress($email){
+		
+		$email = self::extractEmailAddress($email);
+		$email = trim(strtolower($email));
+		
+		// Delete from address list
+		self::query("DELETE FROM address_list WHERE email = '$email';");
+		
+		// Delete ads
+		self::query("DELETE FROM announcement WHERE author = '$email';");
+		
+		// Delete invitations
+		self::query("DELETE FROM invitation WHERE author = '$email' OR guest = '$email';");
+		
+		// Delete subscribes
+		self::query("DELETE FROM subscribe WHERE email = '$email';");
+		
+		
 	}
 }

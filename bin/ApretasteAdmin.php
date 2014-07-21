@@ -752,16 +752,19 @@ class ApretasteAdmin {
 		$data['user'] = self::getUser();
 		echo new div("../tpl/admin/users", $data);
 	}
+	
 	static function page_address_list(){
 		if (! self::verifyLogin())
 			die('Access denied');
 		
 		$nourish = get('nourish');
+		
 		if (! is_null($nourish)) {
 			Apretaste::nourishAddressList();
 			header("Location: index.php?path=admin&page=address_list");
 			exit();
 		}
+		
 		$submit = post('btnAdd');
 		
 		$download = post('btnDownload');
@@ -814,6 +817,11 @@ class ApretasteAdmin {
 			$data['msg'] = 'The address was inserted';
 			$data['addinserted'] = $address;
 		}
+		
+		if (isset($_POST['btnDropAddress'])){
+			Apretaste::dropEmailAddress($_POST['edtDropAddress']);
+		}
+		
 		
 		$data['user'] = self::getUser();
 		

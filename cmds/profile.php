@@ -162,7 +162,7 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 	
 	if ($email == $from) {
 		$body = strip_tags($body);
-		
+		$body = quoted_printable_decode($body);
 		$lines = explode("\n", $body);
 		
 		$profile = array();

@@ -30,6 +30,8 @@ class ApretasteSMS {
 		
 		$r = file_get_contents($URL);
 		
+		$sender = Apretaste::extractEmailAddress($sender);
+		
 		Apretaste::query("INSERT INTO sms (email, phone, message, discount)
 				VALUES ('$sender', '(+$prefix)$number', '$message', $discount);");
 		

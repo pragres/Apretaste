@@ -20,7 +20,7 @@
 {= pf4: Dinos donde vives, pon todo lo que sepas%0APROVINCIA %3D {$state}%0A =}
 {= pf5: MUNICIPIO %3D {$city}%0A =}
 {= pf6: REPARTO %3D {$town}%0A%0A =}
-{= pf7: Escoja: Masculino, Memenino u Desconocido%0ASEXO %3D {$sex}%0A%0A =}
+{= pf7: Escoja: Masculino, Femenino u Desconocido%0ASEXO %3D {$sex}%0A%0A =}
 {= pf8: Y recuerde adjuntar su foto! =}
 {= pf9: Escoja: Secundaria, Tecnico, Universidad, Master, Doctor, Otro%0ANIVEL ESCOLAR %3D{$school_level}%0A%0A =}
 {= pf10: Escoja: Casado, Soltero, Divorciado, Viudo, Comprometido, Saliendo u Otro%0AESTADO CIVIL %3D {$sentimental}%0A%0A =}

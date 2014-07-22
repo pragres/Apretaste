@@ -294,10 +294,15 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 		}
 	
 	foreach ( $profile as $k => $v ) {
+		
 		if ($k != 'picture' && $k != 'birthdate' && $k != 'sex' && $k != 'email')
-			if (is_string($v))
+			
+			if (is_string($v)) {
+				$v = quoted_printable_decode($v);
 				$profile[$k] = ucfirst($v);
+			}
 	}
+	
 	$data['sharethis'] = 'PERFIL ' . $email;
 	$data['email'] = $email;
 	$data['from'] = $from;

@@ -52,7 +52,7 @@ Su cr&eacute;dito actual es de <b>${#credit:2.#}</b>.
 	</table>
 @else@
 	{$h2}Sus anuncios publicados{$_h2}
-	{$p}Usted no tiene anuncios publicados en Apretaste!{$_p}
+	{$p}Usted no tiene anuncios publicados en Apretaste! Para publicar uno haga clic <a href="mailto:{$reply_to}?subject=PUBLICAR Aqui va el titulo de su anuncio&body=Aqui va la descripcion de su anuncio. Puede adjuntar una imagen">aqu&iacute;</a>.{$_p}
 $announcements?
 
 ?$subscribes
@@ -77,7 +77,7 @@ $announcements?
 	</table>
 @else@
 	{$h2}Sus alertas por correo{$_h2}
-	{$p}Usted no est&aacute; subscrito(a) a ninguna alerta{$_p}
+	{$p}Usted no est&aacute; subscrito(a) a ninguna alerta. Para subscribirse haga clic <a href="mailto:{$reply_to}?subject=ALERTA Aqui va una frase de b&uacute;squeda">aqu&iacute;</a>.{$_p}
 $subscribes?
 
 {$br}

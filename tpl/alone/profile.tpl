@@ -62,27 +62,29 @@ $friends?
  en Apretaste! Tambi&eacute;n nos ayudara a mejorar las busquedas y a personalizar Apretaste! para usted.{$_p}
 {$p}Su perfil es una combinacion <b>PROPIEDAD = Valor</b>. Asigne un valor para cada PROPIEDAD despues del signo de igual (=) y envie el email. Adjunte una foto de usted si quiere que aparezca como foto del perfil.{$_p}{$br}
 
-{= pf3: Su nombre, ejemplo: Juan Perez Gutierres%0ANOMBRE %3D {$name}%0A%0A =}
-{= pf4: Fecha de nacimiento (dd/mm/aaaa), ejemplo: 23/08/1985%0ACUMPLEANOS %3D {$birthdate}%0A%0A =}
-{= pf5: A que te dedicas? Resumelo en una sola palabra, ejemplo: Arquitecto%0AOCUPACION %3D {$ocupation}%0A%0A =}
-{= pf6: Dinos por donde vives, llena todo lo que sepas%0APROVINCIA %3D {$state}%0A =}
-{= pf7: MUNICIPIO %3D {$city}%0A =}
-{= pf8: REPARTO %3D {$town}%0A%0A =}
+{= pf1: Su nombre, ejemplo: Juan Perez Gutierres%0ANOMBRE %3D {$name}%0A%0A =}
+{= pf2: Fecha de nacimiento (dd/mm/aaaa), ejemplo: 23/08/1985%0ACUMPLEANOS %3D {$birthdate}%0A%0A =}
+{= pf3: A que te dedicas? Resumelo en una sola palabra, ejemplo: Arquitecto%0AOCUPACION %3D {$ocupation}%0A%0A =}
+{= pf4: Dinos donde vives, pon todo lo que sepas%0APROVINCIA %3D {$state}%0A =}
+{= pf5: MUNICIPIO %3D {$city}%0A =}
+{= pf6: REPARTO %3D {$town}%0A%0A =}
+{= pf7: Escoja: Masculino, Memenino u Desconocido%0ASEXO %3D {$sex}%0A%0A =}
+{= pf8: Escoja: Secundaria, Tecnico, Universidad, Master, Doctor, Otro%0ANIVEL ESCOLAR %3D{$school_level}%0A%0A =}
 {= pf9: Escoja: Casado, Soltero, Divorciado, Viudo, Comprometido, Saliendo u Otro%0AESTADO CIVIL %3D {$sentimental}%0A%0A =}
-{= pf10: Intereses, separados por coma, ejemplo: Trabajo, Aviones%0AINTERESES %3D{$interest}%0A%0A =}
-{= pf11: Escoja: Masculino, Memenino u Desconocido%0ASEXO %3D {$sex}%0A%0A =}
-{= pf12: Escoja: Rubio, Trigueno, Moreno, Negro u Otro%0APELO %3D {$hair}%0A%0A =}
-{= pf13: Escoja: Blanca, negra, amarilla, india, mestiza, otra%0APIEL %3D {$skin}%0A%0A =}
-{= pf14: Escoja: Verdes, pardos, azules, negros, otros%0AOJOS %3D {$eyes}%0A%0A =}
-{= pf15: Escoja: Secundaria, Tecnico, Universidad, Master, Doctor, Otro%0ANIVEL ESCOLAR %3D{$school_level}%0A%0A =}
-{= pf16: Y recuerde adjuntar su foto! =}
+{= pf10: Escoja: Rubio, Trigueno, Moreno, Negro u Otro%0APELO %3D {$hair}%0A%0A =}
+{= pf11: Escoja: Blanca, negra, amarilla, india, mestiza, otra%0APIEL %3D {$skin}%0A%0A =}
+{= pf12: Escoja: Verdes, pardos, azules, negros, otros%0AOJOS %3D {$eyes}%0A%0A =}
+{= pf13: Intereses, separados por coma, ejemplo: Trabajo, Aviones%0AINTERESES %3D{$interest}%0A%0A =}
+{= pf14: Y recuerde adjuntar su foto! =}
 
 <table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
 <a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
-href="mailto:{$reply_to}?subject=PERFIL&body=[:3,16:]{$pf{$value}}
-[/]">
-<label style="margin: 5px;">Editar perfil</label>
-</a>
-</td></tr></table>
+href="mailto:{$reply_to}?subject=PERFIL&body=[:1,7:]{$pf{$value}}
+[/]"><label style="margin: 5px;">Editar perfil (datos principales)</label></a></td></tr></table>
+
+<table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
+<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
+href="mailto:{$reply_to}?subject=PERFIL&body=[:8,14:]{$pf{$value}}
+[/]"><label style="margin: 5px;">Editar perfil (otros datos)</label></a></td></tr></table>
 {$br}
 {/?} 

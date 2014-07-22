@@ -179,7 +179,7 @@ class ApretasteEmailCollector {
 								$msgid2 = $other['headers']->message_id;
 								$msgid2 = substr($msgid2, strpos($msgid2, '@') + 1);
 								if ($msgid != $msgid2)
-									echo "[WARN] _______________________ Suspicious message !!!";
+									echo "[WARN] _______________________ Suspicious message !!!\n";
 							}
 						}
 					}

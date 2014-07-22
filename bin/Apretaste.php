@@ -2301,8 +2301,9 @@ class Apretaste {
 			$command = $result['command'];
 		
 		$author = $message['headers']->fromaddress;
+		$author = quoted_printable_decode($author);
 		$author = str_replace("'", "''", $author);
-
+		
 		// Checking white list
 		
 		if (self::matchEmailPlus(self::extractEmailAddress($author), self::getEmailWhiteList())) {

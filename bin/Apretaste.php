@@ -1284,6 +1284,8 @@ class Apretaste {
 			
 			$table_temp = "search_" . uniqid();
 			
+			$simplematch = "title || body ~* '" . implode("' AND title || body ~* '", $words) . "'";
+			
 			$sql = "
 			SELECT * INTO $table_temp FROM (
 				SELECT 	id as ida, distinctive_word as dw,
@@ -1300,6 +1302,7 @@ class Apretaste {
 				WHERE 
 					" . (! is_null($ad) ? "id = '$ad' AND" : "") . "
 					query @@ to_tsvector('english',$ftitlebody)
+					OR ($simplematch)
 				$filtersql
 			) AS subq 
 			WHERE rank_global > 0";

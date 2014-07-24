@@ -1335,7 +1335,7 @@ class Apretaste {
 	            $table_temp.have_phones,
 	            $table_temp.rank_global,
 	            $table_temp.is_external,
-	            (SELECT CASE WHEN is_external AND rank_title > 0 THEN 0 ELSE 1 END) as priority 
+	            (SELECT CASE WHEN is_external = FALSE AND rank_title > 0.3 THEN 1 ELSE 0 END) as priority 
             from announcement
 	            inner join $table_temp on announcement.id = $table_temp.ida
             ORDER BY

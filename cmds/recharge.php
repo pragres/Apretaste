@@ -4,7 +4,7 @@ function cmd_recharge($robot, $from, $argument, $body = '', $images = array()){
 	if (trim($argument) == '') {
 		$argument = trim($body);
 		$argument = str_replace("\n", " ", $argument);
-		$argument = str_replace("\r","",$argument);
+		$argument = str_replace("\r", "", $argument);
 		$argument = trim($argument);
 	}
 	
@@ -12,7 +12,17 @@ function cmd_recharge($robot, $from, $argument, $body = '', $images = array()){
 	
 	$argument = trim($argument);
 	
-	$code = str_replace("'", "''", $argument);
+	// Remove ugly chars
+	
+	$n = '';
+	$l = strlen($argument);
+	for($i = 0; $i < $l; $i ++)
+		if (strpos('1234567890', $argument[$i]) !== false)
+			$n .= $argument[$i];
+	
+	$argument = $n;
+	
+	$code = $argument;
 	
 	$r = Apretaste::query("SELECT * FROM recharge_card WHERE code = '$code' AND email is null;");
 	
@@ -36,10 +46,10 @@ function cmd_recharge($robot, $from, $argument, $body = '', $images = array()){
 			}
 			
 			return array(
-				"answer_type" => "recharge_fail",
-				"command" => "recharge",
-				"code" => $code,
-				"from" => $from
+					"answer_type" => "recharge_fail",
+					"command" => "recharge",
+					"code" => $code,
+					"from" => $from
 			);
 		}
 	

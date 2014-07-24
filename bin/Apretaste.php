@@ -1334,11 +1334,12 @@ class Apretaste {
 	            $table_temp.have_price,
 	            $table_temp.have_phones,
 	            $table_temp.rank_global,
-	            $table_temp.is_external
+	            $table_temp.is_external,
+	            (SELECT CASE WHEN is_external AND rank_title > 0 THEN 0 ELSE 1 END) as priority 
             from announcement
 	            inner join $table_temp on announcement.id = $table_temp.ida
             ORDER BY
-	            (is_external and rank_title > 0),
+	            priority,
 	            $table_temp.rank_title DESC,
 	            $table_temp.rank_body DESC,
 	            $table_temp.rank_global DESC,

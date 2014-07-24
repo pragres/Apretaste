@@ -288,7 +288,8 @@ class ApretasteEmailCollector {
 						": : CUBAMOTRICIDAD",
 						"-----Mensaje original-----",
 						"50 Aniversario de la Cujae",
-						"Nunca digas nunca di mejor: gracias permiso"
+						"Nunca digas nunca di mejor: gracias permiso",
+						"---------- Mensaje reenviado ----------"
 				);
 				
 				foreach ( $cutbody as $cut ) {

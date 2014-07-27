@@ -3006,6 +3006,8 @@ class Apretaste {
 		
 		if ($from != '' && $to != '') {
 			$subject = str_replace("'", "''", $subject);
+			$from = str_replace("'", "''", $from);
+			$to = str_replace("'", "''", $to);
 			$sql = "INSERT INTO answer (sender, receiver, subject, type, message) VALUES ('$from','$to','$subject','$type', '$msg_id');";
 			self::query($sql);
 		}

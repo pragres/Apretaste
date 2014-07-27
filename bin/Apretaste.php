@@ -2334,11 +2334,12 @@ class Apretaste {
 		
 		$id = strtoupper(uniqid());
 		
-		$extra_data = str_replace("''", "'", $extra_data);
+		/*$extra_data = str_replace("''", "'", $extra_data);
 		$extra_data = str_replace("'", "''", $extra_data);
-				
+		*/		
 		if (! self::isUTF8($extra_data))
 			$extra_data = utf8_encode($extra_data);
+	
 		
 		if (trim("$announcement") == '')
 			$announcement = 'null';

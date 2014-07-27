@@ -95,7 +95,10 @@ class ApretasteAdmin {
 		if (is_array($data['messages']))
 			foreach ( $data['messages'] as $k => $v ) {
 				$e = unserialize($v['extra_data']);
-				if (isset($e['headers']->subject)) $data['messages'][$k]['subject'] = $e['headers']->subject; else $data['messages'][$k]['subject'] = '';
+				if (isset($e['headers']->subject))
+					$data['messages'][$k]['subject'] = $e['headers']->subject;
+				else
+					$data['messages'][$k]['subject'] = '';
 			}
 		
 		$sql = "SELECT * FROM answer WHERE send_date::date = '$date' AND extract(hour from send_date) = $hour;";
@@ -166,29 +169,33 @@ class ApretasteAdmin {
 		$data['user'] = self::getUser();
 		$data['message'] = Apretaste::query("SELECT * FROM message WHERE id = '$id';");
 		$data['message'] = $data['message'][0];
-		$headers = unserialize($data['message']['extra_data']);
-		$headers = get_object_vars($headers['headers']);
-		
-		foreach ( $headers as $h => $v ) {
-			if (is_scalar($v))
-				$data['message']['header-' . $h] = "$v";
-			else
-				$data['message']['header-' . $h] = json_encode($v);
-		}
 		
 		$headers = unserialize($data['message']['extra_data']);
 		
-		unset($headers['headers']);
-		
-		foreach ( $headers as $h => $v ) {
+		if (isset($headers['headers'])) {
+			$headers = get_object_vars($headers['headers']);
 			
-			if (is_scalar($v))
-				$data['message'][$h] = "$v";
-			else
-				$data['message'][$h] = json_encode($v);
+			foreach ( $headers as $h => $v ) {
+				if (is_scalar($v))
+					$data['message']['header-' . $h] = "$v";
+				else
+					$data['message']['header-' . $h] = json_encode($v);
+			}
+			
+			$headers = unserialize($data['message']['extra_data']);
+			
+			unset($headers['headers']);
+			
+			foreach ( $headers as $h => $v ) {
+				
+				if (is_scalar($v))
+					$data['message'][$h] = "$v";
+				else
+					$data['message'][$h] = json_encode($v);
+			}
+			
+			unset($data['message']['extra_data']);
 		}
-		
-		unset($data['message']['extra_data']);
 		
 		echo new div("../tpl/admin/message.tpl", $data);
 	}
@@ -752,7 +759,6 @@ class ApretasteAdmin {
 		$data['user'] = self::getUser();
 		echo new div("../tpl/admin/users", $data);
 	}
-	
 	static function page_address_list(){
 		if (! self::verifyLogin())
 			die('Access denied');
@@ -818,10 +824,9 @@ class ApretasteAdmin {
 			$data['addinserted'] = $address;
 		}
 		
-		if (isset($_POST['btnDropAddress'])){
+		if (isset($_POST['btnDropAddress'])) {
 			Apretaste::dropEmailAddress($_POST['edtDropAddress']);
 		}
-		
 		
 		$data['user'] = self::getUser();
 		
@@ -1095,7 +1100,7 @@ class ApretasteAdmin {
 						$y += 55;
 					
 					$pdf->Rotate(0);
-					$pdf->Image('../tpl/admin/recharge_card.tpl.png', $x, $y, -300);
+					$pdf->Image('../tpl/admin/recharge_card.tpl.png', $x, $y, - 300);
 					
 					$pdf->SetFont('ErasITC-Bold', '', 68);
 					$pdf->SetTextColor(200, 200, 200);

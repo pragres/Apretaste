@@ -2330,6 +2330,8 @@ class Apretaste {
 		unset($message['htmlbody']);
 		unset($message['images']);
 		
+		$message['headers']->toaddress = self::extractEmailAddress($message['headers']->toaddress);
+		
 		$extra_data = serialize($message);
 		
 		$id = strtoupper(uniqid());
@@ -2337,6 +2339,7 @@ class Apretaste {
 		/*
 		 * $extra_data = str_replace("''", "'", $extra_data); $extra_data = str_replace("'", "''", $extra_data);
 		 */
+		
 		if (! self::isUTF8($extra_data))
 			$extra_data = utf8_encode($extra_data);
 		

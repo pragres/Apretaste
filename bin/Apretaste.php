@@ -2355,6 +2355,13 @@ class Apretaste {
 		self::query("INSERT INTO message (id, command, author, addressee, announcement, extra_data, answer_type) VALUES
 		 ('$id', '$command','$author','$to',$announcement, '$extra_data', '{$result['answer_type']}');");
 		
+		$r = self::query("SELECT count(*) as total FROM message WHERE id = '$id';");
+		
+		if ($r[0]['total'] * 1 == 0) {
+			self::query("INSERT INTO message (id, command, author, addressee, announcement, extra_data, answer_type) VALUES
+					('$id', '$command','$author','$to',$announcement, '" . serialize(null) . "', '{$result['answer_type']}');");
+		}
+		
 		return $id;
 	}
 	

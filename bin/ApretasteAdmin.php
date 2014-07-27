@@ -95,7 +95,7 @@ class ApretasteAdmin {
 		if (is_array($data['messages']))
 			foreach ( $data['messages'] as $k => $v ) {
 				$e = unserialize($v['extra_data']);
-				$data['messages'][$k]['subject'] = $e['headers']->subject;
+				if (isset($e['headers']->subject)) $data['messages'][$k]['subject'] = $e['headers']->subject; else $data['messages'][$k]['subject'] = '';
 			}
 		
 		$sql = "SELECT * FROM answer WHERE send_date::date = '$date' AND extract(hour from send_date) = $hour;";

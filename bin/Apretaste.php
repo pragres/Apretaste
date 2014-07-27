@@ -2331,11 +2331,16 @@ class Apretaste {
 		unset($message['images']);
 		
 		$extra_data = serialize($message);
-				
+		
 		$id = strtoupper(uniqid());
 		
 		$extra_data = str_replace("''", "'", $extra_data);
 		$extra_data = str_replace("'", "''", $extra_data);
+		
+		if (trim("$announcement") == '')
+			$announcement = 'null';
+		
+		$to = str_replace("'", "''", $to);
 		
 		self::query("INSERT INTO message (id, command, author, addressee, announcement, extra_data, answer_type) VALUES
 		 ('$id', '$command','$author','$to',$announcement, '$extra_data', '{$result['answer_type']}');");

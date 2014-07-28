@@ -1,24 +1,32 @@
 <?php
-
-class ApretasteEmailLogger{
-
-	function __construct($verbose=false,$debug=false){
-		
-		$this->verbose=$verbose;
-		$this->debug=$debug;
-	}
+/**
+ * Apretaste Email Logger
+ * 
+ * @author rafa
+ *
+ */
+class ApretasteEmailLogger {
 	
-	function log($message,$result){		
+	/**
+	 * Constructor
+	 * 
+	 * @param boolean $verbose
+	 * @param boolean $debug
+	 */
+	function __construct($verbose = false, $debug = false){
+		$this->verbose = $verbose;
+		$this->debug = $debug;
+	}
+	function log($message, $result){
 		echo $this->verbose ? "creating log for message\n" : "";
 		
 		$id = Apretaste::message($message, $result);
 		
-		if($this->debug){
-			//var_dump($message);
-			//var_dump($result);
+		if ($this->debug) {
+			// var_dump($message);
+			// var_dump($result);
 		}
-                
-                return $id;
+		
+		return $id;
 	}
-
 }

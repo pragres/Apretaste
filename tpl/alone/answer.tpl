@@ -46,7 +46,7 @@
 		terms: {cmd: "TERMINOS", desc: "T&eacute;rminos de uso", rel: ["invite"]}	,
 		google: {cmd: "GOOGLE", desc: "Buscar con Google", rel: ["invite"]}	,
 		services: {cmd: "SERVICIOS", desc: "Servicios de Apretaste!", rel: ["invite"]}	,
-		sms: {cmd: "SMS", desc: "Enviar un SMS", rel:["invite", "sms", "insert", "search"]},
+		sms: {cmd: "SMS", desc: "Enviar un SMS", rel:["invite", "sms", "insert", "search", "phonebook"]},
 		linker: {cmd: "ANUNCIOS", desc: "Anuncios", rel:["insert","search","subscribe"]},
 		recharge: {cmd: "RECARGA", desc: "Recargar su cr&eacute;dito", rel:["state"]},
 		map: {cmd: "MAPA", desc: "Mapas", rel:["weather","article"]},
@@ -54,7 +54,8 @@
 		profile: {cmd: "PERFIL", desc: "Ver o modificar su perfil", rel:["invite"]},
 		lock: {cmd: "BLOQUEAR", desc: "Bloquear a un usuario", rel:[]},
 		share: {cmd: "COMPARTIR", desc: "Compartir algo con un amigo", rel:["invite"]},
-		comment: {cmd: "COMENTAR", desc: "Comentar un anuncio", rel:["insert"]} 
+		comment: {cmd: "COMENTAR", desc: "Comentar un anuncio", rel:["insert"]},
+		phonebook: {cmd: "AGENDA", desc: "Agenda telefonica", rel:["sms"]} 
 	}
 =}
 

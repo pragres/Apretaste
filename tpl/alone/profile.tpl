@@ -37,7 +37,7 @@
 <table>
 <tr><td valign="top">
 ?$picture
-<img src="cid:profile_picture" style="float:left;margin-right:10px;">
+<img src="cid:profile_picture" style="float:left;margin-right:10px;" width="80">
 $picture?
 </td><td valign="top">
 ?$email

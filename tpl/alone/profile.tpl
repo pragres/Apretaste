@@ -22,12 +22,12 @@
 {= pf6: REPARTO = {$town} =}
 {= pf7: Escoja: Masculino, Femenino u Desconocido\nSEXO = {$sex} =}
 {= pf8: Y recuerde adjuntar su foto! =}
-{= pf9: Escoja: Secundaria, Tecnico, Universidad, Master, Doctor, Otro\nNIVEL ESCOLAR ={$school_level} =}
+{= pf9: Escoja: Secundaria, Tecnico, Universidad, Master, Doctor, Otro\nNIVEL ESCOLAR = {$school_level} =}
 {= pf10: Escoja: Casado, Soltero, Divorciado, Viudo, Comprometido, Saliendo u Otro\nESTADO CIVIL = {$sentimental} =}
-{= pf11: Escoja: Rubio, Trigueno, Moreno, Negro u Otro\nPELO {$hair} =}
+{= pf11: Escoja: Rubio, Trigueno, Moreno, Negro u Otro\nPELO = {$hair} =}
 {= pf12: Escoja: Blanca, negra, amarilla, india, mestiza, otra\nPIEL = {$skin} =}
 {= pf13: Escoja: Verdes, pardos, azules, negros, otros\nOJOS = {$eyes} =}
-{= pf14: Intereses, separados por coma, ejemplo: Trabajo, Aviones\nINTERESES ={$interest} =}
+{= pf14: Intereses, separados por coma, ejemplo: Trabajo, Aviones\nINTERESES = {$interest} =}
 
 {?( "{$from}" == "{$email}" || "{$command}" == "state" )?}
 {= edit: true =}

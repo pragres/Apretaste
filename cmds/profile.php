@@ -144,6 +144,11 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 					"otra"
 			),
 			"eyes" => array(
+					"verde",
+					"azul",
+					"pardo",
+					"negro",
+					"otro",
 					"verdes",
 					"azules",
 					"pardos",

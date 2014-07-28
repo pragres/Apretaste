@@ -3091,7 +3091,7 @@ class Apretaste {
 		self::saveAuthor($email, $data);
 	}
 	static function getAuthor($email, $with_friends = true){
-		$r = self::query("SELECT * FROM authors WHERE email = '$email';");
+		$r = self::query("SELECT *,date_part('year',age(birthdate)) as age FROM authors WHERE email = '$email';");
 		
 		if (! isset($r[0]))
 			return array(

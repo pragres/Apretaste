@@ -114,7 +114,12 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 					"divorciado",
 					'viudo',
 					'comprometido',
-					'otro'
+					'otro',
+					'casada',
+					'soltera',
+					'divorciada',
+					'viuda',
+					'comprometida'
 			),
 			"interest" => '*',
 			"cupid" => array(
@@ -126,7 +131,9 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 					'trigueno',
 					'moreno',
 					'negro',
-					'otro'
+					'blanco',
+					'otro',
+					'rojo'
 			),
 			"skin" => array(
 					"blanca",

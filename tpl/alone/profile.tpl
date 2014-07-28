@@ -45,6 +45,7 @@ $picture?
 $email?
 
 ?$birthdate {$p}Cumplea&ntilde;os: <b>{$birthdate}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf2}">editar</a>] $edit?{$_p} $birthdate?
+?$age {$p}Edad: <b>{$age} a&ntilde;os</b> {$_p} $age?
 ?$ocupation {$p}Ocupaci&oacute;n: <b>{$ocupation}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf3}">editar</a>] $edit?{$_p} $ocupation?
 ?$state {$p}Provincia/Estado: <b>{$state}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf4}">editar</a>]$edit?{$_p} $state?
 ?$city {$p}Municipio/Ciudad: <b>{$city}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf5}">editar</a>]$edit?{$_p} $city?
@@ -82,17 +83,36 @@ $friends?
 {$p}Su perfil es una combinacion <b>PROPIEDAD = Valor</b>. Asigne un valor para cada PROPIEDAD despues del signo de igual (=) y envie el email. <b>Adjunte una foto de usted si quiere que aparezca como foto del perfil</b>.{$_p}
 {$p}Haga clic en los siguientes botones para editar sus datos de identificaci&oacute;n y otros datos de inter&eacute;s respectivamente.{$_p}
 
-<table><tr><td>
 <table>
-<table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
-<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
-href="mailto:{$reply_to}?subject=PERFIL&body=[:1,8:]{&&pf{$value}}%0A%0A
-[/]"><label style="margin: 5px;" title="Nombre, Fecha de nacimiento, ocupacion, donde vives, sexo" >Editar mi identidad</label></a></td></tr></table>
-</td><td>
-<table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
-<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
-href="mailto:{$reply_to}?subject=PERFIL&body=[:9,14:]{&&pf{$value}}%0A%0A
-[/]"><label style="margin: 5px;" title="Nivel escolar, estado civil, color de pelo, color de piel, color de ojos, intereses">Editar otros datos</label></a></td></tr></table>
-</td></tr></table>
+	<tr>
+		<td>
+			<table>
+				<tr>
+					<td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
+						<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
+						href="mailto:{$reply_to}?subject=PERFIL&body=[:1,8:]{&&pf{$value}}%0A%0A
+						[/]">
+							<label style="margin: 5px;" title="Nombre, Fecha de nacimiento, ocupacion, donde vives, sexo" >
+							Editar mi identidad
+							</label>
+						</a>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td>
+			<table>
+				<tr>
+					<td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
+						<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
+						href="mailto:{$reply_to}?subject=PERFIL&body=[:9,14:]{&&pf{$value}}%0A%0A
+						[/]"><label style="margin: 5px;" title="Nivel escolar, estado civil, color de pelo, color de piel, color de ojos, intereses">Editar otros datos</label>
+						</a>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
 {$br}
 {/?} 

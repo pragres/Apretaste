@@ -2,6 +2,8 @@
 function cmd_phonebook($robot, $from, $argument, $body = '', $images = array()){
 	$body = trim($body);
 	$body = explode("\n", $body);
+	$body = strip_tags($body);
+	$body = trim($body);
 	$from = strtolower(Apretaste::extractEmailAddress($from));
 	
 	echo "[INFO] Phonebook of $from \n";

@@ -14,20 +14,20 @@
 {= interest: '' =}
 {= sentimental: '' =}
 
-{= pf1: Su nombre, ejemplo: Juan Perez Gutierres%0ANOMBRE %3D {$name}%0A%0A =}
-{= pf2: Fecha de nacimiento (dd/mm/aaaa), ejemplo: 23/08/1985%0ACUMPLEANOS %3D {$birthdate}%0A%0A =}
-{= pf3: A que te dedicas? Resumelo en una sola palabra, ejemplo: Arquitecto%0AOCUPACION %3D {$ocupation}%0A%0A =}
-{= pf4: Dinos donde vives, pon todo lo que sepas%0APROVINCIA %3D {$state}%0A =}
-{= pf5: MUNICIPIO %3D {$city}%0A =}
-{= pf6: REPARTO %3D {$town}%0A%0A =}
-{= pf7: Escoja: Masculino, Femenino u Desconocido%0ASEXO %3D {$sex}%0A%0A =}
+{= pf1: Su nombre, ejemplo: Juan Perez Gutierres\nNOMBRE = {$name} =}
+{= pf2: Fecha de nacimiento (dd/mm/aaaa), ejemplo: 23/08/1985\nCUMPLEANOS = {$birthdate} =}
+{= pf3: A que te dedicas? Resumelo en una sola palabra, ejemplo: Arquitecto\nOCUPACION = {$ocupation} =}
+{= pf4: Dinos donde vives, pon todo lo que sepas\nPROVINCIA = {$state} =}
+{= pf5: MUNICIPIO = {$city} =}
+{= pf6: REPARTO = {$town} =}
+{= pf7: Escoja: Masculino, Femenino u Desconocido\nSEXO = {$sex} =}
 {= pf8: Y recuerde adjuntar su foto! =}
-{= pf9: Escoja: Secundaria, Tecnico, Universidad, Master, Doctor, Otro%0ANIVEL ESCOLAR %3D{$school_level}%0A%0A =}
-{= pf10: Escoja: Casado, Soltero, Divorciado, Viudo, Comprometido, Saliendo u Otro%0AESTADO CIVIL %3D {$sentimental}%0A%0A =}
-{= pf11: Escoja: Rubio, Trigueno, Moreno, Negro u Otro%0APELO %3D {$hair}%0A%0A =}
-{= pf12: Escoja: Blanca, negra, amarilla, india, mestiza, otra%0APIEL %3D {$skin}%0A%0A =}
-{= pf13: Escoja: Verdes, pardos, azules, negros, otros%0AOJOS %3D {$eyes}%0A%0A =}
-{= pf14: Intereses, separados por coma, ejemplo: Trabajo, Aviones%0AINTERESES %3D{$interest}%0A%0A =}
+{= pf9: Escoja: Secundaria, Tecnico, Universidad, Master, Doctor, Otro\nNIVEL ESCOLAR ={$school_level} =}
+{= pf10: Escoja: Casado, Soltero, Divorciado, Viudo, Comprometido, Saliendo u Otro\nESTADO CIVIL = {$sentimental} =}
+{= pf11: Escoja: Rubio, Trigueno, Moreno, Negro u Otro\nPELO {$hair} =}
+{= pf12: Escoja: Blanca, negra, amarilla, india, mestiza, otra\nPIEL = {$skin} =}
+{= pf13: Escoja: Verdes, pardos, azules, negros, otros\nOJOS = {$eyes} =}
+{= pf14: Intereses, separados por coma, ejemplo: Trabajo, Aviones\nINTERESES ={$interest} =}
 
 {?( "{$from}" == "{$email}" || "{$command}" == "state" )?}
 {= edit: true =}
@@ -44,18 +44,18 @@ $picture?
 {$p}Email: <a href="mailto:{$email}">{$email}</a>{$_p}
 $email?
 
-?$birthdate {$p}Cumplea&ntilde;os: <b>{$birthdate}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={$pf2}">editar</a>] $edit?{$_p} $birthdate?
-?$ocupation {$p}Ocupaci&oacute;n: <b>{$ocupation}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={$pf3}">editar</a>] $edit?{$_p} $ocupation?
-?$state {$p}Provincia/Estado: <b>{$state}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={$pf4}">editar</a>]$edit?{$_p} $state?
-?$city {$p}Municipio/Ciudad: <b>{$city}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={$pf5}">editar</a>]$edit?{$_p} $city?
-?$town {$p}Localidad/Reparto/Pueblo: <b>{$town}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={$pf6}">editar</a>]$edit?{$_p} $town?
-?$sex {$p}Sexo: <b>{$sex}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={$pf7}">editar</a>]$edit?{$_p} $sex?
-?$school_level {$p}Nivel de escolaridad: <b>{$school_level}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={$pf9}">editar</a>]$edit?{$_p} $school_level?
-?$sentimental {$p}Situaci&oacute;n sentimental: <b>{$sentimental}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={$pf10}">editar</a>]$edit?{$_p} $sentimental?
-?$hair {$p}Pelo: <b>{$hair}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={$pf11}">editar</a>]$edit?{$_p} $hair?
-?$skin {$p}Piel: <b>{$skin}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={$pf12}">editar</a>]$edit?{$_p} $skin?
-?$eyes {$p}Ojos: <b>{$eyes}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={$pf13}">editar</a>]$edit?{$_p} $eyes?
-?$interest {$p}Intereses: <b>{$interest}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={$pf14}">editar</a>]$edit?{$_p} $interest?
+?$birthdate {$p}Cumplea&ntilde;os: <b>{$birthdate}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf2}">editar</a>] $edit?{$_p} $birthdate?
+?$ocupation {$p}Ocupaci&oacute;n: <b>{$ocupation}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf3}">editar</a>] $edit?{$_p} $ocupation?
+?$state {$p}Provincia/Estado: <b>{$state}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf4}">editar</a>]$edit?{$_p} $state?
+?$city {$p}Municipio/Ciudad: <b>{$city}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf5}">editar</a>]$edit?{$_p} $city?
+?$town {$p}Localidad/Reparto/Pueblo: <b>{$town}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf6}">editar</a>]$edit?{$_p} $town?
+?$sex {$p}Sexo: <b>{$sex}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf7}">editar</a>]$edit?{$_p} $sex?
+?$school_level {$p}Nivel de escolaridad: <b>{$school_level}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf9}">editar</a>]$edit?{$_p} $school_level?
+?$sentimental {$p}Situaci&oacute;n sentimental: <b>{$sentimental}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf10}">editar</a>]$edit?{$_p} $sentimental?
+?$hair {$p}Pelo: <b>{$hair}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf11}">editar</a>]$edit?{$_p} $hair?
+?$skin {$p}Piel: <b>{$skin}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf12}">editar</a>]$edit?{$_p} $skin?
+?$eyes {$p}Ojos: <b>{$eyes}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf13}">editar</a>]$edit?{$_p} $eyes?
+?$interest {$p}Intereses: <b>{$interest}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf14}">editar</a>]$edit?{$_p} $interest?
 
 <!--{ {$p}Buscando pareja:  <b>?$cupid S&iacute; @else@ No $cupid? </b>{$_p} }-->
 </td></tr></table>
@@ -86,12 +86,12 @@ $friends?
 <table>
 <table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
 <a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
-href="mailto:{$reply_to}?subject=PERFIL&body=[:1,8:]{$pf{$value}}
+href="mailto:{$reply_to}?subject=PERFIL&body=[:1,8:]{&&pf{$value}}%0A%0A
 [/]"><label style="margin: 5px;" title="Nombre, Fecha de nacimiento, ocupacion, donde vives, sexo" >Editar mi identidad</label></a></td></tr></table>
 </td><td>
 <table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
 <a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
-href="mailto:{$reply_to}?subject=PERFIL&body=[:9,14:]{$pf{$value}}
+href="mailto:{$reply_to}?subject=PERFIL&body=[:9,14:]{&&pf{$value}}%0A%0A
 [/]"><label style="margin: 5px;" title="Nivel escolar, estado civil, color de pelo, color de piel, color de ojos, intereses">Editar otros datos</label></a></td></tr></table>
 </td></tr></table>
 {$br}

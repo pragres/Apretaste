@@ -3158,8 +3158,15 @@ class div {
 	 * @param string $superkey
 	 * @return array
 	 */
-	final static function getVars($items, $superkey = ''){
+	final static function getVars($items, $superkey = '', $count = 0){
+		
 		$vars = array();
+		
+		$count ++;
+		
+		if ($count > 90)
+			return $vars;
+		
 		$itemsx = array();
 		
 		if (is_object($items))
@@ -3170,7 +3177,7 @@ class div {
 		foreach ( $itemsx as $key => $value ) {
 			$vars[] = $superkey . $key;
 			if (! is_scalar($itemsx[$key]))
-				$vars = array_merge($vars, self::getVars($itemsx[$key], $superkey . $key . '.'));
+				$vars = array_merge($vars, self::getVars($itemsx[$key], $superkey . $key . '.', $count));
 		}
 		
 		return $vars;
@@ -5373,14 +5380,16 @@ class div {
 					$this->__src = str_replace('{' . $id . '}', $ignore, $this->__src);
 				}
 				
-				$items = $this->__memory;
+				/*$items = $this->__memory;
+				
 				$vars = $this->getVars($items);
+				
 				foreach ( $vars as $var ) {
 					
 					$exp = self::getVarValue($var, $items);
 					
 					if (is_string($exp)) {
-
+						
 						foreach ( self::$__ignored_parts as $id => $ignore )
 							$exp = str_replace('{' . $id . '}', $ignore, $exp);
 						
@@ -5389,7 +5398,7 @@ class div {
 				}
 				
 				$this->__memory = $items;
-				
+				*/
 				self::$__ignored_parts = array();
 				self::$__globals_design = array();
 			}

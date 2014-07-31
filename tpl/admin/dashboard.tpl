@@ -8,7 +8,7 @@
 <!--{ auxiliary vars }-->
 {= months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] =}
 {= year_color: ["", "#ff9886","#7a6fbf"] =}
-					
+{= div.literals: ['s'] =}					
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="es">
     <head>
@@ -196,9 +196,11 @@
 					<img src="index.php?path=admin&chart=popular_phrases">
 				</td>
 				<td valign="top">
+					<table>
 					[$popular_phrases]
-						{$s} - <b>{$n}</b><br/>
+						<tr><td>{$s}</td><td><b>{$n}</b></td></tr>
 					[/$popular_phrases]
+					</table>
 				</td>
 		</table>
 

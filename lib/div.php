@@ -19,7 +19,7 @@
  * along with this program as the file LICENSE.txt; if not, please see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
  *
- * @author Rafael Rodriguez Ramirez <rafa@pragres.com>
+ * @author Rafa Rodriguez <rafa@pragres.com>
  * @version : 4.5
  * @link http://divengine.com
  */
@@ -459,26 +459,40 @@ define('DIV_TEMPLATE_FOR_DOCS', '
 class div {
 	
 	// Public
-	public $__src = null;
+	
 	// template source
-	public $__src_original = null;
+	public $__src = null;
+	
 	// original template source
-	public $__items = array();
+	public $__src_original = null;
+	
 	// template variables
-	public $__items_orig = array();
+	public $__items = array();
+	
 	// original template variables
-	public $__memory = array();
+	public $__items_orig = array();
+	
 	// to remember the template variables
-	public $__path = '';
+	public $__memory = array();
+	
 	// path to current template file
-	public $__ignore = array();
+	public $__path = '';
+	
 	// template variables to ignore
-	public $__restore = array();
+	public $__ignore = array();
+	
+	// internal and random ignore tag (security)
+	public $__ignore_secret_tag = null;
+	
 	// template's parts to restore after parse
-	public $__packages = PACKAGES;
+	public $__restore = array();
+	
 	// path of current templates's root folder
-	public $__properties = array();
+	public $__packages = PACKAGES;
+	
 	// properties of the template
+	public $__properties = array();
+	
 	// Private
 	private $__id = null;
 	// template id
@@ -586,6 +600,9 @@ class div {
 	 * @return div
 	 */
 	public function __construct($src = null, $items = null, $ignore = array()){
+		
+		// Generate internal and random ignore tag (security reasons)
+		$this->__ignore_secret_tag = uniqid();
 		
 		// Validate the current dialect
 		if (self::$__dialect_checked == false) {
@@ -793,6 +810,9 @@ class div {
 	 * @return div
 	 */
 	final static function getAuxiliaryEngineClone(&$items = null, &$items_orig = null){
+		if (is_null(self::$__engine))
+			self::createAuxiliarEngine();
+		
 		$obj = clone self::$__engine;
 		
 		if (self::$__log_mode)
@@ -1892,6 +1912,43 @@ class div {
 	}
 	
 	/**
+	 * Get literal vars from dynamic configuration
+	 */
+	final public function getLiterals(){
+		$val = self::getVarValue("div.literals", $this->__memory);
+		
+		if (is_null($val) || $val === false)
+			return array();
+		
+		if (is_string($val))
+			$val = explode(" ", str_replace(",", " ", $val));
+		
+		$arr = array();
+		foreach ( $val as $v ) {
+			$v = trim($v);
+			if ($v != '') {
+				$arr[$v] = $v;
+			}
+		}
+		
+		return $arr;
+	}
+	
+	/**
+	 * Return if a var is literal or not
+	 *
+	 * @param string $key
+	 */
+	final public function isLiteral($key){
+		if (trim($key) == '')
+			return false;
+		
+		$literals = $this->getLiterals();
+		
+		return isset($literals[$key]);
+	}
+	
+	/**
 	 * Parse matches
 	 *
 	 * @param string $src
@@ -1912,6 +1969,16 @@ class div {
 		
 		if ($is_string)
 			$value = "$value";
+		
+		$literal = $this->isLiteral($key);
+		
+		$vpx = '';
+		$vsx = '';
+		
+		if ($literal === true) {
+			$vpx = '{' . $this->__ignore_secret_tag . '}';
+			$vsx = '{/' . $this->__ignore_secret_tag . '}';
+		}
 		
 		$prefix = DIV_TAG_REPLACEMENT_PREFIX;
 		$suffix = DIV_TAG_REPLACEMENT_SUFFIX;
@@ -1956,7 +2023,7 @@ class div {
 				
 				$value = trim("$value");
 				
-				if (trim($value) != "") {
+				if (trim($value) != "" && $literal === false) {
 					$crc = crc32($value);
 					$engine->__src = $value;
 					$engine->__items = $this->__items;
@@ -1970,7 +2037,8 @@ class div {
 				}
 				
 				$mod = DIV_TAG_MODIFIER_SIMPLE;
-				$substr = str_replace($prefix . $mod . $key . $suffix, $value, $substr, $rcount); // simple replacement
+				$substr = str_replace($prefix . $mod . $key . $suffix, $vpx . $value . $vsx, $substr, $rcount); // simple replacement
+				
 				if ($rcount > 0 && ! isset(self::$__dont_remember_it[$key]))
 					$this->saveOperation(array(
 							'o' => 'simple_replacement',
@@ -1981,7 +2049,7 @@ class div {
 				
 				$mod = DIV_TAG_MODIFIER_CAPITALIZE_FIRST;
 				if (strpos($substr, $prefix . $mod) !== false) {
-					$substr = str_replace(DIV_TAG_REPLACEMENT_PREFIX . $mod . $key . $suffix, ucfirst($value), $substr, $rcount);
+					$substr = str_replace(DIV_TAG_REPLACEMENT_PREFIX . $mod . $key . $suffix, $vpx . ucfirst($value) . $vsx, $substr, $rcount);
 					if ($rcount > 0 && ! isset(self::$__dont_remember_it[$key]))
 						$this->saveOperation(array(
 								"o" => 'simple_replacement',
@@ -1993,7 +2061,7 @@ class div {
 				
 				$mod = DIV_TAG_MODIFIER_CAPITALIZE_WORDS;
 				if (strpos($substr, $prefix . $mod) !== false) {
-					$substr = str_replace($prefix . $mod . $key . $suffix, ucwords($value), $substr, $rcount);
+					$substr = str_replace($prefix . $mod . $key . $suffix, $vpx . ucwords($value) . $vsx, $substr, $rcount);
 					if ($rcount > 0 && ! isset(self::$__dont_remember_it[$key]))
 						$this->saveOperation(array(
 								'o' => 'simple_replacement',
@@ -2005,7 +2073,7 @@ class div {
 				
 				$mod = DIV_TAG_MODIFIER_UPPERCASE;
 				if (strpos($substr, $prefix . $mod) !== false) {
-					$substr = str_replace($prefix . $mod . $key . $suffix, strtoupper($value), $substr, $rcount);
+					$substr = str_replace($prefix . $mod . $key . $suffix, $vpx . strtoupper($value) . $vsx, $substr, $rcount);
 					if ($rcount > 0 && ! isset(self::$__dont_remember_it[$key]))
 						$this->saveOperation(array(
 								'o' => 'simple_replacement',
@@ -2065,7 +2133,7 @@ class div {
 				
 				$mod = DIV_TAG_MODIFIER_ENCODE_URL;
 				if (strpos($substr, $prefix . $mod) !== false) {
-					$substr = str_replace($prefix . $mod . $key . $suffix, urlencode($value), $substr, $rcount);
+					$substr = str_replace($prefix . $mod . $key . $suffix, $vpx . urlencode($value) . $vsx, $substr, $rcount);
 					if ($rcount > 0 && ! isset(self::$__dont_remember_it[$key]))
 						$this->saveOperation(array(
 								'o' => 'simple_replacement',
@@ -2077,7 +2145,7 @@ class div {
 				
 				$mod = DIV_TAG_MODIFIER_ENCODE_RAW_URL;
 				if (strpos($substr, $prefix . $mod) !== false) {
-					$substr = str_replace($prefix . $mod . $key . $suffix, rawurlencode($value), $substr, $rcount);
+					$substr = str_replace($prefix . $mod . $key . $suffix, $vpx . rawurlencode($value) . $vsx, $substr, $rcount);
 					if ($rcount > 0 && ! isset(self::$__dont_remember_it[$key]))
 						$this->saveOperation(array(
 								'o' => 'simple_replacement',
@@ -2094,24 +2162,24 @@ class div {
 						$prefix . DIV_TAG_MODIFIER_SINGLE_QUOTES . $key . $suffix, // escape unescaped single quotes,
 						$prefix . DIV_TAG_MODIFIER_JS . $key . $suffix // escape quotes and backslashes, newlines, etc.
 								), array(
-						strtolower($value),
-						htmlentities($value),
-						nl2br($value),
-						preg_replace(array(
+						$vpx . strtolower($value) . $vsx,
+						$vpx . htmlentities($value) . $vsx,
+						$vpx . nl2br($value) . $vsx,
+						$vpx . preg_replace(array(
 								"%(?<!\\\\\\\\)'%",
 								"%(?<!\\\\\\\\)\"%"
 						), array(
 								"\\'",
 								"\\\""
-						), $value),
-						strtr($value, array(
+						), $value) . $vsx,
+						$vpx . strtr($value, array(
 								"\\" => "\\\\",
 								"'" => "\\'",
 								"\"" => "\\\"",
 								"\r" => "\\r",
 								"\n" => "\\n",
 								"</" => "<\/"
-						))
+						)) . $vsx
 				), $substr);
 				
 				foreach ( self::$__custom_modifiers as $modifier ) {
@@ -2131,7 +2199,7 @@ class div {
 					if ($proced)
 						if (strpos($substr, $modifier[0]) !== false) {
 							eval('$vvalue = ' . $modifier[1] . '($value);');
-							$substr = str_replace($prefix . $modifier[0] . $key . $suffix, $vvalue, $substr);
+							$substr = str_replace($prefix . $modifier[0] . $key . $suffix, $vpx . $vvalue . $vsx, $substr);
 						}
 				}
 				
@@ -2591,25 +2659,39 @@ class div {
 	final public function parseIgnore(){
 		if (self::$__log_mode)
 			$this->logger("Parsing ignore's blocks...");
-		
-		$l1 = strlen(DIV_TAG_IGNORE_BEGIN);
-		$l2 = strlen(DIV_TAG_IGNORE_END);
-		
-		$pos = 0;
-		while ( true ) {
-			$ranges = $this->getRanges(DIV_TAG_IGNORE_BEGIN, DIV_TAG_IGNORE_END, null, true, $pos);
-			if (count($ranges) < 1)
-				break;
 			
-			if (self::searchInRanges($this->getRanges(DIV_TAG_COMMENT_BEGIN, DIV_TAG_COMMENT_END), $ranges[0][0]) !== false) {
-				$pos = $ranges[0][1] + 1;
-				continue;
+			// Generate internal and random ignore tag (security reasons)
+		if (is_null($this->__ignore_secret_tag))
+			$this->__ignore_secret_tag = uniqid();
+		
+		for($i = 0; $i < 2; $i ++) {
+			$tag_begin = DIV_TAG_IGNORE_BEGIN;
+			$tag_end = DIV_TAG_IGNORE_END;
+			
+			if ($i == 1) {
+				$tag_begin = '{' . $this->__ignore_secret_tag . '}';
+				$tag_end = '{/' . $this->__ignore_secret_tag . '}';
 			}
 			
-			$id = uniqid();
-			self::$__ignored_parts[$id] = substr($this->__src, $ranges[0][0] + $l1, $ranges[0][1] - $ranges[0][0] - $l1);
-			$this->__src = substr($this->__src, 0, $ranges[0][0]) . '{' . $id . '}' . substr($this->__src, $ranges[0][1] + $l2);
-			$pos = $ranges[0][0] + 1;
+			$l1 = strlen($tag_begin);
+			$l2 = strlen($tag_end);
+			
+			$pos = 0;
+			while ( true ) {
+				$ranges = $this->getRanges($tag_begin, $tag_end, null, true, $pos);
+				if (count($ranges) < 1)
+					break;
+				
+				if (self::searchInRanges($this->getRanges(DIV_TAG_COMMENT_BEGIN, DIV_TAG_COMMENT_END), $ranges[0][0]) !== false) {
+					$pos = $ranges[0][1] + 1;
+					continue;
+				}
+				
+				$id = uniqid();
+				self::$__ignored_parts[$id] = substr($this->__src, $ranges[0][0] + $l1, $ranges[0][1] - $ranges[0][0] - $l1);
+				$this->__src = substr($this->__src, 0, $ranges[0][0]) . '{' . $id . '}' . substr($this->__src, $ranges[0][1] + $l2);
+				$pos = $ranges[0][0] + 1;
+			}
 		}
 		
 		return self::$__ignored_parts;
@@ -2677,6 +2759,9 @@ class div {
 	 * @return boolean
 	 */
 	final static function detectRecursiveInclusion($exclusion, $path, $ini){
+		if (trim($path) == '')
+			return false;
+		
 		foreach ( $exclusion as $exc ) {
 			$p = $exc['path'];
 			$i = $exc['ini'];
@@ -2829,9 +2914,10 @@ class div {
 					$this->__src = substr($this->__src, 0, $ini) . $id . substr($this->__src, $fin + $l2);
 				}
 			} else {
-				$c = '';
-				self::error("Recursive inclusion of template $path is not allowed", DIV_ERROR_WARNING);
-				$this->__src = substr($this->__src, 0, $ini) . $c . substr($this->__src, $fin + $l2);
+				if (trim($path) != '') {
+					self::error("Recursive inclusion of template '$path' in '" . substr($this->__src, $ini - 20, 20) . "'is not allowed", DIV_ERROR_WARNING);
+				}
+				$this->__src = substr($this->__src, 0, $ini) . substr($this->__src, $fin + $l2);
 			}
 		}
 		
@@ -3375,7 +3461,9 @@ class div {
 			// Check protection
 			
 			if ((! isset(self::$__globals_design[$var]) || (isset(self::$__globals_design[$var]) && ! isset(self::$__globals_design_protected[$var])))) {
+				
 				$exp = trim($exp);
+				
 				if (substr($exp, 0, 2) == "->") { // parsing a method
 					$exp = substr($exp, 2);
 					$value = $this->getMethodResult($exp, $items);
@@ -4992,6 +5080,11 @@ class div {
 	 * @return string
 	 */
 	final public function parse($from_original = true, $index_item = null){
+		
+		// Generate internal and random ignore tag (security reasons)
+		if (is_null($this->__ignore_secret_tag))
+			$this->__ignore_secret_tag = uniqid();
+		
 		self::createAuxiliarEngine($this);
 		self::$__parse_level ++;
 		
@@ -5057,10 +5150,12 @@ class div {
 			// Preparing dialect
 			$this->__src = $this->prepareDialect();
 			
-			if (strpos($this->__src, DIV_TAG_IGNORE_BEGIN) !== false)
+			if (strpos($this->__src, DIV_TAG_IGNORE_BEGIN) !== false || strpos($this->__src, '{' . $this->__ignore_secret_tag . '}') !== false)
 				$this->parseIgnore();
+			
 			if (strpos($this->__src, DIV_TAG_COMMENT_BEGIN) !== false)
 				$this->parseComments();
+			
 			if (strpos($this->__src, DIV_TAG_FRIENDLY_BEGIN) !== false)
 				$this->parseFriendly();
 			
@@ -5111,8 +5206,9 @@ class div {
 									'moment' => DIV_MOMENT_AFTER_INCLUDE
 							));
 						
-						if (strpos($this->__src, DIV_TAG_IGNORE_BEGIN) !== false)
+						if (strpos($this->__src, DIV_TAG_IGNORE_BEGIN) !== false || strpos($this->__src, '{' . $this->__ignore_secret_tag . '}') !== false)
 							$this->parseIgnore();
+						
 						if (strpos($this->__src, DIV_TAG_COMMENT_BEGIN) !== false)
 							$this->parseComments();
 						if (strpos($this->__src, DIV_TAG_FRIENDLY_BEGIN) !== false)
@@ -5189,6 +5285,11 @@ class div {
 					if (self::atLeastOneString($this->__src, self::$__modifiers) || (strpos($this->__src, DIV_TAG_NUMBER_FORMAT_PREFIX) !== false && strpos($this->__src, DIV_TAG_NUMBER_FORMAT_SUFFIX) !== false))
 						$this->parseMatches($items);
 						
+						// Discard literal vars
+					if (strpos($this->__src, DIV_TAG_IGNORE_BEGIN) !== false || strpos($this->__src, '{' . $this->__ignore_secret_tag . '}') !== false)
+						
+						$this->parseIgnore();
+						
 						// Subparse: after replace
 					if (strpos($this->__src, DIV_TAG_SUBPARSER_BEGIN_PREFIX) !== false)
 						$this->parseSubParsers($items, array(
@@ -5226,7 +5327,7 @@ class div {
 			if (strpos($this->__src, DIV_TAG_CONDITIONAL_TRUE_BEGIN_PREFIX) !== false || strpos($this->__src, DIV_TAG_CONDITIONAL_FALSE_BEGIN_PREFIX) !== false)
 				$this->parseOrphanParts();
 			
-			if (strpos($this->__src, DIV_TAG_IGNORE_BEGIN) !== false)
+			if (strpos($this->__src, DIV_TAG_IGNORE_BEGIN) !== false || strpos($this->__src, '{' . $this->__ignore_secret_tag . '}') !== false)
 				$this->parseIgnore();
 			if (strpos($this->__src, DIV_TAG_COMMENT_BEGIN) !== false)
 				$this->parseComments();
@@ -5271,6 +5372,23 @@ class div {
 					
 					$this->__src = str_replace('{' . $id . '}', $ignore, $this->__src);
 				}
+				
+				$items = $this->__memory;
+				$vars = $this->getVars($items);
+				foreach ( $vars as $var ) {
+					
+					$exp = self::getVarValue($var, $items);
+					
+					if (is_string($exp)) {
+
+						foreach ( self::$__ignored_parts as $id => $ignore )
+							$exp = str_replace('{' . $id . '}', $ignore, $exp);
+						
+						self::setVarValue($var, $exp, $items);
+					}
+				}
+				
+				$this->__memory = $items;
 				
 				self::$__ignored_parts = array();
 				self::$__globals_design = array();
@@ -7762,8 +7880,12 @@ class div {
 		$func = 'warn';
 		if ($iscli)
 			$errmsg = self::htmlToText($errmsg, null);
+		else
+			$errmsg = htmlentities($errmsg, null, null, false);
+		
 		if ($iscli === false)
 			echo "<div style = \"z-index:9999; position: fixed; top: " . ((count(self::$__errors) - 1) * 50 + 10) . "px; right: 20px; min-width: 60%; font-family: verdana; border-radius: 5px; padding: 10px;";
+		
 		switch ($level) {
 			case DIV_ERROR_WARNING :
 				if (! $iscli)

@@ -1,7 +1,9 @@
 <?php
+
 include "../lib/PEAR/mime.php";
 include "../lib/PEAR/Mail.php";
 include "../lib/PEAR/Net/SMTP.php";
+
 class ApretasteAnswerEmail {
 	var $from;
 	var $to;
@@ -241,9 +243,15 @@ class ApretasteAnswerEmail {
 			$data['content'] = $tpl_plain;
 			
 			$plain_body = new ApretasteView("../tpl/alone/answer", $data);
+			
 			$plain_body->parse();
 			
-			$tpl_title = $plain_body->__memory['AnswerSubject'];
+			if (isset($plain_body->__memory['AnswerSubject']))
+				$tpl_title = $plain_body->__memory['AnswerSubject'];
+			else if (isset($data['subject']))
+				$tpl_title = $data['subject'];
+			else if (isset($data['title']))
+				$tpl_title = $data['title'];
 			
 			$pbody = ApretasteView::htmlToText($plain_body->__src);
 			
@@ -257,7 +265,7 @@ class ApretasteAnswerEmail {
 		}
 		
 		if ($build_html) {
-			echo "building " . $this->type . " html message\n";
+			echo "[INFO] Building " . $this->type . " html message\n";
 			
 			$data['content'] = $tpl_html;
 			$data['builder'] = 'html';
@@ -272,6 +280,8 @@ class ApretasteAnswerEmail {
 				$tpl_title = $data['subject'];
 			else if (isset($data['title']))
 				$tpl_title = $data['title'];
+			
+			echo "[INFO] Answer subject = " . $tpl_title . "\n";
 			
 			$this->message->setHTMLBody($html_body->__src);
 			

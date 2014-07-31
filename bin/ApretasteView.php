@@ -1,7 +1,7 @@
 <?php
 class ApretasteView extends div {
 	public function __construct($src = null, $items = null, $ignore = array()) {
-		self::setSubParser ( 'block:full', 'ApretasteView::ablockFullScreen' );
+		self::setSubParser ( 'block:full', 'ApretasteView::aBlockFullScreen' );
 		parent::__construct ( $src, $items, $ignore );
 		$this->setItem("apretaste", "Apretaste!");
 	}

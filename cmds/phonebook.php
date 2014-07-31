@@ -1,9 +1,21 @@
 <?php
+
+/**
+ * Apretaste Phonebook Command
+ * 
+ * @param ApretasteEmailRobot $robot
+ * @param string $from
+ * @param string $argument
+ * @param string $body
+ * @param array $images
+ * @return array
+ */
 function cmd_phonebook($robot, $from, $argument, $body = '', $images = array()){
 	$body = trim($body);
-	$body = explode("\n", $body);
 	$body = strip_tags($body);
 	$body = trim($body);
+	$body = explode("\n", $body);
+		
 	$from = strtolower(Apretaste::extractEmailAddress($from));
 	
 	echo "[INFO] Phonebook of $from \n";

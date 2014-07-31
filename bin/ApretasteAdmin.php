@@ -26,6 +26,14 @@ class ApretasteAdmin {
 		}
 		return false;
 	}
+	static function saveUserAction(){
+		$u = self::getUser();
+		if ($u !== false) {
+			$sql = "INSERT INTO users_actions (user_login, get, post) 
+		VALUES ('{$u['user_login']}','" . json_encode($_GET) . "','" . json_encode($_POST) . "');";
+			Apretaste::query($sql);
+		}
+	}
 	
 	/**
 	 * Run the app
@@ -46,6 +54,8 @@ class ApretasteAdmin {
 			if ($user['user_role'] == 'investor' && $url != 'logout') {
 				$url = 'dashboard';
 			}
+			
+			self::saveUserAction();
 			
 			eval('self::page_' . $url . '();');
 		} elseif (isset($_GET['chart'])) {
@@ -265,6 +275,8 @@ class ApretasteAdmin {
 				}
 			}
 		}
+		
+		self::saveUserAction();
 		
 		if (self::$login_result)
 			header("Location: index.php?path=admin&page=admin");

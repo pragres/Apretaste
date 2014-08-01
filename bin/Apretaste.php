@@ -2651,6 +2651,7 @@ class Apretaste {
 		$text = self::cleanText($text);
 		
 		$alpha = "abcdefghijklmnopqrstuvwxyz1234567890., ";
+		/*
 		$save = array(
 				'&aacute;',
 				'&eacute;',
@@ -2672,7 +2673,7 @@ class Apretaste {
 			$text = str_replace($sav, '{' . $kk . '}', $text);
 			$restore[$kk] = $sav;
 		}
-		
+		*/
 		$abreviaturas = array(
 				"c/" => "con",
 				"c/u" => "cada uno",
@@ -2802,11 +2803,11 @@ class Apretaste {
 		} while ( $p !== false );
 		
 		$text = ucfirst(trim($text));
-		
+		/*
 		foreach ( $restore as $kk => $restor ) {
 			$text = str_replace('{' . $kk . '}', $restor, $text);
 		}
-		
+		*/
 		return $text;
 	}
 	

@@ -23,47 +23,55 @@
  * @version : 4.5
  * @link http://divengine.com
  */
-/**
- * Constants
- *
- * PACKAGES The path of templates's root directory.
- * DIV_DEFAULT_TPL_FILE_EXT The default extension for template files
- * DIV_DEFAULT_DATA_FILE_EXT The default extension for data files
- * DIV_MAX_PARSE_CYCLES The max number of cycles of the parser (to prevent infinite loop and more)
- * DIV_MAX_FILENAME_SIZE The max size of file name or dir name in your operating system
- */
+
+// -- Constants --
+
+// The path of templates's root directory
 if (! defined('PACKAGES'))
 	define('PACKAGES', './');
+
+// The default extension for template files
 if (! defined('DIV_DEFAULT_TPL_FILE_EXT'))
 	define('DIV_DEFAULT_TPL_FILE_EXT', 'tpl');
+
+// The default extension for data files
 if (! defined('DIV_DEFAULT_DATA_FILE_EXT'))
 	define('DIV_DEFAULT_DATA_FILE_EXT', 'json');
+
+// The max number of cycles of the parser (prevent infinite loop and more)
 if (! defined('DIV_MAX_PARSE_CYCLES'))
 	define('DIV_MAX_PARSE_CYCLES', 100);
+
+// The max size of file name or dir name in your operating system
 if (! defined('DIV_MAX_FILENAME_SIZE'))
 	define('DIV_MAX_FILENAME_SIZE', 250);
 
-define('DIV_PHP_ALLOWED_FUNCTIONS', 'isset,empty,is_null,is_numeric,is_bool,is_integer,is_double,' . 'sizeof,is_finite,is_float,is_infinite,is_int,is_long,is_nan,' . 'is_real,is_scalar,is_string,mt_rand,mt_srand,mt_getrandmax,' . 'rand,urlencode,urldecode,uniqid,date,time,intval,htmlspecialchars,' . 'htmlspecialchars_decode,strtr,strpos,str_replace,str_ireplace,' . 'substr,sprintf,abs,acos,acosh,asin,atan2,atanh,base_convert,' . 'bindec,ceil,cos,cosh,decbin,dechex,decoct,deg2rad,exp,expm1,' . 'floor,fmod,getrandmax,hexdec,hypot,lcg_value,log10,log1p,log,' . 'max,min,octdec,pi,pow,rad2deg,rand,round,sin,sinh,sqrt,srand,' . 'tan,tanh,cal_days_in_month,cal_from_jd,cal_info,cal_to_jd,' . 'easter_date,easter_days,frenchtojd,gregoriantojd,jddayofweek,' . 'jdmonthname,jdtofrench,jdtogregorian,jdtojewish,jdtojulian,' . 'jdtounix,jewishtojd,jewishtojd,unixtojd,checkdate,' . 'date_default_timezone_get,strtotime,date_sunset,gmdate,gmmktime,' . 'gmstrftime,idate,microtime,mktime,strftime,strptime,strtotime,' . 'timezone_name_from_abbr,timezone_version_get,bcadd,bccomp,' . 'bcdiv,bcmod,bcmul,bcpow,bcpowmod,bcscale,bcsqrt,bcsub,addcslashes,' . 'addslashes,bin2hex,chop,chr,chunk_split,convert_cyr_string,' . 'convert_uudecode,convert_uuencode,count,count_chars,crc32,crypt,' . 'hebrev,hebrevc,hex2bin,html_entity_decode,htmlentities,' . 'htmlspecialchars_decode,htmlspecialchars,lcfirst,levenshtein,' . 'ltrim,md5,metaphone,money_format,nl_langinfo,nl2br,number_format,' . 'ord,quoted_printable_decode,quoted_printable_encode,quotemeta,' . 'rtrim,sha1,similar_text,soundex,sprintf,str_pad,str_repeat,' . 'str_rot13,str_shuffle,strcasecmp,strchr,strcmp,strcoll,strcspn,' . 'strip_tags,stripcslashes,stripos,stripslashes,stristr,strlen,' . 'strnatcasecmp,strnatcmp,strncasecmp,strncmp,strpbrk,strrchr,' . 'strrev,strripos,strrpos,strspn,strtolower,strtoupper,strtr,' . 'substr_compare,substr_count,substr_replace,trim,ucfirst,ucwords,' . 'wordwrap,floatval,strval,implode,explode');
+// PHP allowed functions for macros and formulas
+define('DIV_PHP_ALLOWED_FUNCTIONS', 'isset,empty,is_null,is_numeric,is_bool,is_integer,is_double,is_array,sizeof,is_finite,is_float,is_infinite,is_int,is_long,is_nan,is_real,is_scalar,is_string,mt_rand,mt_srand,mt_getrandmax,rand,urlencode,urldecode,uniqid,date,time,intval,htmlspecialchars,htmlspecialchars_decode,strtr,strpos,str_replace,str_ireplace,substr,sprintf,abs,acos,acosh,asin,atan2,atanh,base_convert,bindec,ceil,cos,cosh,decbin,dechex,decoct,deg2rad,exp,expm1,floor,fmod,getrandmax,hexdec,hypot,lcg_value,log10,log1p,log,max,min,octdec,pi,pow,rad2deg,rand,round,sin,sinh,sqrt,srand,tan,tanh,cal_days_in_month,cal_from_jd,cal_info,cal_to_jd,easter_date,easter_days,frenchtojd,gregoriantojd,jddayofweek,jdmonthname,jdtofrench,jdtogregorian,jdtojewish,jdtojulian,jdtounix,jewishtojd,jewishtojd,unixtojd,checkdate,date_default_timezone_get,strtotime,date_sunset,gmdate,gmmktime,gmstrftime,idate,microtime,mktime,strftime,strptime,strtotime,timezone_name_from_abbr,timezone_version_get,bcadd,bccomp,bcdiv,bcmod,bcmul,bcpow,bcpowmod,bcscale,bcsqrt,bcsub,addcslashes,addslashes,bin2hex,chop,chr,chunk_split,convert_cyr_string,convert_uudecode,convert_uuencode,count,count_chars,crc32,crypt,hebrev,hebrevc,hex2bin,html_entity_decode,htmlentities,htmlspecialchars_decode,htmlspecialchars,lcfirst,levenshtein,ltrim,md5,metaphone,money_format,nl_langinfo,nl2br,number_format,ord,quoted_printable_decode,quoted_printable_encode,quotemeta,rtrim,sha1,similar_text,soundex,sprintf,str_pad,str_repeat,str_rot13,str_shuffle,strcasecmp,strchr,strcmp,strcoll,strcspn,strip_tags,stripcslashes,stripos,stripslashes,stristr,strlen,strnatcasecmp,strnatcmp,strncasecmp,strncmp,strpbrk,strrchr,strrev,strripos,strrpos,strspn,strtolower,strtoupper,strtr,substr_compare,substr_count,substr_replace,trim,ucfirst,ucwords,wordwrap,floatval,strval,implode,explode');
 
-define('DIV_PHP_VALID_TOKENS_FOR_EXPRESSIONS', 'T_ARRAY,T_ARRAY_CAST,T_BOOLEAN_AND,T_BOOLEAN_OR,T_BOOL_CAST,' . 'T_CHARACTER,T_CONSTANT_ENCAPSED_STRING,T_DNUMBER,T_DOUBLE_CAST,' . 'T_EMPTY,T_INT_CAST,T_ISSET,T_IS_EQUAL,T_IS_GREATER_OR_EQUAL,' . 'T_SR,T_IS_IDENTICAL,T_IS_NOT_EQUAL,T_IS_NOT_IDENTICAL,' . 'T_IS_SMALLER_OR_EQUAL,T_LNUMBER,T_LOGICAL_AND,T_LOGICAL_OR,T_LOGICAL_XOR,' . 'T_SL,T_SL_EQUAL,T_SR_EQUAL,T_STRING_CAST,T_STRING_VARNAME,T_VARIABLE,' . 'T_WHITESPACE,T_CURLY_OPEN,T_INC,T_COMMENT,T_DOUBLE_ARROW,' . 'T_ENCAPSED_AND_WHITESPACE');
+// Valid PHP tokens in expressions
+define('DIV_PHP_VALID_TOKENS_FOR_EXPRESSIONS', 'T_ARRAY,T_ARRAY_CAST,T_BOOLEAN_AND,T_BOOLEAN_OR,T_BOOL_CAST,T_CHARACTER,T_CONSTANT_ENCAPSED_STRING,T_DNUMBER,T_DOUBLE_CAST,T_EMPTY,T_INT_CAST,T_ISSET,T_IS_EQUAL,T_IS_GREATER_OR_EQUAL,T_SR,T_IS_IDENTICAL,T_IS_NOT_EQUAL,T_IS_NOT_IDENTICAL,T_IS_SMALLER_OR_EQUAL,T_LNUMBER,T_LOGICAL_AND,T_LOGICAL_OR,T_LOGICAL_XOR,T_SL,T_SL_EQUAL,T_SR_EQUAL,T_STRING_CAST,T_STRING_VARNAME,T_VARIABLE,T_WHITESPACE,T_CURLY_OPEN,T_INC,T_COMMENT,T_DOUBLE_ARROW,T_ENCAPSED_AND_WHITESPACE');
 
-define('DIV_PHP_VALID_TOKENS_FOR_MACROS', 'T_AS,T_DO,T_DOUBLE_COLON,T_ECHO,T_ELSE,T_ELSEIF,T_FOR,T_FOREACH,T_IF,' . 'T_MOD_EQUAL,T_MUL_EQUAL,T_OBJECT_OPERATOR,T_NUM_STRING,T_OR_EQUAL,' . 'T_PAAMAYIM_NEKUDOTAYIM,T_PLUS_EQUAL,T_PRINT,' . 'T_START_HEREDOC,T_SWITCH,T_WHILE,' . 'T_ENDIF,T_ENDFOR,T_ENDFOREACH,T_ENDSWITCH,T_ENDWHILE,T_END_HEREDOC,' . 'T_PAAMAYIM_NEKUDOTAYIM');
+// Valid PHP tokens in macros
+define('DIV_PHP_VALID_TOKENS_FOR_MACROS', 'T_AS,T_DO,T_DOUBLE_COLON,T_ECHO,T_ELSE,T_ELSEIF,T_FOR,T_FOREACH,T_IF,T_MOD_EQUAL,T_MUL_EQUAL,T_OBJECT_OPERATOR,T_NUM_STRING,T_OR_EQUAL,T_PAAMAYIM_NEKUDOTAYIM,T_PLUS_EQUAL,T_PRINT,T_START_HEREDOC,T_SWITCH,T_WHILE,T_ENDIF,T_ENDFOR,T_ENDFOREACH,T_ENDSWITCH,T_ENDWHILE,T_END_HEREDOC,T_PAAMAYIM_NEKUDOTAYIM');
 
-define('DIV_PHP_ALLOWED_METHODS', 'getRanges,asThis,atLeastOneString,getLastKeyOfArray,getCountOfParagraphs,getCountOfSentences,getCountOfWords,' . 'htmlToText,isArrayOfArray,isArrayOfObjects,isCli,isNumericList,jsonDecode,jsonEncode,isString,mixedBool');
+// Allowed Div methods in macros and formulas
+define('DIV_PHP_ALLOWED_METHODS', 'getRanges,asThis,atLeastOneString,getLastKeyOfArray,getCountOfParagraphs,getCountOfSentences,getCountOfWords,htmlToText,isArrayOfArray,isArrayOfObjects,isCli,isNumericList,jsonDecode,jsonEncode,isString,mixedBool');
 
+// Other internal constatns
 define('DIV_ERROR_WARNING', 'WARNING');
 define('DIV_ERROR_FATAL', 'FATAL');
 define('DIV_METHOD_NOT_EXISTS', 'DIV_METHOD_NOT_EXISTS');
 define('DIV_UNICODE_ERROR', - 1);
-
 define('DIV_MOMENT_BEFORE_PARSE', 'DIV_MOMENT_BEFORE_PARSE');
 define('DIV_MOMENT_AFTER_PARSE', 'DIV_MOMENT_AFTER_PARSE');
 define('DIV_MOMENT_AFTER_INCLUDE', 'DIV_MOMENT_AFTER_INCLUDE');
 define('DIV_MOMENT_AFTER_REPLACE', 'DIV_MOMENT_AFTER_REPLACE');
 
-// ------------------------------------- D E F A U L T D I A L E C T --------------------------------------//
+// ------------------------------------- D E F A U L T -- D I A L E C T --------------------------------------//
+// Variables
 if (! defined('DIV_TAG_REPLACEMENT_PREFIX'))
-	define('DIV_TAG_REPLACEMENT_PREFIX', '{'); // Variables
+	define('DIV_TAG_REPLACEMENT_PREFIX', '{'); 
 if (! defined('DIV_TAG_REPLACEMENT_SUFFIX'))
 	define('DIV_TAG_REPLACEMENT_SUFFIX', '}');
 if (! defined('DIV_TAG_MULTI_MODIFIERS_PREFIX'))
@@ -76,8 +84,10 @@ if (! defined('DIV_TAG_MULTI_MODIFIERS_SUFFIX'))
 	define('DIV_TAG_MULTI_MODIFIERS_SUFFIX', '|}');
 if (! defined('DIV_TAG_SUBMATCH_SEPARATOR'))
 	define('DIV_TAG_SUBMATCH_SEPARATOR', ':');
+
+// Variable's modifiers
 if (! defined('DIV_TAG_MODIFIER_SIMPLE'))
-	define('DIV_TAG_MODIFIER_SIMPLE', '$'); // Variable's modifiers
+	define('DIV_TAG_MODIFIER_SIMPLE', '$'); 
 if (! defined('DIV_TAG_MODIFIER_CAPITALIZE_FIRST'))
 	define('DIV_TAG_MODIFIER_CAPITALIZE_FIRST', '^');
 if (! defined('DIV_TAG_MODIFIER_CAPITALIZE_WORDS'))
@@ -3158,14 +3168,11 @@ class div {
 	 * @param string $superkey
 	 * @return array
 	 */
-	final static function getVars($items, $superkey = '', $count = 0){
-		
+	final public function getVars($items = null, $superkey = ''){
+		if (is_null($items))
+			$items = $this->__memory;
+				
 		$vars = array();
-		
-		$count ++;
-		
-		if ($count > 90)
-			return $vars;
 		
 		$itemsx = array();
 		
@@ -3173,11 +3180,30 @@ class div {
 			$itemsx = get_object_vars($items);
 		elseif (is_array($items))
 			$itemsx = $items;
+		else
+			return array();
 		
 		foreach ( $itemsx as $key => $value ) {
-			$vars[] = $superkey . $key;
-			if (! is_scalar($itemsx[$key]))
-				$vars = array_merge($vars, self::getVars($itemsx[$key], $superkey . $key . '.', $count));
+			$xkey = $superkey . $key;
+						
+			if ($xkey !== '') {
+				if ($xkey == 'vars.this' || $xkey == 'this') {
+					if (is_object($value)) {
+						if ($this === $value)
+							continue;
+						
+						$sp = $this->getSuperParent(get_class($value));
+												
+						if ($sp == 'div')
+							continue;
+					}
+				}
+				
+				$vars[] = $xkey;
+				
+				if (! is_scalar($value) && !is_null($value))
+					$vars = array_merge($vars, $this->getVars($itemsx[$key], $xkey . '.'));
+			}
 		}
 		
 		return $vars;
@@ -5380,25 +5406,20 @@ class div {
 					$this->__src = str_replace('{' . $id . '}', $ignore, $this->__src);
 				}
 				
-				/*$items = $this->__memory;
-				
+				$items = $this->__memory;
 				$vars = $this->getVars($items);
-				
+
 				foreach ( $vars as $var ) {
-					
 					$exp = self::getVarValue($var, $items);
-					
 					if (is_string($exp)) {
-						
 						foreach ( self::$__ignored_parts as $id => $ignore )
 							$exp = str_replace('{' . $id . '}', $ignore, $exp);
-						
 						self::setVarValue($var, $exp, $items);
 					}
 				}
 				
 				$this->__memory = $items;
-				*/
+				
 				self::$__ignored_parts = array();
 				self::$__globals_design = array();
 			}

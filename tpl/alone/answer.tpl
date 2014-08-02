@@ -21,7 +21,7 @@
 {= br2: <font class="space_medium" size="5" color="white"><div>&nbsp;</div></font> =}
 {= br3: <font class="space_big" size="7" color="white"><div>&nbsp;</div></font> =}
 
-<!--{ div.literals: ["msg.subject", "subject", "query", "body", "sharethis","bodysended","bodyextra"] }-->
+{= div.literals: ["msg.subject", "subject", "query", "body", "sharethis","bodysended","bodyextra"] =}
 
 {= commands: {
 		sudoku: {cmd: "SUDOKU", desc: "Resolver un Sudoku", rel:["joke", "invite"]},

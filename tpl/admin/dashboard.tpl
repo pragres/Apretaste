@@ -46,6 +46,7 @@
 				?>
 			</tr>
 			<?
+			
 				foreach ($access_by_hour as $_key => $hour_data) {
 					echo '<tr><td align="right" valing="center" style="font-size: 10px; color:gray;"><b>' . $_key . 'h</b></td>';
 					foreach ($hour_data as $__key => $value) {
@@ -156,13 +157,15 @@
 					<table width="100%">
 						<tr>
 							<?
-								foreach($sources_of_traffic as $m => $v){
-								
-									echo '<td width="33%" valign="top"><strong>'.$months[$m-1].'</strong><br/><hr/>';
-									foreach($v as $x){
-										echo "{$x['xauthor']} - <b>{$x['messages']}</b><br/>";
+								if (is_array($sources_of_traffic)){
+									foreach($sources_of_traffic as $m => $v){
+									
+										echo '<td width="33%" valign="top"><strong>'.$months[$m-1].'</strong><br/><hr/>';
+										if (is_array($v)) foreach($v as $x){
+											echo "{$x['xauthor']} - <b>{$x['messages']}</b><br/>";
+										}
+										echo '</td>';
 									}
-									echo '</td>';
 								}
 							?>
 						</tr>
@@ -176,9 +179,9 @@
 		<table width="100%">
 			<tr>
 				<?
-					foreach($best_users as $m => $v){
+					if (is_array($best_users)) foreach($best_users as $m => $v){
 						echo '<td width="33%" valign="top"><strong>'.$months[$m-1].'</strong><br/><hr/>';
-						foreach($v as $x){
+						if (is_array($v)) foreach($v as $x){
 							echo "<a href=\"?path=admin&page=user_activity&user={$x['xauthor']}\">{$x['xauthor']}</a> - {$x['messages']}<br/>";
 						}
 						echo '</td>';

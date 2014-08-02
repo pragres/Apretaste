@@ -112,6 +112,16 @@ input.text{
 
 input.submit{
 	float: right;
+	background: #0f9d58;
+	color: white;
+	font-weight: bold;
+	padding: 5px;
+	border: none;
+	cursor: pointer;
+}
+
+input.submit:hover{
+	background: #11c66d;
 }
 
 .tabla td,.tabla th{

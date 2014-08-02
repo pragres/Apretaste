@@ -8,7 +8,6 @@
 	</head>
 <body>
 
-
 	{= path: "index.php?path=admin&page=address_list" =}
 	
 	<div id = "page">

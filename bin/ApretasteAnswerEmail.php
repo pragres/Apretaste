@@ -307,7 +307,7 @@ class ApretasteAnswerEmail {
 		// $this->message->setTXTBody('');
 		$this->addHeaders($this->message->headers());
 		
-		$subject = new ApretasteView('{strip}{txt}{% styles %}' . $tpl_title . '{/txt}{/strip}', $data);
+		$subject = new ApretasteView('{= div.literals: ["msg.subject", "subject", "query", "body", "sharethis","bodysended","bodyextra"] =} {strip}{txt}{% styles %}' . $tpl_title . '{/txt}{/strip}', $data);
 		
 		$subject = ApretasteEncoding::UTF8FixWin1252Chars($subject);
 		

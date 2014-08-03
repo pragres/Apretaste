@@ -23,6 +23,10 @@
 
 {= div.literals: ["msg.subject", "subject", "query", "body", "sharethis","bodysended","bodyextra"] =}
 
+<!--{ Default reply to address }-->
+
+{= reply_to: anuncios@apretaste.com =}
+
 {= commands: {
 		sudoku: {cmd: "SUDOKU", desc: "Resolver un Sudoku", rel:["joke", "invite"]},
 		help: {cmd: "AYUDA", desc: "Ayuda", rel:["invite"]},

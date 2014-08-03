@@ -14,7 +14,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 	$completo = false;
 	
 	$url = "http://es.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&redirects=1&titles=$keyword&rvparse";
-	// $url = "http://localhost/wiki/ecuador.xml";
+	//$url = "http://localhost/wiki/ecuador.xml";
 	
 	$robot->log("File get contents: $url");
 	
@@ -198,7 +198,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 					"command" => "article",
 					"title" => "$title",
 					"query" => $query,
-					"body" => $page,
+					"article_body" => $page,
 					"showimages" => $showimages,
 					"compactmode" => true,
 					"images" => $images,
@@ -264,7 +264,7 @@ function cmd_article_result($robot, $from, $r){
 	
 	$i = 0;
 	
-	$page = $r['body'];
+	$page = $r['article_body'];
 	
 	$l = strlen($page);
 	
@@ -359,7 +359,7 @@ function cmd_article_result($robot, $from, $r){
 				continue;
 			
 			$i ++;
-			$r['body'] = $part;
+			$r['article_body'] = $part;
 			$r['title'] = $title . ' (parte ' . $i . ')';
 			
 			// Checking the size of images
@@ -451,11 +451,11 @@ function cmd_article($robot, $from, $argument, $body = '', $images = array()){
 				$art = array_shift($s);
 				
 				if (isset($s[0])) {
-					$r['body'] .= '<br/><hr/><h2>Art&iacute;culos relacionados</h2>';
+					$r['article_body'] .= '<br/><hr/><h2>Art&iacute;culos relacionados</h2>';
 					
 					foreach ( $s as $si ) {
 						$si = utf8_decode($si);
-						$r['body'] .= ' - <a href="mailto:{$reply_to}?subject=ARTICULO ' . $si . '">' . $si . '</a><br/>';
+						$r['article_body'] .= ' - <a href="mailto:{$reply_to}?subject=ARTICULO ' . $si . '">' . $si . '</a><br/>';
 					}
 				}
 				

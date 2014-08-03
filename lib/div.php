@@ -594,10 +594,13 @@ class div {
 	// last template id
 	private static $__remember = array();
 	// remember previous work
+	
+	// do not remember this work
 	private static $__dont_remember_it = array();
-	// do not remember it work
+		
+	// historical errors
 	private static $__errors = array();
-	// errors historial
+		
 	private static $__include_paths = null;
 	private static $__packages_by_class = array();
 	
@@ -2222,7 +2225,7 @@ class div {
 		
 		$mod = DIV_TAG_MODIFIER_ENCODE_JSON;
 		if (strpos($this->__src, $prefix . $mod . $key . $suffix) !== false) {
-			$this->__src = str_replace($prefix . $mod . $key . $suffix, self::jsonEncode($value), $this->__src, $rcount);
+			$this->__src = str_replace($prefix . $mod . $key . $suffix, $vpx.self::jsonEncode($value).$vsx, $this->__src, $rcount);
 			if ($rcount > 0 && ! isset(self::$__dont_remember_it[$key]))
 				$this->saveOperation(array(
 						'o' => 'json_encode',
@@ -4906,6 +4909,17 @@ class div {
 		$simple = DIV_TAG_REPLACEMENT_PREFIX . DIV_TAG_MODIFIER_SIMPLE;
 		
 		foreach ( self::$__remember[$checksum] as $params ) {
+			
+			$literal = $this->isLiteral($params['key']);
+			
+			$vpx = '';
+			$vsx = '';
+			
+			if ($literal === true) {
+				$vpx = '{' . $this->__ignore_secret_tag . '}';
+				$vsx = '{/' . $this->__ignore_secret_tag . '}';
+			}
+			
 			switch ($params['o']) {
 				case 'replace_submatch_teaser' :
 					$value = self::getVarValue($params['key'], $items);
@@ -4914,7 +4928,7 @@ class div {
 						continue;
 					$value = self::teaser("{$value}", intval($params['param']));
 					$search = DIV_TAG_REPLACEMENT_PREFIX . $params['modifier'] . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX;
-					$this->__src = str_replace($search, $value, $this->__src);
+					$this->__src = str_replace($search, $vpx.$value.$vsx, $this->__src);
 					break;
 				
 				case 'replace_submatch_substr' :
@@ -4922,7 +4936,7 @@ class div {
 					if (is_null($value))
 						continue;
 					$value = self::anyToStr($value);
-					$this->__src = str_replace($simple . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX, substr($value, $params['from'], $params['for']), $this->__src);
+					$this->__src = str_replace($simple . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx.substr($value, $params['from'], $params['for']).$vsx, $this->__src);
 					break;
 				
 				case 'replace_submatch_wordwrap' :
@@ -4930,7 +4944,7 @@ class div {
 					if (is_null($value))
 						continue;
 					$value = self::anyToStr($value);
-					$this->__src = str_replace($simple . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX, wordwrap("{$value}", intval(substr($params['param'], strlen(DIV_TAG_MODIFIER_WORDWRAP))), "\n", 1), $this->__src);
+					$this->__src = str_replace($simple . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx.wordwrap("{$value}", intval(substr($params['param'], strlen(DIV_TAG_MODIFIER_WORDWRAP))), "\n", 1).$vsx, $this->__src);
 					break;
 				
 				case 'replace_submatch_sprintf' :
@@ -4938,14 +4952,14 @@ class div {
 					if (is_null($value))
 						continue;
 					$value = self::anyToStr($value);
-					$this->__src = str_replace($simple . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX, sprintf($params['param'], $value), $this->__src);
+					$this->__src = str_replace($simple . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx.sprintf($params['param'], $value).$vsx, $this->__src);
 					break;
 				
 				case 'json_encode' :
 					$value = self::getVarValue($params['key'], $items);
 					if (is_null($value))
 						continue;
-					$this->__src = str_replace(DIV_TAG_REPLACEMENT_PREFIX . DIV_TAG_MODIFIER_ENCODE_JSON . $params['key'] . DIV_TAG_REPLACEMENT_SUFFIX, self::jsonEncode($value), $this->__src);
+					$this->__src = str_replace(DIV_TAG_REPLACEMENT_PREFIX . DIV_TAG_MODIFIER_ENCODE_JSON . $params['key'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx.self::jsonEncode($value).$vsx, $this->__src);
 					break;
 				
 				case 'simple_replacement' :
@@ -4988,10 +5002,10 @@ class div {
 					}
 					
 					if ($params['before'] === false) {
-						$this->__src = str_replace(DIV_TAG_REPLACEMENT_PREFIX . $params['modifier'] . $params['key'] . DIV_TAG_REPLACEMENT_SUFFIX, $value, $this->__src);
+						$this->__src = str_replace(DIV_TAG_REPLACEMENT_PREFIX . $params['modifier'] . $params['key'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx.$value.$vsx, $this->__src);
 					} else {
 						$substr = substr($this->__src, 0, $params['before']);
-						$substr = str_replace(DIV_TAG_REPLACEMENT_PREFIX . $params['modifier'] . $params['key'] . DIV_TAG_REPLACEMENT_SUFFIX, $value, $substr);
+						$substr = str_replace(DIV_TAG_REPLACEMENT_PREFIX . $params['modifier'] . $params['key'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx.$value.$vsx, $substr);
 						$this->__src = $substr . substr($this->__src, $params['before']);
 					}
 					break;
@@ -5406,6 +5420,7 @@ class div {
 					$this->__src = str_replace('{' . $id . '}', $ignore, $this->__src);
 				}
 				
+				// Restoring inside values
 				$items = $this->__memory;
 				$vars = $this->getVars($items);
 

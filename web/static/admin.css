@@ -110,6 +110,13 @@ input.text{
 	padding: 5px;
 }
 
+input.number{
+	width: 50px;
+	border: 1px solid gray;
+	padding: 5px;
+}
+
+
 input.submit{
 	float: right;
 	background: #0f9d58;

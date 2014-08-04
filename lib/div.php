@@ -29,24 +29,24 @@
 // The path of templates's root directory
 if (! defined('PACKAGES'))
 	define('PACKAGES', './');
-
-// The default extension for template files
+	
+	// The default extension for template files
 if (! defined('DIV_DEFAULT_TPL_FILE_EXT'))
 	define('DIV_DEFAULT_TPL_FILE_EXT', 'tpl');
-
-// The default extension for data files
+	
+	// The default extension for data files
 if (! defined('DIV_DEFAULT_DATA_FILE_EXT'))
 	define('DIV_DEFAULT_DATA_FILE_EXT', 'json');
-
-// The max number of cycles of the parser (prevent infinite loop and more)
+	
+	// The max number of cycles of the parser (prevent infinite loop and more)
 if (! defined('DIV_MAX_PARSE_CYCLES'))
 	define('DIV_MAX_PARSE_CYCLES', 100);
-
-// The max size of file name or dir name in your operating system
+	
+	// The max size of file name or dir name in your operating system
 if (! defined('DIV_MAX_FILENAME_SIZE'))
 	define('DIV_MAX_FILENAME_SIZE', 250);
-
-// PHP allowed functions for macros and formulas
+	
+	// PHP allowed functions for macros and formulas
 define('DIV_PHP_ALLOWED_FUNCTIONS', 'isset,empty,is_null,is_numeric,is_bool,is_integer,is_double,is_array,sizeof,is_finite,is_float,is_infinite,is_int,is_long,is_nan,is_real,is_scalar,is_string,mt_rand,mt_srand,mt_getrandmax,rand,urlencode,urldecode,uniqid,date,time,intval,htmlspecialchars,htmlspecialchars_decode,strtr,strpos,str_replace,str_ireplace,substr,sprintf,abs,acos,acosh,asin,atan2,atanh,base_convert,bindec,ceil,cos,cosh,decbin,dechex,decoct,deg2rad,exp,expm1,floor,fmod,getrandmax,hexdec,hypot,lcg_value,log10,log1p,log,max,min,octdec,pi,pow,rad2deg,rand,round,sin,sinh,sqrt,srand,tan,tanh,cal_days_in_month,cal_from_jd,cal_info,cal_to_jd,easter_date,easter_days,frenchtojd,gregoriantojd,jddayofweek,jdmonthname,jdtofrench,jdtogregorian,jdtojewish,jdtojulian,jdtounix,jewishtojd,jewishtojd,unixtojd,checkdate,date_default_timezone_get,strtotime,date_sunset,gmdate,gmmktime,gmstrftime,idate,microtime,mktime,strftime,strptime,strtotime,timezone_name_from_abbr,timezone_version_get,bcadd,bccomp,bcdiv,bcmod,bcmul,bcpow,bcpowmod,bcscale,bcsqrt,bcsub,addcslashes,addslashes,bin2hex,chop,chr,chunk_split,convert_cyr_string,convert_uudecode,convert_uuencode,count,count_chars,crc32,crypt,hebrev,hebrevc,hex2bin,html_entity_decode,htmlentities,htmlspecialchars_decode,htmlspecialchars,lcfirst,levenshtein,ltrim,md5,metaphone,money_format,nl_langinfo,nl2br,number_format,ord,quoted_printable_decode,quoted_printable_encode,quotemeta,rtrim,sha1,similar_text,soundex,sprintf,str_pad,str_repeat,str_rot13,str_shuffle,strcasecmp,strchr,strcmp,strcoll,strcspn,strip_tags,stripcslashes,stripos,stripslashes,stristr,strlen,strnatcasecmp,strnatcmp,strncasecmp,strncmp,strpbrk,strrchr,strrev,strripos,strrpos,strspn,strtolower,strtoupper,strtr,substr_compare,substr_count,substr_replace,trim,ucfirst,ucwords,wordwrap,floatval,strval,implode,explode');
 
 // Valid PHP tokens in expressions
@@ -71,7 +71,7 @@ define('DIV_MOMENT_AFTER_REPLACE', 'DIV_MOMENT_AFTER_REPLACE');
 // ------------------------------------- D E F A U L T -- D I A L E C T --------------------------------------//
 // Variables
 if (! defined('DIV_TAG_REPLACEMENT_PREFIX'))
-	define('DIV_TAG_REPLACEMENT_PREFIX', '{'); 
+	define('DIV_TAG_REPLACEMENT_PREFIX', '{');
 if (! defined('DIV_TAG_REPLACEMENT_SUFFIX'))
 	define('DIV_TAG_REPLACEMENT_SUFFIX', '}');
 if (! defined('DIV_TAG_MULTI_MODIFIERS_PREFIX'))
@@ -84,10 +84,10 @@ if (! defined('DIV_TAG_MULTI_MODIFIERS_SUFFIX'))
 	define('DIV_TAG_MULTI_MODIFIERS_SUFFIX', '|}');
 if (! defined('DIV_TAG_SUBMATCH_SEPARATOR'))
 	define('DIV_TAG_SUBMATCH_SEPARATOR', ':');
-
-// Variable's modifiers
+	
+	// Variable's modifiers
 if (! defined('DIV_TAG_MODIFIER_SIMPLE'))
-	define('DIV_TAG_MODIFIER_SIMPLE', '$'); 
+	define('DIV_TAG_MODIFIER_SIMPLE', '$');
 if (! defined('DIV_TAG_MODIFIER_CAPITALIZE_FIRST'))
 	define('DIV_TAG_MODIFIER_CAPITALIZE_FIRST', '^');
 if (! defined('DIV_TAG_MODIFIER_CAPITALIZE_WORDS'))
@@ -126,8 +126,10 @@ if (! defined('DIV_TAG_MODIFIER_JS'))
 	define('DIV_TAG_MODIFIER_JS', "js:");
 if (! defined('DIV_TAG_MODIFIER_FORMAT'))
 	define('DIV_TAG_MODIFIER_FORMAT', '');
+	
+	// Data format
 if (! defined('DIV_TAG_DATE_FORMAT_PREFIX'))
-	define('DIV_TAG_DATE_FORMAT_PREFIX', '{/'); // Data format
+	define('DIV_TAG_DATE_FORMAT_PREFIX', '{/');
 if (! defined('DIV_TAG_DATE_FORMAT_SUFFIX'))
 	define('DIV_TAG_DATE_FORMAT_SUFFIX', '/}');
 if (! defined('DIV_TAG_DATE_FORMAT_SEPARATOR'))
@@ -138,40 +140,54 @@ if (! defined('DIV_TAG_NUMBER_FORMAT_SUFFIX'))
 	define('DIV_TAG_NUMBER_FORMAT_SUFFIX', '#}');
 if (! defined('DIV_TAG_NUMBER_FORMAT_SEPARATOR'))
 	define('DIV_TAG_NUMBER_FORMAT_SEPARATOR', ':');
+	
+	// Formulas
 if (! defined('DIV_TAG_FORMULA_BEGIN'))
-	define('DIV_TAG_FORMULA_BEGIN', '(#'); // Formulas
+	define('DIV_TAG_FORMULA_BEGIN', '(#');
 if (! defined('DIV_TAG_FORMULA_END'))
 	define('DIV_TAG_FORMULA_END', '#)');
 if (! defined('DIV_TAG_FORMULA_FORMAT_SEPARATOR'))
 	define('DIV_TAG_FORMULA_FORMAT_SEPARATOR', ':');
+	
+	// Sub-parsers
 if (! defined('DIV_TAG_SUBPARSER_BEGIN_PREFIX'))
-	define('DIV_TAG_SUBPARSER_BEGIN_PREFIX', '{'); // Sub-parsers
+	define('DIV_TAG_SUBPARSER_BEGIN_PREFIX', '{');
 if (! defined('DIV_TAG_SUBPARSER_BEGIN_SUFFIX'))
 	define('DIV_TAG_SUBPARSER_BEGIN_SUFFIX', '}');
 if (! defined('DIV_TAG_SUBPARSER_END_PREFIX'))
 	define('DIV_TAG_SUBPARSER_END_PREFIX', '{/');
 if (! defined('DIV_TAG_SUBPARSER_END_SUFFIX'))
 	define('DIV_TAG_SUBPARSER_END_SUFFIX', '}');
+	
+	// Ignored parts
 if (! defined('DIV_TAG_IGNORE_BEGIN'))
-	define('DIV_TAG_IGNORE_BEGIN', '{ignore}'); // Ignored parts
+	define('DIV_TAG_IGNORE_BEGIN', '{ignore}');
 if (! defined('DIV_TAG_IGNORE_END'))
 	define('DIV_TAG_IGNORE_END', '{/ignore}');
+	
+	// Comments
 if (! defined('DIV_TAG_COMMENT_BEGIN'))
-	define('DIV_TAG_COMMENT_BEGIN', '<!--{'); // Comments
+	define('DIV_TAG_COMMENT_BEGIN', '<!--{');
 if (! defined('DIV_TAG_COMMENT_END'))
 	define('DIV_TAG_COMMENT_END', '}-->');
+	
+	// HTML to Plain text
 if (! defined('DIV_TAG_TXT_BEGIN'))
-	define('DIV_TAG_TXT_BEGIN', '{txt}'); // HTML to Plain text
+	define('DIV_TAG_TXT_BEGIN', '{txt}');
 if (! defined('DIV_TAG_TXT_END'))
 	define('DIV_TAG_TXT_END', '{/txt}');
 if (! defined('DIV_TAG_TXT_WIDTH_SEPARATOR'))
 	define('DIV_TAG_TXT_WIDTH_SEPARATOR', '=>');
+	
+	// Strip
 if (! defined('DIV_TAG_STRIP_BEGIN'))
-	define('DIV_TAG_STRIP_BEGIN', '{strip}'); // Strip
+	define('DIV_TAG_STRIP_BEGIN', '{strip}');
 if (! defined('DIV_TAG_STRIP_END'))
 	define('DIV_TAG_STRIP_END', '{/strip}');
+	
+	// Loops
 if (! defined('DIV_TAG_LOOP_BEGIN_PREFIX'))
-	define('DIV_TAG_LOOP_BEGIN_PREFIX', '[$'); // Loops
+	define('DIV_TAG_LOOP_BEGIN_PREFIX', '[$');
 if (! defined('DIV_TAG_LOOP_BEGIN_SUFFIX'))
 	define('DIV_TAG_LOOP_BEGIN_SUFFIX', ']');
 if (! defined('DIV_TAG_LOOP_END_PREFIX'))
@@ -184,16 +200,20 @@ if (! defined('DIV_TAG_BREAK'))
 	define('DIV_TAG_BREAK', '@break@');
 if (! defined('DIV_TAG_LOOP_VAR_SEPARATOR'))
 	define('DIV_TAG_LOOP_VAR_SEPARATOR', '=>');
+	
+	// Iterations
 if (! defined('DIV_TAG_ITERATION_BEGIN_PREFIX'))
-	define('DIV_TAG_ITERATION_BEGIN_PREFIX', '[:'); // Iterations
+	define('DIV_TAG_ITERATION_BEGIN_PREFIX', '[:');
 if (! defined('DIV_TAG_ITERATION_BEGIN_SUFFIX'))
 	define('DIV_TAG_ITERATION_BEGIN_SUFFIX', ':]');
 if (! defined('DIV_TAG_ITERATION_END'))
 	define('DIV_TAG_ITERATION_END', '[/]');
 if (! defined('DIV_TAG_ITERATION_PARAM_SEPARATOR'))
 	define('DIV_TAG_ITERATION_PARAM_SEPARATOR', ',');
+	
+	// Conditional parts
 if (! defined('DIV_TAG_CONDITIONAL_TRUE_BEGIN_PREFIX'))
-	define('DIV_TAG_CONDITIONAL_TRUE_BEGIN_PREFIX', '?$'); // Conditional parts
+	define('DIV_TAG_CONDITIONAL_TRUE_BEGIN_PREFIX', '?$');
 if (! defined('DIV_TAG_CONDITIONAL_TRUE_BEGIN_SUFFIX'))
 	define('DIV_TAG_CONDITIONAL_TRUE_BEGIN_SUFFIX', '');
 if (! defined('DIV_TAG_CONDITIONAL_TRUE_END_PREFIX'))
@@ -210,54 +230,72 @@ if (! defined('DIV_TAG_CONDITIONAL_FALSE_END_SUFFIX'))
 	define('DIV_TAG_CONDITIONAL_FALSE_END_SUFFIX', '!');
 if (! defined('DIV_TAG_ELSE'))
 	define('DIV_TAG_ELSE', '@else@');
+	
+	// Conditions
 if (! defined('DIV_TAG_CONDITIONS_BEGIN_PREFIX'))
-	define('DIV_TAG_CONDITIONS_BEGIN_PREFIX', '{?('); // Conditions
+	define('DIV_TAG_CONDITIONS_BEGIN_PREFIX', '{?(');
 if (! defined('DIV_TAG_CONDITIONS_BEGIN_SUFFIX'))
 	define('DIV_TAG_CONDITIONS_BEGIN_SUFFIX', ')?}');
 if (! defined('DIV_TAG_CONDITIONS_END'))
 	define('DIV_TAG_CONDITIONS_END', '{/?}');
+	
+	// Template vars
 if (! defined('DIV_TAG_TPLVAR_BEGIN'))
-	define('DIV_TAG_TPLVAR_BEGIN', '{='); // Template vars
+	define('DIV_TAG_TPLVAR_BEGIN', '{=');
 if (! defined('DIV_TAG_TPLVAR_END'))
 	define('DIV_TAG_TPLVAR_END', '=}');
 if (! defined('DIV_TAG_TPLVAR_ASSIGN_OPERATOR'))
 	define('DIV_TAG_TPLVAR_ASSIGN_OPERATOR', ':');
 if (! defined('DIV_TAG_TPLVAR_PROTECTOR'))
 	define('DIV_TAG_TPLVAR_PROTECTOR', '*');
+	
+	// Default replacement
 if (! defined('DIV_TAG_DEFAULT_REPLACEMENT_BEGIN'))
-	define('DIV_TAG_DEFAULT_REPLACEMENT_BEGIN', '{@'); // Default replacement
+	define('DIV_TAG_DEFAULT_REPLACEMENT_BEGIN', '{@');
 if (! defined('DIV_TAG_DEFAULT_REPLACEMENT_END'))
 	define('DIV_TAG_DEFAULT_REPLACEMENT_END', '@}');
+	
+	// Includes
 if (! defined('DIV_TAG_INCLUDE_BEGIN'))
-	define('DIV_TAG_INCLUDE_BEGIN', '{% '); // Includes
+	define('DIV_TAG_INCLUDE_BEGIN', '{% ');
 if (! defined('DIV_TAG_INCLUDE_END'))
 	define('DIV_TAG_INCLUDE_END', ' %}');
+	
+	// Pre-processed
 if (! defined('DIV_TAG_PREPROCESSED_BEGIN'))
-	define('DIV_TAG_PREPROCESSED_BEGIN', '{%% '); // Pre-processed
+	define('DIV_TAG_PREPROCESSED_BEGIN', '{%% ');
 if (! defined('DIV_TAG_PREPROCESSED_END'))
 	define('DIV_TAG_PREPROCESSED_END', ' %%}');
+	
+	// Capsules
 if (! defined('DIV_TAG_CAPSULE_BEGIN_PREFIX'))
-	define('DIV_TAG_CAPSULE_BEGIN_PREFIX', '[['); // Capsules
+	define('DIV_TAG_CAPSULE_BEGIN_PREFIX', '[[');
 if (! defined('DIV_TAG_CAPSULE_BEGIN_SUFFIX'))
 	define('DIV_TAG_CAPSULE_BEGIN_SUFFIX', '');
 if (! defined('DIV_TAG_CAPSULE_END_PREFIX'))
 	define('DIV_TAG_CAPSULE_END_PREFIX', '');
 if (! defined('DIV_TAG_CAPSULE_END_SUFFIX'))
 	define('DIV_TAG_CAPSULE_END_SUFFIX', ']]');
+	
+	// Multi replacements
 if (! defined('DIV_TAG_MULTI_REPLACEMENT_BEGIN_PREFIX'))
-	define('DIV_TAG_MULTI_REPLACEMENT_BEGIN_PREFIX', '{:'); // Multi replacements
+	define('DIV_TAG_MULTI_REPLACEMENT_BEGIN_PREFIX', '{:');
 if (! defined('DIV_TAG_MULTI_REPLACEMENT_BEGIN_SUFFIX'))
 	define('DIV_TAG_MULTI_REPLACEMENT_BEGIN_SUFFIX', '}');
 if (! defined('DIV_TAG_MULTI_REPLACEMENT_END_PREFIX'))
 	define('DIV_TAG_MULTI_REPLACEMENT_END_PREFIX', '{:/');
 if (! defined('DIV_TAG_MULTI_REPLACEMENT_END_SUFFIX'))
 	define('DIV_TAG_MULTI_REPLACEMENT_END_SUFFIX', '}');
+	
+	// Friendly tags
 if (! defined('DIV_TAG_FRIENDLY_BEGIN'))
-	define('DIV_TAG_FRIENDLY_BEGIN', '<!--|'); // Friendly tags
+	define('DIV_TAG_FRIENDLY_BEGIN', '<!--|');
 if (! defined('DIV_TAG_FRIENDLY_END'))
 	define('DIV_TAG_FRIENDLY_END', '|-->');
+	
+	// Aggregate functions
 if (! defined('DIV_TAG_AGGREGATE_FUNCTION_COUNT'))
-	define('DIV_TAG_AGGREGATE_FUNCTION_COUNT', 'count'); // Aggregate functions
+	define('DIV_TAG_AGGREGATE_FUNCTION_COUNT', 'count');
 if (! defined('DIV_TAG_AGGREGATE_FUNCTION_MAX'))
 	define('DIV_TAG_AGGREGATE_FUNCTION_MAX', 'max');
 if (! defined('DIV_TAG_AGGREGATE_FUNCTION_MIN'))
@@ -270,8 +308,11 @@ if (! defined('DIV_TAG_AGGREGATE_FUNCTION_SEPARATOR'))
 	define('DIV_TAG_AGGREGATE_FUNCTION_SEPARATOR', ':');
 if (! defined('DIV_TAG_AGGREGATE_FUNCTION_PROPERTY_SEPARATOR'))
 	define('DIV_TAG_AGGREGATE_FUNCTION_PROPERTY_SEPARATOR', '-');
+	
+	// Locations
 if (! defined('DIV_TAG_LOCATION_BEGIN'))
-	define('DIV_TAG_LOCATION_BEGIN', '(( '); // Locations
+	
+	define('DIV_TAG_LOCATION_BEGIN', '(( ');
 if (! defined('DIV_TAG_LOCATION_END'))
 	define('DIV_TAG_LOCATION_END', ' ))');
 if (! defined('DIV_TAG_LOCATION_CONTENT_BEGIN_PREFIX'))
@@ -282,12 +323,16 @@ if (! defined('DIV_TAG_LOCATION_CONTENT_END_PREFIX'))
 	define('DIV_TAG_LOCATION_CONTENT_END_PREFIX', '');
 if (! defined('DIV_TAG_LOCATION_CONTENT_END_SUFFIX'))
 	define('DIV_TAG_LOCATION_CONTENT_END_SUFFIX', '}}');
+	
+	// Macros
 if (! defined('DIV_TAG_MACRO_BEGIN'))
-	define('DIV_TAG_MACRO_BEGIN', '<?'); // Macros
+	define('DIV_TAG_MACRO_BEGIN', '<?');
 if (! defined('DIV_TAG_MACRO_END'))
 	define('DIV_TAG_MACRO_END', '?>');
+	
+	// Special replacements
 if (! defined('DIV_TAG_SPECIAL_REPLACE_NEW_LINE'))
-	define('DIV_TAG_SPECIAL_REPLACE_NEW_LINE', '{\n}'); // Special replacements
+	define('DIV_TAG_SPECIAL_REPLACE_NEW_LINE', '{\n}');
 if (! defined('DIV_TAG_SPECIAL_REPLACE_CAR_RETURN'))
 	define('DIV_TAG_SPECIAL_REPLACE_CAR_RETURN', '{\r}');
 if (! defined('DIV_TAG_SPECIAL_REPLACE_HORIZONTAL_TAB'))
@@ -503,64 +548,91 @@ class div {
 	// properties of the template
 	public $__properties = array();
 	
-	// Private
-	private $__id = null;
+	// ----- Private ------
 	// template id
-	private $__temp = array();
+	private $__id = null;
+	
 	// temporal vars
-	private $__crc = null;
+	private $__temp = array();
+	
 	// template cheksum
-	// Globals
-	private static $__custom_modifiers = array();
+	private $__crc = null;
+	
+	// ----- Globals -----
+	
 	// custom variable's modifiers
-	private static $__globals = array();
+	private static $__custom_modifiers = array();
+	
 	// global template's variables
-	private static $__globals_design = array();
+	private static $__globals = array();
+	
 	// global template's variables defined in the design
-	private static $__globals_design_protected = array();
+	private static $__globals_design = array();
+	
 	// global and protected template variables defined in the design
-	private static $__defaults = array();
+	private static $__globals_design_protected = array();
+	
 	// default value for another value
-	private static $__defaults_by_var = array();
+	private static $__defaults = array();
+	
 	// default value for another value by variable
-	private static $__system_data = null;
+	private static $__defaults_by_var = array();
+	
 	// system data
+	private static $__system_data = null;
 	private static $__system_data_allowed = array(
 			'div.version' => true,
 			'div.post' => true,
 			'div.get' => true,
 			'div.now' => true
 	);
-	private static $__discard_file_system = false;
+	
 	// do not load code from files
-	private static $__allowed_functions = array();
+	private static $__discard_file_system = false;
+	
 	// list of allowed custom functions
-	private static $__allowed_methods = null;
+	private static $__allowed_functions = array();
+	
 	// list of allowed class's methods
-	private static $__sub_parsers = array();
+	private static $__allowed_methods = null;
+	
 	// list of subparsers
-	private static $__docs = array();
+	private static $__sub_parsers = array();
+	
 	// template's documentation
-	private static $__docs_on = false;
+	private static $__docs = array();
+	
 	// on/off documentation
-	private static $__includes_historial = array();
+	private static $__docs_on = false;
+	
 	// includes's historial
-	// Internals
-	private static $__version = '4.5';
+	private static $__includes_historial = array();
+	
+	// ----- Internals -----
+	
 	// current version of Div
-	private static $__super_class = null;
+	private static $__version = '4.5';
+	
 	// name of the super class
-	private static $__parent_method_names = array();
+	private static $__super_class = null;
+	
 	// name of parent class's methods
-	private static $__method_names = null;
+	private static $__parent_method_names = array();
+	
 	// name of current methods
-	private static $__parse_duration = null;
+	private static $__method_names = null;
+	
 	// duration of parser
-	private static $__parse_level = 0;
+	private static $__parse_duration = null;
+	
 	// current level of parser
-	private static $__engine = null;
+	private static $__parse_level = 0;
+	
 	// auxiliary engine
-	private static $__modifiers = array( // variable's modifiers
+	private static $__engine = null;
+	
+	// variable's modifiers
+	private static $__modifiers = array(
 			DIV_TAG_MODIFIER_SIMPLE,
 			DIV_TAG_MODIFIER_CAPITALIZE_FIRST,
 			DIV_TAG_MODIFIER_CAPITALIZE_WORDS,
@@ -578,30 +650,41 @@ class div {
 			DIV_TAG_MODIFIER_SINGLE_QUOTES,
 			DIV_TAG_MODIFIER_JS
 	);
-	private static $__dialect_checked = false;
+	
 	// is current dialect checked?
-	private static $__allowed_php_functions = null;
+	private static $__dialect_checked = false;
+	
 	// allowed PHP functions
-	private static $__log_mode = false;
+	private static $__allowed_php_functions = null;
+	
 	// is log mode?
-	private static $__log_file = null;
+	private static $__log_mode = false;
+	
 	// the log filename
-	private static $__is_cli = null;
+	private static $__log_file = null;
+	
 	// is PHP cli?
-	private static $__ignored_parts = array();
+	private static $__is_cli = null;
+	
 	// ignored parts
-	private static $__last_id = 0;
+	private static $__ignored_parts = array();
+	
 	// last template id
-	private static $__remember = array();
+	private static $__last_id = 0;
+	
 	// remember previous work
+	private static $__remember = array();
 	
 	// do not remember this work
 	private static $__dont_remember_it = array();
-		
+	
 	// historical errors
 	private static $__errors = array();
-		
+	
+	// include path
 	private static $__include_paths = null;
+	
+	// packages by class
 	private static $__packages_by_class = array();
 	
 	/**
@@ -891,6 +974,7 @@ class div {
 	 */
 	final static function getSystemData(){
 		if (self::$__system_data == null) {
+			
 			self::$__system_data = array();
 			if (isset(self::$__system_data_allowed['div.ascii'])) {
 				$ascii = array();
@@ -1925,6 +2009,28 @@ class div {
 	}
 	
 	/**
+	 * Set a variable as literal
+	 *
+	 * @param string $var
+	 */
+	final public function addLiteral($var){
+		if (is_string($var))
+			$var = explode(" ", str_replace(",", " ", $var));
+		
+		$literals = self::getVarValue("div.literals", self::$__globals_design);
+		
+		if (is_null($literals) || $literals === false)
+			$literals = array();
+		
+		if (is_string($literals))
+			$literals = explode(" ", str_replace(",", " ", $literals));
+		
+		$literals = array_merge($literals, $var);
+		
+		self::setVarValue("div.literals", $literals, self::$__globals_design, true);
+	}
+	
+	/**
 	 * Get literal vars from dynamic configuration
 	 */
 	final public function getLiterals(){
@@ -2225,7 +2331,7 @@ class div {
 		
 		$mod = DIV_TAG_MODIFIER_ENCODE_JSON;
 		if (strpos($this->__src, $prefix . $mod . $key . $suffix) !== false) {
-			$this->__src = str_replace($prefix . $mod . $key . $suffix, $vpx.self::jsonEncode($value).$vsx, $this->__src, $rcount);
+			$this->__src = str_replace($prefix . $mod . $key . $suffix, $vpx . self::jsonEncode($value) . $vsx, $this->__src, $rcount);
 			if ($rcount > 0 && ! isset(self::$__dont_remember_it[$key]))
 				$this->saveOperation(array(
 						'o' => 'json_encode',
@@ -3174,7 +3280,7 @@ class div {
 	final public function getVars($items = null, $superkey = ''){
 		if (is_null($items))
 			$items = $this->__memory;
-				
+		
 		$vars = array();
 		
 		$itemsx = array();
@@ -3188,7 +3294,7 @@ class div {
 		
 		foreach ( $itemsx as $key => $value ) {
 			$xkey = $superkey . $key;
-						
+			
 			if ($xkey !== '') {
 				if ($xkey == 'vars.this' || $xkey == 'this') {
 					if (is_object($value)) {
@@ -3196,7 +3302,7 @@ class div {
 							continue;
 						
 						$sp = $this->getSuperParent(get_class($value));
-												
+						
 						if ($sp == 'div')
 							continue;
 					}
@@ -3204,7 +3310,7 @@ class div {
 				
 				$vars[] = $xkey;
 				
-				if (! is_scalar($value) && !is_null($value))
+				if (! is_scalar($value) && ! is_null($value))
 					$vars = array_merge($vars, $this->getVars($itemsx[$key], $xkey . '.'));
 			}
 		}
@@ -4928,7 +5034,7 @@ class div {
 						continue;
 					$value = self::teaser("{$value}", intval($params['param']));
 					$search = DIV_TAG_REPLACEMENT_PREFIX . $params['modifier'] . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX;
-					$this->__src = str_replace($search, $vpx.$value.$vsx, $this->__src);
+					$this->__src = str_replace($search, $vpx . $value . $vsx, $this->__src);
 					break;
 				
 				case 'replace_submatch_substr' :
@@ -4936,7 +5042,7 @@ class div {
 					if (is_null($value))
 						continue;
 					$value = self::anyToStr($value);
-					$this->__src = str_replace($simple . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx.substr($value, $params['from'], $params['for']).$vsx, $this->__src);
+					$this->__src = str_replace($simple . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx . substr($value, $params['from'], $params['for']) . $vsx, $this->__src);
 					break;
 				
 				case 'replace_submatch_wordwrap' :
@@ -4944,7 +5050,7 @@ class div {
 					if (is_null($value))
 						continue;
 					$value = self::anyToStr($value);
-					$this->__src = str_replace($simple . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx.wordwrap("{$value}", intval(substr($params['param'], strlen(DIV_TAG_MODIFIER_WORDWRAP))), "\n", 1).$vsx, $this->__src);
+					$this->__src = str_replace($simple . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx . wordwrap("{$value}", intval(substr($params['param'], strlen(DIV_TAG_MODIFIER_WORDWRAP))), "\n", 1) . $vsx, $this->__src);
 					break;
 				
 				case 'replace_submatch_sprintf' :
@@ -4952,14 +5058,14 @@ class div {
 					if (is_null($value))
 						continue;
 					$value = self::anyToStr($value);
-					$this->__src = str_replace($simple . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx.sprintf($params['param'], $value).$vsx, $this->__src);
+					$this->__src = str_replace($simple . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx . sprintf($params['param'], $value) . $vsx, $this->__src);
 					break;
 				
 				case 'json_encode' :
 					$value = self::getVarValue($params['key'], $items);
 					if (is_null($value))
 						continue;
-					$this->__src = str_replace(DIV_TAG_REPLACEMENT_PREFIX . DIV_TAG_MODIFIER_ENCODE_JSON . $params['key'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx.self::jsonEncode($value).$vsx, $this->__src);
+					$this->__src = str_replace(DIV_TAG_REPLACEMENT_PREFIX . DIV_TAG_MODIFIER_ENCODE_JSON . $params['key'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx . self::jsonEncode($value) . $vsx, $this->__src);
 					break;
 				
 				case 'simple_replacement' :
@@ -5002,10 +5108,10 @@ class div {
 					}
 					
 					if ($params['before'] === false) {
-						$this->__src = str_replace(DIV_TAG_REPLACEMENT_PREFIX . $params['modifier'] . $params['key'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx.$value.$vsx, $this->__src);
+						$this->__src = str_replace(DIV_TAG_REPLACEMENT_PREFIX . $params['modifier'] . $params['key'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx . $value . $vsx, $this->__src);
 					} else {
 						$substr = substr($this->__src, 0, $params['before']);
-						$substr = str_replace(DIV_TAG_REPLACEMENT_PREFIX . $params['modifier'] . $params['key'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx.$value.$vsx, $substr);
+						$substr = str_replace(DIV_TAG_REPLACEMENT_PREFIX . $params['modifier'] . $params['key'] . DIV_TAG_REPLACEMENT_SUFFIX, $vpx . $value . $vsx, $substr);
 						$this->__src = $substr . substr($this->__src, $params['before']);
 					}
 					break;
@@ -5423,7 +5529,7 @@ class div {
 				// Restoring inside values
 				$items = $this->__memory;
 				$vars = $this->getVars($items);
-
+				
 				foreach ( $vars as $var ) {
 					$exp = self::getVarValue($var, $items);
 					if (is_string($exp)) {

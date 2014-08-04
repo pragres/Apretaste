@@ -57,11 +57,23 @@ class ApretasteAdmin {
 			
 			self::saveUserAction();
 			
-			if (file_exists("../admin/$url.php"))
+			if (file_exists("../admin/$url.php")) {
+				
+				if (! ApretasteAdmin::verifyLogin())
+					die('Access denied');
+				
+				$data = array();
+				
+				$data['user'] = ApretasteAdmin::getUser();
+				
 				include "../admin/$url.php";
-			else
+				
+				$tpl = "../tpl/admin/{$url}.tpl";
+				
+				if (file_exists($tpl))
+					echo new div($tpl, $data);
+			} else
 				eval('self::page_' . $url . '();');
-			
 		} elseif (isset($_GET['chart'])) {
 			
 			$url = $_GET['chart'];
@@ -1021,5 +1033,4 @@ class ApretasteAdmin {
 		
 		echo new div("../tpl/admin/sms.tpl", $data);
 	}
-	
 }

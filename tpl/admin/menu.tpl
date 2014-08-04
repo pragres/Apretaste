@@ -20,4 +20,6 @@
 ] 
 =}
 
+{?( "{$user.user_role}" == "admin" )?}
 [$menu]<a class = "tab {?( "{$div.get.page}"=="{$page}" )?} tab-active {/?}" href="?path=admin&page={$page}">{$title}</a>[/$menu]
+{/?}

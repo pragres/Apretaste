@@ -30,29 +30,34 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 	switch ($argument) {
 		case 'satelite' :
 			echo "[INFO] Download last Satellite WSI Image \n";
+			$exts = array("gif","jpg","png","jpeg");
 			
-			$f = date("Ymd") . '1.gif';
-			$url = "http://tiempo.cuba.cu/images/$f";
-			$robot->log("Downloading $url");
-			
-			$img = @file_get_contents($url);
-			
-			if ($img === false) {
-				$f = date("Ymd", time() - 60 * 60 * 24) . '1.gif';
+			foreach($exts as $ext){
+				$f = date("Ymd") . '1.'.$ext;
 				$url = "http://tiempo.cuba.cu/images/$f";
 				$robot->log("Downloading $url");
 				
 				$img = @file_get_contents($url);
 				
 				if ($img === false) {
-					$f = date("Ymd", time() - 60 * 60 * 24 * 2) . '1.gif';
+					$f = date("Ymd", time() - 60 * 60 * 24) . '1.'.$ext;
 					$url = "http://tiempo.cuba.cu/images/$f";
 					$robot->log("Downloading $url");
 					
 					$img = @file_get_contents($url);
+					
+					if ($img === false) {
+						$f = date("Ymd", time() - 60 * 60 * 24 * 2) . '1.'.$ext;
+						$url = "http://tiempo.cuba.cu/images/$f";
+						$robot->log("Downloading $url");
+						
+						$img = @file_get_contents($url);
+					}
+					
 				}
+				
+				if ($img!== false) break;
 			}
-			
 			$img = Apretaste::resizeImage($img, 700);
 			
 			return array(

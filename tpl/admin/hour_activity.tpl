@@ -1,15 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="es">
-	<head>
-		<title>Apretaste!com | Hour activity</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<link href="static/admin.css" rel="stylesheet"></link>
-	</head>
-<body>
-	{= path: "?path=admin&page=hour_activity" =}
-	<div id = "page">
-		<h1><a href = "?path=admin&page=dashboard">Apretaste!com</a> - <a href="?path=admin&page=hour_activity">Hour activity</a></h1>
-		{% menu %}
+{= title: "Hour activity" =}
+{= path: "?path=admin&page=hour_activity" =}
+{% layout %}
+{{page
 		<h2>Day {$date}, hour {$hour}, {$messages} messages</h2> 
 		?$messages
 			<table class="tabla"><tr><th>ID</th><th>Moment</th><th>Author</th><th>Command</th><th>Subject</th><th>Answers</th>
@@ -45,6 +37,4 @@
 		[/$answers]
 		</table>
 		$answers?
-	</div>
-</body>
-</html>
+page}}

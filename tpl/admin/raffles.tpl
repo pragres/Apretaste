@@ -1,15 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="es">
-	<head>
-		<title>Apretaste!com | Raffles</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<link href="static/admin.css" rel="stylesheet"></link>
-	</head>
-<body>
-	{= path: "?path=admin&page=raffles" =}
-	<div id = "page">
-		<h1><a href = "?path=admin&page=dashboard">Apretaste!com</a> - <a href="?path=admin&page=raffles">Raffles</a></h1>
-		{% menu %}
+{= title: "Raffles" =}
+{= path: "?path=admin&page=raffles" =}
+{% layout %}
+{{page 
 		?$raffles
 			<table width="100%" class="tabla">
 			<tr>
@@ -40,8 +32,6 @@
 		Date to: <input class="text" name="date_to" style="width: 150px;"><br/>
 		Image: <input type="file" name="image"><br/>
 		<hr/>
-		<input type="submit" value="Add" name="btnAdd">
+		<input class="submit" type="submit" value="Add" name="btnAdd">
 		</form>
-	</div>
-</body>
-</html>
+page}}

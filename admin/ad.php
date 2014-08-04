@@ -1,10 +1,5 @@
 <?php 
 
-if (! ApretasteAdmin::verifyLogin())
-	die('Access denied');
-
-$data = array();
-$data['user'] = ApretasteAdmin::getUser();
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
 		
@@ -17,5 +12,3 @@ if (isset($_GET['id'])) {
 	}
 } else
 	$data['ad'] = false;
-
-echo new div("../tpl/admin/ad.tpl", $data);

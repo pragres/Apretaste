@@ -8,19 +8,11 @@
 <!--{ auxiliary vars }-->
 {= months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] =}
 {= year_color: ["", "#ff9886","#7a6fbf"] =}
-{= div.literals: ['s'] =}					
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="es">
-    <head>
-		<title>Apretaste! | Dashboard</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<link href="static/admin.css" rel="stylesheet"/>
-    </head>
-    <body>
-	<div id ="page">
-		<h1><a href = "?path=admin&page=dashboard">Apretaste!com</a> - <a href="?path=admin&page=dashboard">Dashboard</a></h1>
-	    {% menu %}
-		
+{= div.literals: ['s'] =}	
+{= title: Dashboard =} 				
+
+{% layout %}		
+{{page	  		
 		<!--{ BEGIN Hourly access }-->
 		<h2>Access by hour</h2>
 		<p style="color:gray;">Number of emails received and sent every hour (last 20 days)</p>
@@ -96,25 +88,25 @@
     	<h2 style="margin-top:50px;">Visitors</h2>
 		<p style="color:gray;">Number of emails received</p>
 		
-		<img width="100%" height="50%"src="index.php?path=admin&chart=visitors">
+		<img width="100%" height="60%" src="index.php?path=admin&chart=visitors">
 
 		<h2 style="margin-top:50px;">Unique visitors </h2>
 		<p style="color:gray;">Number of unique emails received</p>
-		<img width="100%" height="50%"src="index.php?path=admin&chart=unique_visitors">
+		<img width="100%" height="60%" src="index.php?path=admin&chart=unique_visitors">
 		
 		
 		<h2>New users </h2>
 		<p style="color:gray;">Number of emails received for first time in the history</p>
-		<img width="100%" height="50%"src="index.php?path=admin&chart=new_users">
+		<img width="100%" height="60%"src="index.php?path=admin&chart=new_users">
 		<p>Total number of users in Apretaste: <b>{$total_users}</b></p>
 				
 		<h2 style="margin-top:50px;">Engagement level</h2>
 		<p style="color:gray;">Number of emails repeated more than three times a month.</p>
-		<img width="100%" height="50%"src="index.php?path=admin&chart=engagement">
+		<img width="100%" height="60%"src="index.php?path=admin&chart=engagement">
 		
 		<h2 style="margin-top:50px;">Bounce Rate</h2>
 		<p style="color:gray;">Number of emails received only one time a month.</p>
-		<img width="100%" height="50%"src="index.php?path=admin&chart=bounce_rate">
+		<img width="100%" height="60%"src="index.php?path=admin&chart=bounce_rate">
 		
 		<h2 style="margin-top:50px;">Services usage</h2>
 		<p style="color:gray;">Services more used</p>
@@ -245,5 +237,4 @@
 		</table>
 		<p>Number of users receiving alerts: <b>{$subscribes_count}</b></p>
 		<p>Number of emails sent by the linker: ?$linker [$linker] {$months.{$_index}} = <b>{$total}</b> [/$linker] $linker?</p>
-	</div>
-</body>
+page}}

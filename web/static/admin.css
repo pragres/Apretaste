@@ -1,7 +1,9 @@
 body {
-	background: #eeeeee;
+	background: transparent;
 	font-size: 14px;
 	font-family: Verdana;
+	margin:0px;
+	padding: 0px;
 }
 
 td {
@@ -18,8 +20,6 @@ h2 {
 
 #page {
 	width: 98%;
-	-moz-border-radius: 10px;
-	border: 2px solid black;
 	background: white;
 	margin: 0 auto;
 	padding: 10px;
@@ -89,13 +89,13 @@ div.description {
 }
 
 #auth {
-	-moz-border-radius: 5px;
-	border-radius: 5px;
 	background: white;
 	padding: 10px;
 	margin: 0 auto;
+	margin-top: 10px;
 	width: 350px;
-	height: 400px;
+	height: 250px;
+	border: 1px solid #0f9d58;
 }
 
 #auth input{
@@ -118,7 +118,6 @@ input.number{
 
 
 input.submit{
-	float: right;
 	background: #0f9d58;
 	color: white;
 	font-weight: bold;
@@ -136,4 +135,44 @@ input.submit:hover{
 	border-bottom: 1px solid gray;
 	padding: 5px;
 	
+}
+
+.top-bar{
+	background: #0f9d58;
+	color: white;
+	height: 71px;
+	padding: 5px 5px 0px 5px;
+	font-size: 20px;
+	border-bottom: 1px solid black;	
+}
+
+.top-bar a{
+	color: white;
+	
+}
+
+.top-bar a:hover{
+	text-decoration: underline;
+}
+
+.tab{
+	padding: 5px;
+	background: #0f9d58;
+	border-bottom: none;
+	color: white;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+.tab-active{
+	 color: black;
+	 background: white;
+	 border-top: 1px solid black;
+	 border-left: 1px solid black;
+	 border-right: 1px solid black;
+	 border-bottom: 1px solid white;
+}
+
+.tab-active:visited{
+	color: black;
 }

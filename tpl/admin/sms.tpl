@@ -1,15 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="es">
-	<head>
-		<title>Apretaste!com | SMS</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<link href="static/admin.css" rel="stylesheet"></link>
-	</head>
-<body>
+{= title: "SMS" =}
+{% layout %}
 	{= path: "?path=admin&page=message" =}
-	<div id = "page">
-		<h1><a href = "?path=admin&page=dashboard">Apretaste!com</a> - <a href="?path=admin&page=sms">SMS</a></h1>
-		{% menu %}
+{{page
 		<!--{ BEGIN Hourly access }-->
 		<h2>SMS by hour</h2>
 		<p style="color:gray;">Number of sms sent by hour (last 20 days, national/international)</p>
@@ -91,6 +83,4 @@
 			</tr>
 			[/$servers]
 		$servers?
-	</div>
-</body>
-</html>
+	page}}

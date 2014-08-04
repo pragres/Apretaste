@@ -42,7 +42,7 @@ class ApretasteAdmin {
 	 */
 	static function Run(){
 		Apretaste::connect();
-		
+		div::enableSystemVar("div.session");
 		if (isset($_GET['page'])) {
 			$url = $_GET['page'];
 			

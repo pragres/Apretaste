@@ -1,16 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="es">
-	<head>
-		<title>Apretaste!com | User activity</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<link href="static/admin.css" rel="stylesheet"></link>
-	</head>
-<body>
-	{= path: "?path=admin&page=user_activity" =}
-	<div id = "page">
-		<h1><a href = "?path=admin&page=dashboard">Apretaste!com</a> - <a href="?path=admin&page=user_activity">User activity</a></h1>
-		{% menu %}
-		 <hr/>
+{= title: "User activity" =}
+{= path: "?path=admin&page=user_activity" =}
+{% layout %}
+{{page
 		<form metho="get" action="index.php">
 			<input type="hidden" name = "path" value="admin">
 			<input type="hidden" name = "page" value="user_activity">
@@ -91,6 +82,4 @@
 			 	</table>
 			 $client.answers? 
 		$client? 
-	</div>
-</body>
-</html>
+page}}

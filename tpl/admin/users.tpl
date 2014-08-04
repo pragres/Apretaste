@@ -1,15 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="es">
-	<head>
-		<title>Apretaste!com | Users</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<link href="static/admin.css" rel="stylesheet"></link>
-	</head>
-<body>
+{= title: "Users" =}
+{% layout %}
+
 	{= path: "?path=admin&page=users" =}
-	<div id = "page">
-		<h1><a href = "?page=admin">Apretaste!com</a> - <a href="users">Users</a></h1>
-		{% menu %}
+{{page
 		?$msg
 			<div id = "message" class = "{$msg-type}">{$msg}</div>
 		$msg?
@@ -30,6 +23,4 @@
 			Password: <input name = "user_pass" type="password">
 			<input type="submit" value="Add" name="btnAddUser">
 		</form>
-		</div>
-</body>
-</html>
+page}}

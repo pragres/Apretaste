@@ -1,9 +1,4 @@
 <?php
-if (! ApretasteAdmin::verifyLogin())
-	die('Access denied');
-
-$data = array();
-$data['user'] = ApretasteAdmin::getUser();
 
 if (isset($_GET['delete'])) {
 	$_GET['delete'] = str_replace("'", "''", $_GET['delete']);
@@ -24,5 +19,3 @@ if (isset($_GET['addraffle'])) {
 }
 
 $data['raffles'] = Apretaste::query("SELECT * FROM xraffles");
-
-echo new div("../tpl/admin/raffles.tpl", $data);

@@ -23,7 +23,7 @@
 			<td valign="center">{$name}</td>
 			<td valign="center">{$email}</td>
 			<td  valign="center">
-			<form action="index.php?path=admin&page=agency_recharge" method="POST">
+			<form action="index.php?path=admin&page=agency_pre_recharge" method="POST">
 			<input type="hidden" value = "{$div.get.id}" name="edtCustomer">
 		<input type="hidden" value ="{$email}" name="edtEmail">
 		<input size="2" class="number" name="edtAmount" value ="">
@@ -39,7 +39,7 @@
 <br/>
 	<fieldset>
 	<legend>Recharge credit of an user</legend>
-		<form action="index.php?path=admin&page=agency_recharge" method="post">
+		<form action="index.php?path=admin&page=agency_pre_recharge" method="post">
 		<input type="hidden" value = "{$div.get.id}" name="edtCustomer">
 		Email: <br/><input class="text" name="edtEmail"><br/>
 		Amount: <br/>$<input class="number" name="edtAmount"><br/>

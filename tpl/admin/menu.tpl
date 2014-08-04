@@ -1,20 +1,22 @@
 <br/>
-{?( "{$user.user_role}" == "admin" )?}
-<a href="?path=admin&page=dashboard">Dashboard</a> |
-<a href="?path=admin&page=config">Configurations</a> |
-<a href="?path=admin&page=users">Admin users</a> |
-<a href="?path=admin&page=accusations">Accusations</a> |
-<a href="?path=admin&page=tips">Tips</a> |
-<a href="?path=admin&page=dictionary">Dictionary</a> |
-<a href="?path=admin&page=address_list">Address list</a> |
-<a href="?path=admin&page=user_activity">User activity</a> |
-<a href="?path=admin&page=mailboxes">Mailboxes</a> |
-<a href="?path=admin&page=sms">SMS</a> |
-<a href="?path=admin&page=subscribes">Subscribes</a> |
-<a href="?path=admin&page=ad">Ads</a> |
-<a href="?path=admin&page=raffles">Raffles</a> | 
-<a href="?path=admin&page=dispatchers">Dispatchers</a> |
-<a href="?path=admin&page=agency">Agency</a> |
-{/?}
-<a href="?path=admin&page=logout">Logout</a>
-<hr/>
+
+{= menu:[
+	{page: "dashboard", title: "Dashboard"},
+	{page: "config", title: "Configurations"},
+	{page: "users", title: "Users"},
+	{page: "accusations", title: "Accusations"},
+	{page: "tips", title: "Tips"},
+	{page: "dictionary", title: "Dictionary"},
+	{page: "address_list", title: "Address list"},
+	{page: "user_activity", title: "User activity"},
+	{page: "sms", title: "SMS"},
+	{page: "subscribes", title: "Subscribres"},
+	{page: "ad", title: "Ads"},
+	{page: "raffles", title: "Raffles"},
+	{page: "dispatchers", title: "Dispatchers"},
+	{page: "agency", title: "Agency"}
+	
+] 
+=}
+
+[$menu]<a class = "tab {?( "{$div.get.page}"=="{$page}" )?} tab-active {/?}" href="?path=admin&page={$page}">{$title}</a>[/$menu]

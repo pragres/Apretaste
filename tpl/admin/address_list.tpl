@@ -1,19 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="es">
-	<head>
-		<title>Apretaste!com | Address list</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<link href="static/admin.css" rel="stylesheet"></link>
-		<script src="static/jquery.min.js" type="text/javascript"></script>
-	</head>
-<body>
-
-	{= path: "index.php?path=admin&page=address_list" =}
-	
-	<div id = "page">
-		<h1><a href = "index.php?path=admin">Apretaste!com</a> - <a href="{$path}">Address list</a></h1>
-		
-		{% menu %}
+{= title: Address list =}
+{= path: "index.php?path=admin&page=address_list" =}
+{% layout %}	
+{{page
 		<fieldset>	
 		<legend>Download from</legend>
 		<a href="{$path}&download=true">All ({$total_address})</a> | 
@@ -74,10 +62,8 @@
 			<fieldset><legend>New emails:</legend>
 			Addresses: <br/>
 			<textarea rows="20" cols="100" name="address"></textarea>&nbsp;
-			<br/><input type="submit" value="Add" name="btnAdd">
+			<br/><input class="submit" type="submit" value="Add" name="btnAdd">
 			</fieldset>
 			
 		</form>
-		</div>
-</body>
-</html>
+page}}

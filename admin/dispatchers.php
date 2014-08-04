@@ -1,9 +1,4 @@
 <?php
-if (! ApretasteAdmin::verifyLogin())
-	die('Access denied');
-
-$data = array();
-$data['user'] = ApretasteAdmin::getUser();
 
 if (isset($_POST['btnAddDispatcher'])) {
 	ApretasteMoney::addDispatcher($_POST['edtEmail'], $_POST['edtName'], $_POST['edtContact']);
@@ -93,5 +88,3 @@ if (isset($_GET['sales'])) {
 }
 
 $data['dispatchers'] = ApretasteMoney::getDispatchers();
-
-echo new div("../tpl/admin/dispatchers.tpl", $data);

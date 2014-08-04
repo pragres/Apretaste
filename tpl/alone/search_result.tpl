@@ -30,8 +30,7 @@
 			<td valign="top">
 			?$body
 				<p align="justify" style="margin: 0px;{$font}">
-					{$body:~300}
-					{?( {%body} > 300 )?} ... {/?}
+					{$body:~300}...								
 				</p>
 			$body?
 			</td></tr><tr><td colspan="2">

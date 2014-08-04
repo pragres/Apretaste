@@ -1886,6 +1886,17 @@ class div {
 	final public function parseSubmatch(&$items, $key, $value, $modifiers = array()){
 		if (isset($this->__ignore[$key]))
 			return false;
+		
+		$literal = $this->isLiteral($key);
+		
+		$vpx = '';
+		$vsx = '';
+		
+		if ($literal === true) {
+			$vpx = '{' . $this->__ignore_secret_tag . '}';
+			$vsx = '{/' . $this->__ignore_secret_tag . '}';
+		}
+		
 		if (strpos($this->__src, $key . DIV_TAG_SUBMATCH_SEPARATOR) !== false)
 			foreach ( $modifiers as $modifier )
 				while ( true ) {
@@ -1917,7 +1928,7 @@ class div {
 					
 					if (! is_numeric($arr[0]) || ! is_numeric($arr[1])) {
 						if (substr("{$arr[1]}", 0, 1) == DIV_TAG_MODIFIER_TRUNCATE) {
-							$items[$nkey] = self::teaser("{$value}", intval(substr($arr[1], 1)));
+							$items[$nkey] = $vpx . self::teaser("{$value}", intval(substr($arr[1], 1))) . $vsx;
 							$this->saveOperation(array(
 									"o" => "replace_submatch_teaser",
 									"key" => $key,
@@ -1925,7 +1936,7 @@ class div {
 									"param" => $r
 							));
 						} elseif (substr("{$arr[1]}", 0, 1) == DIV_TAG_MODIFIER_WORDWRAP) {
-							$items[$nkey] = wordwrap("{$value}", intval(substr($arr[1], 1)), "\n", 1);
+							$items[$nkey] = $vpx . wordwrap("{$value}", intval(substr($arr[1], 1)), "\n", 1) . $vsx;
 							$this->saveOperation(array(
 									"o" => "replace_submatch_wordwrap",
 									"key" => $key,
@@ -1933,7 +1944,7 @@ class div {
 									"param" => $r
 							));
 						} elseif (substr("{$arr[1]}", 0, 1) == DIV_TAG_MODIFIER_FORMAT || DIV_TAG_MODIFIER_FORMAT == '') {
-							$items[$nkey] = sprintf($arr[1], $value);
+							$items[$nkey] = $vpx . sprintf($arr[1], $value) . $vsx;
 							$this->saveOperation(array(
 									"o" => "replace_submatch_sprintf",
 									"key" => $key,
@@ -1942,7 +1953,7 @@ class div {
 							));
 						}
 					} else {
-						$items[$nkey] = substr("$value", $arr[0], $arr[1]);
+						$items[$nkey] = $vpx . substr("$value", $arr[0], $arr[1]) . $vsx;
 						$this->saveOperation(array(
 								"o" => "replace_submatch_substr",
 								"key" => $key,
@@ -4844,8 +4855,10 @@ class div {
 		if ($chkdata) {
 			$rang = $this->getRanges(DIV_TAG_TPLVAR_BEGIN, DIV_TAG_TPLVAR_END, null, true);
 			if (count($rang) > 0)
-				if ($rang[0][0] < $ini)
+				if ($rang[0][0] < $ini) {
+					
 					return $ini + 1;
+				}
 		}
 		
 		if ($chkloops) {
@@ -4853,15 +4866,19 @@ class div {
 				$prev_use = strpos($this->__src, DIV_TAG_LOOP_BEGIN_PREFIX . $var . DIV_TAG_LOOP_BEGIN_SUFFIX);
 			else
 				$prev_use = $this->searchPreviousLoops($ini);
-			if ($prev_use !== false && $prev_use < $ini)
+			
+			if ($prev_use !== false && $prev_use < $ini) {
+				
 				return $ini + 1;
+			}
 		}
 		
 		if ($chkmatchs)
 			foreach ( self::$__modifiers as $m ) {
 				$prev_use = strpos($this->__src, DIV_TAG_REPLACEMENT_PREFIX . $m . $var);
-				if ($prev_use !== false && $prev_use < $ini)
+				if ($prev_use !== false && $prev_use < $ini) {
 					return $ini + 1;
+				}
 			}
 		
 		if ($chkformats) {
@@ -4881,7 +4898,7 @@ class div {
 	 *
 	 * @param mixed $items
 	 */
-	final public function parseMacros(&$items = null){
+	final public function parseMacros(&$items = null, $ignore_previous_match = false){
 		if (self::$__log_mode)
 			$this->logger("Parsing macros...");
 		
@@ -4907,9 +4924,10 @@ class div {
 			$this->__temp['ini'] = $this->__temp['ranges'][0][0];
 			$this->__temp['fin'] = $this->__temp['ranges'][0][1];
 			
-			$this->__temp['r'] = $this->checkLogicalOrder($this->__temp['ini'], "", true, true, true, false);
+			$this->__temp['r'] = $this->checkLogicalOrder($this->__temp['ini'], "", true, ! $ignore_previous_match, true, false);
 			
 			if ($this->searchInListRanges($this->__temp['ini'])) {
+				
 				$this->__temp['p'] = $this->__temp['ini'] + 1;
 				continue;
 			}
@@ -5033,6 +5051,7 @@ class div {
 					if (is_null($value))
 						continue;
 					$value = self::teaser("{$value}", intval($params['param']));
+					
 					$search = DIV_TAG_REPLACEMENT_PREFIX . $params['modifier'] . $params['key'] . DIV_TAG_SUBMATCH_SEPARATOR . $params['param'] . DIV_TAG_REPLACEMENT_SUFFIX;
 					$this->__src = str_replace($search, $vpx . $value . $vsx, $this->__src);
 					break;
@@ -5502,8 +5521,18 @@ class div {
 			
 			$this->clean();
 			
-			// Restoring ignored parts
+			// The last action
 			if (self::$__parse_level == 1) {
+				
+				// Parsing macros
+				
+				if (strpos($this->__src, DIV_TAG_MACRO_BEGIN) !== false) {
+					$items = array_merge($this->__memory, $items);
+					$items = $this->parseMacros($items, true);
+					$this->memory($items);
+				}
+				
+				// Restoring ignored parts
 				
 				$this->parseSpecialChars();
 				
@@ -5526,10 +5555,10 @@ class div {
 					$this->__src = str_replace('{' . $id . '}', $ignore, $this->__src);
 				}
 				
-				// Restoring inside values
+				// Restoring ignored parts inside values
+				
 				$items = $this->__memory;
 				$vars = $this->getVars($items);
-				
 				foreach ( $vars as $var ) {
 					$exp = self::getVarValue($var, $items);
 					if (is_string($exp)) {
@@ -5538,7 +5567,6 @@ class div {
 						self::setVarValue($var, $exp, $items);
 					}
 				}
-				
 				$this->__memory = $items;
 				
 				self::$__ignored_parts = array();

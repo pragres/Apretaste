@@ -1,15 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="es">
-	<head>
-		<title>Apretaste!com | Accusations</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<link href="static/admin.css" rel="stylesheet"></link>
-	</head>
-<body>
-	{= path: "?path=admin&page=accusations" =}
-	<div id = "page">
-		<h1><a href = "?page=accusations">Apretaste!com</a> - <a href="?page=accusations">Accusations</a></h1>
-		{% menu %}
+{= title: Accusations =}
+{= path: "?path=admin&page=accusations" =}
+{% layout %}
+	{{page
+		
 		?$accusations
 		?$msg
 			<div id = "message" class = "{$msg-type}">{$msg}</div>
@@ -33,6 +26,4 @@
 		@else@
 		They have not been carried out accusations
 		$accusations?
-	</div>
-</body>
-</html>
+page}}

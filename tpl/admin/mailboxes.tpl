@@ -1,15 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="es">
-	<head>
-		<title>Apretaste!com | Mailboxes</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<link href="static/admin.css" rel="stylesheet"></link>
-	</head>
-<body>
-	{= path: "?path=admin&page=mailboxes" =}
-	<div id = "page">
-		<h1><a href = "?path=admin&page=dashboard">Apretaste!com</a> - <a href="?path=admin&page=mailboxes">Mailboxes</a></h1>
-		{% menu %}
+{= title: "Mailboxes" =}
+{= path: "?path=admin&page=mailboxes" =}
+{% layout %}
+{{page
 		<h1>Mailboxes</h1>
 		<h2>Use of mailboxes (incomming messages)</h2>
 		<table class="tabla">
@@ -45,6 +37,4 @@
 			New: From = <input class="text" name="from_pattern"> To = <input class="text" name="to_pattern">
 			<input type="submit" name="btnAddPattern" value="Add">
 		</form>
-	</div>
-</body>
-</html>
+page}}

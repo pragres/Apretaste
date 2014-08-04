@@ -3,6 +3,7 @@
 {= menu:[
 	{page: "dashboard", title: "Dashboard"},
 	{page: "config", title: "Configurations"},
+	{page: "mailboxes", title: "Mailboxes"},
 	{page: "users", title: "Users"},
 	{page: "accusations", title: "Accusations"},
 	{page: "tips", title: "Tips"},

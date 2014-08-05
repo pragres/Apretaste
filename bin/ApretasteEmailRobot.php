@@ -34,7 +34,7 @@ class ApretasteEmailRobot {
 		// Callback
 		$clase = $this;
 		
-		$this->callback = function ($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null) use($clase){
+		$this->callback = function ($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true) use($clase){
 			
 			$rawCommand = array(
 					'headers' => $headers,
@@ -76,9 +76,13 @@ class ApretasteEmailRobot {
 				);
 			}
 			
-			$msg_id = $clase->logger->log($rawCommand, $answer);
+			if ($send)
+				$msg_id = $clase->logger->log($rawCommand, $answer);
+			else
+				$msg_id = uniqid();
 			
 			echo $clase->verbose ? "sending a " . $answer['answer_type'] . " type message\n" : "";
+			
 			if (is_null($account)) {
 				foreach ( $clase->config_answer as $k => $v ) {
 					$account = $k;
@@ -93,6 +97,8 @@ class ApretasteEmailRobot {
 						)
 				);
 			}
+			
+			$answerMail = array();
 			
 			foreach ( $answer['_answers'] as $ans ) {
 				
@@ -125,10 +131,13 @@ class ApretasteEmailRobot {
 				);
 				
 				$e = trim(strtolower(Apretaste::extractEmailAddress($rawCommand['headers']->fromaddress)));
-				Apretaste::query("UPDATE address_list SET source = 'apretaste.public.messages' WHERE email = '$e';");
+				if ($send)
+					Apretaste::query("UPDATE address_list SET source = 'apretaste.public.messages' WHERE email = '$e';");
 				
-				$answerMail = new ApretasteAnswerEmail($config = $clase->config_answer[$account], $to = $rawCommand['headers']->fromaddress, $servers = $clase->smtp_servers, $data = $ans, $send = true, $verbose = $clase->verbose, $debug = $clase->debug, $msg_id);
+				$answerMail[] = new ApretasteAnswerEmail($config = $clase->config_answer[$account], $to = $rawCommand['headers']->fromaddress, $servers = $clase->smtp_servers, $data = $ans, $send, $verbose = $clase->verbose, $debug = $clase->debug, $msg_id);
 			}
+			
+			return $answerMail;
 		};
 		
 		$this->logger = new ApretasteEmailLogger($this->verbose, $this->debug);

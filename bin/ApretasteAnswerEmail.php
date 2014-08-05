@@ -53,7 +53,7 @@ class ApretasteAnswerEmail {
 			$this->addData($moredata = $data);
 		if (isset($data['images']))
 			$this->addImages($data['images']);
-		if (isset($send))
+		if ($send)
 			$this->send_answer($config['reply_to'], $save_on_fail);
 	}
 	function addHeaders($headers){

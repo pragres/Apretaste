@@ -15,11 +15,12 @@
 	{page: "ad", title: "Ads"},
 	{page: "raffles", title: "Raffles"},
 	{page: "dispatchers", title: "Dispatchers"},
+	{page: "robot", title: "Robot test"},
 	{page: "agency", title: "Agency"}
 	
 ] 
 =}
 
 {?( "{$user.user_role}" == "admin" )?}
-[$menu]<a class = "tab {?( "{$div.get.page}"=="{$page}" )?} tab-active {/?}" href="?path=admin&page={$page}">{$title}</a>[/$menu]
+[$menu]<a class = "tab {?( strpos("{$div.get.page}","{$page}")===0 )?} tab-active {/?}" href="?path=admin&page={$page}">{$title}</a>[/$menu]
 {/?}

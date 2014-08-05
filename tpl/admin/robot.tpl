@@ -13,12 +13,6 @@
 	<textarea name="body" rows="20" cols="50"></textarea><br/>
 	<input type="submit" class="submit" value ="Send" name="btnSend">
 </form>
-?$logs
-<h2>Logs</h2>
-<pre style="background:black;color:white;font-family:Lucida Console;">
-{$logs}
-</pre>
-$logs?
  </td><td valign="top" align="center">
  ?$responses
   <h2>HTML Responses</h2>
@@ -30,5 +24,11 @@ $logs?
  No response
  [/$responses]
  $responses?
- 
   </td></tr></table>
+  
+  ?$logs
+<h2>Logs</h2>
+<pre style="background:black;color:white;font-family:Lucida Console;">
+{$logs}
+</pre>
+$logs?

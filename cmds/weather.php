@@ -63,7 +63,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			return array(
 					"answer_type" => "weather",
 					"command" => "weather",
-					"title" => "Tiempo en Cuba: Imagen del sat&eacute;lite WSI Corporation [" . date("Y-m-d h:i:s") . "]",
+					"title" => "Tiempo en Cuba: Imagen del sat&eacute;lite [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
 					"climaimagen" => true,
 					"sharethis" => 'CLIMA SATELITE',
@@ -71,7 +71,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 							array(
 									"type" => "image/gif",
 									"content" => $img,
-									"name" => "Imagen del Satelite - WSI Corporation [" . date("Y-m-d h:i:s") . "].gif",
+									"name" => "Imagen del Satelite [" . date("Y-m-d h:i:s") . "].gif",
 									"id" => "climaimagen",
 									"src" => "cid:climaimagen"
 							)

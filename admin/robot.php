@@ -4,7 +4,7 @@
  */
 $send = post('btnSend');
 
-if (! is_null($send)) {
+if (! is_null($send) || !is_null(get('subject'))) {
 	
 	ob_start();
 	

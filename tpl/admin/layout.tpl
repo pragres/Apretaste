@@ -21,6 +21,7 @@
 		$div.session.user?
 	</div>
 	<div id = "page">
+		<h1>{$title}</h1>
 		(( page ))
 	</div>
 </body>

@@ -2680,9 +2680,8 @@ class div {
 						
 						$tempglobal = self::$__globals_design;
 						foreach ( $item as $kkk => $vvv )
-							if (isset(self::$__globals_design[$kkk])) {
+							if (isset(self::$__globals_design[$kkk]))
 								unset(self::$__globals_design[$kkk]);
-							}
 						
 						if (self::$__log_mode)
 							$this->logger("Parsing item $xkey of the list '$key'...");
@@ -2690,12 +2689,28 @@ class div {
 						$engine->__items[$xkey] = array_merge($items, $item);
 						
 						$engine->__items_orig = $xitems_orig[$xkey];
+						
+						$memory = $engine->__memory;
+						
+						foreach ( $item as $kkk => $vvv )
+							if (isset($engine->__memory[$kkk]))
+								unset($engine->__memory[$kkk]);
+						
 						$engine->parse(true, $xkey);
+						
+						$engine->__memory = $memory;
+						
 						$engine->__items[$xkey] = $item;
 						
 						self::$__globals_design = array_merge($tempglobal, self::$__globals_design);
 						
 						$break = strpos($engine->__src, DIV_TAG_BREAK);
+						
+						foreach ( $item as $kkk => $vvv ) {
+							if (isset($this->__memory[$kkk])) {
+								unset($this->__memory[$kkk]);
+							}
+						}
 						
 						if ($break !== false) {
 							$engine->__src = substr($engine->__src, 0, $break);

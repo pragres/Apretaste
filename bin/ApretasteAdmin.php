@@ -35,6 +35,8 @@ class ApretasteAdmin {
 			
 			$get = str_replace("'", "''", $get);
 			$post  = str_replace("'", "''", $post);
+			/*$get  = str_replace('"', '\"', $get);
+			$post  = str_replace('"', '\"', $post);*/
 			
 			$sql = "INSERT INTO users_actions (user_login, get, post) 
 		VALUES ('{$u['user_login']}','" . $get. "','" . $post . "');";

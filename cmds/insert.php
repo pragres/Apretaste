@@ -40,7 +40,7 @@ function cmd_insert($robot, $from, $argument, $body = '', $images = array()){
 	
 	$phones = Apretaste::getPhonesFrom($text);
 	
-	if (! self::isSimulator()) {
+	if (! Apretaste::isSimulator()) {
 		
 		$r = Apretaste::insert($from, $title, $body, $images, $price, $phones, null, null, null, $currency);
 		
@@ -64,6 +64,7 @@ function cmd_insert($robot, $from, $argument, $body = '', $images = array()){
 		}
 	} else {
 		$r = array(
+				'id' => strtoupper(uniqid()),
 				'ticket' => strtoupper(uniqid()),
 				'post_date' => date('Y-m-d'),
 				'search_results' => false,

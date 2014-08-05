@@ -1,15 +1,8 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="es">
-	<head>
-		<title>Apretaste!com | Message details</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<link href="static/admin.css" rel="stylesheet"></link>
-	</head>
-<body>
-	{= path: "?path=admin&page=message" =}
-	<div id = "page">
-		<h1><a href = "?path=admin&page=dashboard">Apretaste!com</a> - <a href="?path=admin&page=message">Message details</a></h1>
-		{% menu %}
+{= title: "Message details" =}
+{= path: "?path=admin&page=message" =}
+{% layout %}
+
+{{page
 		?$message
 		<p>
 			<table width="100%">
@@ -21,6 +14,4 @@
 			</table>
 		</p>
 		$message?
-	</div>
-</body>
-</html>
+page}}

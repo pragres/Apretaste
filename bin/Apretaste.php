@@ -28,6 +28,7 @@ class Apretaste {
 	static $price_regexp = null;
 	static $phones_regexp = null;
 	static $configuration = array();
+	static $simulator = false;
 	static function loadSetup(){
 		if (is_null(self::$config))
 			self::$config = parse_ini_file("../etc/apretaste.ini", true, INI_SCANNER_RAW);
@@ -1937,7 +1938,8 @@ class Apretaste {
 		$r = self::query("SELECT * FROM announcement WHERE lower(ticket) = '$ticket' AND author = '$from'");
 		
 		if ($r) {
-			self::query("DELETE FROM announcement WHERE id = '{$r[0]['id']}';");
+			if (! self::isSimulator())
+				self::query("DELETE FROM announcement WHERE id = '{$r[0]['id']}';");
 			return $r[0];
 		}
 		
@@ -2381,7 +2383,8 @@ class Apretaste {
 		$r = self::getAnnouncement($id);
 		
 		if ($r) {
-			self::query("INSERT INTO comment (author, body, announcement) VALUES ('$from','$body','$id');");
+			if (! self::isSimulator())
+				self::query("INSERT INTO comment (author, body, announcement) VALUES ('$from','$body','$id');");
 			return APRETASTE_COMMENT_SUCCESSFULL;
 		}
 		
@@ -2652,28 +2655,8 @@ class Apretaste {
 		
 		$alpha = "abcdefghijklmnopqrstuvwxyz1234567890., ";
 		/*
-		$save = array(
-				'&aacute;',
-				'&eacute;',
-				'&iacute;',
-				'&oacute;',
-				'&uacute;',
-				'&Aacute;',
-				'&Eacute;',
-				'&Iacute;',
-				'&Oacute;',
-				'&Uacute;',
-				'&Ntilde;',
-				'&ntilde;'
-		);
-		
-		$restore = array();
-		foreach ( $save as $sav ) {
-			$kk = uniqid();
-			$text = str_replace($sav, '{' . $kk . '}', $text);
-			$restore[$kk] = $sav;
-		}
-		*/
+		 * $save = array( '&aacute;', '&eacute;', '&iacute;', '&oacute;', '&uacute;', '&Aacute;', '&Eacute;', '&Iacute;', '&Oacute;', '&Uacute;', '&Ntilde;', '&ntilde;' ); $restore = array(); foreach ( $save as $sav ) { $kk = uniqid(); $text = str_replace($sav, '{' . $kk . '}', $text); $restore[$kk] = $sav; }
+		 */
 		$abreviaturas = array(
 				"c/" => "con",
 				"c/u" => "cada uno",
@@ -2804,10 +2787,8 @@ class Apretaste {
 		
 		$text = ucfirst(trim($text));
 		/*
-		foreach ( $restore as $kk => $restor ) {
-			$text = str_replace('{' . $kk . '}', $restor, $text);
-		}
-		*/
+		 * foreach ( $restore as $kk => $restor ) { $text = str_replace('{' . $kk . '}', $restor, $text); }
+		 */
 		return $text;
 	}
 	
@@ -2991,6 +2972,7 @@ class Apretaste {
 	}
 	static function exclusion($from){
 		self::incorporate($from);
+		
 		Apretaste::query("INSERT INTO exclusion (email) VALUES ('$from');");
 		return true;
 	}
@@ -3407,5 +3389,14 @@ class Apretaste {
 		
 		// Delete subscribes
 		self::query("DELETE FROM subscribe WHERE email = '$email';");
+	}
+	static function startSimulator(){
+		self::$simulator = true;
+	}
+	static function endSimulator(){
+		self::$simulator = false;
+	}
+	static function isSimulator(){
+		return self::$simulator;
 	}
 }

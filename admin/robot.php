@@ -8,6 +8,8 @@ if (! is_null($send) || !is_null(get('subject'))) {
 	
 	ob_start();
 	
+	Apretaste::startSimulator();
+	
 	$robot = new ApretasteEmailRobot(false, false, false);
 	
 	$announce = array();
@@ -58,4 +60,6 @@ if (! is_null($send) || !is_null(get('subject'))) {
 	$data['logs'] = $cli;
 	
 	ob_end_clean();
+	
+	Apretaste::endSimulator();
 }

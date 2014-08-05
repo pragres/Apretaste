@@ -9,6 +9,7 @@
  * @return array
  */
 function cmd_comment($robot, $from, $argument, $body = '', $images = array()){
+	
 	$id = $argument;
 	
 	$robot->log("Comment ad: $id from $from");
@@ -20,6 +21,7 @@ function cmd_comment($robot, $from, $argument, $body = '', $images = array()){
 	$body = substr($body, 0, 200);
 	$body = trim($body);
 	if ($body !== '') {
+		
 		$r = Apretaste::comment($from, $id, $body);
 		
 		if ($r == APRETASTE_ANNOUNCEMENT_NOTFOUND) {

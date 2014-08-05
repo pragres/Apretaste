@@ -12,7 +12,6 @@
  * @return array
  */
 function cmd_insert($robot, $from, $argument, $body = '', $images = array()){
-	
 	$title = $argument;
 	
 	if (strlen(trim($title)) < 7) {
@@ -41,27 +40,36 @@ function cmd_insert($robot, $from, $argument, $body = '', $images = array()){
 	
 	$phones = Apretaste::getPhonesFrom($text);
 	
-	$r = Apretaste::insert($from, $title, $body, $images, $price, $phones, null, null, null, $currency);
-	
-	switch ($r) {
-		case APRETASTE_INSERT_FAIL :
-			return array(
-					"command" => "insert",
-					"answer_type" => "insert_fail",
-					"compactmode" => true,
-					'title' => $title
-			);
-			break;
-		case APRETASTE_ANNOUNCEMENT_DUPLICATED :
-			return array(
-					"command" => "insert",
-					'answer_type' => 'insert_duplicate',
-					"compactmode" => true,
-					'title' => $title
-			);
-			break;
+	if (! self::isSimulator()) {
+		
+		$r = Apretaste::insert($from, $title, $body, $images, $price, $phones, null, null, null, $currency);
+		
+		switch ($r) {
+			case APRETASTE_INSERT_FAIL :
+				return array(
+						"command" => "insert",
+						"answer_type" => "insert_fail",
+						"compactmode" => true,
+						'title' => $title
+				);
+				break;
+			case APRETASTE_ANNOUNCEMENT_DUPLICATED :
+				return array(
+						"command" => "insert",
+						'answer_type' => 'insert_duplicate',
+						"compactmode" => true,
+						'title' => $title
+				);
+				break;
+		}
+	} else {
+		$r = array(
+				'ticket' => strtoupper(uniqid()),
+				'post_date' => date('Y-m-d'),
+				'search_results' => false,
+				'contact_info' => false
+		);
 	}
-	
 	$body = str_replace(array(
 			"'",
 			"\""

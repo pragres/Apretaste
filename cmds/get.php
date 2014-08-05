@@ -32,7 +32,8 @@ function cmd_get($robot, $from, $argument, $body = '', $images = array()){
 				"id" => $id
 		);
 	
-	Apretaste::addVisit($id, $from);
+	if (! Apretaste::isSimulator())
+		Apretaste::addVisit($id, $from);
 	
 	$r['answer_type'] = 'show_announcement';
 	$r['image_src'] = 'cid:announcement.image';

@@ -11,7 +11,7 @@
 				Active: {$active} Closed: {$closed} <br/>
 				{$winners}<br/>
 				Tickets: {$tickets}<br/>
-				<a href="{$path}&delete={$id}">Delete<br/>
+				<a href="{$path}&delete={$id}">Delete</a>
 				<hr/>
 			[/$raffles]
 		$raffles?

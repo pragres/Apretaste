@@ -5,11 +5,11 @@
 		?$raffles
 			[$raffles]
 				<img width="150" src="data:image/jpg;base64,{$image}" style="float:left;">
-				ID: <b>{$id}<br/>
+				ID: <b>{$id}</b><br/>
 				<p>{$description}</p>
 				From: {$date_from} to  {$date_to}<br/>
 				Active: {$active} Closed: {$closed} <br/>
-				{$winners}<br/>
+				Winners: {$winners}<br/>
 				Tickets: {$tickets}<br/>
 				<a href="{$path}&delete={$id}">Delete</a>
 				<hr/>

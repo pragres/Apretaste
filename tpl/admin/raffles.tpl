@@ -7,7 +7,7 @@
 			<tr>
 			<th></th>
 			<th>ID</th><th>Description</th>
-			<th>Date from</th><th>Date to</th><th>Active</th><th>Closed</th><th>Winners</th><th></th></tr>
+			<th>Date from</th><th>Date to</th><th>Active</th><th>Closed</th><th>Winners</th><th>Tickets</th><th></th></tr>
 			[$raffles]
 			<tr>
 				<td><img width="50" src="data:image/jpg;base64,{$image}"></td>
@@ -18,6 +18,7 @@
 				<td>{$active}</td>
 				<td>{$closed}</td>
 				<td>{$winners}</td>
+				<td>{$tickets}</td>
 				<td><a href="{$path}&delete={$id}">Delete</td>
 			</tr>
 			[/$raffles]

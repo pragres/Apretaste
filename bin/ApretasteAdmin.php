@@ -29,8 +29,15 @@ class ApretasteAdmin {
 	static function saveUserAction(){
 		$u = self::getUser();
 		if ($u !== false) {
+			
+			$get = json_encode($_GET);
+			$post = json_encode($_POST);
+			
+			$get = str_replace("'", "''", $get);
+			$post  = str_replace("'", "''", $post);
+			
 			$sql = "INSERT INTO users_actions (user_login, get, post) 
-		VALUES ('{$u['user_login']}','" . json_encode($_GET) . "','" . json_encode($_POST) . "');";
+		VALUES ('{$u['user_login']}','" . $get. "','" . $post . "');";
 			Apretaste::query($sql);
 		}
 	}
@@ -225,47 +232,7 @@ class ApretasteAdmin {
 		
 		echo new div("../tpl/admin/message.tpl", $data);
 	}
-	static function page_admin(){
-		self::page_home();
-	}
-	/**
-	 * Home page
-	 */
-	static function page_home(){
-		if (! self::verifyLogin())
-			die('Access denied');
 		
-		self::page_dashboard();
-	}
-	
-	/**
-	 * Accusations page
-	 */
-	static function page_accusations(){
-		if (! self::verifyLogin())
-			die('Access denied');
-		
-		$data = array();
-		$data['msg-type'] = 'msg-ok';
-		
-		if (isset($_POST['delete'])) {
-			$id = $_POST['delete'];
-			Apretaste::query("DELETE FROM accusation WHERE id = '$id';");
-			$data['msg'] = "Accusation was been deleted";
-		}
-		
-		if (isset($_POST['proccess'])) {
-			$id = $_POST['proccess'];
-			Apretaste::query("UPDATE accusation SET proccessed = true WHERE id = '$id';");
-			$data['msg'] = "Accusation was been proccessed";
-		}
-		
-		$data['accusations'] = Apretaste::query("SELECT id, fa::date, announcement, author, get_ad_title(announcement) as title, reason, get_ad_author(announcement) as accused FROM accusation where proccessed = false order by fa;");
-		$data['user'] = self::getUser();
-		
-		echo new div("../tpl/admin/accusations.tpl", $data);
-	}
-	
 	/**
 	 * Authentication page
 	 */
@@ -295,7 +262,7 @@ class ApretasteAdmin {
 		self::saveUserAction();
 		
 		if (self::$login_result)
-			header("Location: index.php?path=admin&page=admin");
+			header("Location: index.php?path=admin&page=dashboard");
 		else
 			header("Location: index.php?path=admin");
 	}
@@ -786,86 +753,6 @@ class ApretasteAdmin {
 		$data['users'] = $users;
 		$data['user'] = self::getUser();
 		echo new div("../tpl/admin/users", $data);
-	}
-	static function page_address_list(){
-		if (! self::verifyLogin())
-			die('Access denied');
-		
-		$nourish = get('nourish');
-		
-		if (! is_null($nourish)) {
-			Apretaste::nourishAddressList();
-			header("Location: index.php?path=admin&page=address_list");
-			exit();
-		}
-		
-		$submit = post('btnAdd');
-		
-		$download = post('btnDownload');
-		$download1 = get('download');
-		
-		$filter = get('filter');
-		if (! is_null($download) || ! is_null($download1)) {
-			$file_name = 'apretaste-addresses-' . str_replace(array(
-					'@',
-					'.'
-			), '-', $filter) . '-' . date("Ymdhis") . ".txt";
-			
-			$file_name = str_replace("--", "-", $file_name);
-			
-			$sql = "SELECT email FROM address_list " . (is_null($filter) ? "" : "WHERE matchEmail(email,'$filter') OR matchEmail(source,'$filter')");
-			
-			$list = Apretaste::query($sql);
-			
-			$listtext = '';
-			if (is_array($list))
-				foreach ( $list as $l ) {
-					$listtext .= $l['email'] . "\r\n";
-				}
-			
-			$headers = array(
-					'Content-type: force-download',
-					'Content-disposition: attachment; filename="' . $file_name . '"',
-					'Content-Type: text/plain; name="' . $file_name . '"',
-					'Content-Transfer-Encoding: binary',
-					'Pragma: no-cache',
-					'Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
-					'Expires: 0',
-					'Accept-Ranges: bytes'
-			);
-			
-			foreach ( $headers as $h )
-				header($h);
-			
-			echo $listtext;
-			exit();
-		}
-		
-		$data = array();
-		
-		if (! is_null($submit)) {
-			$address = post('address');
-			$source = 'apretaste.admin';
-			$address = Apretaste::addToAddressList($address, $source);
-			$data['msg-type'] = 'msg-ok';
-			$data['msg'] = 'The address was inserted';
-			$data['addinserted'] = $address;
-		}
-		
-		if (isset($_POST['btnDropAddress'])) {
-			Apretaste::dropEmailAddress($_POST['edtDropAddress']);
-		}
-		
-		$data['user'] = self::getUser();
-		
-		$r = Apretaste::query("SELECT count(*) as total from address_list");
-		$data['total_address'] = $r[0]['total'];
-		
-		$data['providers'] = Apretaste::query("Select provider, total, case when provider ~* '.cu' then 1 else 0 end as national from (
-		SELECT get_email_domain(email) as provider, count(*) as total 
-		from address_list group by provider order by total desc) as subq;");
-		
-		echo new div("../tpl/admin/address_list", $data);
 	}
 	
 	/**

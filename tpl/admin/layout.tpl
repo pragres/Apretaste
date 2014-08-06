@@ -13,7 +13,7 @@
 <body>		
 
 	<div class="top-bar">
-		<a href = "index.php?path=admin">Apretaste! Administration Site</a>
+		<a href = "index.php?path=admin">Apretaste! - {$title}</a>
 		?$div.session.user 
 		<a style= "float:right; margin-top:-5x; margin-right: 10px;" href="?path=admin&page=logout">Logout</a> 
 		<br/>
@@ -21,7 +21,6 @@
 		$div.session.user?
 	</div>
 	<div id = "page">
-		<h1>{$title}</h1>
 		(( page ))
 	</div>
 </body>

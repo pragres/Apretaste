@@ -8,6 +8,8 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
         <th>Cuerpo del correo</th>
 		<th width = "40%">Breve explicaci&oacute;n de la opci&oacute;n</th>
 	</tr>
+	
+	<!--{ ----------------------------------------------------------------- }-->
 	<tr><td colspan="3" align="center" style="font-size: 24px;"><b>Compra/Venta</b></td></tr>
 	<tr style="background:#eeeeee;">
 		<td valign="top">
@@ -97,6 +99,8 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 		<td valign="top" style="text-align:justify;" align="justify">Detener la subscripci&oacute;n de una alerta por correo. El identificador
 		de la alerta puede conocerlo consultando <a href="mailto:{$reply_to}&subject=ESTADO&body=Ahora haga clic en Enviar">su estado</a>.</td>
 	</tr>
+	
+	<!--{ ----------------------------------------------------------------- }-->
 	<tr><td colspan="3"  align="center" style="font-size: 24px;"><b>Entretenimiento y juegos</b></td></tr>
 	<tr>
 		<td valign="top">
@@ -116,6 +120,8 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
                 </td>
 		<td valign="top" style="text-align:justify;" align="justify">Devuelve un SUDOKU para jugar. Puede responderlo en el mismo correo o imprimirlo si desea.</td>
 	</tr>
+	
+	<!--{ ----------------------------------------------------------------- }-->
 	<tr><td colspan="3"  align="center" style="font-size: 24px;"><b>Acad&eacute;micos</b></td></tr>
 	<tr>
 		<td valign="top">
@@ -179,6 +185,8 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 		
 		</td>
 	</tr>
+	
+	<!--{ ----------------------------------------------------------------- }-->
 	<tr><td colspan="3" align="center" style="font-size: 24px;"><b>Comunicaciones</b></td></tr>
 	<tr style="background:#eeeeee;">
 		<td valign="top">
@@ -200,6 +208,44 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
                 </td>
 		<td valign="top" style="text-align:justify;" align="justify">Devuelve la lista de los c&oacute;digos de cada pa&iacute;s para enviar SMS. </td>
 	</tr>
+	<!--{ ----------------------------------------------------------------- }-->
+	<tr><td colspan="3" align="center" style="font-size: 24px;"><b>Estar informado</b></td></tr>
+	<tr style="background:#eeeeee;">
+		<td valign="top">
+			<strong>CLIMA</strong>
+		</td>
+        <td valign="top">
+                    - en blanco -
+        </td>
+		<td valign="top" style="text-align:justify;" align="justify">
+		Devuelve el estado del tiempo y el pron&oacute;stico para los pr&oacute;ximos d&iacute;s.
+		Tambien permite ver las im&aacute;genes de sat&eacutelites, de radares y de servicios internacionales de meteorolog&iacute;a.</td>
+	</tr>
+	<tr style="background:#eeeeee;">
+		<td valign="top">
+			<strong>CLIMA</strong>
+		</td>
+        <td valign="top">
+                    - en blanco -
+        </td>
+		<td valign="top" style="text-align:justify;" align="justify">
+		Devuelve el estado del tiempo y el pron&oacute;stico para los pr&oacute;ximos d&iacute;s.
+		Tambien permite ver las im&aacute;genes de sat&eacutelites, de radares y de servicios internacionales de meteorolog&iacute;a.</td>
+	</tr>
+	
+	
+	<strong>CLIMA SATELITE</strong> Imagen del sat&eacutelite de WSI Corportation <br/>
+                <strong>CLIMA NASA</strong> Imagen del sat&eacutelite de la NASA <br/>
+                <strong>CLIMA RADAR</strong> Imagen de los radares de Cuba <br/>
+                <strong>CLIMA TEMPERATURA</strong> An&aacute;lisis de la temperatura del mar<br/>
+                <strong>CLIMA SUPERFICIE</strong> An&aacute;lisis de superficie del Atl&aacute;ntico y el Caribe <br/>
+                <strong>CLIMA ATLANTICO</strong> An&aacute;lisis del estado del Atl&aacute;ntico <br/>
+                <strong>CLIMA CARIBE</strong> Imagen del Caribe (Weather Channel) <br/>
+                <strong>CLIMA SECTOR</strong> Imagen del Sector Visible <br/>
+                <strong>CLIMA INFRARROJA</strong> Imagen Infrarroja <br/>
+                <strong>CLIMA VAPOR</strong> Imagen del Vapor de Agua<br/>
+	
+	<!--{ ----------------------------------------------------------------- }-->
 	<tr><td colspan="3" align="center" style="font-size: 24px;"><b>Otros servicios</b></td></tr>
 	<tr style="background:#eeeeee;">
 		<td valign="top">

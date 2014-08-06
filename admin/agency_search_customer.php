@@ -1,13 +1,16 @@
 <?php
-$name = post('edtSearchName');
-$email = post('edtSearchEmail');
-$phone = post('edtSearchPhone');
+$name = post('edtSearchName', '');
+$email = post('edtSearchEmail', '');
+$phone = post('edtSearchPhone', '');
 
 $email = Apretaste::extractEmailAddress($email);
 
 $r = Apretaste::query("
 		SELECT id FROM agency_customer 
-		WHERE email ~* '$email' OR phone ~* '$phone' LIMIT 1;");
+		WHERE (email ~* '$email' AND email <> '') 
+		OR (phone ~* '$phone' AND phone <>'')
+		OR (name ~* '$name' AND name <>'')
+		LIMIT 1;");
 
 if (isset($r[0]))
 	if (isset($r[0]['id'])) {

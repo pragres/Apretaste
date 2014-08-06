@@ -4,7 +4,7 @@
 	{page: "dashboard", title: "Dashboard"},
 	{page: "config", title: "Configurations"},
 	{page: "mailboxes", title: "Mailboxes"},
-	{page: "users", title: "Users"},
+	{page: "users", title: "Admins"},
 	{page: "accusations", title: "Accusations"},
 	{page: "tips", title: "Tips"},
 	{page: "dictionary", title: "Dictionary"},
@@ -20,7 +20,4 @@
 	
 ] 
 =}
-
-{?( "{$user.user_role}" == "admin" )?}
-[$menu]<a class = "tab {?( strpos("{$div.get.page}","{$page}")===0 )?} tab-active {/?}" href="?path=admin&page={$page}">{$title}</a>[/$menu]
-{/?}
+[$menu]?$user.perms.access_to.{$page}<a class = "tab {?( strpos("{$div.get.page}","{$page}")===0 )?} tab-active {/?}" href="?path=admin&page={$page}">{$title}</a>$user.perms.access_to.{$page}?[/$menu]

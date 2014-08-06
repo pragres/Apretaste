@@ -506,7 +506,7 @@ class ApretasteAdmin {
 		$data['access_this_month'] = $atm;
 		
 		// Access by hour
-		$lastdays = 20;
+		$lastdays = 15;
 		
 		$access_by_hour = array();
 		

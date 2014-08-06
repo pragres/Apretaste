@@ -2,7 +2,11 @@
 {% layout %}
 {{page
 	{= path: "index.php?path=admin&page=agency" =}
-			
+		
+		?$div.get.customer_not_found
+		<div class="msg-error">Customer not found</div>
+		$div.get.customer_not_found? 	
+		
 		!$div.get.section
 		<fieldset>
 		<legend>Search for a customer</legend>

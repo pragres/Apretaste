@@ -15,7 +15,7 @@
 {{page	  		
 		<!--{ BEGIN Hourly access }-->
 		<h2>Access by hour</h2>
-		<p style="color:gray;">Number of emails received and sent every hour (last 20 days)</p>
+		<p style="color:gray;">Number of emails received and sent every hour (last {$lastdays} days)</p>
 		<table width="100%">
 			<tr>
 				<th></th>

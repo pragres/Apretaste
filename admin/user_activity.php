@@ -1,6 +1,6 @@
 <?php
+
 $user = false;
-$data = array();
 
 if (isset($_GET['user'])) {
 	

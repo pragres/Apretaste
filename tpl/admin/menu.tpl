@@ -20,4 +20,5 @@
 	
 ] 
 =}
+
 [$menu]?$user.perms.access_to.{$page}<a class = "tab {?( strpos("{$div.get.page}","{$page}")===0 )?} tab-active {/?}" href="?path=admin&page={$page}">{$title}</a>$user.perms.access_to.{$page}?[/$menu]

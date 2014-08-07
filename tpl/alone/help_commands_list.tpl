@@ -213,22 +213,12 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 	<tr style="background:#eeeeee;">
 		<td valign="top">
 			<strong>CLIMA</strong>
-			<strong>CLIMA SATELITE</strong> Imagen del sat&eacutelite de WSI Corportation <br/>
-                <strong>CLIMA NASA</strong> Imagen del sat&eacutelite de la NASA <br/>
-                <strong>CLIMA RADAR</strong> Imagen de los radares de Cuba <br/>
-                <strong>CLIMA TEMPERATURA</strong> An&aacute;lisis de la temperatura del mar<br/>
-                <strong>CLIMA SUPERFICIE</strong> An&aacute;lisis de superficie del Atl&aacute;ntico y el Caribe <br/>
-                <strong>CLIMA ATLANTICO</strong> An&aacute;lisis del estado del Atl&aacute;ntico <br/>
-                <strong>CLIMA CARIBE</strong> Imagen del Caribe (Weather Channel) <br/>
-                <strong>CLIMA SECTOR</strong> Imagen del Sector Visible <br/>
-                <strong>CLIMA INFRARROJA</strong> Imagen Infrarroja <br/>
-                <strong>CLIMA VAPOR</strong> Imagen del Vapor de Agua<br/>
 		</td>
         <td valign="top">
                     - en blanco -
         </td>
 		<td valign="top" style="text-align:justify;" align="justify">
-		Devuelve el estado del tiempo y el pron&oacute;stico para los pr&oacute;ximos d&iacute;s.
+		Devuelve el estado del tiempo y el pron&oacute;stico para los pr&oacute;ximos d&iacute;as.
 		Tambien permite ver las im&aacute;genes de sat&eacutelites, de radares y de servicios internacionales de meteorolog&iacute;a.</td>
 	</tr>
 	

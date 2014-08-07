@@ -17,7 +17,7 @@ if (! is_null(get('update'))) {
 	header("Location: index.php?path=admin&page=agency_customer&id=$id");
 }
 
-$r = Apretaste::query("SELECT id, full_name, to_char(date_registered, 'Day DD, Month HH12:MI:SS') as date_registered, email, phone FROM agency_customer WHERE id = '$id';");
+$r = Apretaste::query("SELECT id, full_name, to_char(date_registered, 'Day DD, Month YYYY, HH12:MI:SS') as date_registered, email, phone FROM agency_customer WHERE id = '$id';");
 
 $data['customer'] = $r[0];
 

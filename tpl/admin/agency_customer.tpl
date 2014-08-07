@@ -7,10 +7,9 @@
 	
 	<fieldset>
 	<legend>Customer details</legend>
-	ID: <b>{$customer.id}</b><br/>
 	Date registered: <b>{$customer.date_registered}</b><br/>
 	Full name: <br/><input class="text" name="edtName" value="{$customer.full_name}"><br/>
-	Email (<a href="mailto:{$customer.email}">Send email</a>): <br/><input class="text" name="edtEmail" value = "{$customer.email}"><br/>
+	Email: <br/><input class="text" name="edtEmail" value = "{$customer.email}"><br/>
 	Phone: <br/><input class="text" name="edtPhone" value="{$customer.phone}"><br/><br/>
 	<input type="submit" class="submit" value = "Update" onclick="return confirm('Are you sure?');">
 	</fieldset>

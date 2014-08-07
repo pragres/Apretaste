@@ -9,7 +9,7 @@ $r = Apretaste::query("
 		SELECT id FROM agency_customer 
 		WHERE (email ~* '$email' AND email <> '') 
 		OR (phone ~* '$phone' AND phone <>'')
-		OR (name ~* '$name' AND name <>'')
+		OR (full_name ~* '$name' AND full_name <>'')
 		LIMIT 1;");
 
 if (isset($r[0]))

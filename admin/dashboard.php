@@ -1,5 +1,4 @@
 <?php
-
 $current_year = intval(date("Y"));
 $current_month = intval(date("m"));
 
@@ -283,3 +282,4 @@ $data['popular_phrases'] = ApretasteAnalitics::getPopularPhrases(20, null, null,
 $r = Apretaste::query("SELECT count(*) as total from (SELECT extract_email(author) as xauthor FROM message GROUP by xauthor) as subq;");
 
 $data['total_users'] = $r[0]['total'];
+

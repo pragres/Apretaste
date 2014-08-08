@@ -135,7 +135,8 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 			}
 		}
 		
-		ApretasteSMS::send($code, $number, $from, $part, $discount);
+		if (! Apretaste::isSimulator())
+			ApretasteSMS::send($code, $number, $from, $part, $discount);
 	}
 	
 	$bodyextra = false;

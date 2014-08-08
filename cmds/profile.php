@@ -264,7 +264,8 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 			$updated = true;
 		}
 		
-		Apretaste::saveProfile($email, $profile);
+		if (! Apretaste::isSimulator())
+			Apretaste::saveProfile($email, $profile);
 	}
 	
 	$profile = Apretaste::getAuthor($email);

@@ -8,17 +8,17 @@
  * @return array
  */
 function cmd_spam($robot, $from, $argument, $body = '', $images = array()){
-	
 	if (trim($argument) == '') {
 		$argument = trim($body);
 		$argument = str_replace("\n", " ", $argument);
-		$argument = str_replace("\r","",$argument);
+		$argument = str_replace("\r", "", $argument);
 		$argument = trim($argument);
 	}
 	
 	$announcement = $argument;
 	
-	$r = Apretaste::accusation($from, "spam", $announcement);
+	if (! Apretaste::isSimulator())
+		$r = Apretaste::accusation($from, "spam", $announcement);
 	
 	switch ($r) {
 		case APRETASTE_ACCUSATION_DUPLICATED :

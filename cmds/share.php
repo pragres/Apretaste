@@ -1,11 +1,13 @@
 <?php
+
 function cmd_share($robot, $from, $argument, $body = '', $images = array()){
 	$argument = trim($argument);
 	
 	$friends = ApretasteSocial::getFriendsOf($from);
 	
 	foreach ( $friends as $friend ) {
-		Apretaste::query("INSERT INTO shares (author, guest, sentence) VALUES 
+		if (! Apretaste::isSimulator())
+			Apretaste::query("INSERT INTO shares (author, guest, sentence) VALUES 
 					('$from','$friend','$argument');");
 		
 		$data = array(
@@ -26,7 +28,8 @@ function cmd_share($robot, $from, $argument, $body = '', $images = array()){
 			break;
 		}
 		
-		$answerMail = new ApretasteAnswerEmail($config, $friend, Apretaste::$robot->smtp_servers, $data, true, true, false);
+		if (! Apretaste::isSimulator())
+			$answerMail = new ApretasteAnswerEmail($config, $friend, Apretaste::$robot->smtp_servers, $data, true, true, false);
 	}
 	
 	return array(
@@ -34,6 +37,5 @@ function cmd_share($robot, $from, $argument, $body = '', $images = array()){
 			'command' => 'share',
 			'sentence' => $argument,
 			'title' => 'Compartido satisfactoriamente a tus amigos'
-	)
-	;
+	);
 }

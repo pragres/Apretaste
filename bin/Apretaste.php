@@ -1525,7 +1525,8 @@ class Apretaste {
 			
 			$sql .= " FALSE;";
 			
-			Apretaste::query($sql);
+			if (! self::isSimulator())
+				self::query($sql);
 		}
 		
 		if ($stats == true) {
@@ -1547,7 +1548,8 @@ class Apretaste {
 					$withphone = 'true';
 			$total = intval($total);
 			$sql = "INSERT INTO search_history (phrase, email, host, results, pricemin, pricemax, with_photo, with_phone) VALUES ('$original', '$email', '$ip', $total, $pricemin, $pricemax, $withphoto, $withphone);";
-			self::query($sql);
+			if (! self::isSimulator())
+				self::query($sql);
 		}
 		
 		$recommended = false;

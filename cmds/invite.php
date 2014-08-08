@@ -44,10 +44,11 @@ function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 		foreach ( $address as $guest ) {
 			if (! isset($results[$guest])) {
 				$robot->log("Invite $guest");
-				$results[$guest] = Apretaste::invite($from, $guest, $body);
-				
-				if (Apretaste::isUser($guest))
-					$friends[$guest] = ApretasteSocial::makeFriends($from, $guest);
+				if (! Apretaste::isSimulator()) {
+					$results[$guest] = Apretaste::invite($from, $guest, $body);				
+					if (Apretaste::isUser($guest))
+						$friends[$guest] = ApretasteSocial::makeFriends($from, $guest);
+				}
 			}
 		}
 	}

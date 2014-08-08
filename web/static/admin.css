@@ -133,6 +133,10 @@ input.submit:hover{
 	background: #11c66d;
 }
 
+.tabla {
+	border: 1px solid gray;
+}
+
 .tabla td,.tabla th{
 	border-right: 1px solid gray;
 	border-bottom: 1px solid gray;
@@ -178,4 +182,9 @@ input.submit:hover{
 
 .tab-active:visited{
 	color: black;
+}
+
+.tabla tr:hover{
+	background: yellow;
+	
 }

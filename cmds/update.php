@@ -12,7 +12,6 @@
  * @return array
  */
 function cmd_update($robot, $from, $argument, $body = '', $images = array()){
-	
 	$title = $argument;
 	
 	$fail_response = array(
@@ -40,7 +39,7 @@ function cmd_update($robot, $from, $argument, $body = '', $images = array()){
 	}
 	
 	$title = trim($title);
-		
+	
 	$robot->log("Updating: $title from $from as $body");
 	
 	$text = $title . ' ' . $body;
@@ -56,7 +55,8 @@ function cmd_update($robot, $from, $argument, $body = '', $images = array()){
 	
 	$phones = Apretaste::getPhonesFrom($text);
 	
-	$r = Apretaste::insert($from, $title, $body, $images, $price, $phones, null, null, null, $currency, true, $ticket);
+	if (! Apretaste::isSimulator())
+		$r = Apretaste::insert($from, $title, $body, $images, $price, $phones, null, null, null, $currency, true, $ticket);
 	
 	switch ($r) {
 		case APRETASTE_INSERT_FAIL :

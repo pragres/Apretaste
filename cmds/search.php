@@ -43,7 +43,9 @@ function cmd_search($robot, $from, $argument, $body = '', $images = array(), $li
 		);
 	
 	$t1 = microtime(true);
+	
 	$r = Apretaste::search($query, $limit, 0, true, $from, null, null, $filter);
+	
 	$t2 = microtime(true);
 	
 	$data = array(

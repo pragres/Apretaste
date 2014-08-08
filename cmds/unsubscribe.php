@@ -16,7 +16,9 @@ function cmd_unsubscribe($robot, $from, $argument, $body = '', $images = array()
 	}
 	
 	$sub = $argument;
-	$r = Apretaste::unsubscribe($from, $sub);
+	if (!Apretaste::isSimulator())
+		$r = Apretaste::unsubscribe($from, $sub);
+	
 	if ($r == APRETASTE_SUBSCRIBE_UNKNOWN) {
 		return array(
 				"command" => "unsubscribe",

@@ -7,7 +7,7 @@
 	
 	<fieldset>
 	<legend>Customer details</legend>
-	Date registered: <b>{$customer.date_registered}</b><br/>
+	Date registered: <br/><b>{$customer.date_registered}</b></br>
 	Full name: <br/><input class="text" name="edtName" value="{$customer.full_name}"><br/>
 	Email: <br/><input class="text" name="edtEmail" value = "{$customer.email}"><br/>
 	Phone: <br/><input class="text" name="edtPhone" value="{$customer.phone}"><br/><br/>

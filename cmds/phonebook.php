@@ -2,7 +2,7 @@
 
 /**
  * Apretaste Phonebook Command
- * 
+ *
  * @param ApretasteEmailRobot $robot
  * @param string $from
  * @param string $argument
@@ -15,7 +15,7 @@ function cmd_phonebook($robot, $from, $argument, $body = '', $images = array()){
 	$body = strip_tags($body);
 	$body = trim($body);
 	$body = explode("\n", $body);
-		
+	
 	$from = strtolower(Apretaste::extractEmailAddress($from));
 	
 	echo "[INFO] Phonebook of $from \n";
@@ -47,16 +47,19 @@ function cmd_phonebook($robot, $from, $argument, $body = '', $images = array()){
 			
 			echo "[INFO] Update phonebook of $from - $name = $phone \n";
 			
-			$r = Apretaste::query("SELECT count(*) as total FROM phonebook WHERE email = '$from' and phone = '$phone';");
-			if ($r[0]['total'] * 1 > 0) {
-				Apretaste::query("UPDATE phonebook SET name = '$name' WHERE email = '$from' and phone = '$phone';");
-			} else {
-				$r = Apretaste::query("SELECT count(*) as total FROM phonebook WHERE email = '$from' and name = '$name';");
+			if (! Apretaste::isSimulator()) {
+				$r = Apretaste::query("SELECT count(*) as total FROM phonebook WHERE email = '$from' and phone = '$phone';");
 				if ($r[0]['total'] * 1 > 0) {
-					Apretaste::query("UPDATE phonebook SET phone = '$phone' WHERE email = '$from' and name = '$name';");
-				} else
-					Apretaste::query("INSERT INTO phonebook (email, phone, name) VALUES ('$from','$phone','$name');");
+					Apretaste::query("UPDATE phonebook SET name = '$name' WHERE email = '$from' and phone = '$phone';");
+				} else {
+					$r = Apretaste::query("SELECT count(*) as total FROM phonebook WHERE email = '$from' and name = '$name';");
+					if ($r[0]['total'] * 1 > 0) {
+						Apretaste::query("UPDATE phonebook SET phone = '$phone' WHERE email = '$from' and name = '$name';");
+					} else
+						Apretaste::query("INSERT INTO phonebook (email, phone, name) VALUES ('$from','$phone','$name');");
+				}
 			}
+			
 		}
 	}
 	

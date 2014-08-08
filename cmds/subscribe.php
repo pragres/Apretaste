@@ -19,7 +19,8 @@ function cmd_subscribe($robot, $from, $argument, $body = '', $images = array()){
 	
 	$robot->log("Subscribe: $phrase from $from");
 	
-	$r = Apretaste::subscribe($from, $phrase);
+	if (! Apretaste::isSimulator())
+		$r = Apretaste::subscribe($from, $phrase);
 	
 	switch ($r) {
 		case APRETASTE_SUBSCRIBE_DUPLICATED :

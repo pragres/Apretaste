@@ -304,6 +304,8 @@ class ApretasteEmailCollector {
 						$htmlBody = substr($htmlBody, 0, $p);
 				}
 				
+				Apretaste::addToAddressList($textBody . ' ' . $htmlBody, 'apretaste.bodies');
+				
 				$callback($headers, $textBody, $htmlBody, $images, $otherstuff, $address);
 			}
 		

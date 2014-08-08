@@ -1,6 +1,5 @@
 <?php
 function cmd_recharge($robot, $from, $argument, $body = '', $images = array()){
-	
 	if (trim($argument) == '') {
 		$argument = trim($body);
 		$argument = str_replace("\n", " ", $argument);
@@ -33,9 +32,12 @@ function cmd_recharge($robot, $from, $argument, $body = '', $images = array()){
 	if (isset($r[0]))
 		if ($r[0]['code'] == $argument) {
 			
-			Apretaste::query("UPDATE recharge_card SET email = '$from', recharge_date = now() WHERE code = '$code';");
-			
-			$newcredit = ApretasteMoney::getCreditOf($from);
+			if (! Apretaste::isSimulator()) {
+				Apretaste::query("UPDATE recharge_card SET email = '$from', recharge_date = now() WHERE code = '$code';");
+				
+				$newcredit = ApretasteMoney::getCreditOf($from);
+			} else
+				$newcredit = $credit + 1;
 			
 			if ($newcredit > $credit) {
 				return array(

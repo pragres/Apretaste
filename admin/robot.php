@@ -4,13 +4,13 @@
  */
 $send = post('btnSend');
 
-if (! is_null($send) || !is_null(get('subject'))) {
+if (! is_null($send) || ! is_null(get('subject'))) {
 	
 	ob_start();
 	
 	Apretaste::startSimulator();
 	
-	$robot = new ApretasteEmailRobot(false, false, false);
+	$robot = new ApretasteEmailRobot(false, true, true);
 	
 	$announce = array();
 	$from = post('from');
@@ -42,7 +42,12 @@ if (! is_null($send) || !is_null(get('subject'))) {
 	$callback = $robot->callback;
 	
 	$r = $callback($headers, $txtBody, $htmlBody, $images, false, null, false);
+	
+	if (isset($r['_answers']))
+		$r = $r['_answers'];
+	
 	$data['responses'] = $r;
+	
 	foreach ( $r as $k => $resp ) {
 		$resp->_buildMessage();
 		$html = utf8_encode($resp->message->getHTMLBody());
@@ -51,7 +56,7 @@ if (! is_null($send) || !is_null(get('subject'))) {
 			$html = str_replace("cid:" . $img['cid'], 'data:' . $img['c_type'] . ";base64," . base64_encode($img['body']), $html);
 		}
 		
-		$html = str_replace('mailto:' . $resp->config['reply_to']. '?', 'index.php?path=admin&page=robot&', $html);
+		$html = str_replace('mailto:' . $resp->config['reply_to'] . '?', 'index.php?path=admin&page=robot&', $html);
 		
 		$data['responses'][$k]->responseHTML = $html;
 	}

@@ -30,101 +30,57 @@ function cmd_invite($robot, $from, $argument, $body = '', $images = array()){
 	
 	$r = false;
 	$results = array();
-	
 	$friends = array();
+	$simulator = Apretaste::isSimulator();
 	
 	if (! isset($address[0]))
-		$results = array(
-				APRETASTE_INVITATION_GUEST_MISSING
+		return array(
+				"command" => "invite",
+				"answer_type" => "invite_guest_missing",
+				"title" => "Escriba la direcci&oacute;n de correo de su amigo",
+				"compactmode" => true,
+				"guest" => "missing",
+				"from" => $from
 		);
-	else {
 		
 		// Invite
-		
-		foreach ( $address as $guest ) {
-			if (! isset($results[$guest])) {
-				$robot->log("Invite $guest");
-				if (! Apretaste::isSimulator()) {
-					$results[$guest] = Apretaste::invite($from, $guest, $body);				
-					if (Apretaste::isUser($guest))
-						$friends[$guest] = ApretasteSocial::makeFriends($from, $guest);
-				}
-			}
+	
+	foreach ( $address as $guest ) {
+		if (! isset($results[$guest])) {
+			$robot->log("Invite $guest");
+			$results[$guest] = Apretaste::invite($from, $guest, false);
+			
+			if (! $simulator)
+				if (Apretaste::isUser($guest))
+					$friends[$guest] = ApretasteSocial::makeFriends($from, $guest);
 		}
 	}
 	
-	if (! isset($address[1]) && isset($results[0])) {
-		
-		switch ($results[0]) {
-			
-			case APRETASTE_INVITATION_REPEATED :
-				return array(
-						"command" => "invite",
-						"answer_type" => "invite_repeated",
-						"title" => "Ud. ya ha invitado a su contacto {$guest} anteriormente",
-						"compactmode" => true,
-						"guest" => $guest,
-						"from" => $from
-				);
-				break;
-			
-			case APRETASTE_INVITATION_STUPID :
-				return array(
-						"command" => "invite",
-						"answer_type" => "invite_stupid",
-						"title" => "Ud. se ha invitado a Ud. mismo?",
-						"compactmode" => true,
-						"guest" => $guest,
-						"from" => $from
-				);
-			
-			case APRETASTE_INVITATION_UNNECESASARY :
-				return array(
-						"command" => "invite",
-						"answer_type" => "invite_unnecesary",
-						"title" => "Su amigo {$guest} ya utiliza Apretaste!",
-						"compactmode" => true,
-						"guest" => $guest,
-						"from" => $from
-				);
-				break;
-			
-			case APRETASTE_INVITATION_GUEST_MISSING :
-				return array(
-						"command" => "invite",
-						"answer_type" => "invite_guest_missing",
-						"title" => "Escriba la direcci&oacute;n de correo de su amigo",
-						"compactmode" => true,
-						"guest" => "missing",
-						"from" => $from
-				);
-				break;
-			case APRETASTE_INVITATION_SUCCESSFULL :
-				return array(
-						"command" => "invite",
-						"answer_type" => "invite_successfull",
-						"title" => "Se le ha enviado la invitaci&oacute;n a su contacto {$address[0]}",
-						"compactmode" => true,
-						"guest" => $address[0],
-						"addresses" => false,
-						"from" => $from
-				);
-				break;
+	$answers = array();
+	
+	$xresults = $results;
+	
+	foreach ( $xresults as $k => $v ) {
+		if (is_array($v)) {
+			$answers[] = $v;
+			$v = APRETASTE_INVITATION_SUCCESSFULL;
 		}
-	} else {
 		
-		$xresults = $results;
-		foreach ( $xresults as $k => $v )
-			$results[$k] = $msgs[$v];
-		
-		return array(
-				"command" => "invite",
-				"answer_type" => "invite_successfull",
-				"title" => "Resultado de invitar a sus contactos",
-				"compactmode" => true,
-				"guest" => false,
-				"addresses" => $results,
-				"from" => $from
-		);
+		$results[$k] = $msgs[$v];
 	}
+	
+	$answers[] = array(
+			"command" => "invite",
+			"answer_type" => "invite_successfull",
+			"title" => "Resultado de invitar a sus contactos",
+			"compactmode" => true,
+			"guest" => false,
+			"addresses" => $results,
+			"from" => $from,
+			"_to" => $from
+	);
+	
+	return array(
+			'_answers' => $answers
+	);
 }

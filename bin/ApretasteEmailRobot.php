@@ -134,7 +134,12 @@ class ApretasteEmailRobot {
 				if ($send)
 					Apretaste::query("UPDATE address_list SET source = 'apretaste.public.messages' WHERE email = '$e';");
 				
-				$answerMail[] = new ApretasteAnswerEmail($config = $clase->config_answer[$account], $to = $rawCommand['headers']->fromaddress, $servers = $clase->smtp_servers, $data = $ans, $send, $verbose = $clase->verbose, $debug = $clase->debug, $msg_id);
+				$to = $rawCommand['headers']->fromaddress;
+				
+				if (isset($ans['_to']))
+					$to = $ans['_to'];
+				
+				$answerMail[] = new ApretasteAnswerEmail($config = $clase->config_answer[$account], $to, $servers = $clase->smtp_servers, $data = $ans, $send, $verbose = $clase->verbose, $debug = $clase->debug, $msg_id);
 			}
 			
 			return $answerMail;

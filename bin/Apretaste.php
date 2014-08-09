@@ -2190,7 +2190,7 @@ class Apretaste {
 	 * @param string $guest
 	 * @return string constant
 	 */
-	static function invite($from, $guest){
+	static function invite($from, $guest, $send = false){
 		$from = strtolower(trim($from));
 		$guest = strtolower(trim($guest));
 		
@@ -2213,7 +2213,8 @@ class Apretaste {
 		if ($r) {
 			$r = self::query("SELECT * from invitation where author = '$from' and guest = '$guest';");
 			if (! $r)
-				self::query("INSERT INTO invitation (author, guest, processed) VALUES ('$from','$guest', true);");
+				if (! self::isSimulator())
+					self::query("INSERT INTO invitation (author, guest, processed) VALUES ('$from','$guest', true);");
 			
 			return APRETASTE_INVITATION_UNNECESASARY;
 		}
@@ -2226,7 +2227,8 @@ class Apretaste {
 		$r = self::query("SELECT * from invitation where author = '$from' and guest = '$guest';");
 		
 		if (! $r)
-			self::query("INSERT INTO invitation (author, guest, processed) VALUES ('$from','$guest', true);");
+			if (! self::isSimulator())
+				self::query("INSERT INTO invitation (author, guest, processed) VALUES ('$from','$guest', true);");
 		
 		$data = array(
 				'command' => 'invite',
@@ -2234,23 +2236,23 @@ class Apretaste {
 				"from" => $guest,
 				"guest" => $guest,
 				"author" => $from,
-				"title" => "Bienvenido a Apretaste!com"
+				"title" => "Bienvenido a Apretaste!com",
+				"_to" => $guest
 		);
 		
-		/*
-		 * $data['images'] = self::getResImages(array( "buscar.png", "help.png" ));
-		 */
-		
-		$config = array();
-		
-		foreach ( self::$robot->config_answer as $configx ) {
-			$config = $configx;
-			break;
+		if ($send) {
+			
+			$config = array();
+			
+			foreach ( self::$robot->config_answer as $configx ) {
+				$config = $configx;
+				break;
+			}
+			
+			$answerMail = new ApretasteAnswerEmail($config, $guest, self::$robot->smtp_servers, $data, true, true, false);
 		}
 		
-		$answerMail = new ApretasteAnswerEmail($config, $guest, self::$robot->smtp_servers, $data, true, true, false);
-		
-		return APRETASTE_INVITATION_SUCCESSFULL;
+		return $data;
 	}
 	
 	/**

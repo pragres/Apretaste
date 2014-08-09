@@ -1530,6 +1530,8 @@ class Apretaste {
 		}
 		
 		if ($stats == true) {
+			$pricemin = 'null';
+			$pricemax = 'null';
 			if (isset($filter['price-min']))
 				$pricemin = $filter['price-min'];
 			else
@@ -1546,7 +1548,7 @@ class Apretaste {
 			if (isset($filter['phone']))
 				if ($filter['phone'] === true || $filter['phone'] == 'on')
 					$withphone = 'true';
-			$total = intval($total);
+			$total = intval($total) * 1;
 			$sql = "INSERT INTO search_history (phrase, email, host, results, pricemin, pricemax, with_photo, with_phone) VALUES ('$original', '$email', '$ip', $total, $pricemin, $pricemax, $withphoto, $withphone);";
 			if (! self::isSimulator())
 				self::query($sql);

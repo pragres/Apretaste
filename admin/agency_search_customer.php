@@ -7,9 +7,9 @@ $email = Apretaste::extractEmailAddress($email);
 
 $r = Apretaste::query("
 		SELECT id FROM agency_customer 
-		WHERE (email ~* '$email' AND email <> '') 
-		OR (phone ~* '$phone' AND phone <>'')
-		OR (full_name ~* '$name' AND full_name <>'')
+		WHERE (email ~* '$email' AND email <> '' AND email is not null) 
+		OR (phone ~* '$phone' AND phone <> '' AND phone is not null)
+		OR (full_name ~* '$name' AND full_name <> '' AND full_name is not null)
 		LIMIT 1;");
 
 if (isset($r[0]))

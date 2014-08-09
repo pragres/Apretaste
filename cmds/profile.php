@@ -290,12 +290,9 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 	
 	if (isset($profile['picture']))
 		if ($profile['picture'] !== '') {
-			$img = base64_decode($profile['picture']);
-			// $img = Apretaste::convertImageToJpg($img);
-			$img = base64_decode(Apretaste::resizeImage(base64_encode($img), 80));
+			$img = base64_decode(Apretaste::resizeImage($profile['picture']));
 			
-			$data['images'] = array(
-					
+			$data['images'] = array(		
 					array(
 							"type" => "image/jpeg",
 							"content" => $img,

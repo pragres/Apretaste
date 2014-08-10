@@ -176,4 +176,38 @@ class ApretasteAdmin {
 		
 		return 'dashboard';
 	}
+	
+	/**
+	 * Return a agency's customer
+	 *
+	 * @param string $id
+	 * @return array
+	 */
+	static public function getAgencyCustomer($id){
+		Apretaste::connect();
+		
+		$customer = array();
+		
+		$r = Apretaste::query("SELECT id, full_name, to_char(date_registered, 'DD/MM/YYYY HH12:MI PM') as date_registered, email, phone FROM agency_customer WHERE id = '$id';");
+		
+		if (! isset($r[0]))
+			return false;
+		
+		$customer = $r[0];
+		
+		$r = Apretaste::query("SELECT email FROM agency_recharge WHERE customer = '{$customer['id']}' group by email;");
+		
+		$arr = array();
+		
+		if (is_array($r))
+			foreach ( $r as $row ) {
+				$a = Apretaste::getAuthor($row['email']);
+				$a['credit'] = ApretasteMoney::getCreditOf($row['email']);
+				$arr[] = $a;
+			}
+		
+		$customer['contacts'] = $arr;
+		
+		return $customer;
+	}
 }

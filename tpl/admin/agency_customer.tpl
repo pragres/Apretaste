@@ -9,6 +9,9 @@
 	
 	<fieldset>
 	<legend>Customer details</legend>
+	?$msgerror
+	<div class="msg-error">{$msgerror}</div>
+	$msgerror?
 	Date registered: <br/><b>{$customer.date_registered}</b></br></br>
 	Full name: <br/><input class="text" name="edtName" value="{$customer.full_name}"><br/>
 	Email: <br/><input class="text" name="edtEmail" value = "{$customer.email}"><br/>

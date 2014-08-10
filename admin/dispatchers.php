@@ -70,7 +70,7 @@ if (isset($_GET['sales'])) {
 		$data['cards'] = ApretasteMoney::getSaleCards($_GET['cards']);
 		$data['sale'] = $_GET['cards'];
 		echo new div("../tpl/admin/recharge_cards.tpl", $data);
-		return true;
+		exit();
 	}
 	
 	if (isset($_POST['btnAddSale'])) {
@@ -84,7 +84,7 @@ if (isset($_GET['sales'])) {
 	$data['sales'] = ApretasteMoney::getRechargeCardSalesOf($_GET['sales']);
 	
 	echo new div("../tpl/admin/recharge_card_sales.tpl", $data);
-	return true;
+	exit();
 }
 
 $data['dispatchers'] = ApretasteMoney::getDispatchers();

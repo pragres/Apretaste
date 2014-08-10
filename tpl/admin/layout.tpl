@@ -16,7 +16,8 @@
         			var value = e.value;
         			var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
 	        
-        			if ((keyCode < 48 || keyCode > 60) && keyCode != 8 && keyCode != 190 && keyCode != 39 && keyCode != 37 && keyCode != 46 && keyCode != 9) 
+        			if ((keyCode < 48 || keyCode > 60) && keyCode != 8 && keyCode != 190 && keyCode != 39 && keyCode != 37 && keyCode != 46 && keyCode != 9
+        			&& (keyCode < 96 || keyCode >105) && keyCode != 110 && keyCode != 13) 
             			return false;
         
         			if (strpos(value, '.') != false && keyCode == 190) 

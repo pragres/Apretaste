@@ -1,17 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="es">
-	<head>
-		<title>Apretaste!com | Recharge Card Sales</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<link href="static/admin.css" rel="stylesheet"></link>
-	</head>
-<body>
-		{= path: "index.php?path=admin&page=dispatchers&sales={$email}" =}
-	
-	<div id = "page">
-		<h1><a href = "index.php?path=admin">Apretaste!com</a> - <a href="{$path}">Recharge Card Sales</a></h1>
-		
-		{% menu %}
+{= title: Recharge Card Sales =}
+{= path: "index.php?path=admin&page=dispatchers&sales={$email}" =}
+{% layout %}
+{{page
 			<a href="index.php?path=admin&page=dispatchers">&lt;&lt; Dispatchers</a><br/>
 			<table class="tabla" width="100%">
 				<tr><th>Date</th><th>Quantity/Pricing</th><th>Package price</th></tr>
@@ -30,6 +20,4 @@
 			Package price: <input class="edit" name="edtSalePrice"> 
 			<input type="submit" name="btnAddSale" value="Add sale">
 			</form>
-	</div>
-</body>
-</html>
+page}}

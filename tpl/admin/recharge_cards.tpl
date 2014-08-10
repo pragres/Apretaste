@@ -1,17 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="es">
-	<head>
-		<title>Apretaste!com | Recharge Cards</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<link href="static/admin.css" rel="stylesheet"></link>
-	</head>
-<body>
-		{= path: "index.php?path=admin&page=dispatchers&sales={$email}&cards={$sale}" =}
-	
-	<div id = "page">
-		<h1><a href = "index.php?path=admin">Apretaste!com</a> - <a href="{$path}">Recharge Cards</a></h1>
-		
-		{% menu %}
+{= title: Recharge Cards =}
+{= path: "index.php?path=admin&page=dispatchers&sales={$email}&cards={$sale}" =}
+{% layout %}
+{{page
 			<a href="index.php?path=admin&page=dispatchers&sales={$email}">&lt;&lt; Sales</a><br/>
 			<table class="tabla" width="100%">
 				<tr><th>Code</th><th>Amount</th><th>User</th><th>Recharge date</th></tr>
@@ -27,6 +17,4 @@
 			<td  align="center" style="border-top:2px solid gray;padding-top:3px;">$(# {$sum:cards-amount} :2.#)</td></tr>
 			</table>
 			
-	</div>
-</body>
-</html>
+page}}

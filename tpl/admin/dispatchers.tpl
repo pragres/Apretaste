@@ -1,6 +1,9 @@
 {= title: "Dispatchers" =}
+
 {= path: "index.php?path=admin&page=dispatchers" =}
+
 {% layout %}
+
 {{page
 			<table class="tabla" width="100%">
 				<tr><th>Email</th><th>Name</th><th>Contact Info</th><th colspan="2">Options</th></tr>

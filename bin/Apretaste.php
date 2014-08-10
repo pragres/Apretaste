@@ -987,6 +987,12 @@ class Apretaste {
 	 * @return array
 	 */
 	static public function getAddressFrom($text){
+		$check = true;
+		
+		if (isset(self::$config['development']))
+			if (self::$config['development'] == true)
+				$check = false;
+		
 		$chars = '1234567890abcdefghijklmnopqrstuvwxyz._-@ ';
 		
 		$text = strtolower($text);
@@ -1011,7 +1017,7 @@ class Apretaste {
 		
 		$addresses = array();
 		foreach ( $words as $word ) {
-			if (self::checkAddress($word)) {
+			if (self::checkAddress($word) || $check == false) {
 				$addresses[] = $word;
 			}
 		}
@@ -3079,7 +3085,6 @@ class Apretaste {
 	static function saveProfile($email, $data){
 		self::saveAuthor($email, $data);
 	}
-	
 	static function getAuthor($email, $with_friends = true){
 		$r = self::query("SELECT *,date_part('year',age(birthdate)) as age FROM authors WHERE email = '$email';");
 		
@@ -3134,8 +3139,6 @@ class Apretaste {
 		
 		return $profile;
 	}
-	
-	
 	static function generateRecommendedPhrases($phrase, $limit = 20){
 		$original = $phrase;
 		$phrase = addslashes($phrase);

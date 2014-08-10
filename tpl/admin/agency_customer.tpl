@@ -1,13 +1,15 @@
 {= title: "Agency's customer" =}
 {= path: "index.php?path=admin&page=agency_customer" =}
+
 {% layout %}
+
 {{page 
 	<table><tr><td valign="top">	
 	<form action="{$path}&id={$customer.id}&update=true" method="POST">
 	
 	<fieldset>
 	<legend>Customer details</legend>
-	Date registered: <br/><b>{$customer.date_registered}</b></br>
+	Date registered: <br/><b>{$customer.date_registered}</b></br></br>
 	Full name: <br/><input class="text" name="edtName" value="{$customer.full_name}"><br/>
 	Email: <br/><input class="text" name="edtEmail" value = "{$customer.email}"><br/>
 	Phone: <br/><input class="text" name="edtPhone" value="{$customer.phone}"><br/><br/>
@@ -24,11 +26,17 @@
 		$_is_first?
 		?$_is_odd <tr> $_is_odd?
 			<td width="10%" valign="center"><img src="data:image/jpeg;base64,{$picture}" width="50"></td>
-			<td width="40%" valign="center">{$name}<br/>{$email}<br/>
+			<td width="40%" valign="center">
+				{?( "{$name}" != "{$email}" )?}
+					{$name}
+				{/?}
+				<br/>{$email}<br/>
 				<form action="index.php?path=admin&page=agency_pre_recharge" method="POST">
 					<input type="hidden" value = "{$div.get.id}" name="edtCustomer">
 					<input type="hidden" value ="{$email}" name="edtEmail">
-					$<input size="2" class="number" name="edtAmount" value ="">
+					Current credit: {#credit:2,0#}<br/>
+					$<input size="2" class="number float" name="edtAmount" value ="">
+					
 					<input name="btnRecharge" type="submit" value="Recharge" class="submit">
 				</form>
 			</td>
@@ -47,7 +55,7 @@
 		<form action="index.php?path=admin&page=agency_pre_recharge" method="post">
 		<input type="hidden" value = "{$div.get.id}" name="edtCustomer">
 		Email: <br/><input class="text" name="edtEmail">
-		Amount: $<input class="number" name="edtAmount"><input type="submit" name="btnRecharge" value = "Recharge" class="submit">
+		Amount: $<input class="number float" name="edtAmount"><input type="submit" name="btnRecharge" value = "Recharge" class="submit">
 		</form>
 	</fielset>
 </td></tr></table>

@@ -3079,6 +3079,7 @@ class Apretaste {
 	static function saveProfile($email, $data){
 		self::saveAuthor($email, $data);
 	}
+	
 	static function getAuthor($email, $with_friends = true){
 		$r = self::query("SELECT *,date_part('year',age(birthdate)) as age FROM authors WHERE email = '$email';");
 		
@@ -3089,6 +3090,7 @@ class Apretaste {
 					"linker" => false,
 					"verified" => false,
 					"public" => false,
+					"picture" => base64_encode(file_get_contents("../web/static/noavatar.png")),
 					"historical_ads" => 0,
 					"historical_searchs" => 0,
 					"historical_msgs" => 0
@@ -3132,6 +3134,8 @@ class Apretaste {
 		
 		return $profile;
 	}
+	
+	
 	static function generateRecommendedPhrases($phrase, $limit = 20){
 		$original = $phrase;
 		$phrase = addslashes($phrase);

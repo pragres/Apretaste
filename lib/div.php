@@ -2565,6 +2565,7 @@ class div {
 							substr($minihtml, 0, $empty),
 							substr($minihtml, $empty + strlen(DIV_TAG_EMPTY))
 					);
+					
 				} else
 					$body_parts = array(
 							$minihtml,

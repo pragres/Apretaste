@@ -27,7 +27,9 @@ $arr = array();
 
 if (is_array($r))
 	foreach ( $r as $row ) {
-		$arr[] = Apretaste::getAuthor($row['email']);
+		$a = Apretaste::getAuthor($row['email']);
+		$a['credit'] = ApretasteMoney::getCreditOf($row['email']);
+		$arr[] = $a;
 	}
 
 $data['customer']['contacts'] = $arr;

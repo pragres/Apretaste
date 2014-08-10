@@ -133,6 +133,21 @@ input.submit:hover{
 	background: #11c66d;
 }
 
+
+a.button{
+	background: #0f9d58;
+	color: white;
+	font-weight: bold;
+	padding: 5px;
+	border: none;
+	cursor: pointer;
+}
+
+a.button:hover{
+	background: #11c66d;
+}
+
+
 .tabla {
 	border: 1px solid gray;
 }

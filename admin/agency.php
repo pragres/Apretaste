@@ -1,2 +1,3 @@
 <?php
 
+$data['searchresults'] = array();

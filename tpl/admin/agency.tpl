@@ -10,16 +10,18 @@
 		?$msgerror
 		<div class="msg-error">{$msgerror}</div>
 		$msgerror?
+				
 		
 		!$div.get.section
 		<table width="100%">
 		<tr><td valign="top" width="50%">
-
+		
 		<h1>Search for a customer</h1>
 		<form action="index.php?path=admin&page=agency_search_customer" method="POST">
 		Name: <br/><input class="text" name="edtSearchName"><br/>
 		Email: <br/><input class="text" name="edtSearchEmail"><br/>
 		Phone: <br/><input class="text" name="edtSearchPhone"><br/>
+		<hr/>
 		<input type="submit" value="Search" class="submit" name="edtSearch">
 		</form>
 		
@@ -46,9 +48,10 @@
 		$searchresults?
 		
 		</td></tr></table>
-		<br/>
-		<a class="button" href="{$path}&section=add_customer">Add a customer</a>
-		
+		<h1>Other options</h1>
+		<hr/>
+		<a class="button" href="{$path}&section=add_customer">Add a customer</a> &nbsp;
+		<a class="button" href="index.php?path=admin&page=agency_reports">View your reports</a>
 		@else@
 		
 		{?( "{$div.get.section}"=="add_customer" )?}

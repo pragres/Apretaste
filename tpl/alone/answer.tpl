@@ -28,6 +28,7 @@
 {= reply_to: anuncios@apretaste.com =}
 
 {= commands: {
+		home: {cmd: "INICIO", desc: "Inicio", rel:[]},
 		sudoku: {cmd: "SUDOKU", desc: "Resolver un Sudoku", rel:["joke", "invite"]},
 		help: {cmd: "AYUDA", desc: "Ayuda", rel:["invite"]},
 		state: {cmd: "ESTADO", desc: "Mi estado", rel:["invite"]},

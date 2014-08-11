@@ -12,8 +12,10 @@
 {= title: Dashboard =} 				
 
 {% layout %}		
+
 {{page	  		
 		<!--{ BEGIN Hourly access }-->
+
 		<h2>Access by hour</h2>
 		<p style="color:gray;">Number of emails received and sent every hour (last {$lastdays} days)</p>
 		<table width="100%">
@@ -97,7 +99,7 @@
 		
 		<h2>New users </h2>
 		<p style="color:gray;">Number of emails received for first time in the history</p>
-		<img width="100%" height="60%"src="index.php?path=admin&chart=new_users">
+		<img width="100%" height="60%" src="index.php?path=admin&chart=new_users">
 		<p>Total number of users in Apretaste: <b>{$total_users}</b></p>
 				
 		<h2 style="margin-top:50px;">Engagement level</h2>

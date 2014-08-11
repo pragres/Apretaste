@@ -8,8 +8,8 @@ class ApretasteAnalitics {
 	 */
 	static function getTotalInternalActiveAds(){
 		$r = Apretaste::query("SELECT COUNT(*) as cant FROM announcement where external_id is null;");
-		if ($r)
-			return intval($r[0]['cant']);
+		if (isset($r[0]))
+			return $r[0]['cant'];
 		return 0;
 	}
 	

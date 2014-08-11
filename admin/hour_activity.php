@@ -17,7 +17,7 @@ $data['messages'] = Apretaste::query($sql);
 
 if (is_array($data['messages']))
 	foreach ( $data['messages'] as $k => $v ) {
-		$e = unserialize($v['extra_data']);
+		$e = @unserialize($v['extra_data']);
 		if (isset($e['headers']->subject))
 			$data['messages'][$k]['subject'] = $e['headers']->subject;
 		else

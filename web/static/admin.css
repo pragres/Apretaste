@@ -34,12 +34,16 @@ h2 {
 	background: #00ff7f;
 	color: black;
 	border: 1px solid green;
+	padding: 10px;
+	margin: 5px;
 }
 
 .msg-error {
 	background: #ffa190;
 	color: black;
 	border: 1px solid red;
+	padding: 10px;
+	margin: 5px;
 }
 
 .box {

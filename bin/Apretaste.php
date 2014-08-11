@@ -1017,6 +1017,8 @@ class Apretaste {
 		
 		$addresses = array();
 		foreach ( $words as $word ) {
+			if (trim($word) == '')
+				continue;
 			if (self::checkAddress($word) || $check == false) {
 				$addresses[] = $word;
 			}

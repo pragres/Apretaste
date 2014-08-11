@@ -43,7 +43,7 @@
 		{% menu %}
 		$div.session.user?
 	</div>
-	<div id = "page">
+	<div id = "page" ?$pagewidth style="margin:0 auto;width:{$pagewidth}px;" $pagewidth?>
 		(( page ))
 	</div>
 </body>

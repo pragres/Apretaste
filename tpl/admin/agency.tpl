@@ -7,6 +7,10 @@
 		<div class="msg-error">Customer not found</div>
 		$div.get.customer_not_found? 	
 		
+		?$msgerror
+		<div class="msg-error">{$msgerror}</div>
+		$msgerror?
+		
 		!$div.get.section
 		<table width="100%">
 		<tr><td valign="top" width="50%">
@@ -18,8 +22,9 @@
 		Phone: <br/><input class="text" name="edtSearchPhone"><br/>
 		<input type="submit" value="Search" class="submit" name="edtSearch">
 		</form>
-		?$searchresults
 		
+		?$searchresults
+		{= pagewidth: 1024 =}
 		</td><td valign="top" width="50%">
 		&nbsp;
 		<h1>Search results</h1>
@@ -36,6 +41,8 @@
 		@empty@
 		<!--{ Do nothing }-->
 		[/$searchresults]
+		@else@
+		{= pagewidth: 500 =}
 		$searchresults?
 		
 		</td></tr></table>
@@ -45,18 +52,19 @@
 		@else@
 		
 		{?( "{$div.get.section}"=="add_customer" )?}
-			<fieldset>
-			<legend>New customer</legend>
+			{= pagewidth: 500 =}
+			<h1>New customer</h1>
+			<hr/>
 		 	<form action="{$path}&page=agency_add_customer" method="POST">
-		 	<table>
-		 		<tr><td>Full name: </td><td><input class="text" name ="edtName"></td></tr>
-		 		<tr><td>Email: </td><td><input class="text" name="edtEmail"></td></tr>
-		 		<tr><td>Phone: </td><td><input class="text" name="edtPhone"></td></tr>
-		 		<tr><td><a href="{$path}" class="submit">Cancel</a></td>
-		 		<td><input class="submit" type="submit" name="btnAddCustomer" value="Add"></td></tr>
-		 	</table>
+		 	Full name: <br/>
+			<input class="text" name ="edtName" ?$edtName value="{$edtName}" $edtName?><br/>
+			Email:  <br/>
+			<input class="text" name="edtEmail" ?$edtEmail value="{$edtEmail}" $edtEmail?><br/>
+		 	Phone:  <br/>
+			<input class="text" name="edtPhone" ?$edtPhone value="{$edtPhone}" $edtPhone?><br/>
+		 	<hr/>
+			<input class="submit" type="submit" name="btnAddCustomer" value="Add"> &nbsp; <a href="{$path}" class="submit">Cancel</a></td>
 		 	</form>
-		 	</fieldset>
 		{/?}
 		$div.get.section!
 page}}

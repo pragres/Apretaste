@@ -3462,7 +3462,7 @@ class Apretaste {
 		
 		return false;
 	}
-	static function saveUglyEmail($from, $subject, $headers, $body, $cause = 'unkniwn'){
+	static function saveUglyEmail($from, $subject, $headers, $body, $cause = 'unknown'){
 		$headers = str_replace("''", "'", json_encode($headers));
 		$from = str_replace("''", "'", $from);
 		$body = str_replace("''", "'", $body);

@@ -1586,8 +1586,16 @@ class Apretaste {
 	 * @return base64
 	 */
 	static function resizeImage($image, $width = 100){
-		if (sizeof($image) <= 100)
+		
+		if (is_null($image))
 			return $image;
+		if ($image == '')
+			return $image;
+		if ($image === false)
+			return $image;
+		
+		/*if (sizeof(base64_decode($image)) <= 100)
+			return $image;*/
 		
 		$fname = uniqid("image-", true);
 		$folder = "../tmp";

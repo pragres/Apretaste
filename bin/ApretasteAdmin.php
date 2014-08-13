@@ -202,6 +202,9 @@ class ApretasteAdmin {
 		if (is_array($r))
 			foreach ( $r as $row ) {
 				$a = Apretaste::getAuthor($row['email']);
+				if (isset($a['picture']))
+					if ($a['picture'] != '')
+						$a['picture'] = Apretaste::resizeImage($a['picture'], 50);
 				$a['credit'] = ApretasteMoney::getCreditOf($row['email']);
 				$arr[] = $a;
 			}

@@ -18,7 +18,6 @@ class ApretasteSMS {
 	 * @return string
 	 */
 	static function send($prefix, $number, $sender, $message, $discount){
-		
 		$login = Apretaste::$config['sms_user'];
 		$password = Apretaste::$config['sms_pass'];
 		
@@ -81,11 +80,13 @@ class ApretasteSMS {
 			if (substr($number, 0, 2) == '00')
 				$number = substr($number, 2);
 		
-		if ($number[0] == '0')
-			$number = substr($number, 1);
+		if (isset($number[0]))
+			if ($number[0] == '0')
+				$number = substr($number, 1);
 		
-		if ($number[0] == '0')
-			$number = substr($number, 1);
+		if (isset($number[0]))
+			if ($number[0] == '0')
+				$number = substr($number, 1);
 		
 		if (strlen($number) == 8 && $number[0] == '5')
 			$code = 53; // to cuba

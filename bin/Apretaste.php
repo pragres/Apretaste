@@ -3375,7 +3375,7 @@ class Apretaste {
 	 * @param string $to
 	 * @param array $data
 	 */
-	static function sendEmail($to, $data){
+	static function sendEmail($to, $data, $async = false){
 		$robot = new ApretasteEmailRobot($autostart = false, $verbose = false);
 		
 		Apretaste::$robot = &$robot;
@@ -3386,8 +3386,8 @@ class Apretaste {
 			$config = $configx;
 			break;
 		}
-		
-		$answerMail = new ApretasteAnswerEmail($config, $to, self::$robot->smtp_servers, $data, true, true, false);
+		// $config, $to, $servers, $data, $send = false, $verbose = false, $debug = false, $msg_id = null, $save_on_fail = true, $async = false
+		$answerMail = new ApretasteAnswerEmail($config, $to, self::$robot->smtp_servers, $data, true, true, false, null, true, $async);
 	}
 	static function dropEmailAddress($email){
 		$email = self::extractEmailAddress($email);
@@ -3413,5 +3413,53 @@ class Apretaste {
 	}
 	static function isSimulator(){
 		return self::$simulator;
+	}
+	
+	/**
+	 * Check if email is invitation rebote
+	 *
+	 * @param string $from
+	 * @param string $subject
+	 * @param string $body
+	 * @return boolean
+	 */
+	static function checkInvitationRebate($from, $subject, $body){
+		$body = strip_tags($body);
+		if ($subject == 'Delivery Status Notification (Failure)') {
+			$from = self::getAddressFrom($from);
+			if (isset($from[0])) {
+				$from = $from[0];
+				if ($from == 'mailer-daemon@googlemail.com') {
+					$adds = self::getAddressFrom($body);
+					if (strpos($body, 'lo ha invitado') !== false) {
+						
+						foreach ( $adds as $ad1 ) {
+							$ad1 = trim(strtolower($ad1));
+							foreach ( $adds as $ad2 ) {
+								$ad2 = trim(strtolower($ad2));
+								if ($ad1 != $ad2) {
+									
+									$r = self::query("select * from invitation where author = '$ad1' and guest = '$ad2';");
+									if (isset($r[0])) {
+										self::query("update invitation set fail = true where id = '{$r[0]['id']}';");
+										
+										$p = strpos($body, '----- Original message -----');
+										if ($p === false)
+											$p = 0;
+										return array(
+												'author' => $ad1,
+												'guest' => $ad2,
+												'msgerror' => substr($body, $p)
+										);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return false;
 	}
 }

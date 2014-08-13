@@ -796,6 +796,8 @@ class ApretasteAlone {
 			Apretaste::query("UPDATE announcement SET image = '" . base64_encode($photo) . "', image_type='$type' WHERE id = '{$ad[0]['id']}';");
 		}
 	}
+	
+	
 	static function sendOutbox(){
 		echo "[INFO] Send emails of outbox...\n";
 		
@@ -812,9 +814,9 @@ class ApretasteAlone {
 			foreach ( $emails as $email ) {
 				$ans = unserialize($email['data']);
 				
-				echo "[INFO] Sending again email {$email['id']} to {$ans->to}\n";
+				echo "[INFO] Sending email {$email['id']} to {$ans->to}\n";
 				
-				$r = $ans->send_answer(null, false);
+				$r = $ans->send_answer(null, false, false);
 				
 				if ($r == true)
 					Apretaste::query("DELETE FROM email_outbox WHERE id = '{$email['id']};");

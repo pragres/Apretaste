@@ -135,14 +135,6 @@ class ApretasteEmailCollector {
 				
 				$from = $headers->from[0]->mailbox . "@" . $headers->from[0]->host;
 				
-				// Prevent Mail Delivery System
-				
-				if (stripos($headers->subject, 'delivery') !== false || stripos($from, 'MAILER-DAEMON') !== false) {
-					imap_delete($this->imap, $message_number_iterator);
-					echo $this->verbose ? "[INFO] ignore Mail Delivery System from {$from}\n" : "";
-					continue;
-				}
-				
 				// Checking black and white list
 				
 				$blacklist = Apretaste::getEmailBlackList();
@@ -158,38 +150,41 @@ class ApretasteEmailCollector {
 				$t = str_ireplace("fwd:", "", $t);
 				$t = str_ireplace("re:", "", $t);
 				$t = str_ireplace("rv:", "", $t);
+				
 				$headers->subject = trim($t);
 				
-				echo "[INFO} Message-ID: " . $headers->message_id . "\n";
-				
-				if (strpos($headers->message_id, '@') !== false) {
+				if (isset($headers->message_id)) {
+					echo "[INFO} Message-ID: " . $headers->message_id . "\n";
 					
-					$host = $headers->from[0]->host;
-					$msgid = Apretaste::extractEmailAddress($headers->message_id);
-					$msgid = substr($msgid, strpos($msgid, '@') + 1);
-					
-					if ($host != $msgid) {
-						echo "[INFO] host $host are not equal to $msgid message ID, mmmm...\n";
-						if (strpos($host, $msgid) === false && strpos($msgid, $host) === false) {
-							echo "[INFO] host is not inside msgid, and msgid is not inside host, mmmm...\n";
-							
-							$other = Apretaste::query("SELECT extra_data FROM message WHERE author ~* '@$host' AND extract_email(author) <> extract_email('$from') limit 1;");
-							if (isset($other[0])) {
-								$other = @unserialize($other[0]['extra_data']);
-								if (isset($other['headers']->message_id)) {
-									$msgid2 = $other['headers']->message_id;
-									$msgid2 = str_replace(">", "", substr($msgid2, strpos($msgid2, '@') + 1));
-									echo "[INFO] Checking $msgid = $msgid2 as the ID user by other similar users \n";
-									if ($msgid != $msgid2) {
-										$other = Apretaste::query("SELECT extra_data FROM message WHERE extract_email(author) = extract_email('$from') order by moment limit 1;");
-										if (isset($other[0])) {
-											$other = @unserialize($other[0]['extra_data']);
-											if (isset($other['headers']->message_id)) {
-												$msgid2 = $other['headers']->message_id;
-												$msgid2 = str_replace(">", "", substr($msgid2, strpos($msgid2, '@') + 1));
-												echo "[INFO] Checking $msgid = $msgid2 as the first ID used\n";
-												if ($msgid != $msgid2) {
-													echo "[WARN] _______________________ Suspicious message !!!\n";
+					if (strpos($headers->message_id, '@') !== false) {
+						
+						$host = $headers->from[0]->host;
+						$msgid = Apretaste::extractEmailAddress($headers->message_id);
+						$msgid = substr($msgid, strpos($msgid, '@') + 1);
+						
+						if ($host != $msgid) {
+							echo "[INFO] host $host are not equal to $msgid message ID, mmmm...\n";
+							if (strpos($host, $msgid) === false && strpos($msgid, $host) === false) {
+								echo "[INFO] host is not inside msgid, and msgid is not inside host, mmmm...\n";
+								
+								$other = Apretaste::query("SELECT extra_data FROM message WHERE author ~* '@$host' AND extract_email(author) <> extract_email('$from') limit 1;");
+								if (isset($other[0])) {
+									$other = @unserialize($other[0]['extra_data']);
+									if (isset($other['headers']->message_id)) {
+										$msgid2 = $other['headers']->message_id;
+										$msgid2 = str_replace(">", "", substr($msgid2, strpos($msgid2, '@') + 1));
+										echo "[INFO] Checking $msgid = $msgid2 as the ID user by other similar users \n";
+										if ($msgid != $msgid2) {
+											$other = Apretaste::query("SELECT extra_data FROM message WHERE extract_email(author) = extract_email('$from') order by moment limit 1;");
+											if (isset($other[0])) {
+												$other = @unserialize($other[0]['extra_data']);
+												if (isset($other['headers']->message_id)) {
+													$msgid2 = $other['headers']->message_id;
+													$msgid2 = str_replace(">", "", substr($msgid2, strpos($msgid2, '@') + 1));
+													echo "[INFO] Checking $msgid = $msgid2 as the first ID used\n";
+													if ($msgid != $msgid2) {
+														echo "[WARN] _______________________ Suspicious message !!!\n";
+													}
 												}
 											}
 										}
@@ -247,11 +242,26 @@ class ApretasteEmailCollector {
 				$textBody = $this->mimeDecode($textBody);
 				$htmlBody = $this->mimeDecode($htmlBody);
 				
-				if ($headers->subject == '')
-					$headers->subject = 'AYUDA';
-				
 				$this->log("Mark for deletion the message $message_number_iterator");
 				imap_delete($this->imap, $message_number_iterator);
+				
+				// Prevent Mail Delivery System
+				
+				$rebate = Apretaste::checkInvitationRebate($from, $headers->subject, $htmlBody == '' ? $textBody : $htmlBody);
+				
+				if ($rebate !== false) {
+					$rebate['answer_type'] = 'invitation_fail';
+					Apretaste::sendEmail($rebate['guest'], $rebate);
+					continue;
+				}
+				
+				if (stripos($headers->subject, 'delivery') !== false || stripos($from, 'MAILER-DAEMON') !== false) {
+					echo $this->verbose ? "[INFO] ignore Mail Delivery System from {$from}\n" : "";
+					continue;
+				}
+				
+				if ($headers->subject == '')
+					$headers->subject = 'AYUDA';
 				
 				$textBody = str_replace("\r\n", "\n", $textBody);
 				$htmlBody = str_replace("\r\n", "\n", $htmlBody);
@@ -262,6 +272,7 @@ class ApretasteEmailCollector {
 				if (strpos($textBody, "--\n") !== false) {
 					$textBody = substr($textBody, 0, strpos($textBody, "--\n"));
 				}
+				
 				if (strpos($htmlBody, "--\n") !== false) {
 					$htmlBody = substr($htmlBody, 0, strpos($htmlBody, "--\n"));
 				}

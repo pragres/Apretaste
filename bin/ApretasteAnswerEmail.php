@@ -1,9 +1,7 @@
 <?php
-
 include "../lib/PEAR/mime.php";
 include "../lib/PEAR/Mail.php";
 include "../lib/PEAR/Net/SMTP.php";
-
 class ApretasteAnswerEmail {
 	var $from;
 	var $to;
@@ -28,7 +26,7 @@ class ApretasteAnswerEmail {
 	 * @param unknown_type $verbose
 	 * @param unknown_type $debug
 	 */
-	function __construct($config, $to, $servers, $data, $send = false, $verbose = false, $debug = false, $msg_id = null, $save_on_fail = true){
+	function __construct($config, $to, $servers, $data, $send = false, $verbose = false, $debug = false, $msg_id = null, $save_on_fail = true, $async = false){
 		$this->msg_id = $msg_id;
 		$this->config = $config;
 		$this->to = $to;
@@ -54,7 +52,7 @@ class ApretasteAnswerEmail {
 		if (isset($data['images']))
 			$this->addImages($data['images']);
 		if ($send)
-			$this->send_answer($config['reply_to'], $save_on_fail);
+			$this->send_answer($config['reply_to'], $save_on_fail, $async);
 	}
 	function addHeaders($headers){
 		$this->headers = array_merge($this->headers, $headers);
@@ -68,7 +66,7 @@ class ApretasteAnswerEmail {
 	function addImages($images){
 		$this->images = array_merge($this->images, $images);
 	}
-	function send_answer($xfrom = null, $save_on_fail = true){
+	function send_answer($xfrom = null, $save_on_fail = true, $async = false){
 		$froms = array_keys($this->servers);
 		
 		if (trim($this->to) == '')
@@ -105,9 +103,11 @@ class ApretasteAnswerEmail {
 			$this->config['reply_to'] = $from;
 			
 			// Build message one time
-			
-			// if ($i == 1)
 			$this->_buildMessage();
+			
+			// After build.... if it is async then break
+			if ($async)
+				break;
 			
 			echo $this->verbose ? "conecting to " . $from . " (" . $this->servers[$from]['host'] . ":" . $this->servers[$from]['port'] . ")\n" : "";
 			
@@ -182,11 +182,7 @@ class ApretasteAnswerEmail {
 		} while ( $sended == false );
 		
 		if (! $sended) {
-			/*
-			 * echo "[INFO] Sending with PHP...\n"; $hheaders = ''; $hheaders .= "From: anuncios@apretaste.com \r\n"; $hheaders .= "Reply-To: anuncios@apretaste.com \r\n"; $hheaders .= 'X-Mailer: PHP/' . phpversion() . "\r\n"; foreach ( $this->headers as $key => $value ) $hheaders .= $key . ': ' . $value . "\r\n"; $subject = 'Apretaste!'; if (isset($this->headers->subject)) $subject = $this->headers->subject; if (isset($this->headers->Subject)) $subject = $this->headers->Subject; $r = mail($this->to, $subject, $this->message->getMessageBody(), $hheaders); if ($r == false) return false; $from = 'anuncios@apretaste.com';
-			 */
-			
-			if ($save_on_fail) {
+			if ($save_on_fail || $async) {
 				echo "[INFO] Saving email in outbox for {$this->to}\n";
 				Apretaste::query("INSERT INTO email_outbox (data) VALUES ('" . serialize($this) . "');");
 			}

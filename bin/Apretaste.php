@@ -3425,38 +3425,39 @@ class Apretaste {
 	 */
 	static function checkInvitationRebate($from, $subject, $body){
 		$body = strip_tags($body);
-		if ($subject == 'Delivery Status Notification (Failure)') {
+		if ($subject == 'Delivery Status Notification (Failure)' || strpos($subject, 'Undeliverable') !== false || strpos($subject, 'Mensaje no entregado') !== false
+		|| $from == 'mailer-daemon@googlemail.com') {
 			$from = self::getAddressFrom($from);
 			if (isset($from[0])) {
 				$from = $from[0];
-				if ($from == 'mailer-daemon@googlemail.com') {
-					$adds = self::getAddressFrom($body);
-					if (strpos($body, 'lo ha invitado') !== false) {
-						
-						foreach ( $adds as $ad1 ) {
-							$ad1 = trim(strtolower($ad1));
-							foreach ( $adds as $ad2 ) {
-								$ad2 = trim(strtolower($ad2));
-								if ($ad1 != $ad2) {
+				// if ($from == 'mailer-daemon@googlemail.com' || strpos($subject, 'Undeliverable') !== false) {
+				$adds = self::getAddressFrom($body);
+				if (strpos($body, 'lo ha invitado') !== false) {
+					
+					foreach ( $adds as $ad1 ) {
+						$ad1 = trim(strtolower($ad1));
+						foreach ( $adds as $ad2 ) {
+							$ad2 = trim(strtolower($ad2));
+							if ($ad1 != $ad2) {
+								
+								$r = self::query("select * from invitation where author = '$ad1' and guest = '$ad2';");
+								if (isset($r[0])) {
+									self::query("update invitation set fail = true where id = '{$r[0]['id']}';");
 									
-									$r = self::query("select * from invitation where author = '$ad1' and guest = '$ad2';");
-									if (isset($r[0])) {
-										self::query("update invitation set fail = true where id = '{$r[0]['id']}';");
-										
-										$p = strpos($body, '----- Original message -----');
-										if ($p === false)
-											$p = 0;
-										return array(
-												'author' => $ad1,
-												'guest' => $ad2,
-												'msgerror' => substr($body, $p)
-										);
-									}
+									$p = strpos($body, '----- Original message -----');
+									if ($p === false)
+										$p = 0;
+									return array(
+											'author' => $ad1,
+											'guest' => $ad2,
+											'msgerror' => substr($body, $p)
+									);
 								}
 							}
 						}
 					}
 				}
+				// }
 			}
 		}
 		

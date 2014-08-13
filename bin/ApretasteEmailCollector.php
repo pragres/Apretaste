@@ -246,10 +246,11 @@ class ApretasteEmailCollector {
 				imap_delete($this->imap, $message_number_iterator);
 				
 				// Prevent Mail Delivery System
-				
+				echo $this->verbose ? "[INFO] Check invitation rebate ... \n" : "";
 				$rebate = Apretaste::checkInvitationRebate($from, $headers->subject, $htmlBody == '' ? $textBody : $htmlBody);
 				
 				if ($rebate !== false) {
+					echo $this->verbose ? "[INFO] INVITATION FAIL: Send email invitation_fail to the author... \n" : "";
 					$rebate['answer_type'] = 'invitation_fail';
 					Apretaste::sendEmail($rebate['guest'], $rebate);
 					continue;

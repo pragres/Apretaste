@@ -256,7 +256,7 @@ class ApretasteEmailCollector {
 					continue;
 				}
 				
-				if (stripos($headers->subject, 'delivery') !== false || stripos($from, 'MAILER-DAEMON') !== false) {
+				if (stripos($headers->subject, 'delivery') !== false || strpos($headers->subject, 'Undeliverable') !== false 	|| stripos($from, 'MAILER-DAEMON') !== false) {
 					echo $this->verbose ? "[INFO] ignore Mail Delivery System from {$from}\n" : "";
 					continue;
 				}

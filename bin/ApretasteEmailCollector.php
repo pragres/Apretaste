@@ -134,7 +134,6 @@ class ApretasteEmailCollector {
 				 */
 				
 				$from = $headers->from[0]->mailbox . "@" . $headers->from[0]->host;
-							
 				
 				$t = trim($headers->subject);
 				$t = str_ireplace("fwd:", "", $t);
@@ -243,13 +242,15 @@ class ApretasteEmailCollector {
 					echo $this->verbose ? "[INFO] INVITATION FAIL: Send email invitation_fail to the author... \n" : "";
 					$rebate['answer_type'] = 'invitation_fail';
 					Apretaste::sendEmail($rebate['guest'], $rebate);
+					Apretaste::saveUglyEmail($from, $headers->subject, $headers, $headers->subject, $htmlBody == '' ? $textBody : $htmlBody);
 					continue;
 				}
 				
 				// Prevent Mail Delivery System
 				echo $this->verbose ? "[INFO] Prevent Mail Delivery System ... \n" : "";
-				if (stripos($headers->subject, 'delivery') !== false || strpos($headers->subject, 'Undeliverable') !== false 	|| stripos($from, 'MAILER-DAEMON') !== false) {
+				if (stripos($headers->subject, 'delivery') !== false || strpos($headers->subject, 'Undeliverable') !== false || stripos($from, 'MAILER-DAEMON') !== false) {
 					echo $this->verbose ? "[INFO] ignore Mail Delivery System from {$from}\n" : "";
+					Apretaste::saveUglyEmail($from, $headers->subject, $headers, $headers->subject, $htmlBody == '' ? $textBody : $htmlBody);
 					continue;
 				}
 				
@@ -261,9 +262,10 @@ class ApretasteEmailCollector {
 				if ((Apretaste::matchEmailPlus($from, $blacklist) == true && Apretaste::matchEmailPlus($from, $whitelist) == false)) {
 					imap_delete($this->imap, $message_number_iterator);
 					$this->log("Ignore email address {$from}");
+					Apretaste::saveUglyEmail($from, $headers->subject, $headers, $headers->subject, $htmlBody == '' ? $textBody : $htmlBody);
 					continue;
 				}
-								
+				
 				if ($headers->subject == '')
 					$headers->subject = 'AYUDA';
 				

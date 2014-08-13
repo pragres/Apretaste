@@ -3462,11 +3462,11 @@ class Apretaste {
 		
 		return false;
 	}
-	static function saveUglyEmail($from, $subject, $headers, $body){
+	static function saveUglyEmail($from, $subject, $headers, $body, $cause = 'unkniwn'){
 		$headers = str_replace("''", "'", json_encode($headers));
 		$from = str_replace("''", "'", $from);
 		$body = str_replace("''", "'", $body);
 		
-		self::query("INSERT INTO email_ugly(email,subject,headers,body) VALUES ('$from','$subject','$headers','$body');");
+		self::query("INSERT INTO email_ugly(email,subject,headers,body, cause) VALUES ('$from','$subject','$headers','$body', '$cause');");
 	}
 }

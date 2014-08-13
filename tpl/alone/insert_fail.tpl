@@ -1,2 +1,5 @@
 {= *AnswerSubject: El anuncio no se ha publicado debido a errores =}
-<p align="justify" style="{$font}">Su anuncio no se public&oacute; debido a errores. Int&eacute;ntelo m&aacute;s tarde.</p>
+
+{$h1}{$AnswerSubject}{$_h1}
+
+{$p}Su anuncio no se public&oacute; debido a errores. Int&eacute;ntelo m&aacute;s tarde.{$_p}

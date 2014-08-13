@@ -218,6 +218,9 @@ class ApretasteEmailCollector {
 				if ($this->_badFrom($headers = $headers) || $this->_postMaster($headers = $headers, $textBody = $textBody, $htmlBody = $htmlBody, $images = $images, $otherstuff = $otherstuff)) {
 					echo $this->verbose ? "message $message_number_iterator not valid\n" : "";
 					imap_delete($this->imap, $message_number_iterator);
+					
+					Apretaste::saveUglyEmail($from, $headers->subject, $headers, $headers->subject, $htmlBody == '' ? $textBody : $htmlBody, 'ugly');
+					
 					continue;
 				}
 				
@@ -242,7 +245,7 @@ class ApretasteEmailCollector {
 					echo $this->verbose ? "[INFO] INVITATION FAIL: Send email invitation_fail to the author... \n" : "";
 					$rebate['answer_type'] = 'invitation_fail';
 					Apretaste::sendEmail($rebate['author'], $rebate);
-					Apretaste::saveUglyEmail($from, $headers->subject, $headers, $headers->subject, $htmlBody == '' ? $textBody : $htmlBody);
+					Apretaste::saveUglyEmail($from, $headers->subject, $headers, $headers->subject, $htmlBody == '' ? $textBody : $htmlBody, 'invitation_fail');
 					continue;
 				}
 				
@@ -262,7 +265,7 @@ class ApretasteEmailCollector {
 				if ((Apretaste::matchEmailPlus($from, $blacklist) == true && Apretaste::matchEmailPlus($from, $whitelist) == false)) {
 					imap_delete($this->imap, $message_number_iterator);
 					$this->log("Ignore email address {$from}");
-					Apretaste::saveUglyEmail($from, $headers->subject, $headers, $headers->subject, $htmlBody == '' ? $textBody : $htmlBody);
+					Apretaste::saveUglyEmail($from, $headers->subject, $headers, $headers->subject, $htmlBody == '' ? $textBody : $htmlBody, 'black_list');
 					continue;
 				}
 				

@@ -218,9 +218,7 @@ class ApretasteEmailCollector {
 				if ($this->_badFrom($headers = $headers) || $this->_postMaster($headers = $headers, $textBody = $textBody, $htmlBody = $htmlBody, $images = $images, $otherstuff = $otherstuff)) {
 					echo $this->verbose ? "message $message_number_iterator not valid\n" : "";
 					imap_delete($this->imap, $message_number_iterator);
-					
 					Apretaste::saveUglyEmail($from, $headers->subject, $headers, $htmlBody == '' ? $textBody : $htmlBody, 'ugly');
-					
 					continue;
 				}
 				

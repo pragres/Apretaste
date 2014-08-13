@@ -134,17 +134,7 @@ class ApretasteEmailCollector {
 				 */
 				
 				$from = $headers->from[0]->mailbox . "@" . $headers->from[0]->host;
-				
-				// Checking black and white list
-				
-				$blacklist = Apretaste::getEmailBlackList();
-				$whitelist = Apretaste::getEmailWhiteList();
-				
-				if ((Apretaste::matchEmailPlus($from, $blacklist) == true && Apretaste::matchEmailPlus($from, $whitelist) == false)) {
-					imap_delete($this->imap, $message_number_iterator);
-					$this->log("Ignore email address {$from}");
-					continue;
-				}
+							
 				
 				$t = trim($headers->subject);
 				$t = str_ireplace("fwd:", "", $t);
@@ -245,7 +235,7 @@ class ApretasteEmailCollector {
 				$this->log("Mark for deletion the message $message_number_iterator");
 				imap_delete($this->imap, $message_number_iterator);
 				
-				// Prevent Mail Delivery System
+				// Check invitation rebate
 				echo $this->verbose ? "[INFO] Check invitation rebate ... \n" : "";
 				$rebate = Apretaste::checkInvitationRebate($from, $headers->subject, $htmlBody == '' ? $textBody : $htmlBody);
 				
@@ -256,11 +246,24 @@ class ApretasteEmailCollector {
 					continue;
 				}
 				
+				// Prevent Mail Delivery System
+				echo $this->verbose ? "[INFO] Prevent Mail Delivery System ... \n" : "";
 				if (stripos($headers->subject, 'delivery') !== false || strpos($headers->subject, 'Undeliverable') !== false 	|| stripos($from, 'MAILER-DAEMON') !== false) {
 					echo $this->verbose ? "[INFO] ignore Mail Delivery System from {$from}\n" : "";
 					continue;
 				}
 				
+				// Checking black and white list
+				echo $this->verbose ? "[INFO] Checking black and white list ... \n" : "";
+				$blacklist = Apretaste::getEmailBlackList();
+				$whitelist = Apretaste::getEmailWhiteList();
+				
+				if ((Apretaste::matchEmailPlus($from, $blacklist) == true && Apretaste::matchEmailPlus($from, $whitelist) == false)) {
+					imap_delete($this->imap, $message_number_iterator);
+					$this->log("Ignore email address {$from}");
+					continue;
+				}
+								
 				if ($headers->subject == '')
 					$headers->subject = 'AYUDA';
 				

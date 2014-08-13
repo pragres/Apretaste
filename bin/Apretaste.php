@@ -3467,6 +3467,6 @@ class Apretaste {
 		$from = str_replace("''", "'", $from);
 		$body = str_replace("''", "'", $body);
 		
-		self::query("INSERT INTO email_ugly(author,subject,headers,body) VALUES ('$from','$subject','$headers','$body');");
+		self::query("INSERT INTO email_ugly(email,subject,headers,body) VALUES ('$from','$subject','$headers','$body');");
 	}
 }

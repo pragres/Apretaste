@@ -45,7 +45,7 @@
 		</form>
 	</div>
 	<div class = "box">
-		<h3>Configuration</h3>
+		<h3>Some configurations</h3>
 		<form action = ""  method = "post">
 		<input type = "checkbox" name = "chkEnableHistorial" ?$chkEnableHistorial checked $chkEnableHistorial?>Enable historial<br><br>
 		<input type = "checkbox" name = "chkSmsFree" ?$chkSmsFree checked $chkSmsFree?>SMS Free<br><br>		
@@ -54,6 +54,14 @@
 		Subscribes:<br>
 		Outbox max messages: <input type ="text" name = "edtOutboxmax" ?$edtOutboxmax value = "{$edtOutboxmax}"><br>
 		<input type = "submit" class="submit"  value = "Update" name = "btnUpdateConfig">
+		</form>
+	</div>
+	<div class = "box">
+		<h3>Agency's configuration</h3>
+		<form action = ""  method = "post">
+		Profit: <br><input  class = "edit regexp"  type="text" name = "edtProfit" ?$edtProfit value = "{$edtProfit}" $edtProfit?><br><br>
+		Residual profit: <br><input  class = "edit regexp"  type="text" name = "edtResidualProfit" ?$edtResidualProfit value = "{$edtResidualProfit}" $edtResidualProfit?><br><br>
+		<input type = "submit" class="submit"  value = "Update" name = "btnUpdateAgency">
 		</form>
 	</div>
 page}}

@@ -27,11 +27,10 @@ if (! is_null($email)) {
 			"author" => $author,
 			"newcredit" => $credit,
 			"user_email" => $email
-	));
+	), true);
 	
-	if (! Apretaste::isUser($email)) {
-		Apretaste::invite($customer['email'], $email);
-	}
+	if (! Apretaste::isUser($email)) 
+		Apretaste::invite($customer['email'], $email, true, true);
 	
 	// Send email to de user
 	
@@ -42,7 +41,7 @@ if (! is_null($email)) {
 			"amount" => $amount,
 			"author" => $author,
 			"newcredit" => $credit
-	));
+	), true);
 	
 	$customer = $customer['id'];
 }

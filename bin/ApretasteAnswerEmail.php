@@ -184,7 +184,7 @@ class ApretasteAnswerEmail {
 		if (! $sended) {
 			if ($save_on_fail || $async) {
 				echo "[INFO] Saving email in outbox for {$this->to}\n";
-				Apretaste::query("INSERT INTO email_outbox (data) VALUES ('" . serialize($this) . "');");
+				Apretaste::query("INSERT INTO email_outbox (data) VALUES ('" . base64_encode(serialize($this)) . "');");
 			}
 			return false;
 		}

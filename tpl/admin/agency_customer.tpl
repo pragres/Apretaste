@@ -6,20 +6,23 @@
 {{page 
 	<table><tr><td valign="top">	
 	<form action="{$path}&id={$customer.id}&update=true" method="POST">
-	
 	<fieldset>
-	<legend>Customer details</legend>
-	?$msgerror
-	<div class="msg-error">{$msgerror}</div>
-	$msgerror?
-	Date registered: <br/><b>{$customer.date_registered}</b></br></br>
-	Full name: <br/><input class="text" name="edtName" value="{$customer.full_name}"><br/>
-	Email: <br/><input class="text" name="edtEmail" value = "{$customer.email}"><br/>
-	Phone: <br/><input class="text" name="edtPhone" value="{$customer.phone}"><br/><br/>
-	<input type="submit" class="submit" value = "Update" onclick="return confirm('Are you sure?');">
+		<legend>Customer details</legend>
+		?$msgerror
+		<div class="msg-error">{$msgerror}</div>
+			$msgerror?
+		?$picture
+		<img src="data:image/jpeg;base64,{$picture}" width="100"><br/>
+		$picture?
+		Date registered: <br/><b>{$customer.date_registered}</b></br></br>
+		Full name: <br/><input class="text" name="edtName" value="{$customer.full_name}"><br/>
+		Email: <br/><input class="text" name="edtEmail" value = "{$customer.email}"><br/>
+		Phone: <br/><input class="text" name="edtPhone" value="{$customer.phone}"><br/><br/>
+		<input type="submit" class="submit" value = "Update" onclick="return confirm('Are you sure?');">
 	</fieldset>
 	</form>
-	</fieldset>
+	
+	
 	</td><td valign="top">
 	<fieldset>
 	<legend>Contacts</legend>

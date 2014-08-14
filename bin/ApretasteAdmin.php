@@ -211,6 +211,14 @@ class ApretasteAdmin {
 		
 		$customer['contacts'] = $arr;
 		
+		$profile = Apretaste::getAuthor($customer['email']);
+		
+		if (isset($profile['picture']))
+			if ($profile['picture'] != '')
+				$profile['picture'] = Apretaste::resizeImage($profile['picture'], 100);
+		
+		$customer = array_merge($profile, $customer);
+		
 		return $customer;
 	}
 }

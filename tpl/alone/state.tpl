@@ -88,7 +88,7 @@ $subscribes?
 	[$sms]
 	<tr ?$_is_odd style = " background: #eeeeee; color: black;" $_is_odd? >
 	<td valign="top">{$send_date:0,16}{$br}{$phone}</td>
-	<td valign="top">{$message}{$br}${$discount} USD</td>
+	<td valign="top">{$message}{$br}${#discount:2.#}</td>
 	</tr>
 	[/$sms]
 	</table>

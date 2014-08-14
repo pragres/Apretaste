@@ -1586,16 +1586,16 @@ class Apretaste {
 	 * @return base64
 	 */
 	static function resizeImage($image, $width = 100){
-		
 		if (is_null($image))
 			return $image;
 		if ($image == '')
 			return $image;
 		if ($image === false)
 			return $image;
-		
-		/*if (sizeof(base64_decode($image)) <= 100)
-			return $image;*/
+			
+			/*
+		 * if (sizeof(base64_decode($image)) <= 100) return $image;
+		 */
 		
 		$fname = uniqid("image-", true);
 		$folder = "../tmp";
@@ -2208,7 +2208,7 @@ class Apretaste {
 	 * @param string $guest
 	 * @return string constant
 	 */
-	static function invite($from, $guest, $send = false){
+	static function invite($from, $guest, $send = false, $async = false){
 		$from = strtolower(trim($from));
 		$guest = strtolower(trim($guest));
 		
@@ -2258,17 +2258,8 @@ class Apretaste {
 				"_to" => $guest
 		);
 		
-		if ($send) {
-			
-			$config = array();
-			
-			foreach ( self::$robot->config_answer as $configx ) {
-				$config = $configx;
-				break;
-			}
-			
-			$answerMail = new ApretasteAnswerEmail($config, $guest, self::$robot->smtp_servers, $data, true, true, false);
-		}
+		if ($send)
+			self::sendEmail($guest, $data, $async);
 		
 		return $data;
 	}
@@ -3052,37 +3043,34 @@ class Apretaste {
 	 * @param array $data
 	 */
 	static function saveAuthor($email, $data){
-		$email = strtolower($email);
-		$email = trim($email);
+		$email = self::getAddressFrom($email);
 		
-		if (self::checkAddress($email) || $email = 'newuser@localhost') {
+		if (isset($email[0]))
+			$email = $email[0];
+		else
+			return false;
+		
+		self::connect();
+		
+		$r = self::query("SELECT count(*) as total FROM authors WHERE email = '$email';");
+
+		if ($r[0]['total'] * 1 < 1) {
 			
-			self::connect();
+			self::query("INSERT INTO authors (email) VALUES ('$email');");
+		}
+		
+		foreach ( $data as $key => $value ) {
+			$where = ' TRUE ';
+			if ($key == 'phones')
+				$where .= " AND (phones is null)";
 			
-			$r = self::query("SELECT count(*) as total FROM authors WHERE email = '$email';");
-			
-			if ($r[0]['total'] * 1 < 1) {
-				self::query("INSERT INTO authors (email) VALUES ('$email');");
+			if (($key == 'historical_ads' || $key == 'historical_msgs' || $key == 'historical_searchs') && trim($value) !== '' && ! is_bool($value)) {
+				$sql = "UPDATE authors SET $key = $value WHERE email = '$email' AND ($where);";
+			} else {
+				$sql = "UPDATE authors SET $key = '$value' WHERE email = '$email' AND ($where);";
 			}
 			
-			foreach ( $data as $key => $value ) {
-				$where = ' TRUE ';
-				if ($key == 'phones')
-					$where .= " AND (phones is null)";
-				
-				if (($key == 'historical_ads' || $key == 'historical_msgs' || $key == 'historical_searchs') && trim($value) !== '' && ! is_bool($value)) {
-					$sql = "UPDATE authors SET $key = $value WHERE email = '$email' AND ($where);";
-				} else {
-					$sql = "UPDATE authors SET $key = '$value' WHERE email = '$email' AND ($where);";
-				}
-				self::query($sql);
-			}
-			
-			// Save mailing list
-			
-			/*
-			 * @self::sendPost("http://hosted.comm100.com/Newsletter/FormSubscribe.aspx?siteId=145342&version=2&IfVerified=False&languageId=1", array( "singlemailinglistid" => 681, "hiddenButtonText" => "Subscribe", "hiddenEmail" => "Email", "Email" => $email ));
-			 */
+			self::query($sql);
 		}
 	}
 	
@@ -3208,6 +3196,12 @@ class Apretaste {
 			$nt .= iconv_mime_decode($item, ICONV_MIME_DECODE_CONTINUE_ON_ERROR) . " ";
 		return trim($nt);
 	}
+	
+	/**
+	 * Send data to post via HTTP
+	 * @param string $url
+	 * @param array $fields
+	 */
 	static function sendPost($url, $fields){
 		foreach ( $fields as $key => $value ) {
 			$fields[$key] = urlencode($key);

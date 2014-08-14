@@ -796,30 +796,38 @@ class ApretasteAlone {
 			Apretaste::query("UPDATE announcement SET image = '" . base64_encode($photo) . "', image_type='$type' WHERE id = '{$ad[0]['id']}';");
 		}
 	}
-	
-	
 	static function sendOutbox(){
 		echo "[INFO] Send emails of outbox...\n";
 		
 		Apretaste::connect();
+
+		$max = 100;
 		
 		if (isset($_SERVER['argv'][1]))
-			$max = $_SERVER['argv'][1];
-		else
-			$max = 100;
+			$arg1 = $_SERVER['argv'][1];
+		if (isset($_SERVER['argv'][2]))
+			$arg2 = $_SERVER['argv'][2];
+		
+		if (isset($arg1))
+			if (is_numeric($arg1))
+				$max = $arg1;
+		
+		if (isset($arg2))
+			if (is_numeric($arg2))
+				$max = $arg2;
 		
 		$emails = Apretaste::query("SELECT * FROM email_outbox LIMIT $max;");
 		
 		if (is_array($emails)) {
 			foreach ( $emails as $email ) {
-				$ans = unserialize($email['data']);
+				$ans = unserialize(base64_decode($email['data']));
 				
 				echo "[INFO] Sending email {$email['id']} to {$ans->to}\n";
 				
 				$r = $ans->send_answer(null, false, false);
 				
 				if ($r == true)
-					Apretaste::query("DELETE FROM email_outbox WHERE id = '{$email['id']};");
+					Apretaste::query("DELETE FROM email_outbox WHERE id = '{$email['id']}';");
 				else {
 					echo "[INFO] ... Error when sending email, aborting all operations!";
 					break;

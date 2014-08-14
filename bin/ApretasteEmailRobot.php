@@ -274,6 +274,7 @@ class ApretasteEmailRobot {
 	 * @param string $level
 	 */
 	function log($message, $level = 'INFO'){
-		echo $this->verbose ? '[' . $level . '] ' . date("h:i:s") . "-" . $message . "\n" : '';
+		if (Apretaste::isCli())
+			echo $this->verbose ? '[' . $level . '] ' . date("h:i:s") . "-" . $message . "\n" : '';
 	}
 }

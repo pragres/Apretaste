@@ -56,6 +56,7 @@
 		
 		{?( "{$div.get.section}"=="add_customer" )?}
 			{= pagewidth: 500 =}
+			<table><tr><td valign="top">
 			<h1>New customer</h1>
 			<hr/>
 		 	<form action="{$path}&page=agency_add_customer" method="POST">
@@ -68,6 +69,28 @@
 		 	<hr/>
 			<input class="submit" type="submit" name="btnAddCustomer" value="Add"> &nbsp; <a href="{$path}" class="submit">Cancel</a></td>
 		 	</form>
+			</td>
+			
+			?$customer_exists
+			[[customer_exists
+			<td valign="top">
+				<h1>Customer exists</h1>
+				<hr/>
+				<table><tr>
+				?$picture
+				<td valign="top" style="padding:10px;">
+				<img src="data:image/jpeg;base64,{$picture}" width="100">
+				</td>
+				$picture?
+				<td valign="top">
+				Full name: <br/><b>{$full_name}</b><br/><br/>
+				Email: <br/><b>{$email}</b><br/><br/>
+				Phone: <br/><b>{$phone}</b><br/>
+				</td></tr></table>
+			</td>
+			customer_exists]]
+			$customer_exists?
+			</tr></table>
 		{/?}
 		$div.get.section!
 page}}

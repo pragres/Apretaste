@@ -178,9 +178,12 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 		$lines = explode("\n", $body);
 		
 		$profile = array();
-		foreach ( $lines as $line ) {
+		foreach ( $lines as $idx => $line ) {
 			$line = trim($line);
 			if (strlen($line) > 3) {
+				
+				echo "[INFO] Analyzing profile line #$idx: $line \n";
+				
 				$p = strpos($line, ":");
 				$p1 = strpos($line, "=");
 				
@@ -191,69 +194,83 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 				if ($p === false && $p1 !== false)
 					$p = $p1;
 				
-				if ($p !== false) {
-					$prop = substr($line, 0, $p);
-					$value = substr($line, $p + 1);
-					
-					$prop = trim(strtolower($prop));
-					$prop = Apretaste::replaceRecursive("  ", " ", $prop);
-					
-					$value = trim($value);
-					
-					foreach ( $properties as $key => $val ) {
-						foreach ( $val as $kk => $vv )
-							if ($vv == $prop) {
-								
-								if (isset($options[$key])) {
-									$os = $options[$key];
-									if (is_array($os)) {
-										$value = trim(strtolower($value));
-										if (array_search($value, $os) === false)
-											break;
-									} else if ($os == '#date') {
-										$value = trim(strtolower($value));
-										
-										if (strpos($value, '/') !== false) {
-											$arr = explode("/", $value);
-											if (isset($arr[2])) {
-												$value = $arr[2] . '-' . $arr[1] . '-' . $arr[0];
-											}
+				if ($p === false) {
+					$p = strlen($line);
+					$line = $line .= ' ';
+				}
+				
+				$prop = substr($line, 0, $p);
+				$value = substr($line, $p + 1);
+				
+				if ($value === false)
+					$value = '';
+				
+				$prop = trim(strtolower($prop));
+				$prop = Apretaste::replaceRecursive("  ", " ", $prop);
+				
+				$value = trim($value);
+				
+				foreach ( $properties as $key => $val ) {
+					foreach ( $val as $kk => $vv ) {
+						
+						if ($prop == 'quitar foto') {
+							$profile['picture'] = null;
+						}
+						
+						if ($vv == $prop) {
+							
+							if (isset($options[$key])) {
+								$os = $options[$key];
+								if (is_array($os)) {
+									
+									$value = trim(strtolower($value));
+									
+									if (array_search($value, $os) === false)
+										break;
+								} else if ($os == '#date') {
+									$value = trim(strtolower($value));
+									
+									if (strpos($value, '/') !== false) {
+										$arr = explode("/", $value);
+										if (isset($arr[2])) {
+											$value = $arr[2] . '-' . $arr[1] . '-' . $arr[0];
 										}
-										
-										$date = strtotime($value);
-										
-										if ($date == - 1 || $date === false)
-											break;
-										
-										$value = date("Y-m-d", $date);
-									} else if ($os == 1) {
-										$value = trim($value);
-										$arr = explode(" ", $value);
-										$value = $arr[0];
 									}
-								}
-								
-								switch ($key) {
-									case 'sex' :
-										$value = strtolower($value);
-										$value = ($value[0] == 'm') ? "M" : "F";
+									
+									$date = strtotime($value);
+									
+									if ($date == - 1 || $date === false)
 										break;
-									case 'cupid' :
-										$value = strtolower($value);
-										$value = $value[0] == 's' ? "true" : "false";
-										break;
+									
+									$value = date("Y-m-d", $date);
+								} else if ($os == 1) {
+									$value = trim($value);
+									$arr = explode(" ", $value);
+									$value = $arr[0];
 								}
-								
-								$updated = true;
-								
-								$value = str_replace("'", "''", $value);
-								
-								$value = substr($value, 0, 100);
-								
-								$profile[$key] = $value;
-								
-								break 2;
 							}
+							
+							switch ($key) {
+								case 'sex' :
+									$value = strtolower($value);
+									$value = ($value[0] == 'm') ? "M" : "F";
+									break;
+								case 'cupid' :
+									$value = strtolower($value);
+									$value = $value[0] == 's' ? "true" : "false";
+									break;
+							}
+							
+							$updated = true;
+							
+							$value = str_replace("'", "''", $value);
+							
+							$value = substr($value, 0, 100);
+							
+							$profile[$key] = $value;
+							
+							break 2;
+						}
 					}
 				}
 			}
@@ -264,8 +281,9 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 			$updated = true;
 		}
 		
-		if (! Apretaste::isSimulator())
+		if (! Apretaste::isSimulator()) {
 			Apretaste::saveProfile($email, $profile);
+		}
 	}
 	
 	$profile = Apretaste::getAuthor($email);
@@ -292,7 +310,7 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 		if ($profile['picture'] !== '') {
 			$img = base64_decode(Apretaste::resizeImage($profile['picture']));
 			
-			$data['images'] = array(		
+			$data['images'] = array(
 					array(
 							"type" => "image/jpeg",
 							"content" => $img,

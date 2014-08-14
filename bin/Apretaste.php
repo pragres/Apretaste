@@ -3053,7 +3053,7 @@ class Apretaste {
 		self::connect();
 		
 		$r = self::query("SELECT count(*) as total FROM authors WHERE email = '$email';");
-
+		
 		if ($r[0]['total'] * 1 < 1) {
 			
 			self::query("INSERT INTO authors (email) VALUES ('$email');");
@@ -3067,7 +3067,10 @@ class Apretaste {
 			if (($key == 'historical_ads' || $key == 'historical_msgs' || $key == 'historical_searchs') && trim($value) !== '' && ! is_bool($value)) {
 				$sql = "UPDATE authors SET $key = $value WHERE email = '$email' AND ($where);";
 			} else {
-				$sql = "UPDATE authors SET $key = '$value' WHERE email = '$email' AND ($where);";
+				if (is_null($value) || $value == '')
+					$sql = "UPDATE authors SET $key = null WHERE email = '$email' AND ($where);";
+				else
+					$sql = "UPDATE authors SET $key = '$value' WHERE email = '$email' AND ($where);";
 			}
 			
 			self::query($sql);
@@ -3083,8 +3086,19 @@ class Apretaste {
 	static function saveProfile($email, $data){
 		self::saveAuthor($email, $data);
 	}
+	
+	/**
+	 * Return the author's information
+	 *
+	 * @param string $email
+	 * @param boolean $with_friends
+	 * @return array
+	 *
+	 */
 	static function getAuthor($email, $with_friends = true){
 		$r = self::query("SELECT *,date_part('year',age(birthdate)) as age FROM authors WHERE email = '$email';");
+		
+		$default_picture = base64_encode(file_get_contents("../web/static/noavatar.png"));
 		
 		if (! isset($r[0]))
 			return array(
@@ -3093,7 +3107,7 @@ class Apretaste {
 					"linker" => false,
 					"verified" => false,
 					"public" => false,
-					"picture" => base64_encode(file_get_contents("../web/static/noavatar.png")),
+					"picture" => $default_picture,
 					"historical_ads" => 0,
 					"historical_searchs" => 0,
 					"historical_msgs" => 0
@@ -3134,6 +3148,11 @@ class Apretaste {
 		}
 		
 		$profile['friends'] = $friends;
+		
+		if (! isset($profile['picture']))
+			$profile['picture'] = '';
+		if ($profile['picture'] == '')
+			$profile['picture'] = $default_picture;
 		
 		return $profile;
 	}

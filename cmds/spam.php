@@ -19,6 +19,8 @@ function cmd_spam($robot, $from, $argument, $body = '', $images = array()){
 	
 	if (! Apretaste::isSimulator())
 		$r = Apretaste::accusation($from, "spam", $announcement);
+	else
+		$r = APRETASTE_ACCUSATION_SUCCESSFULL;
 	
 	switch ($r) {
 		case APRETASTE_ACCUSATION_DUPLICATED :

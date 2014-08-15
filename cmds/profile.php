@@ -230,19 +230,23 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 								} else if ($os == '#date') {
 									$value = trim(strtolower($value));
 									
-									if (strpos($value, '/') !== false) {
-										$arr = explode("/", $value);
-										if (isset($arr[2])) {
-											$value = $arr[2] . '-' . $arr[1] . '-' . $arr[0];
+									if ($value == '')
+										$value = null;
+									else {
+										if (strpos($value, '/') !== false) {
+											$arr = explode("/", $value);
+											if (isset($arr[2])) {
+												$value = $arr[2] . '-' . $arr[1] . '-' . $arr[0];
+											}
 										}
+										
+										$date = strtotime($value);
+										
+										if ($date == - 1 || $date === false)
+											break;
+										
+										$value = date("Y-m-d", $date);
 									}
-									
-									$date = strtotime($value);
-									
-									if ($date == - 1 || $date === false)
-										break;
-									
-									$value = date("Y-m-d", $date);
 								} else if ($os == 1) {
 									$value = trim($value);
 									$arr = explode(" ", $value);

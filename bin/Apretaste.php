@@ -3200,7 +3200,7 @@ class Apretaste {
 		self::query("INSERT INTO query_queue (query) VALUES ('$query');");
 	}
 	static function getBlackWords(){
-		$rr = Apretaste::query("select word from word where black = true;");
+		$rr = Apretaste::query("select word from word where black = true order by word;");
 		$r = array();
 		if (is_array($rr))
 			foreach ( $rr as $row )

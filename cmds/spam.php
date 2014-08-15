@@ -19,9 +19,12 @@ function cmd_spam($robot, $from, $argument, $body = '', $images = array()){
 	
 	if (! Apretaste::isSimulator())
 		$r = Apretaste::accusation($from, "spam", $announcement);
-	else
+	else {
 		$r = APRETASTE_ACCUSATION_SUCCESSFULL;
-	
+		$a = Apretaste::getAnnouncement($announcement);
+		if ($a == APRETASTE_ANNOUNCEMENT_NOTFOUND)
+			$r = APRETASTE_ANNOUNCEMENT_NOTFOUND;
+	}
 	switch ($r) {
 		case APRETASTE_ACCUSATION_DUPLICATED :
 			$a = Apretaste::getAnnouncement($announcement);
@@ -45,7 +48,9 @@ function cmd_spam($robot, $from, $argument, $body = '', $images = array()){
 			);
 			break;
 	}
+	
 	$a = Apretaste::getAnnouncement($announcement);
+	
 	return array(
 			"command" => "spam",
 			"answer_type" => "accusation_successfull",

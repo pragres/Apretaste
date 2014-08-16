@@ -4,7 +4,7 @@
 	{page: "dashboard", title: "Dashboard"},
 	{page: "config", title: "Configurations"},
 	{page: "mailboxes", title: "Mailboxes"},
-	{page: "users", title: "Admins"},
+	{page: "users", title: "People"},
 	{page: "accusations", title: "Accusations"},
 	{page: "tips", title: "Tips"},
 	{page: "dictionary", title: "Dictionary"},

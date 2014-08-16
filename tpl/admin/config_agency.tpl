@@ -22,7 +22,7 @@
 					<tr><th>Date</th><th>Agent</th><th>Profit</th><th>Profit type</th><th></th></tr>
 					?$profits
 					[$profits]
-					<tr><td>{$moment}</td><td>{$user_login}</td><td>(# {$profit}*100:2.#)%</td><td>{$type}</td><td><a href="index.php?path=admin&page=config&delete_profit={$id}" onclick="return confirm('Are you sure?');">delete</a></td></tr>
+					<tr><td>{$moment}</td><td>{$user_login}</td><td>(# {$profit}*100:2.#)%</td><td>{$type}</td><td><a href="index.php?path=admin&page=config_agency&delete_profit={$id}" onclick="return confirm('Are you sure?');">delete</a></td></tr>
 					[/$profits]
 					$profits?
 					<form action="" method="post">

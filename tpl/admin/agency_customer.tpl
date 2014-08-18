@@ -12,12 +12,9 @@
 		<div class="msg-error">{$msgerror}</div>
 			$msgerror?
 		?$picture
-		<img src="data:image/jpeg;base64,{$picture}" width="100"><br/>
+		<img src="data:image/jpeg;base64,{$picture}" width="100"> 
 		$picture?
-		Date registered: <br/><b>{$customer.date_registered}</b></br></br>
-		Full name: <br/><input class="text" name="edtName" value="{$customer.full_name}"><br/>
-		Email: <br/><input class="text" name="edtEmail" value = "{$customer.email}"><br/>
-		Phone: <br/><input class="text" name="edtPhone" value="{$customer.phone}"><br/><br/>
+		<input class="text" name="edtName" value="{$customer.full_name}"> <input class="text" name="edtEmail" value = "{$customer.email}"> <input class="text" name="edtPhone" value="{$customer.phone}">
 		<input type="submit" class="submit" value = "Update" onclick="return confirm('Are you sure?');">
 	</fieldset>
 	</form>

@@ -3602,6 +3602,7 @@ class div {
 					".",
 					""
 			), $var);
+			
 			$var = str_replace("->", ".", $var);
 			
 			// Protect the variable
@@ -4587,29 +4588,34 @@ class div {
 				
 				$params = substr($code, $p + 1);
 				$params = substr($params, 0, strlen($params) - 1);
-				$engine->__src = $params;
 				
-				$engine->parse(false);
-				
-				$params = trim($engine->__src);
-				
-				if (substr($params, 0, 1) != "{" && substr($params, 0, 1) != "[") {
-					$r = null;
+				if (self::isValidMacro($params)) {
 					
-					// Save the error reporting configurarion
-					$error_reporting = ini_get("error_reporting");
-					ini_set("error_reporting", ~ E_ALL);
+					$engine->__src = $params;
 					
-					eval('$r = $obj->' . $method . '(' . $params . ');');
+					$engine->parse(false);
 					
-					// Restore the error reporting configurarion
-					ini_set("error_reporting", $error_reporting);
+					$params = trim($engine->__src);
 					
-					return $r;
-				} else {
-					$params = self::jsonDecode($params, self::cop($this->__memory, $items));
-					return $obj->$method($params);
-				}
+					if (substr($params, 0, 1) != "{" && substr($params, 0, 1) != "[") {
+						$r = null;
+						
+						// Save the error reporting configurarion
+						$error_reporting = ini_get("error_reporting");
+						ini_set("error_reporting", ~ E_ALL);
+						
+						eval('$r = $obj->' . $method . '(' . $params . ');');
+						
+						// Restore the error reporting configurarion
+						ini_set("error_reporting", $error_reporting);
+						
+						return $r;
+					} else {
+						$params = self::jsonDecode($params, self::cop($this->__memory, $items));
+						return $obj->$method($params);
+					}
+				} else
+					self::error("Wrong params or obtrusive code in method call: $method", DIV_ERROR_FATAL);
 			}
 		}
 		return DIV_METHOD_NOT_EXISTS;

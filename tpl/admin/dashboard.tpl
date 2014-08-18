@@ -86,31 +86,37 @@
 			</tr>
 	    </table>
 		<!--{ END Hourly access }-->
+		<div class="box">
+			<h2>Visitors</h2>
+			<p style="color:gray;">Number of emails received</p>
+			<img width="100%" height="60%" src="index.php?path=admin&chart=visitors">
+		</div>
+		<div class="box">
+			<h2>Unique visitors </h2>
+			<p style="color:gray;">Number of unique emails received</p>
+			<img width="100%" height="60%" src="index.php?path=admin&chart=unique_visitors">
+		</div>
+		<div class="box">
+			<h2>New users </h2>
+			<p style="color:gray;">Number of emails received for first time in the history</p>
+			<img width="100%" height="60%" src="index.php?path=admin&chart=new_users">
+			<p>Total number of users in Apretaste: <b>{$total_users}</b></p>
+		</div>
 		
-    	<h2 style="margin-top:50px;">Visitors</h2>
-		<p style="color:gray;">Number of emails received</p>
+		<div class="box">
+			<h2>Engagement level</h2>
+			<p style="color:gray;">Number of emails repeated more than three times a month.</p>
+			<img width="100%" height="60%"src="index.php?path=admin&chart=engagement">
+		</div>
 		
-		<img width="100%" height="60%" src="index.php?path=admin&chart=visitors">
-
-		<h2 style="margin-top:50px;">Unique visitors </h2>
-		<p style="color:gray;">Number of unique emails received</p>
-		<img width="100%" height="60%" src="index.php?path=admin&chart=unique_visitors">
+		<div class="box">
+			<h2 style="margin-top:50px;">Bounce Rate</h2>
+			<p style="color:gray;">Number of emails received only one time a month.</p>
+			<img width="100%" height="60%"src="index.php?path=admin&chart=bounce_rate">
+		</div>
 		
-		
-		<h2>New users </h2>
-		<p style="color:gray;">Number of emails received for first time in the history</p>
-		<img width="100%" height="60%" src="index.php?path=admin&chart=new_users">
-		<p>Total number of users in Apretaste: <b>{$total_users}</b></p>
-				
-		<h2 style="margin-top:50px;">Engagement level</h2>
-		<p style="color:gray;">Number of emails repeated more than three times a month.</p>
-		<img width="100%" height="60%"src="index.php?path=admin&chart=engagement">
-		
-		<h2 style="margin-top:50px;">Bounce Rate</h2>
-		<p style="color:gray;">Number of emails received only one time a month.</p>
-		<img width="100%" height="60%"src="index.php?path=admin&chart=bounce_rate">
-		
-		<h2 style="margin-top:50px;">Services usage</h2>
+		<div class="box">
+		<h2>Services usage</h2>
 		<p style="color:gray;">Services more used</p>
 	    <img style="float:left;" src="index.php?path=admin&chart=messages_by_command&nocache=(# uniqid() #)">
 	   
@@ -139,104 +145,107 @@
 				}
 			?>
 	    </table>
-	    
-		<h2 style="margin-top:50px;">Sources of traffic</h2>
-		<p style="color:gray;">Email providers more used</p>
-		<table width="100%">
-			<tr>
-				<td valign="top">
-					<img src="index.php?path=admin&chart=email_servers" style="float:left;">
-				</td>
-				<td valign="top">
-					<table width="100%">
-						<tr>
-							<?
-								if (is_array($sources_of_traffic)){
-									foreach($sources_of_traffic as $m => $v){
-									
-										echo '<td width="33%" valign="top"><strong>'.$months[$m-1].'</strong><br/><hr/>';
-										if (is_array($v)) foreach($v as $x){
-											echo "{$x['xauthor']} - <b>{$x['messages']}</b><br/>";
+	    </div>
+		<div class="box">
+			<h2>Sources of traffic</h2>
+			<p style="color:gray;">Email providers more used</p>
+			<table width="100%">
+				<tr>
+					<td valign="top">
+						<img src="index.php?path=admin&chart=email_servers" style="float:left;">
+					</td>
+					<td valign="top">
+						<table width="100%">
+							<tr>
+								<?
+									if (is_array($sources_of_traffic)){
+										foreach($sources_of_traffic as $m => $v){
+										
+											echo '<td width="33%" valign="top"><strong>'.$months[$m-1].'</strong><br/><hr/>';
+											if (is_array($v)) foreach($v as $x){
+												echo "{$x['xauthor']} - <b>{$x['messages']}</b><br/>";
+											}
+											echo '</td>';
 										}
-										echo '</td>';
 									}
-								}
-							?>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-
-		<h2 style="margin-top:50px">VIP Users</h2>
-		<p style="color:gray;">Users who send more emails a month</p>
-		<table width="100%">
-			<tr>
-				<?
-					if (is_array($best_users)) foreach($best_users as $m => $v){
-						echo '<td width="33%" valign="top"><strong>'.$months[$m-1].'</strong><br/><hr/>';
-						if (is_array($v)) foreach($v as $x){
-							echo "<a href=\"?path=admin&page=user_activity&user={$x['xauthor']}\">{$x['xauthor']}</a> - {$x['messages']}<br/>";
-						}
-						echo '</td>';
-					}
-				?>
-			</tr>
-		</table>
+								?>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</div>
 		
-		<!--{ <strong>Now = {/div.now:Y-m-d h:i:s/}</strong> | Messages = {$messages_by_week} by week | {$messages_by_day} by day | {$messages_by_hour} by hour| {$messages_by_minute} by minute | <strong>{$subscribes_count}</strong> subscribes | <strong>{$linker} linker links!</strong><br/> }-->
-		<h2 style="margin-top:50px;">Details of the Classified Service</h2>
-		<p style="color:gray;">Phrases more frequently searched</p>
-		<table>
-			<tr>
-				<td valign="top" width="50%">
-					<img src="index.php?path=admin&chart=popular_phrases">
-				</td>
-				<td valign="top">
-					<table>
-					[$popular_phrases]
-						<tr><td>{$s}</td><td><b>{$n}</b></td></tr>
-					[/$popular_phrases]
-					</table>
-				</td>
-		</table>
-
-		<p style="color:gray;" >Numbers of Ads</p>
-		<table width="80%">
-			<tr>
-				<td valign="top">
-					<table style = "font-size: 12px;" width="100%">
-						<tr>
-							<td align="right">&nbsp;<strong>(# {$total_internal} + {$total_external} #)</strong></td>
-							<td>active ads </td><td>=</td>
-							<td align="right"><strong>{$total_internal}</strong></td>
-							<td>internal ads</td><td>+</td>
-							<td align="right"><strong>{$total_external}</strong></td>
-							<td> external ads</td>
-						</tr>
-						<tr>
-							<td align="right">+<strong>(# {$historial_internal} + {$historial_external} #)</strong></td>
-							<td>historical ads</td>
-							<td>=</td>
-							<td align="right"><strong>{$historial_internal}</strong></td>
-							<td>internal and historical ads</td>
-							<td>+</td>
-							<td align="right"><strong>{$historial_external}</strong></td>
-							<td>external and historical ads</td>
-						</tr>
-						<tr>
-							<td align="right" style="border-top: 1px solid black;">=<strong>(# {$total_internal} + {$total_external} + {$historial_internal} + {$historial_external} #)</strong></td>
-							<td style="border-top: 1px solid black;">ads</td>
-							<td>=</td>
-							<td style="border-top: 1px solid black;" align="right">(# {$total_internal} + {$historial_internal} #)</td>
-							<td style="border-top: 1px solid black;"> internal ads</td><td style="border-top: 1px solid black;">+</td>
-							<td style="border-top: 1px solid black;" align="right">(# {$total_external} + {$historial_external} #)</td>
-							<td style="border-top: 1px solid black;"> external</td>
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</table>
-		<p>Number of users receiving alerts: <b>{$subscribes_count}</b></p>
-		<p>Number of emails sent by the linker: ?$linker [$linker] {$months.{$_index}} = <b>{$total}</b> [/$linker] $linker?</p>
+		<div class="box">
+			<h2>VIP Users</h2>
+			<p style="color:gray;">Users who send more emails a month</p>
+			<table width="100%">
+				<tr>
+					<?
+						if (is_array($best_users)) foreach($best_users as $m => $v){
+							echo '<td width="33%" valign="top"><strong>'.$months[$m-1].'</strong><br/><hr/>';
+							if (is_array($v)) foreach($v as $x){
+								echo "<a href=\"?path=admin&page=user_activity&user={$x['xauthor']}\">{$x['xauthor']}</a> - {$x['messages']}<br/>";
+							}
+							echo '</td>';
+						}
+					?>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="box">
+			<h2>Details of the Classified Service</h2>
+			?$popular_phrases
+				<p style="color:gray;">Phrases more frequently searched</p>
+				<img width="600" style="float:left;" src="index.php?path=admin&chart=popular_phrases">
+				<table class="tabla">
+					<tr><th>Phrase</th><th>Uses</th></tr>
+				[$popular_phrases]
+					<tr><td>{$s}</td><td><b>{$n}</b></td></tr>
+				[/$popular_phrases]
+				</table>
+			$popular_phrases?
+		</div>
+		<div class="box">
+			<h3>Numbers of Ads</h3>
+			<table width="80%" class="tabla">
+				<tr>
+					<td valign="top">
+						<table style = "font-size: 12px;" width="100%">
+							<tr>
+								<td align="right">&nbsp;<strong>(# {$total_internal} + {$total_external} #)</strong></td>
+								<td>active ads </td><td>=</td>
+								<td align="right"><strong>{$total_internal}</strong></td>
+								<td>internal ads</td><td>+</td>
+								<td align="right"><strong>{$total_external}</strong></td>
+								<td> external ads</td>
+							</tr>
+							<tr>
+								<td align="right">+<strong>(# {$historial_internal} + {$historial_external} #)</strong></td>
+								<td>historical ads</td>
+								<td>=</td>
+								<td align="right"><strong>{$historial_internal}</strong></td>
+								<td>internal and historical ads</td>
+								<td>+</td>
+								<td align="right"><strong>{$historial_external}</strong></td>
+								<td>external and historical ads</td>
+							</tr>
+							<tr>
+								<td align="right" style="border-top: 1px solid black;">=<strong>(# {$total_internal} + {$total_external} + {$historial_internal} + {$historial_external} #)</strong></td>
+								<td style="border-top: 1px solid black;">ads</td>
+								<td>=</td>
+								<td style="border-top: 1px solid black;" align="right">(# {$total_internal} + {$historial_internal} #)</td>
+								<td style="border-top: 1px solid black;"> internal ads</td><td style="border-top: 1px solid black;">+</td>
+								<td style="border-top: 1px solid black;" align="right">(# {$total_external} + {$historial_external} #)</td>
+								<td style="border-top: 1px solid black;"> external</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<p>Number of users receiving alerts: <b>{$subscribes_count}</b></p>
+			<p>Number of emails sent by the linker: ?$linker [$linker] {$months.{$_index}} = <b>{$total}</b> [/$linker] $linker?</p>
+		</div>
+		
 page}}

@@ -4,7 +4,7 @@
 {% layout %}
 
 {{page 
-	{% agency_header %}
+	{% agency_panel %}
 	<h1>Customer details</h1>
 	
 	<form action="{$path}&id={$customer.id}&update=true" method="POST">

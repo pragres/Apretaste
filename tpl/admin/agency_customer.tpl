@@ -4,25 +4,27 @@
 {% layout %}
 
 {{page 
-	<table><tr><td valign="top">	
+	{% agency_header %}
+	<h1>Customer details</h1>
+	
 	<form action="{$path}&id={$customer.id}&update=true" method="POST">
-	<fieldset>
-		<legend>Customer details</legend>
-		?$msgerror
-		<div class="msg-error">{$msgerror}</div>
-			$msgerror?
 		?$picture
 		<img src="data:image/jpeg;base64,{$picture}" width="100"> 
 		$picture?
 		<input class="text" name="edtName" value="{$customer.full_name}"> <input class="text" name="edtEmail" value = "{$customer.email}"> <input class="text" name="edtPhone" value="{$customer.phone}">
 		<input type="submit" class="submit" value = "Update" onclick="return confirm('Are you sure?');">
-	</fieldset>
 	</form>
 	
 	
-	</td><td valign="top">
-	<fieldset>
-	<legend>Contacts</legend>
+
+	<h1>New contact: </h1>
+		<form action="index.php?path=admin&page=agency_pre_recharge" method="post">
+		<input type="hidden" value = "{$div.get.id}" name="edtCustomer">
+		Email: <br/><input class="text" name="edtEmail">
+		Amount: $<input class="number float" name="edtAmount"><input type="submit" name="btnRecharge" value = "Recharge" class="submit">
+		</form>
+		
+	<h1>Existing contacts</h1>
 	[$customer.contacts]
 		?$_is_first
 			<table class="table" width="100%">
@@ -52,14 +54,5 @@
 	@empty@
 		No contacts
 	[/$customer.contacts]
-	</fieldset>
-	<fieldset>
-	<legend>Recharge credit of new contact: </legend>
-		<form action="index.php?path=admin&page=agency_pre_recharge" method="post">
-		<input type="hidden" value = "{$div.get.id}" name="edtCustomer">
-		Email: <br/><input class="text" name="edtEmail">
-		Amount: $<input class="number float" name="edtAmount"><input type="submit" name="btnRecharge" value = "Recharge" class="submit">
-		</form>
-	</fielset>
-</td></tr></table>
+{% agency_footer %}
 page}}

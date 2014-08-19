@@ -2,7 +2,6 @@
 
 Apretaste::connect();
 
-$data = array();
 $data['msg-type'] = "msg-ok";
 
 if (isset($_POST['btnAddTip'])) {

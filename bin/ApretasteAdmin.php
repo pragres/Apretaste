@@ -46,7 +46,12 @@ class ApretasteAdmin {
 					$k['access_to'][trim($value)] = true;
 				}
 				$r[0]['perms'] = $k;
-				return $r[0];
+				
+				$p = Apretaste::getAuthor($r[0]['email'], true, 50);
+				//var_dump($p);
+				$p = array_merge($p, $r[0]);
+				
+				return $p;
 			}
 		}
 		return false;
@@ -220,5 +225,8 @@ class ApretasteAdmin {
 		$customer = array_merge($profile, $customer);
 		
 		return $customer;
+	}
+	static function getAgencies(){
+		return q("SELECT * FROM agency");
 	}
 }

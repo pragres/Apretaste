@@ -1,6 +1,8 @@
 {= title: Recharge the credit of the user =}
+{= pagewidth: 640 =}
 {% layout %}
 {{page
+{% agency_panel %}
 	<div style="margin:0 auto; width: 500px;">
 	<h2>Recharge confirmation</h2>
 	<hr/>
@@ -18,16 +20,22 @@
 	</td></tr></table>
 	
 	<hr/>
-	Amount: <b>${#div.post.edtAmount:2.#}</b>
+	Amount: <b>$</b><span title ="Click to change" id="showAmount" style="cursor:pointer;" onclick="$('#changeAmount').show(); $(this).hide();"><b>{#div.post.edtAmount:2.#}</b> &nbsp; <small>(click to change)</small></span> 
+	<span style="display:none;" id="changeAmount">
+	<input onchange="$('#edtAmount').val($(this).val()); $('#showAmount').html('<b>'+$(this).val()+'</b>'); " value="{$div.post.edtAmount}" class="number">
+	<a onclick="$('#changeAmount').hide(); $('#showAmount').show();" class="button">Ok</a>
+	</span>
+	</b>
 	<hr/>
 	
 	
 	<form action="index.php?path=admin&page=agency_recharge" method="post">
 		<input value="{$div.post.edtEmail}" name="edtEmail" type="hidden">
-		<input value="{$div.post.edtAmount}" name="edtAmount" type="hidden">
+		<input value="{$div.post.edtAmount}" name="edtAmount" type="hidden" id = "edtAmount">
 		<input value="{$div.post.edtCustomer}" name="edtCustomer" type="hidden">
 		<input value="Confirm" name="btnRecharge" class="submit" type="submit">
-		<a href="index.php?path=admin&page=agency_customer&id={$div.post.edtCustomer}">Cancel</a>
+		<a class="button" href="index.php?path=admin&page=agency_customer&id={$div.post.edtCustomer}">Cancel</a>
 	</form>
 	</div>
+{% agency_footer %}
 page}}

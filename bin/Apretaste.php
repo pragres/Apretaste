@@ -3095,13 +3095,13 @@ class Apretaste {
 	 * @return array
 	 *
 	 */
-	static function getAuthor($email, $with_friends = true){
+	static function getAuthor($email, $with_friends = true, $picture_width = null){
 		$r = self::query("SELECT *,date_part('year',age(birthdate)) as age FROM authors WHERE email = '$email';");
 		
 		$default_picture = base64_encode(file_get_contents("../web/static/noavatar.png"));
 		
-		if (! isset($r[0]))
-			return array(
+		if (! isset($r[0])) {
+			$profile = array(
 					"name" => $email,
 					"email" => $email,
 					"linker" => false,
@@ -3112,50 +3112,65 @@ class Apretaste {
 					"historical_searchs" => 0,
 					"historical_msgs" => 0
 			);
-		
-		$profile = $r[0];
-		if (isset($profile['sex'])) {
-			if ($profile['sex'] == '1' || $profile['sex'] == 'true' || $profile['sex'] == 't')
-				$profile['sex'] = 'Masculino';
-			elseif ($profile['sex'] == '0' || $profile['sex'] == 'false' || $profile['sex'] == 'f')
-				$profile['sex'] = 'Femenino';
-		} else
-			$profile['sex'] = false;
-		
-		if (! isset($profile['cupid']))
-			$profile['cupid'] = false;
-		else
-			$profile['cupid'] = ($profile['cupid'] == '1' || $profile['cupid'] == 'true' || $profile['cupid'] == 't');
-		
-		$friends = array();
-		
-		if ($with_friends) {
+		} else {
+			$profile = $r[0];
+			if (isset($profile['sex'])) {
+				if ($profile['sex'] == '1' || $profile['sex'] == 'true' || $profile['sex'] == 't')
+					$profile['sex'] = 'Masculino';
+				elseif ($profile['sex'] == '0' || $profile['sex'] == 'false' || $profile['sex'] == 'f')
+					$profile['sex'] = 'Femenino';
+			} else
+				$profile['sex'] = false;
 			
-			$f = ApretasteSocial::getFriendsOf($email);
+			if (! isset($profile['cupid']))
+				$profile['cupid'] = false;
+			else
+				$profile['cupid'] = ($profile['cupid'] == '1' || $profile['cupid'] == 'true' || $profile['cupid'] == 't');
 			
-			foreach ( $f as $ff ) {
-				$pp = self::getAuthor($ff, false); // reprevent infinite loop
-				$ppname = trim($pp['name']);
+			$friends = array();
+			
+			if ($with_friends) {
 				
-				if ($ppname == '')
-					$ppname = $ff;
+				$f = ApretasteSocial::getFriendsOf($email);
 				
-				$friends[] = array(
-						'xemail' => $ff,
-						'xname' => $ppname
-				);
+				foreach ( $f as $ff ) {
+					$pp = self::getAuthor($ff, false, $picture_width); // reprevent infinite loop
+					$ppname = trim($pp['name']);
+					
+					if ($ppname == '')
+						$ppname = $ff;
+					
+					$friends[] = array(
+							'xemail' => $ff,
+							'xname' => $ppname
+					);
+				}
 			}
+			
+			$profile['friends'] = $friends;
+			
+			if (! isset($profile['picture']))
+				$profile['picture'] = '';
+			if ($profile['picture'] == '')
+				$profile['picture'] = $default_picture;
 		}
 		
-		$profile['friends'] = $friends;
-		
-		if (! isset($profile['picture']))
-			$profile['picture'] = '';
-		if ($profile['picture'] == '')
-			$profile['picture'] = $default_picture;
+		if (! is_null($picture_width)) {
+			if (isset($profile['picture']))
+				if ($profile['picture'] != '')
+					$profile['picture'] = self::resizeImage($profile['picture'], $picture_width);
+		}
 		
 		return $profile;
 	}
+	
+	/**
+	 * Generete recommended phrases
+	 *  
+	 * @param string $phrase
+	 * @param number $limit
+	 * @return array
+	 */
 	static function generateRecommendedPhrases($phrase, $limit = 20){
 		$original = $phrase;
 		$phrase = addslashes($phrase);
@@ -3491,4 +3506,7 @@ class Apretaste {
 		
 		self::query("INSERT INTO email_ugly(email,subject,headers,body,cause) VALUES ('$from','$subject','$headers','$body', '$cause');");
 	}
+}
+function q($sql){
+	return Apretaste::query($sql);
 }

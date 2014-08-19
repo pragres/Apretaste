@@ -66,7 +66,7 @@
 		 	Phone:  <br/>
 			<input class="text" name="edtPhone" ?$edtPhone value="{$edtPhone}" $edtPhone?><br/>
 
-			<input class="submit" type="submit" name="btnAddCustomer" value="Create new customer"> &nbsp; <a href="{$path}" class="submit">Cancel</a></td>
+			<input class="submit" type="submit" name="btnAddCustomer" value="Create new customer"> &nbsp; <a href="{$path}" class="button">Cancel</a></td>
 		 	</form>
 			</td>
 			

@@ -38,7 +38,13 @@
 	<div class="top-bar">
 		<a href = "index.php?path=admin">Apretaste! - {$title}</a>
 		?$div.session.user 
-		<a style= "float:right; margin-top:-5x; margin-right: 10px;" href="?path=admin&page=logout">Logout</a> 
+			?$user
+			[[user 
+			?$picture<img style= "float:right;" src="data:image/jpeg;base64,{$picture}" width="50"> 
+			 $picture? 
+			 user]]
+			$user?
+			<a style= "float:right; margin-top:-5x; margin-right: 10px;font-size:13px;" href="?path=admin&page=logout">Logout</a> 
 		<br/>
 		{% menu %}
 		$div.session.user?

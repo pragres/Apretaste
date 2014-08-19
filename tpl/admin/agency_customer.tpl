@@ -1,6 +1,6 @@
 {= title: "Agency's customer" =}
 {= path: "index.php?path=admin&page=agency_customer" =}
-
+{= pagewidth: 1024 =}
 {% layout %}
 
 {{page 
@@ -11,12 +11,11 @@
 		?$picture
 		<img src="data:image/jpeg;base64,{$picture}" width="100"> 
 		$picture?
-		<input class="text" name="edtName" value="{$customer.full_name}"> <input class="text" name="edtEmail" value = "{$customer.email}"> <input class="text" name="edtPhone" value="{$customer.phone}">
+		<input class="text" name="edtName" value="{$customer.full_name}"> 
+		<input class="text" name="edtEmail" value = "{$customer.email}"> 
+		<input class="text" name="edtPhone" value="{$customer.phone}" style="width:100px;">
 		<input type="submit" class="submit" value = "Update" onclick="return confirm('Are you sure?');">
 	</form>
-	
-	
-
 	<h1>New contact: </h1>
 		<form action="index.php?path=admin&page=agency_pre_recharge" method="post">
 		<input type="hidden" value = "{$div.get.id}" name="edtCustomer">
@@ -24,35 +23,29 @@
 		Amount: $<input class="number float" name="edtAmount"><input type="submit" name="btnRecharge" value = "Recharge" class="submit">
 		</form>
 		
-	<h1>Existing contacts</h1>
-	[$customer.contacts]
-		?$_is_first
-			<table class="table" width="100%">
-		$_is_first?
-		?$_is_odd <tr> $_is_odd?
-			<td width="10%" valign="center"><img src="data:image/jpeg;base64,{$picture}" width="50"></td>
-			<td width="40%" valign="center">
-				{?( "{$name}" != "{$email}" )?}
-					{$name}
-				{/?}
-				<br/>{$email}<br/>
-				<form action="index.php?path=admin&page=agency_pre_recharge" method="POST">
-					<input type="hidden" value = "{$div.get.id}" name="edtCustomer">
-					<input type="hidden" value ="{$email}" name="edtEmail">
-					Current credit: {#credit:2,0#}<br/>
-					$<input size="2" class="number float" name="edtAmount" value ="">
-					
-					<input name="btnRecharge" type="submit" value="Recharge" class="submit">
-				</form>
-			</td>
-		?$_is_even </tr> $_is_even?
-		
-		?$_is_last
-		{?( {$customer.contacts} % 2 != 0 )?} </tr> {/?}
+	?$customer.contacts
+		<h1>Existing contacts</h1>
+		<table class="tabla" width="100%">
+		<tr><th>Photo</th><th>Name</th><th>Email</th><th>Credit</th><th>Recharge</th></tr>
+		[$customer.contacts]
+			<tr>
+				<td width="10%" valign="center"><img src="data:image/jpeg;base64,{$picture}" width="50" height="50"></td>
+				<td>?$name {$name} $name?&nbsp;</td>
+				<td>{$email}</td>
+				<td align="right">${#credit:2,0#}</td>
+				<td>
+					<form action="index.php?path=admin&page=agency_pre_recharge" method="POST">
+						<input type="hidden" value = "{$div.get.id}" name="edtCustomer">
+						<input type="hidden" value ="{$email}" name="edtEmail">	
+						$<input size="2" class="number float" name="edtAmount" value ="">
+						<input name="btnRecharge" type="submit" value="Recharge" class="submit">
+					</form>
+				</td>
+			</tr>
+		[/$customer.contacts]
 		</table>
-		$_is_last?
-	@empty@
-		No contacts
-	[/$customer.contacts]
-{% agency_footer %}
+		
+	$customer.contacts?
+	
+	{% agency_footer %}
 page}}

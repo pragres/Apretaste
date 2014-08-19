@@ -1,10 +1,10 @@
 {= title: Tips =}
 {= path: "tips" =}
 {% layout %}
+
 {{page
-		?$msg
-			<div id = "message" class = "{$msg-type}">{$msg}</div>
-		$msg?
+		{% ad_panel %}
+		
 		?$tips
 		[$tips]
 		<p>{$tip}</p>

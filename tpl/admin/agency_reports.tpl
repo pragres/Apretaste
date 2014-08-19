@@ -1,6 +1,6 @@
 {= title: Agency reports =}
 {= path: index.php?path=admin&page=agency_reports =}
-
+{= pagewidth: 1024 =}
 {% layout %}
 
 {= months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] =}
@@ -59,7 +59,7 @@
 						if ($X == 0 && $Y == 0)
 							echo '<td width="80" style="border-left: 1px solid #eeeeee; border-top: 1px solid #eeeeee;">&nbsp;</td>';
 						else
-							echo '<td width="80" align="center" style="border-left: 1px solid #eeeeee; border-top: 1px solid #eeeeee;font-size:10px;background:' . $bg . '; color: '.$cl.';"><a style="color:black;" href="?path=admin&page=hour_activity&hour='.$_key.'&date='.$ah[$__key]['date'].'"><b>' . $X . "/" . $Y.'</b></a></td>';
+							echo '<td width="80" align="center" style="border-left: 1px solid #eeeeee; border-top: 1px solid #eeeeee;font-size:10px;background:' . $bg . '; color: '.$cl.';"><a style="color:black;" href="?path=admin&page=agency_recharge_list&hour='.$_key.'&date='.$ah[$__key]['date'].'"><b>' . $X . "/" . number_format($Y,2).'</b></a></td>';
 					}
 					echo '</tr>';
 				}

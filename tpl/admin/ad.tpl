@@ -5,8 +5,8 @@
 {% layout %}
 
 {{page
-		
-		<form metho="get" action="index.php">
+		{% ad_panel %}
+		<form method="get" action="index.php">
 			<input type="hidden" name = "path" value="admin">
 			<input type="hidden" name = "page" value="ad">
 			Type the ad ID: <input class="text" name="id" value="{$div.get.id}">

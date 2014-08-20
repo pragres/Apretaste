@@ -1,7 +1,4 @@
-<div class="box">
-<a class="button" href="index.php?path=admin&page=users">Users</a>
-<a class="button" href="index.php?path=admin&page=users_roles">Roles</a>
-</div>
-?$msg
-	<div id = "message" class = "{$msg-type}">{$msg}</div>
-$msg?
+[[_ {= options: [
+		{p: "users", i: "user_green", d: "Users"},
+		{p: "users_roles", i: "group_key", d: "Roles"}
+]=}{% panel %} _]]

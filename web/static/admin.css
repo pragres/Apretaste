@@ -117,6 +117,10 @@ input.text{
 	margin-bottom: 5px;
 }
 
+input.text:hover, select:hover, .checkbox:hover{
+	background: #ffffae; 
+}
+
 input.number{
 	width: 50px;
 	border: 1px solid gray;
@@ -134,7 +138,8 @@ input.submit{
 }
 
 input.submit:hover{
-	background: #11c66d;
+	background: lime;
+	color: black;
 }
 
 
@@ -148,17 +153,19 @@ a.button{
 }
 
 a.button:hover{
-	background: #11c66d;
+	background: lime;
+	color: black;
 }
 
 
 .tabla {
-	border: 1px solid gray;
+	border-top: 1px solid #eeeeee;
+	border-left: 1px solid #eeeeee;
 }
 
 .tabla td,.tabla th{
-	border-right: 1px solid gray;
-	border-bottom: 1px solid gray;
+	border-right: 1px solid #eeeeee;
+	border-bottom: 1px solid #eeeeee;
 	padding: 5px;
 	
 }
@@ -204,6 +211,34 @@ a.button:hover{
 }
 
 .tabla tr:hover{
-	background: yellow;
+	background: #ffffae;
 	
+}
+
+.tabla th,.tabla th:hover{
+	background: #eeeeee;
+}
+
+select{
+	padding: 5px;
+	border:1px solid gray;
+}
+
+.checkbox{
+	border: 1px solid gray;
+	padding: 2px;
+}
+
+.panel-button{
+	background: transparent;
+	text-align: center;
+	padding: 10px;
+	border: 1px solid #eeeeee;
+	text-decoration: none;
+	min-width: 50px;
+	min-height: 50px;
+}
+
+.panel-button:hover{
+	border: 1px solid gray;
 }

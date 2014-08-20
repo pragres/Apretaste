@@ -30,4 +30,5 @@ foreach ( $users as $k => $v ) {
 	}
 }
 $data['users'] = $users;
+$data['roles'] = q("SELECT * FROM users_perms ORDER BY user_role");
 $data['agencies'] = ApretasteAdmin::getAgencies();

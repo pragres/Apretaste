@@ -40,6 +40,6 @@ if (! is_null($email) && trim($name) != '') {
 } else
 	$data["msgerror"] = "The customer were not inserted because the <b>Email</b> and <b>Full Name</b> fields are required.";
 
-echo new div('../tpl/admin/agency.tpl', $data);
+echo new ApretasteView('../tpl/admin/agency.tpl', $data);
 
 exit();

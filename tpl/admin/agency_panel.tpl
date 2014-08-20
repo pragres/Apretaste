@@ -1,10 +1,7 @@
-<div class="box">
-<a class="button" href="index.php?path=admin&page=agency">Search</a>
-<a class="button" href="index.php?path=admin&page=agency&section=add_customer">New customer</a>
-<a class="button" href="index.php?path=admin&page=agency_recharge_list">Recharges today</a>
-<a class="button" href="index.php?path=admin&page=agency_reports">Reports</a>
-<a class="button" href="index.php?path=admin&page=agency_bill">My bill</a>
-</div>
-?$msg
-	<div id = "message" class = "{$msg-type}">{$msg}</div>
-$msg?
+[[_ {= options: [
+	{p: "agency", i: "magnifier", d: "Search"},
+	{p: "agency&section=add_customer", i: "user_add", d: "New customer"},
+	{p: "agency_recharge_list", i: "coins", d: "Recharges today"},
+	{p: "agency_reports", i: "chart_line", d: "Reports"},
+	{p: "agency_bill", i: "money", d: "My bill"}
+] =} {% panel %} _]]

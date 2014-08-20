@@ -15,12 +15,19 @@ if (strlen(trim($phrase)) >= 3) {
 		FROM agency_customer
 	) AS subq 
 	WHERE pos > 0
-	ORDER BY pos;";
+	ORDER BY pos
+	LIMIT 20;";
 	
 	$r = Apretaste::query($sql);
 	if (isset($r[0])) {
+		
+		foreach ( $r as $k => $v ) {
+			$r[$k] = array_merge(Apretaste::getAuthor($v['email'], false, 50), $v);
+		}
+		
 		$data['searchresults'] = $r;
-		echo new div("../tpl/admin/agency.tpl", $data);
+		
+		echo new ApretasteView("../tpl/admin/agency.tpl", $data);
 		exit();
 	}
 }

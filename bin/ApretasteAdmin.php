@@ -48,7 +48,7 @@ class ApretasteAdmin {
 				$r[0]['perms'] = $k;
 				
 				$p = Apretaste::getAuthor($r[0]['email'], true, 50);
-				//var_dump($p);
+				// var_dump($p);
 				$p = array_merge($p, $r[0]);
 				
 				return $p;
@@ -117,7 +117,7 @@ class ApretasteAdmin {
 				if (! file_exists($tpl))
 					$tpl = 'auth';
 				
-				echo new div($tpl, $data);
+				echo new ApretasteView($tpl, $data);
 			} else
 				eval('self::page_' . $url . '();');
 		} elseif (isset($_GET['chart'])) {
@@ -229,4 +229,19 @@ class ApretasteAdmin {
 	static function getAgencies(){
 		return q("SELECT * FROM agency");
 	}
+	static function getAdminPages(){
+		$dir = scandir("../admin");
+		$arr = array();
+		foreach ( $dir as $entry ) {
+			if (strpos($entry, '.php') !== false)
+				$arr[] = str_replace(".php","",$entry);
+		}
+		return $arr;
+	}
+	
+	static function getAgency($id){
+		
+	}
+	
+	
 }

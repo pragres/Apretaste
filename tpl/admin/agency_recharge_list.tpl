@@ -5,7 +5,7 @@
 {= pagewidth: 900 =}
 {{page
 {% agency_panel %}
-	<h1>Recharges of {$date} at {$hour}h</h1>
+	<h1>Recharges of {$date} ?$hour at {$hour}h $hour?</h1>
 	<table width="100%" class="tabla">
 		<tr><th>Date</th><th>Customer</th><th>User</th><th>Amount</th><th>Recharge again</th></tr>
 	?$recharges

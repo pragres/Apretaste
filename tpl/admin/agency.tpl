@@ -32,10 +32,12 @@
 		&nbsp;
 		[$searchresults]
 			?$_is_first
-			<table align="center" class="tabla"><tr><th>Name</th><th>Email</th><th>Phone</th><th>Last recharge</th></tr>
+			<table align="center" class="tabla"><tr><td></td><th>Name</th><th>Email</th><th>Phone</th><th>Last recharge</th></tr>
 			$_is_first?
 			
-			<tr><td><a href="index.php?path=admin&page=agency_customer&id={$id}">{$full_name}</a></td><td>{$email}</td><td>{$phone}</td><td>?$last_recharge {$last_recharge} @else@ Never $last_recharge?</td></tr>
+			<tr>
+				<td>?$picture <img src="data:image/jpeg;base64,{$picture}" width="50"> $picture? </td>
+				<td><a href="index.php?path=admin&page=agency_customer&id={$id}">{$full_name}</a></td><td>{$email}</td><td>{$phone}</td><td>?$last_recharge {$last_recharge} @else@ Never $last_recharge?</td></tr>
 			
 			?$_is_last
 			</table>

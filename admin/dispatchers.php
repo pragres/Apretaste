@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_POST['btnAddDispatcher'])) {
 	ApretasteMoney::addDispatcher($_POST['edtEmail'], $_POST['edtName'], $_POST['edtContact']);
 }
@@ -69,7 +68,7 @@ if (isset($_GET['sales'])) {
 		
 		$data['cards'] = ApretasteMoney::getSaleCards($_GET['cards']);
 		$data['sale'] = $_GET['cards'];
-		echo new div("../tpl/admin/recharge_cards.tpl", $data);
+		echo new ApretasteView("../tpl/admin/recharge_cards.tpl", $data);
 		exit();
 	}
 	
@@ -83,7 +82,7 @@ if (isset($_GET['sales'])) {
 	
 	$data['sales'] = ApretasteMoney::getRechargeCardSalesOf($_GET['sales']);
 	
-	echo new div("../tpl/admin/recharge_card_sales.tpl", $data);
+	echo new ApretasteView("../tpl/admin/recharge_card_sales.tpl", $data);
 	exit();
 }
 

@@ -1,0 +1,1 @@
+SELECT * FROM agency WHERE id = '{$id}';

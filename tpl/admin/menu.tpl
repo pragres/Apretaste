@@ -1,20 +1,22 @@
 <br/>
 
-{= menu:[
-	{page: "dashboard", title: "Dashboard"},
-	{page: "config", title: "Configurations"},
-	{page: "mailboxes", title: "Mailboxes"},
-	{page: "users", title: "People"},
-	{page: "address_list", title: "Address list"},
-	{page: "user_activity", title: "User activity"},
-	{page: "sms", title: "SMS"},
-	{page: "ad", title: "Ads"},
-	{page: "raffles", title: "Raffles"},
-	{page: "dispatchers", title: "Dispatchers"},
-	{page: "robot", title: "Robot test"},
-	{page: "agency", title: "Agency"}
-	
-] 
-=}
+{= menu:{
+	dashboard: "Dashboard",
+	config: "Configurations",
+	mailboxes: "Mailboxes",
+	users: "People",
+	address_list: "Address list",
+	user_activity: "User activity",
+	sms: "SMS",
+	ad: "Ads",
+	raffles: "Raffles",
+	dispatchers: "Dispatchers",
+	robot: "Robot test",
+	agency: "Agency"	
+} =}
 
-[$menu]?$user.perms.access_to.{$page}<a class = "tab {?( strpos("{$div.get.page}","{$page}")===0 )?} tab-active {/?}" href="?path=admin&page={$page}">{$title}</a>$user.perms.access_to.{$page}?[/$menu]
+<?
+foreach($menu as $key => $value) 
+	if (isset($user['perms']['access_to'][$key]) || $user['user_role'] == 'admin')
+		echo '<a class = "tab'.($div['get']['page']==$key?' tab-active ':'').' " href="?path=admin&page='.$key.'">'.$value.'</a>';
+?>

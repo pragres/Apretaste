@@ -26,7 +26,7 @@ $users = q("SELECT * FROM users;");
 foreach ( $users as $k => $v ) {
 	$users[$k]['agency'] = q("SELECT * FROM agency WHERE id = '{$v['agency']}';");
 	if ($v['email'] != '') {
-		$users[$k] = array_merge(Apretaste::getAuthor($v['email'], true, 20), $users[$k]);
+		$users[$k] = array_merge(Apretaste::getAuthor($v['email'], false, 20), $users[$k]);
 	}
 }
 $data['users'] = $users;

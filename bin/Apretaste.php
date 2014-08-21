@@ -29,6 +29,10 @@ class Apretaste {
 	static $phones_regexp = null;
 	static $configuration = array();
 	static $simulator = false;
+	
+	
+	static $noavatar = null;
+	
 	static function loadSetup(){
 		if (is_null(self::$config))
 			self::$config = parse_ini_file("../etc/apretaste.ini", true, INI_SCANNER_RAW);
@@ -3098,8 +3102,11 @@ class Apretaste {
 	static function getAuthor($email, $with_friends = true, $picture_width = null){
 		$r = self::query("SELECT *,date_part('year',age(birthdate)) as age FROM authors WHERE email = '$email';");
 		
-		$default_picture = base64_encode(file_get_contents("../web/static/noavatar.png"));
+		if (is_null(self::$noavatar))
+			self::$noavatar = base64_encode(file_get_contents("../web/static/noavatar.png"));
 		
+		$default_picture = self::$noavatar;
+				
 		if (! isset($r[0])) {
 			$profile = array(
 					"name" => $email,

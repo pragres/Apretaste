@@ -7,6 +7,7 @@
  */
 class ApretasteAdmin {
 	static $login_result = true;
+	static $current_user = null;
 	
 	/**
 	 * Verify the user login
@@ -25,39 +26,35 @@ class ApretasteAdmin {
 	 */
 	static function getUser(){
 		if (isset($_SESSION['user'])) {
-			$u = $_SESSION['user'];
-			$r = Apretaste::query("SELECT * FROM users WHERE user_login='$u';");
-			if (isset($r[0])) {
-				$k = Apretaste::query("SELECT * FROM users_perms WHERE user_role ='{$r[0]['user_role']}';");
+			if (is_null(self::$current_user)) {
 				
-				$k = $k[0];
-				if ($r[0]['user_role'] == 'admin' || $r[0]['user_role'] == 'administrator') {
-					$dir = scandir("../admin/");
-					$s = implode(" ", $dir);
-					$s = str_replace(".php", "", $s);
-					$s = str_replace(".", "", $s);
-					$s = trim($s);
-					$k['access_to'] = $s;
+				$u = $_SESSION['user'];
+				$r = Apretaste::query("SELECT * FROM users WHERE user_login='$u';");
+				if (isset($r[0])) {
+					$k = Apretaste::query("SELECT * FROM users_perms WHERE user_role ='{$r[0]['user_role']}';");
+					
+					$k['access_to'] = explode(" ", trim(strtolower($k['access_to'])));
+					
+					foreach ( $k['access_to'] as $key => $value ) {
+						$k['access_to'][trim($value)] = true;
+					}
+					
+					$r[0]['perms'] = $k;
+					
+					$p = Apretaste::getAuthor($r[0]['email'], false, 50);
+					// var_dump($p);
+					$p = array_merge($p, $r[0]);
+					
+					self::$current_user = $p;
 				}
-				
-				$k['access_to'] = explode(" ", trim(strtolower($k['access_to'])));
-				
-				foreach ( $k['access_to'] as $key => $value ) {
-					$k['access_to'][trim($value)] = true;
-				}
-				$r[0]['perms'] = $k;
-				
-				$p = Apretaste::getAuthor($r[0]['email'], true, 50);
-				// var_dump($p);
-				$p = array_merge($p, $r[0]);
-				
-				return $p;
 			}
+			return self::$current_user;
 		}
 		return false;
 	}
 	static function saveUserAction(){
 		$u = self::getUser();
+		
 		if ($u !== false) {
 			
 			$get = json_encode($_GET);
@@ -83,10 +80,12 @@ class ApretasteAdmin {
 	static function Run(){
 		Apretaste::connect();
 		div::enableSystemVar("div.session");
+		$login = self::verifyLogin();
+		
 		if (isset($_GET['page'])) {
 			$url = $_GET['page'];
 			
-			if (! self::verifyLogin() && $url != 'auth') {
+			if (! $login && $url != 'auth') {
 				header("Location: index.php?path=admin");
 			}
 			
@@ -100,12 +99,11 @@ class ApretasteAdmin {
 			if (file_exists("../admin/$url.php")) {
 				
 				if ($url != 'auth' && $url != 'logout')
-					if (! ApretasteAdmin::verifyLogin())
+					if (! $login)
 						die('Access denied');
 				
 				$data = array();
-				
-				$data['user'] = ApretasteAdmin::getUser();
+				$data['user'] = $user;
 				
 				include "../admin/$url.php";
 				
@@ -234,14 +232,9 @@ class ApretasteAdmin {
 		$arr = array();
 		foreach ( $dir as $entry ) {
 			if (strpos($entry, '.php') !== false)
-				$arr[] = str_replace(".php","",$entry);
+				$arr[] = str_replace(".php", "", $entry);
 		}
 		return $arr;
 	}
-	
-	static function getAgency($id){
-		
-	}
-	
-	
+	static function getAgency($id){}
 }

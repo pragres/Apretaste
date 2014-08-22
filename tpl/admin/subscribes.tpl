@@ -12,7 +12,7 @@
 			<td align="center"><a href="?path=admin&page=user_activity&user={$email}">{$email}</a></td>
 			<td align="center">{$phrase}</td>
 			<td align="center">{$moment}</td>
-			<td align="center"><a href="index.php?path=admin&page=subscribes&delete={$id}" onclick="return confirm('Are you sure?');" class="button">{ico}delete{/ico}</a></td>
+			<td align="center"><a href="index.php?path=admin&page=subscribes&delete={$id}" onclick="return confirm('Are you sure?');">{ico}delete{/ico}</a></td>
 			</tr>
 		[/$subscribes]
 		</table>

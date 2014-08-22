@@ -234,6 +234,13 @@ class ApretasteEmailCollector {
 				
 				// echo "textBody = $textBody\n";
 				
+				if (trim($textBody) == '' && trim($htmlBody) == '') {
+					if (isset($otherstuff[0])) {
+						$textBody = strip_tags($otherstuff[0]);
+						$htmlBody = $textBody;
+					}
+				}
+				
 				$textBody = $this->mimeDecode($textBody);
 				$htmlBody = $this->mimeDecode($htmlBody);
 				

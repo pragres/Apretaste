@@ -1,9 +1,10 @@
 <?php
-
 $id = get('delete', false);
 
-if ($id !== false){ 
+if ($id !== false) {
 	q("DELETE FROM subscribe WHERE id = '{$id}';");
+	header("Location: index.php?path=admin&page=subscribes");
+	exit();
 }
 
 Apretaste::cleanSubscribes();

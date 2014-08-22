@@ -85,6 +85,7 @@
 				?>
 			</tr>
 	    </table>
+		
 		<!--{ END Hourly access }-->
 		<div class="box">
 			<h2>Visitors</h2>
@@ -96,13 +97,14 @@
 			<p style="color:gray;">Number of unique emails received</p>
 			<img width="100%" height="60%" src="index.php?path=admin&chart=unique_visitors">
 		</div>
+		
 		<div class="box">
 			<h2>New users </h2>
 			<p style="color:gray;">Number of emails received for first time in the history</p>
 			<img width="100%" height="60%" src="index.php?path=admin&chart=new_users">
 			<p>Total number of users in Apretaste: <b>{$total_users}</b></p>
 		</div>
-		
+						
 		<div class="box">
 			<h2>Engagement level</h2>
 			<p style="color:gray;">Number of emails repeated more than three times a month.</p>
@@ -198,15 +200,23 @@
 			<h2>Details of the Classified Service</h2>
 			?$popular_phrases
 				<p style="color:gray;">Phrases more frequently searched</p>
-				<img width="600" style="float:left;" src="index.php?path=admin&chart=popular_phrases">
-				<table class="tabla">
-					<tr><th>Phrase</th><th>Uses</th></tr>
-				[$popular_phrases]
-					<tr><td>{$s}</td><td><b>{$n}</b></td></tr>
-				[/$popular_phrases]
-				</table>
+				<table width="100%">
+				<tr>
+				<td valign="top">
+					<img width="600" style="float:left;" src="index.php?path=admin&chart=popular_phrases">
+				</td>
+				<td valign="top">
+					<table class="tabla">
+						<tr><th>Phrase</th><th>Uses</th></tr>
+					[$popular_phrases]
+						<tr><td>{$s}</td><td><b>{$n}</b></td></tr>
+					[/$popular_phrases]
+					</table>
+				</td>
+				</tr></table>
 			$popular_phrases?
 		</div>
+		<br/>
 		<div class="box">
 			<h3>Numbers of Ads</h3>
 			<table width="80%" class="tabla">

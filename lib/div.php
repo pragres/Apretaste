@@ -5545,25 +5545,27 @@ class div {
 			if (self::$__parse_level == 1) {
 				
 				// Parsing macros
-				
-				if (strpos($this->__src, DIV_TAG_MACRO_BEGIN) !== false) {
-					$items = array_merge($this->__memory, $items);
-					$items = $this->parseMacros($items, true);
-					$this->memory($items);
-				}
-				
-				// Sub-Matches
-				if (self::atLeastOneString($this->__src, self::$__modifiers))
-					$this->parseSubmatches($items);
+				for($i = 0; $i < 3; $i ++) { // two passes
+					if (strpos($this->__src, DIV_TAG_MACRO_BEGIN) !== false) {
+						$items = array_merge($this->__memory, $items);
+						$items = $this->parseMacros($items, true);
+						$this->memory($items);
+					}
+					
+					// Sub-Matches
+					if (self::atLeastOneString($this->__src, self::$__modifiers)) {
+						$this->parseSubmatches($items);
+					}
 					
 					// Matches
-				if (self::atLeastOneString($this->__src, self::$__modifiers) || (strpos($this->__src, DIV_TAG_NUMBER_FORMAT_PREFIX) !== false && strpos($this->__src, DIV_TAG_NUMBER_FORMAT_SUFFIX) !== false))
-					$this->parseMatches($items);
-					
-					// Restoring ignored parts
+					if (self::atLeastOneString($this->__src, self::$__modifiers) || (strpos($this->__src, DIV_TAG_NUMBER_FORMAT_PREFIX) !== false && strpos($this->__src, DIV_TAG_NUMBER_FORMAT_SUFFIX) !== false)) {
+						$this->parseMatches($items);
+					}
+				}
 				
 				$this->parseSpecialChars();
 				
+				// Restoring ignored parts
 				foreach ( self::$__ignored_parts as $id => $ignore ) {
 					
 					foreach ( self::$__sub_parsers as $subparser => $function ) {

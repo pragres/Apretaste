@@ -13,7 +13,7 @@
 			<td align="center">{$phrase}</td>
 			<td align="center">{$moment}</td>
 			<td align="center">?$last_alert {$last_alert} $last_alert? </td>
-			<td align="center"><a href="index.php?path=admin&page=subscribes&delete={$id}" return="confirm('Are you sure?');" class="button">Delete</a></td>
+			<td align="center"><a href="index.php?path=admin&page=subscribes&delete={$id}" onclick="return confirm('Are you sure?');" class="button">Delete</a></td>
 			</tr>
 		[/$subscribes]
 		</table>

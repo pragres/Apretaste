@@ -1,5 +1,8 @@
 <?php
-if (get('delete', false)) {
+
+$id = get('delete', false);
+
+if ($id !== false){ 
 	q("DELETE FROM subscribe WHERE id = '{$id}';");
 }
 

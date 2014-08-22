@@ -171,7 +171,7 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 		m&aacute;s grande sea el n&uacute;mero, m&aacute;s cerca del nivel del mar se ver&aacute; el mapa.</p>
 		<p>La <b>localizaci&oacute;n</b> puede ser de 2 tipos:</p>
 		<ul>
-			<li><i>Coordenadas</i>: Se especifican la longitud y la latitud separados por una coma en ese orden. Los formatos aceptados para las coordenadas son:			
+			<li><i>Coordenadas</i>: Se especifican la longitud y la latitud separados por una coma. Los formatos aceptados para las coordenadas son:			
 			<ul>
     			<li>Grados, minutos y segundos (DMS): <b>MAPA 82 21 22.08 W,23 8 40.69 N</b></li>
     			<li>Grados y minutos decimales (DMM): <b>MAPA 82 21.368 W,23 8.678 N</b><a href="mailto:{$reply_to}?subject=MAPA 82 21.368 W,23 8.678 N">(ejemplo)</a></li>

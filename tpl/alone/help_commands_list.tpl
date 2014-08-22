@@ -173,10 +173,18 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 		<ul>
 			<li><i>Coordenadas</i>: Se especifican la longitud y la latitud separados por una coma en ese orden. Los formatos aceptados para las coordenadas son:			
 			<ul>
-    			<li>Grados, minutos y segundos (DMS): <b>MAPA 41° 24' 12.1674", 2° 10' 26.508"</b></li>
-    			<li>Grados y minutos decimales (DMM): <b>MAPA 41 24.2028, 2 10.4418</b><a href="mailto:{$reply_to}?subject=MAPA 41 24.2028, 2 10.4418">(ejemplo)</a></li>
-    			<li>Grados decimales (DDD): <b>MAPA -0.062004,51.462564</b><a href="mailto:{$reply_to}?subject=MAPA -0.062004,51.462564">(ejemplo)</a></li>
+    			<li>Grados, minutos y segundos (DMS): <b>MAPA 82 21 22.08 W,23 8 40.69 N</b></li>
+    			<li>Grados y minutos decimales (DMM): <b>MAPA 82 21.368 W,23 8.678 N</b><a href="mailto:{$reply_to}?subject=MAPA 82 21.368 W,23 8.678 N">(ejemplo)</a></li>
+    			<li>Grados decimales (DDD): <b>MAPA -82.356133,23.144636</b><a href="mailto:{$reply_to}?subject=MAPA -82.356133,23.144636">(ejemplo)</a></li>
 			</ul>
+		
+			<p>También puede convertir de una notación a otra. Por ejemplo:</p>
+
+			<ul>
+			<li>De DMS a DMM: grado (minuto + segundo/60)</li>
+			<li>De DMS a DDD: (grado + minuto / 60 + segundo / 3600)</li>
+			</ul>
+			
 			</li>
 			<li><i>Descriptiva</i>: dirección, ciudad, pa&iacute;s o lugar conocido. Por ejemplo: <i>Capitolio, Habana, Cuba</i>. Tambi&eacute;n puedes usar el t&eacute;rmino "cerca" para buscar una categor&iacute;a de lugares 
 		cerca de una ubicaci&oacute;n. Por ejemplo, "cafeter&iacute;a cerca del parque del Retiro" devolver&aacute; 

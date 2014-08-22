@@ -340,7 +340,7 @@ class ApretasteSMS {
 	 * @param number $limit
 	 * @return array
 	 */
-	static function getLastSMSOf($email, $limit = 30){
+	static function getLastSMSOf($email, $limit = 10){
 		$email = strtolower($email);
 		return Apretaste::query("SELECT * FROM sms WHERE email = '$email' LIMIT $limit ;");
 	}

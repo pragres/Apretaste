@@ -81,7 +81,7 @@ $announcements?
 $subscribes?
 
 {$br}
-<!--{
+
 ?$sms
 {$h2}&Uacute;ltimos SMS enviados:{$_h2}
 <table>
@@ -94,7 +94,7 @@ $subscribes?
 	[/$sms]
 	</table>
 $sms?
-}-->
+
 {$br}
 ?$services
 {$h2}Servicios que no ha utilizado{$_h2}

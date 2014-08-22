@@ -153,7 +153,7 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 				Buscar en las inmediaciones: <br/><a href="mailto:{$reply_to}?subject=MAPA cafetería cerca de central park">MAPA cafetería cerca de central park</a><br/><br/>
 				Lugar: <br/><a href="mailto:{$reply_to}?subject=MAPA Aeropuerto de Madrid">MAPA Aeropuerto de Madrid</a><br/><br/>
 				Accidente geográfico: <br/><a href="mailto:{$reply_to}?subject=MAPA Monte Everest, Nepal">MAPA Monte Everest, Nepal</a><br/><br/>
-				Coordenadas: <br/><a href="mailto:{$reply_to}?subject=MAPA 41.40338, 2.17403">MAPA 41.40338, 2.17403</a><br/><br/>
+				Coordenadas: <br/><a href="mailto:{$reply_to}?subject=MAPA 82 21 22.08 W,23 8 40.69 N">MAPA 82 21 22.08 W,23 8 40.69 N</a><br/><br/>
                 </td>
                 <td valign="top">
                    - en blanco - 

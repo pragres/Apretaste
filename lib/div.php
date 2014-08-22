@@ -5545,7 +5545,7 @@ class div {
 			if (self::$__parse_level == 1) {
 				
 				// Parsing macros
-				for($i = 0; $i < 3; $i ++) { // two passes
+				for($i = 0; $i < 3; $i ++) { // 3 passes
 					if (strpos($this->__src, DIV_TAG_MACRO_BEGIN) !== false) {
 						$items = array_merge($this->__memory, $items);
 						$items = $this->parseMacros($items, true);

@@ -8,8 +8,17 @@ if (! is_null($email)) {
 	$amount = post("edtAmount");
 	$customer = post('edtCustomer');
 	
-	$r = Apretaste::query("INSERT INTO agency_recharge (user_login, customer, email, amount)
-		VALUES ('{$data['user']['user_login']}','{$customer}','{$email}','{$amount}')
+	$u = q("SELECT agency FROM users WHERE user_login = '{$data['user']['user_login']}';");
+	
+	$agency = $u[0]['agency'];
+	
+	if (trim($agency) == '')
+		$agency = 'null';
+	else
+		$agency = "'$agency'";
+	
+	$r = q("INSERT INTO agency_recharge (user_login, customer, email, amount, agency)
+		VALUES ('{$data['user']['user_login']}','{$customer}','{$email}','{$amount}',$agency)
 		RETURNING id;");
 	
 	$id = $r[0]['id'];
@@ -29,10 +38,10 @@ if (! is_null($email)) {
 			"user_email" => $email
 	), true);
 	
-	if (! Apretaste::isUser($email)) 
+	if (! Apretaste::isUser($email))
 		Apretaste::invite($customer['email'], $email, true, true);
-	
-	// Send email to de user
+		
+		// Send email to de user
 	
 	Apretaste::sendEmail($email, array(
 			"answer_type" => "recharge_successfull",

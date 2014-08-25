@@ -1,5 +1,6 @@
-{= title: Agency's configuration =}
+{= title: Agencies =}
 {= path: "index.php?path=admin&page=config_agency" =}
+{= pagewidth: 1024 =}
 {% layout %}
 {{page
 
@@ -9,44 +10,37 @@
 		<table width="100%">
 		<tr>
 			<td valign="top">
-				<h2>Global</h2>
+				<h2>Adjust percents</h2>
 				<form action = ""  method = "post">
-				Profit: <br><input class = "number"  type="text" name = "edtProfit" ?$edtProfit value = "{$edtProfit}" $edtProfit?> (# {$edtProfit} * 100:2. #)% <br><br>
-				Residual profit: <br><input  class = "number"  type="text" name = "edtResidualProfit" ?$edtResidualProfit value = "{$edtResidualProfit}" $edtResidualProfit?> (# {$edtResidualProfit} * 100:2. #)%<br><br>
+				Sold: <br><input class = "number"  type="text" name = "edtProfit" ?$edtProfit value = "{$edtProfit}" $edtProfit?> (# {$edtProfit} * 100:2. #)% <br><br>
+				Residual: <br><input  class = "number"  type="text" name = "edtResidualProfit" ?$edtResidualProfit value = "{$edtResidualProfit}" $edtResidualProfit?> (# {$edtResidualProfit} * 100:2. #)%<br><br>
 				<input type = "submit" class="submit"  value = "Update" name = "btnUpdateAgency">
 				</form>
 			</td>
 			<td valign="top">
-				<h2>Specific</h2>
-				<table class="tabla" width="100%">
-					<tr><th>Date</th><th>Agent</th><th>Profit</th><th>Profit type</th><th></th></tr>
-					?$profits
-					[$profits]
-					<tr><td>{$moment}</td><td>{$user_login}</td><td>(# {$profit}*100:2.#)%</td><td>{$type}</td><td><a href="index.php?path=admin&page=config_agency&delete_profit={$id}" onclick="return confirm('Are you sure?');">delete</a></td></tr>
-					[/$profits]
-					$profits?
-					<form action="" method="post">
-					<tr>
-						<td align="right"><i>New profit's configuration</i></td>
-						<td>
-						<select class="text" name="edtUserLogin">
-							?$agents
-							[$agents]
-								<option value="{$user_login}">{$user_login}</option>
-							[/$agents]
-							$agents?
-						</select>
-						</td>
-						<td><input class="number" name="edtProfit"></td>
-						<td><select class="text" name="edtType">
-							<option value="normal">Normal</option>
-							<option value="residual">Residual</option>
-						</select></td>
-						<td><input type="submit" name="btnAddProfit" value="Add"></td>
-					</tr>	
-					</form>
-				</table>
+			?$agency_percents
+				<select name="cboAgencyPercents">
+					[$agency_percents]
+					<option value="{$id}">{$name} ((# {$profit_percent} *100:2. #)% | (# {$residual_percent}*100:2.#)%)</option>
+					[/$agency_percents]
+				</select><br/><br/>
+				<input class="number" name="edtAgencyProfitPercent">
+				<input class="number" name="edtAgencyResidualPercent">
+				<input class="submit" type="submit" name="btnUpdateAgencyPercents" value="Update">
+			$agency_percents?
 			</td>
 		</tr></table>
+		
+		<h2>Agencies</h2>
+		<table class="tabla" width="100%">
+			<tr><th>Name</th><th>Phone</th><th>Credit</th><th>Sold</th><th>Residuals</th><th>Owe</th></tr>
+		?$agencies
+			[$agencies]
+			<tr><td>{$name}</td><td>{$phone}</td><td>${#credit_line:2.#}</td><td align="right">${#sold:2.#}</td><td align="right">${#residual:2.#}</td><td align="right">${#owe:2.#}</td></tr>
+			[/$agencies]
+		$agencies?
+		</table>
+			
+		
 	</div>
 page}}

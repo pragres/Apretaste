@@ -1,8 +1,5 @@
-<div class="box">
-<a class="button" href="index.php?path=admin&page=config_keywords">Keywords blacklist</a>
-<a class="button" href="index.php?path=admin&page=config_whiteblack">Black and white lists</a>
-<a class="button" href="index.php?path=admin&page=config_agency">Agencies</a>
-</div>
-?$msg
-	<div id = "message" class = "{$msg-type}">{$msg}</div>
-$msg?
+[[_ {= options: [
+	{p: "config_keywords", i: "keyboard_delete", d: "Blacklist for keywords"},
+	{p: "config_whiteblack", i: "status_offline", d: "Black and white lists"},
+	{p: "config_agency", i: "package", d: "Agencies"}
+] =} {% panel %} _]]

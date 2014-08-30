@@ -111,12 +111,6 @@ class ApretasteMarketing {
 			$query .= $key . '=' . urlencode($value) . '&';
 		$query = rtrim($query, '& ');
 		
-		// This section takes the input data and converts it to the proper format
-		$data = "";
-		foreach ( $post as $key => $value )
-			$data .= $key . '=' . urlencode($value) . '&';
-		$data = rtrim($data, '& ');
-		
 		// clean up the url
 		$url = rtrim($url, '/ ');
 		
@@ -136,11 +130,12 @@ class ApretasteMarketing {
 		$request = curl_init($api); // initiate curl object
 		curl_setopt($request, CURLOPT_HEADER, 0); // set to 0 to eliminate header info from response
 		curl_setopt($request, CURLOPT_RETURNTRANSFER, 1); // Returns response data instead of TRUE(1)
-		curl_setopt($request, CURLOPT_POSTFIELDS, $data); // use HTTP POST to send form data
 		                                                  // curl_setopt($request, CURLOPT_SSL_VERIFYPEER, FALSE); // uncomment if you get no gateway response and are using HTTPS
 		
-		$response = (string) curl_exec($request); // execute curl post and store results in $response
-		
+		$response = (string) curl_exec($request); // execute curl fetch and store results in $response
+		                                         
+		// additional options may be required depending upon your server configuration
+		                                         // you can find documentation on curl options at http://www.php.net/curl_setopt
 		curl_close($request); // close curl object
 		
 		if (! $response) {

@@ -8,14 +8,15 @@
  */
 class ApretasteMarketing {
 	static public function addSubscriber($email){
-		Apretaste::log("Adding $email ...\n", "marketing");
 		
 		$s = self::getSubscriber($email);
 		
 		if (isset($s['id'])) {
-			Apretaste::log("... $email exists. ID = {$s['id']} ...\n", "marketing");
+			//Apretaste::log("$email exists. ID = {$s['id']} ...\n", "marketing");
 			return true;
 		}
+		
+		Apretaste::log("Adding $email ...\n", "marketing");
 		
 		Apretaste::loadSetup();
 		

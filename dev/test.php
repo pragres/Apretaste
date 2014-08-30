@@ -1,7 +1,7 @@
 <?php
 
 // put here test code
-$email = $_SERVER['argv'][3];
+$email = $_SERVER['argv'][1];
 echo $email;
 var_dump($_SERVER['argv']);
 

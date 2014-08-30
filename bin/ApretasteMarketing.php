@@ -7,14 +7,12 @@
  *        
  */
 class ApretasteMarketing {
-	
 	static public function addSubscriber($email){
-		
 		Apretaste::log("Adding $email ...\n", "marketing");
 		
 		$s = self::getSubscriber($email);
 		
-		if (isset($s['id'])){
+		if (isset($s['id'])) {
 			Apretaste::log("... $email exists. ID = {$s['id']} ...\n", "marketing");
 			return true;
 		}
@@ -100,6 +98,7 @@ class ApretasteMarketing {
 		
 		return $result;
 	}
+	
 	static function getSubscriber($email){
 		Apretaste::loadSetup();
 		
@@ -161,10 +160,21 @@ class ApretasteMarketing {
 		
 		return $result;
 	}
+	
 	static public function delSubscriber($email){
+		Apretaste::log("Delete $email ...\n", "marketing");
+		
+		$s = self::getSubscriber($email);
+		
+		if (! isset($s['id'])) {
+			Apretaste::log("... $email not exists. \n", "marketing");
+			return false;
+		}
+		
 		Apretaste::loadSetup();
 		
 		$config = Apretaste::$config['marketing'];
+		
 		$email = trim(strtolower($email));
 		
 		// By default, this sample code is designed to get the result from your

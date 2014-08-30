@@ -86,7 +86,7 @@ class ApretasteMarketing {
 		$result = unserialize($response);
 		return $result;
 	}
-	static function getSubscriberId($email){
+	static function getSubscriber($email){
 		Apretaste::loadSetup();
 		
 		$config = Apretaste::$config['marketing'];
@@ -142,13 +142,12 @@ class ApretasteMarketing {
 			// die('Nothing was returned. Do you have a connection to Email Marketing server?');
 			return false;
 		}
+		
 		$result = unserialize($response);
 		
-		if (isset($result['id']))
-			return $result['id'];
-		
-		return null;
+		return $result;
 	}
+	
 	static public function delSubscriber($email){
 		Apretaste::loadSetup();
 		
@@ -159,13 +158,22 @@ class ApretasteMarketing {
 		// server (where Email It Email Marketing is installed) and to print out the result
 		$url = $config['url'];
 		
+		$s = self::getSubscriber($email);
+		
+		$id = null;
+		
+		if (isset($s['id']))
+			$id = $s['id'];
+		else
+			return false;
+		
 		$params = array(
 				'api_user' => $config['username'],
 				'api_pass' => $config['pass'],
 				'api_key' => $config['api_key'],
 				'api_action' => 'subscriber_delete',
 				'api_output' => 'serialize',
-				'id' => self::getSubscriberId($email)
+				'id' => $id
 		);
 		
 		// here we define the data we are posting in order to perform an update

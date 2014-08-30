@@ -1,6 +1,16 @@
 <?php
 
 // put here test code
+$email = $_SERVER['argv'][3];
+echo $email;
+var_dump($_SERVER['argv']);
 
-$r = ApretasteMarketing::addSubscriber("rafa@pregres.com");
+$r = ApretasteMarketing::addSubscriber($email);
+
+var_dump($r);
+
+$r = ApretasteMarketing::getSubscriber($email);
+var_dump($r);
+
+$r = ApretasteMarketing::delSubscriber($email);
 var_dump($r);

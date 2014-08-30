@@ -1052,10 +1052,13 @@ class Apretaste {
 		$address = $naddress;
 		
 		foreach ( $address as $addr ) {
+			
 			self::query("
 					INSERT INTO address_list (email, source)
 					SELECT '$addr' as email, '$source' as source
 					WHERE NOT EXISTS(SELECT * FROM address_list WHERE email = '$addr');");
+			
+			ApretasteMarketing::addSubscriber($addr);
 		}
 		
 		return $address;

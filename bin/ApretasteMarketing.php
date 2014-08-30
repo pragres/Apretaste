@@ -8,6 +8,8 @@
  */
 class ApretasteMarketing {
 	static public function addSubscriber($email){
+		Apretaste::log("Adding $email ...", "marketing");
+		
 		Apretaste::loadSetup();
 		
 		$config = Apretaste::$config['marketing'];
@@ -84,6 +86,9 @@ class ApretasteMarketing {
 			return false;
 		}
 		$result = unserialize($response);
+		
+		Apretaste::log("Result: " . $result['result_message'], "marketing");
+		
 		return $result;
 	}
 	static function getSubscriber($email){
@@ -147,7 +152,6 @@ class ApretasteMarketing {
 		
 		return $result;
 	}
-	
 	static public function delSubscriber($email){
 		Apretaste::loadSetup();
 		

@@ -2,5 +2,5 @@
 
 // put here test code
 
-$r = ApretasteMarketing::getSubscriberId("rrodriguezramirez@pragres.com");
+$r = ApretasteMarketing::getSubscriberId("rrodriguezramirez@gmail.com");
 var_dump($r);

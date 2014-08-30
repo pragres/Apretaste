@@ -133,9 +133,9 @@ class ApretasteMarketing {
 		                                                  // curl_setopt($request, CURLOPT_SSL_VERIFYPEER, FALSE); // uncomment if you get no gateway response and are using HTTPS
 		
 		$response = (string) curl_exec($request); // execute curl fetch and store results in $response
-		                                         
+		                                          
 		// additional options may be required depending upon your server configuration
-		                                         // you can find documentation on curl options at http://www.php.net/curl_setopt
+		                                          // you can find documentation on curl options at http://www.php.net/curl_setopt
 		curl_close($request); // close curl object
 		
 		if (! $response) {
@@ -143,7 +143,11 @@ class ApretasteMarketing {
 			return false;
 		}
 		$result = unserialize($response);
-		return $result;
+		
+		if (isset($result['id']))
+			return $result['id'];
+		
+		return null;
 	}
 	static public function delSubscriber($email){
 		Apretaste::loadSetup();

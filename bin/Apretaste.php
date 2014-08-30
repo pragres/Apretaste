@@ -1058,7 +1058,7 @@ class Apretaste {
 					SELECT '$addr' as email, '$source' as source
 					WHERE NOT EXISTS(SELECT * FROM address_list WHERE email = '$addr');");
 			
-			//ApretasteMarketing::addSubscriber($addr);
+			// ApretasteMarketing::addSubscriber($addr);
 		}
 		
 		return $address;
@@ -2987,23 +2987,23 @@ class Apretaste {
 		}
 		return false;
 	}
-	
 	static function exclusion($from){
 		self::incorporate($from, false);
 		
-		Apretaste::query("INSERT INTO exclusion (email) VALUES ('$from');");
+		self::query("INSERT INTO exclusion (email) VALUES ('$from');");
 		
 		ApretasteMarketing::delSubscriber($from);
 		
 		return true;
 	}
-	
 	static function incorporate($from, $addsubscriber = true){
-		if ($addsubscriber)
+		if ($addsubscriber) {
 			ApretasteMarketing::addSubscriber($from);
-		Apretaste::query("DELETE FROM exclusion WHERE email='$from';");
+			self::addToAddressList($from, 'apretaste.public.messages');
+		}
+		
+		self::query("DELETE FROM exclusion WHERE email='$from';");
 	}
-	
 	static function isExcluded($from){
 		$r = self::query("SELECT * FROM exclusion WHERE email='$from';");
 		if ($r)

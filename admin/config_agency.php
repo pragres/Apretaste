@@ -8,14 +8,14 @@ if (isset($_POST['btnUpdateAgency'])) {
 	if ($profit > 1)
 		$profit = $profit / 100;
 	
-	Apretaste::setConfiguration("agency_profit", $profit);
+	c("agency_profit", $profit, true);
 	
 	$profit = post("edtResidualProfit");
 	
 	if ($profit > 1)
 		$profit = $profit / 100;
 	
-	Apretaste::setConfiguration("agency_residual_profit", $profit);
+	c("agency_residual_profit", $profit, true);
 }
 
 if (post("btnUpdateAgencyPercents", false)) {
@@ -33,9 +33,9 @@ if (post("btnUpdateAgencyPercents", false)) {
 }
 
 // Load data
-$data['edtProfit'] = Apretaste::getConfiguration("agency_profit", 0);
-$data['edtResidualProfit'] = Apretaste::getConfiguration("agency_residual_profit", 0);
-$data['agents'] = Apretaste::query("SELECT * FROM users where user_role = 'agent' order by user_login;");
+$data['edtProfit'] = c("agency_profit", 0);
+$data['edtResidualProfit'] = c("agency_residual_profit", 0);
+$data['agents'] = q("SELECT * FROM users where user_role = 'agent' order by user_login;");
 $data['agency_percents'] = q("select * from agency_percents order by name;");
 $order = get('orderby', 'name');
 $data['agencies'] = q("select * from agency_expanded order by $order;");

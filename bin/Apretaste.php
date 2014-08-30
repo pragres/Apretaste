@@ -23,16 +23,13 @@ define("APRETASTE_COMMENT_SUCCESSFULL", "APRETASTE_COMMENT_SUCCESSFULL");
 define("APRETASTE_MAX_WORD_LENGTH", 60);
 class Apretaste {
 	static $db = null;
-	static $config = null;
+	static $config = null; /* local configuration */
 	static $robot = null;
 	static $price_regexp = null;
 	static $phones_regexp = null;
-	static $configuration = array();
+	static $configuration = array(); /* configvars in database */
 	static $simulator = false;
-	
-	
 	static $noavatar = null;
-	
 	static function loadSetup(){
 		if (is_null(self::$config))
 			self::$config = parse_ini_file("../etc/apretaste.ini", true, INI_SCANNER_RAW);
@@ -3106,7 +3103,7 @@ class Apretaste {
 			self::$noavatar = base64_encode(file_get_contents("../web/static/noavatar.png"));
 		
 		$default_picture = self::$noavatar;
-				
+		
 		if (! isset($r[0])) {
 			$profile = array(
 					"name" => $email,
@@ -3173,7 +3170,7 @@ class Apretaste {
 	
 	/**
 	 * Generete recommended phrases
-	 *  
+	 *
 	 * @param string $phrase
 	 * @param number $limit
 	 * @return array
@@ -3516,4 +3513,9 @@ class Apretaste {
 }
 function q($sql){
 	return Apretaste::query($sql);
+}
+function c($var, $default = null, $set = false){
+	if ($set !== false)
+		return Apretaste::setConfiguration($var, $default);
+	return Apretaste::getConfiguration($variable);
 }

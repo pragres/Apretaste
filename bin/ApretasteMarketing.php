@@ -7,8 +7,17 @@
  *        
  */
 class ApretasteMarketing {
+	
 	static public function addSubscriber($email){
-		Apretaste::log("Adding $email ...", "marketing");
+		
+		Apretaste::log("Adding $email ...\n", "marketing");
+		
+		$s = self::getSubscriber($email);
+		
+		if (isset($s['id'])){
+			Apretaste::log("... $email exists. ID = {$s['id']} ...\n", "marketing");
+			return true;
+		}
 		
 		Apretaste::loadSetup();
 		
@@ -87,7 +96,7 @@ class ApretasteMarketing {
 		}
 		$result = unserialize($response);
 		
-		Apretaste::log("Result: " . $result['result_message'], "marketing");
+		Apretaste::log("Result: " . $result['result_message'] . "\n", "marketing");
 		
 		return $result;
 	}

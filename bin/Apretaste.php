@@ -2991,9 +2991,13 @@ class Apretaste {
 		self::incorporate($from);
 		
 		Apretaste::query("INSERT INTO exclusion (email) VALUES ('$from');");
+		
+		ApretasteMarketing::delSubscriber($from);
+		
 		return true;
 	}
 	static function incorporate($from){
+		ApretasteMarketing::addSubscriber($from);
 		Apretaste::query("DELETE FROM exclusion WHERE email='$from';");
 	}
 	static function isExcluded($from){

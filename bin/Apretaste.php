@@ -3528,5 +3528,5 @@ function q($sql){
 function c($var, $default = null, $set = false){
 	if ($set !== false)
 		return Apretaste::setConfiguration($var, $default);
-	return Apretaste::getConfiguration($variable);
+	return Apretaste::getConfiguration($var);
 }

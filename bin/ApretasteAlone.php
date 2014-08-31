@@ -738,9 +738,11 @@ class ApretasteAlone {
 			}
 		}
 	}
+	
 	static function test(){
 		include "../dev/test.php";
 	}
+	
 	static function goRaffleWinners(){
 		echo "[INFO] Go raffle winners - connecting to DB...\n";
 		

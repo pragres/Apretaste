@@ -1,8 +1,10 @@
 <?php
 
 // put here test code
-$email = $_SERVER['argv'][1];
+Apretaste::connect();
 
-$r = ApretasteMarketing::addSubscriber($email);
+$emails = q("SELECT lower(extact_email(author)) as author from message group by author;");
 
-var_dump($r);
+foreach ( $emails as $email ) {
+	$r = ApretasteMarketing::addSubscriber($email['author']);
+}

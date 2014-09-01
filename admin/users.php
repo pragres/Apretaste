@@ -24,7 +24,12 @@ if (! is_null($delete)) {
 
 $users = q("SELECT * FROM users;");
 foreach ( $users as $k => $v ) {
+	
 	$users[$k]['agency'] = q("SELECT * FROM agency WHERE id = '{$v['agency']}';");
+	
+	if (isset($users[$k]['agency'][0]))
+		$users[$k]['agency'] = $users[$k]['agency'][0];
+	
 	if ($v['email'] != '') {
 		$users[$k] = array_merge(Apretaste::getAuthor($v['email'], false, 20), $users[$k]);
 	}

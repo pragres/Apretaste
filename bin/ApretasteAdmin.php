@@ -236,5 +236,7 @@ class ApretasteAdmin {
 		}
 		return $arr;
 	}
-	static function getAgency($id){}
+	static function getAgency($id){
+		return q("select * from agency_expanded where id = '$id';");
+	}
 }

@@ -19,12 +19,13 @@ if (is_null($edit)) {
 	$n_user_role = post('user_role');
 	$n_email = post('user_email');
 	$n_pass = trim(post('user_pass'));
-	
+	$n_agency = post('agency');
 	q("UPDATE users 
 	SET user_login = '{$n_user_login}',
 	user_role = '{$n_user_role}',
 	email = '{$n_email}',
-	user_pass = " . (is_null($n_pass) || $n_pass == '' ? 'user_pass' : md5($n_pass)) . "
+	user_pass = " . (is_null($n_pass) || $n_pass == '' ? 'user_pass' : md5($n_pass)) . ",
+	agency = '$n_agency'
 	WHERE user_login = '$user_login';");
 	
 	header("Location: index.php?path=admin&page=users");

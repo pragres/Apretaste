@@ -68,12 +68,12 @@
 			 
 			 ?$client.answers
 			 <h2>Answers</h2>
-			 	<table width="100%" class="tabla"><tr><th>ID</th><th>Moment</th><th>Author</th><th>Type</th><th>Subject</th><th>Message</th>
+			 	<table width="100%" class="tabla"><tr><th>ID</th><th>Moment</th><th>Sender</th><th>Type</th><th>Subject</th><th>Message</th>
 			</tr>
 			 	[$client.answers]
 			 	<tr><td>{$id}</td>
 			<td>{$send_date:0,16}</td>
-			<td><a href="?path=admin&page=user_activity&user={$receiver}">{html:receiver}</a></td>
+			<td>{$xsender}</a></td>
 			<td align="center">{$type}</td>
 			<td align="center">{$subject}</td>
 			<td><a href="?path=admin&page=message&id={$id}">{$message}</a></td>

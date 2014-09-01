@@ -266,7 +266,9 @@ if (! defined('DIV_TAG_PREPROCESSED_BEGIN'))
 	define('DIV_TAG_PREPROCESSED_BEGIN', '{%% ');
 if (! defined('DIV_TAG_PREPROCESSED_END'))
 	define('DIV_TAG_PREPROCESSED_END', ' %%}');
-	
+if (! defined('DIV_TAG_PREPROCESSED_SEPARATOR'))
+	define('DIV_TAG_PREPROCESSED_SEPARATOR', ':');
+
 	// Capsules
 if (! defined('DIV_TAG_CAPSULE_BEGIN_PREFIX'))
 	define('DIV_TAG_CAPSULE_BEGIN_PREFIX', '[[');
@@ -3078,6 +3080,7 @@ class div {
 	final public function parsePreprocessed($items){
 		$prefix = DIV_TAG_PREPROCESSED_BEGIN;
 		$suffix = DIV_TAG_PREPROCESSED_END;
+		
 		$l1 = strlen($prefix);
 		$l2 = strlen($suffix);
 		
@@ -3085,8 +3088,10 @@ class div {
 			$this->logger("Parsing preprocessed...");
 		
 		$classname = get_class($this);
+		
 		if (is_object($items))
 			$items = get_object_vars($items);
+		
 		if (is_array($items))
 			foreach ( $items as $key => $value ) {
 				if (isset($this->__ignore[$key]))
@@ -3110,6 +3115,32 @@ class div {
 			$fin = $ranges[0][1];
 			
 			$path = trim(substr($this->__src, $ini + $l1, $fin - $ini - $l1));
+			
+			// New feature in 4.5: specific data for preprocessed template
+			if (! self::fileExists($path)) {
+				$sep = strpos($path, DIV_TAG_PREPROCESSED_SEPARATOR);
+				
+				if ($sep !== false) {
+					$pdata = trim(substr($path, $sep + 1));
+					$path = substr($path, 0, $sep);
+					
+					if (self::fileExists($pdata . "." . DIV_DEFAULT_DATA_FILE_EXT)) {
+						$pdata = file_get_contents($pdata . "." . DIV_DEFAULT_DATA_FILE_EXT);
+						$pdata = self::jsonDecode($pdata);
+					} elseif (self::fileExists($pdata)) {
+						$pdata = file_get_contents($pdata);
+						$pdata = self::jsonDecode($pdata);
+					} elseif (self::varExists($pdata, $items))
+						$pdata = self::getVarValue($pdata, $items);
+					else
+						$pdata = self::jsonDecode($pdata);
+				
+					if (is_object($pdata)) 
+						$pdata = get_object_vars($pdata);
+						
+					$items = array_merge($items, $pdata);
+				}
+			}
 			
 			$rangex = $this->getRanges(DIV_TAG_TPLVAR_BEGIN, DIV_TAG_TPLVAR_END);
 			$procede = true;

@@ -31,7 +31,7 @@ function cmd_baseball($robot, $from, $argument, $body = '', $images = array()){
 			
 			$list = array_merge(cmd_baseball_get_list_news_beisbol($beisbolHost, $requiredDate, $robot), cmd_baseball_get_list_news_mlb($mlbHost, $requiredDate, $robot));
 			
-			return cmd_baseball_response($list, "Noticias de la serie nacional de Beisbol de Cuba del " . $requiredDate->format('d M y'));
+			return cmd_baseball_response($list, "Noticias de la serie nacional de Beisbol de Cuba");
 	}
 	
 	return cmd_baseball_response(array(), "Noticias de la serie nacional de Beisbol de Cuba");

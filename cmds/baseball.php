@@ -141,7 +141,7 @@ function cmd_baseball_get_list_news_mlb($host, $requiredDate, $robot){
  * @return array
  */
 function cmd_baseball_response($news, $title){
-	$tags = "<div><h2><p><span>";
+	$tags = "<div><h2><p><span><a>";
 	
 	$drop = array(
 			'M&aacute;s&raquo;',

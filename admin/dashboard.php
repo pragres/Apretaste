@@ -113,9 +113,10 @@ for($i = 0; $i <= 23; $i ++) {
 
 $r = ApretasteAnalitics::getAccessByHour($lastdays);
 
-foreach ( $r as $rx ) {
-	$access_by_hour[$rx['hora']][$rx['orden']] = intval($rx['total']);
-}
+if (is_array($r))
+	foreach ( $r as $rx ) {
+		$access_by_hour[$rx['hora']][$rx['orden']] = intval($rx['total']);
+	}
 $sql = "
 SELECT
 			q::date - current_date + " . ($lastdays - 1) . " + 1 as orden,
@@ -136,10 +137,11 @@ $wdias = array(
 		'Sa'
 );
 
-foreach ( $r as $row ) {
-	$ah[$row['orden']] = $row;
-	$ah[$row['orden']]['wdia'] = $wdias[$ah[$row['orden']]['wdia']];
-}
+if (is_array($r))
+	foreach ( $r as $row ) {
+		$ah[$row['orden']] = $row;
+		$ah[$row['orden']]['wdia'] = $wdias[$ah[$row['orden']]['wdia']];
+	}
 
 $data['access_by_hour'] = $access_by_hour;
 
@@ -155,9 +157,10 @@ for($i = 0; $i <= 23; $i ++) {
 
 $r = ApretasteAnalitics::getAnswerByHour($lastdays);
 
-foreach ( $r as $rx ) {
-	$answer_by_hour[$rx['hora']][$rx['orden']] = intval($rx['total']);
-}
+if (is_array($r))
+	foreach ( $r as $rx ) {
+		$answer_by_hour[$rx['hora']][$rx['orden']] = intval($rx['total']);
+	}
 
 $sql = "
 SELECT
@@ -178,10 +181,11 @@ $wdias = array(
 		'Sa'
 );
 
-foreach ( $r as $row ) {
-	$ans[$row['orden']] = $row;
-	$ans[$row['orden']]['wdia'] = $wdias[$ans[$row['orden']]['wdia']];
-}
+if (is_array($r))
+	foreach ( $r as $row ) {
+		$ans[$row['orden']] = $row;
+		$ans[$row['orden']]['wdia'] = $wdias[$ans[$row['orden']]['wdia']];
+	}
 
 $data['answer_by_hour'] = $answer_by_hour;
 
@@ -209,11 +213,12 @@ $data['last_msg'] = $r;
 
 // Last messages
 $r = Apretaste::query("SELECT * FROM message order by moment desc limit 20;");
-foreach ( $r as $k => $v ) {
-	$r[$k]['author'] = str_replace("From: ", "", iconv_mime_decode("From: {$r[$k]['author']}", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "ISO-8859-1"));
-	$r[$k]['author'] = htmlentities($r[$k]['author']);
-	$r[$k]['author_email'] = Apretaste::extractEmailAddress($r[$k]['author']);
-}
+if (is_array($r))
+	foreach ( $r as $k => $v ) {
+		$r[$k]['author'] = str_replace("From: ", "", iconv_mime_decode("From: {$r[$k]['author']}", ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "ISO-8859-1"));
+		$r[$k]['author'] = htmlentities($r[$k]['author']);
+		$r[$k]['author_email'] = Apretaste::extractEmailAddress($r[$k]['author']);
+	}
 $data['last_msgs'] = $r;
 
 // Linker
@@ -260,9 +265,10 @@ for($j = $current_year - 1; $j <= $current_year; $j ++) {
 	}
 }
 
-foreach ( $r as $row ) {
-	$engagement[$row['year']][$row['month']] = $row;
-}
+if (is_array($r))
+	foreach ( $r as $row ) {
+		$engagement[$row['year']][$row['month']] = $row;
+	}
 
 $data['engagement'] = $engagement;
 $data['current_year'] = $current_year;

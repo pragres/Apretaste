@@ -61,7 +61,8 @@
 		lock: {cmd: "BLOQUEAR", desc: "Bloquear a un usuario", rel:[]},
 		share: {cmd: "COMPARTIR", desc: "Compartir algo con un amigo", rel:["invite"]},
 		comment: {cmd: "COMENTAR", desc: "Comentar un anuncio", rel:["insert"]},
-		phonebook: {cmd: "AGENDA", desc: "Agenda telefonica", rel:["sms"]} 
+		phonebook: {cmd: "AGENDA", desc: "Agenda telefonica", rel:["sms"]},
+		baseball: {cmd: "BEISBOL", desc: "Noticias del Beisbol", rel:[]}
 	}
 =}
 

@@ -14,7 +14,7 @@ require '../lib/simple_html_dom.php';
  * @return array
  */
 function cmd_baseball($robot, $from, $argument, $body = '', $images = array()){
-	$robot->log('Execution of baseball command', $robot);
+	$robot->log('Execution of baseball command');
 	
 	$argument = cmd_baseball_trim_text($argument, $body);
 	

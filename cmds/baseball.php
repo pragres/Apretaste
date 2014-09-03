@@ -48,16 +48,16 @@ function cmd_baseball($robot, $from, $argument, $body = '', $images = array()){
  * @return array
  */
 function cmd_baseball_get_list_news_beisbol($host, $requiredDate, $robot){
-	$robot->log('Connection with ' . $host, $robot);
+	$robot->log('Connection with ' . $host);
 	// @todo charlys to log the connecting information
 	$result = @file_get_html($host);
 	
 	if (empty($result)) {
-		$robot->log('The host was not found', $robot);
+		$robot->log('The host was not found');
 		
 		return array();
 	} else {
-		$robot->log('The host was found', $robot);
+		$robot->log('The host was found');
 	}
 	
 	$list = array();
@@ -85,15 +85,15 @@ function cmd_baseball_get_list_news_beisbol($host, $requiredDate, $robot){
  * @return array
  */
 function cmd_baseball_get_list_news_mlb($host, $requiredDate, $robot){
-	$robot->log('Connection with ' . $host, $robot);
+	$robot->log('Connection with ' . $host);
 	$result = @file_get_html($host);
 	
 	if (empty($result)) {
-		$robot->log('The host was not found', $robot);
+		$robot->log('The host was not found');
 		
 		return array();
 	} else {
-		$robot->log('The host was found', $robot);
+		$robot->log('The host was found');
 	}
 	
 	$list = array();

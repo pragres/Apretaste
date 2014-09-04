@@ -1,5 +1,4 @@
 <?php
-
 include_once "../lib/pChart/class/pData.class.php";
 include_once "../lib/pChart/class/pDraw.class.php";
 include_once "../lib/pChart/class/pImage.class.php";
@@ -32,7 +31,6 @@ for($year = $current_year - 1; $year <= $current_year; $year ++) {
 	}
 }
 
-
 $sql = "
 			select extract(year from moment::date) as ano,
 			extract(month from moment) as mes,
@@ -63,9 +61,9 @@ for($i = 0; $i < 12; $i ++) {
 
 foreach ( $r as $row ) {
 	if ($row['ano'] * 1 == $current_year * 1)
-		$dcurrent[$row['mes']-1] = $row['total'];
+		$dcurrent[$row['mes'] - 1] = $row['total'];
 	else
-		$dlast[$row['mes']-1] = $row['total'];
+		$dlast[$row['mes'] - 1] = $row['total'];
 }
 
 /* Create and populate the pData object */
@@ -77,7 +75,7 @@ $MyData->setSerieTicks($current_year - 1, 3);
 $MyData->setSerieWeight($current_year - 1, 1);
 $MyData->setSerieWeight($current_year, 1);
 
-//$MyData->setAxisName(0, "Unique visitors");
+// $MyData->setAxisName(0, "Unique visitors");
 
 $MyData->addPoints($months, "Months");
 $MyData->setAbscissa("Months");
@@ -106,13 +104,15 @@ $myPicture->setGraphArea(60, 40, 750, 300);
 /* Draw the scale */
 $scaleSettings = array(
 		"XMargin" => 10,
-		"YMargin" => 10,
+		"YMargin" => 0,
 		"Floating" => TRUE,
 		"GridR" => 200,
 		"GridG" => 200,
 		"GridB" => 200,
-		"DrawSubTicks" => TRUE,	
-		"CycleBackground" => TRUE
+		"DrawSubTicks" => FALSE,
+		"CycleBackground" => FALSE,
+		"Mode" => SCALE_MODE_START0,
+		"MinDivHeight" => 30
 );
 
 $myPicture->drawScale($scaleSettings);
@@ -121,7 +121,10 @@ $myPicture->drawScale($scaleSettings);
 $myPicture->Antialias = TRUE;
 
 /* Draw the line chart */
-$myPicture->drawLineChart(array("DisplayValues"=>TRUE,"DisplayColor"=>DISPLAY_AUTO));
+$myPicture->drawLineChart(array(
+		"DisplayValues" => TRUE,
+		"DisplayColor" => DISPLAY_AUTO
+));
 
 /* Write the chart legend */
 $myPicture->drawLegend(540, 20, array(

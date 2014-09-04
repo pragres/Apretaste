@@ -68,7 +68,6 @@ foreach ( $r as $row ) {
 		$dlast[$row['mes']-1] = $row['total'];
 }
 
-/* Create and populate the pData object */
 $MyData = new pData();
 $MyData->addPoints($dcurrent, $current_year);
 $MyData->addPoints($dlast, $current_year - 1);
@@ -76,8 +75,6 @@ $MyData->addPoints($dlast, $current_year - 1);
 $MyData->setSerieTicks($current_year - 1, 3);
 $MyData->setSerieWeight($current_year - 1, 1);
 $MyData->setSerieWeight($current_year, 1);
-
-//$MyData->setAxisName(0, "Unique visitors");
 
 $MyData->addPoints($months, "Months");
 $MyData->setAbscissa("Months");
@@ -106,13 +103,15 @@ $myPicture->setGraphArea(60, 40, 750, 300);
 /* Draw the scale */
 $scaleSettings = array(
 		"XMargin" => 10,
-		"YMargin" => 10,
+		"YMargin" => 0,
 		"Floating" => TRUE,
 		"GridR" => 200,
 		"GridG" => 200,
 		"GridB" => 200,
-		"DrawSubTicks" => TRUE,	
-		"CycleBackground" => TRUE
+		"DrawSubTicks" => FALSE,	
+		"CycleBackground" => FALSE,
+		"Mode" => SCALE_MODE_START0,
+		"MinDivHeight" => 30 
 );
 
 $myPicture->drawScale($scaleSettings);

@@ -14,7 +14,7 @@ class ApretasteDefaultPieChart extends pImage {
 	 * @param boolean $autoOutput
 	 * @return ApretasteDefaultLinearGraph
 	 */
-	public function ApretasteDefaultPieChart($points, $labels, $description, $title = "", $autoOutput = true, $w = 500, $h = 400, $in3d = false){
+	public function ApretasteDefaultPieChart($points, $labels, $description, $title = "", $autoOutput = true, $w = 500, $h = 400, $in3d = true){
 		$palette = array();
 		
 		foreach ( $points as $k => $p ) {

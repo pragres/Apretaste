@@ -90,14 +90,16 @@ $myPicture->setGraphArea(60, 40, 750, 300);
 
 /* Draw the scale */
 $scaleSettings = array(
-		"XMargin" => 10,
-		"YMargin" => 10,
+				"XMargin" => 10,
+		"YMargin" => 0,
 		"Floating" => TRUE,
 		"GridR" => 200,
 		"GridG" => 200,
 		"GridB" => 200,
-		"DrawSubTicks" => TRUE,	
-		"CycleBackground" => TRUE
+		"DrawSubTicks" => FALSE,	
+		"CycleBackground" => FALSE,
+		"Mode" => SCALE_MODE_START0,
+		"MinDivHeight" => 30 
 );
 
 $myPicture->drawScale($scaleSettings);

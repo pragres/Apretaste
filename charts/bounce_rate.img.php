@@ -98,7 +98,8 @@ $Settings = array(
 		"SubTickG" => 0,
 		"SubTickB" => 0,
 		"SubTickAlpha" => 50,
-		"DrawYLines" => ALL
+		"DrawYLines" => ALL,
+		"Mode" => SCALE_MODE_START0
 );
 $myPicture->drawScale($Settings);
 

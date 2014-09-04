@@ -31,10 +31,10 @@ for($i = 0; $i < 12; $i ++) {
 }
 
 foreach ( $r as $row ) {
-	if ($row['year']*1 == $current_year*1)
-		$dcurrent[$row['month']-1] = $row['authors'];
+	if ($row['year'] * 1 == $current_year * 1)
+		$dcurrent[$row['month'] - 1] = $row['authors'];
 	else
-		$dlast[$row['month']-1] = $row['authors'];
+		$dlast[$row['month'] - 1] = $row['authors'];
 }
 
 /* Create and populate the pData object */
@@ -46,7 +46,7 @@ $MyData->setSerieTicks($current_year - 1, 3);
 $MyData->setSerieWeight($current_year - 1, 1);
 $MyData->setSerieWeight($current_year, 1);
 
-//$MyData->setAxisName(0, "Unique visitors");
+// $MyData->setAxisName(0, "Unique visitors");
 
 $MyData->addPoints($months, "Months");
 $MyData->setAbscissa("Months");
@@ -63,8 +63,6 @@ $myPicture->setFontProperties(array(
 		"FontSize" => 10
 ));
 
-
-
 /* Set the default font */
 $myPicture->setFontProperties(array(
 		"FontName" => "../lib/pChart/fonts/verdana.ttf",
@@ -77,13 +75,15 @@ $myPicture->setGraphArea(60, 40, 750, 300);
 /* Draw the scale */
 $scaleSettings = array(
 		"XMargin" => 10,
-		"YMargin" => 10,
+		"YMargin" => 0,
 		"Floating" => TRUE,
 		"GridR" => 200,
 		"GridG" => 200,
 		"GridB" => 200,
-		"DrawSubTicks" => TRUE,	
-		"CycleBackground" => TRUE
+		"DrawSubTicks" => FALSE,
+		"CycleBackground" => FALSE,
+		"Mode" => SCALE_MODE_START0,
+		"MinDivHeight" => 30
 );
 
 $myPicture->drawScale($scaleSettings);
@@ -92,7 +92,10 @@ $myPicture->drawScale($scaleSettings);
 $myPicture->Antialias = TRUE;
 
 /* Draw the line chart */
-$myPicture->drawLineChart(array("DisplayValues"=>TRUE,"DisplayColor"=>DISPLAY_AUTO));
+$myPicture->drawLineChart(array(
+		"DisplayValues" => TRUE,
+		"DisplayColor" => DISPLAY_AUTO
+));
 
 /* Write the chart legend */
 $myPicture->drawLegend(540, 20, array(

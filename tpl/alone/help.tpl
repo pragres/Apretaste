@@ -20,7 +20,7 @@
 				<tr>
 					<td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
 						<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" href="mailto:{$reply_to}?subject=BUSCAR televisor lcd&body=Envie este email tal y como esta, nosotros lo escribimos por usted">
-							<label style="margin: 5px;">Probar Compraventa Ahora</label>
+							<label style="margin: 5px;">Probar Compra/Venta Ahora</label>
 						</a>
 					</td>
 				</tr>
@@ -186,7 +186,7 @@
 			<table align="center">
 				<tr>
 					<td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
-						<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" href="mailto:{$reply_to}?subject=SMS 5xxxxxx&body=Envie este email tal y como esta, nosotros lo escribimos por usted">
+						<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" href="mailto:{$reply_to}?subject=SMS 5xxxxxx&body=Cambie 5xxxxxx en el asunto por el numero de su contacto, cambie este texto por algo que quiera decirle, y envie este email">
 							<label style="margin: 5px;">Enviar un SMS</label>
 						</a>
 					</td>
@@ -218,7 +218,7 @@
 		</td>
 	</tr>
 </table>
-{$br}
+{$br}{$br}
 
 
 {$h1}Invite a sus amigos y familia{$_h1}

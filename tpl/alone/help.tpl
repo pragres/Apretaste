@@ -71,7 +71,7 @@
 		</td>
 	</tr>
 </table>
-{$br}<hr/>
+{$br}<hr/>{$br}
 
 <table>
 	<tr>
@@ -103,7 +103,7 @@
 		</td>
 	</tr>
 </table>
-{$br}<hr/>
+{$br}<hr/>{$br}
 
 <table>
 	<tr>
@@ -135,7 +135,7 @@
 		</td>
 	</tr>
 </table>
-{$br}<hr/>
+{$br}<hr/>{$br}
 
 <table>
 	<tr>
@@ -167,7 +167,7 @@
 		</td>
 	</tr>
 </table>
-{$br}<hr/>
+{$br}<hr/>{$br}
 
 <table>
 	<tr>
@@ -249,6 +249,3 @@
 		</td>
 	</tr>
 </table>
-{$br}
-{$h1}Ejemplos de las servicios m&aacute;s usados{$_h1}
-{% help_commands %}

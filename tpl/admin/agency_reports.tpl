@@ -84,8 +84,12 @@
 	
 	<h1>Amount by month</h1>
 	<img width = "95%" height="60%" src="index.php?path=admin&chart=agency_sales_amount">
+
+	<h1>Residuals by month</h1>
+	<img width = "95%" height="60%" src="index.php?path=admin&chart=agency_residuals">
+
 	
-	<h1>Profits by month</h1>
+	<!--{ <h1>Profits by month</h1>
 	<table class="tabla" width="100%">
 		<tr><th>Year</th><th>Month</th><th>Recharges</th><th>Amount</th><th>Profit</th><th>To pay</th></tr>
 		[$profits]
@@ -95,5 +99,5 @@
 		<td align="right">${#debt:2,0#}</td></tr>
 		[/$profits]
 	</table>
-
+	}-->
 page}}

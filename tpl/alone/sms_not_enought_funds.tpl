@@ -1,5 +1,5 @@
 {= AnswerSubject: "El SMS no se pudo enviar, no tiene cr&eacute;dito suficiente" =}
-{$AnswerSubject}
+{$h1}{$AnswerSubject}{$_h1}
 {$br}
 <b>Su cr&eacute;dito es de ${#credit:2.#} y necesita al menos ${#discount:2.#}</b>
 {$br}

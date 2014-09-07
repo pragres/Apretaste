@@ -68,7 +68,8 @@ function cmd_insert($robot, $from, $argument, $body = '', $images = array()){
 				'ticket' => strtoupper(uniqid()),
 				'post_date' => date('Y-m-d'),
 				'search_results' => false,
-				'contact_info' => false
+				'contact_info' => false,
+				'oferta' => false
 		);
 	}
 	$body = str_replace(array(

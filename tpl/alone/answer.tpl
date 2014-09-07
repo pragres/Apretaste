@@ -15,13 +15,13 @@
 {= _h1: </b></font><hr style="border:1px solid #D0D0D0; margin:0px;"/><font size="1" color="white"><div>&nbsp;</div></font></div> =}
 {= h2: <div class="header_2"><font size="4" face="Arial" color="#52B439"><b> =}
 {= _h2: </b></font><hr style="border:1px solid #D0D0D0; margin:0px;"/><font size="1" color="white"><div>&nbsp;</div></font></div> =}
-{= p: <div class="paragraph"><div style="color:#444444;"> =}
+{= p: <div class="paragraph" style="text-align: justify;"><div style="color:#444444;"> =}
 {= _p: </div><font size="2" color="white"><div>&nbsp;</div></font></div> =}
 {= br: <font class="space_small" size="2" color="white"><div>&nbsp;</div></font> =}
 {= br2: <font class="space_medium" size="5" color="white"><div>&nbsp;</div></font> =}
 {= br3: <font class="space_big" size="7" color="white"><div>&nbsp;</div></font> =}
 
-{= div.literals: ["msg.subject", "subject", "query", "body", "sharethis","bodysended","bodyextra"] =}
+{= div.literals: ["msg.subject", "subject", "query", "body", "sharethis","bodysent","bodyextra"] =}
 
 <!--{ Default reply to address }-->
 
@@ -38,7 +38,7 @@
 		joke: {cmd: "CHISTE", desc: "Leer un chiste", rel:["sudoku","invite"]},
 		article: {cmd: "ARTICULO", desc: "Buscar en la enciclopedia", rel: ["invite"]},
 		weather: {cmd: "CLIMA", desc: "El tiempo en Cuba", rel: ["invite"]},
-		insert: {cmd: "PUBLICAR", desc: "Publicar un anuncio", rel: ["state", "update","search","searchfull", "exclusion", "invite"]},
+		insert: {cmd: "PUBLICAR", desc: "Publicar un anuncio", rel: ["search","searchfull", "exclusion"]},
 		update: {cmd: "CAMBIAR", desc: "Cambiar su anuncio", rel: ["insert","search","searchfull", "invite"]},
 		translate: {cmd: "TRADUCIR", desc: "Traducir textos", rel: ["article", "invite"]},
 		exclusion: {cmd: "EXCLUYEME", desc: "Exluirme de los servicios de Apretaste!", rel: ["invite"]},

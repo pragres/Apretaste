@@ -74,7 +74,7 @@ class ApretasteAnswerEmail {
 		
 		$mailboxescount = ApretasteMailboxes::getMailboxesCount();
 		
-		$sended = false;
+		$sent = false;
 		$i = 0;
 		do {
 			$i ++;
@@ -178,10 +178,10 @@ class ApretasteAnswerEmail {
 				
 				mail('soporte@apretaste.com', "Error sending from $from to {$this->to}", $message, $headers);
 			} else
-				$sended = true;
-		} while ( $sended == false );
+				$sent = true;
+		} while ( $sent == false );
 		
-		if (! $sended) {
+		if (! $sent) {
 			if ($save_on_fail || $async) {
 				echo "[INFO] Saving email in outbox for {$this->to}\n";
 				Apretaste::query("INSERT INTO email_outbox (data) VALUES ('" . base64_encode(serialize($this)) . "');");
@@ -303,7 +303,7 @@ class ApretasteAnswerEmail {
 		// $this->message->setTXTBody('');
 		$this->addHeaders($this->message->headers());
 		
-		$subject = new ApretasteView('{= div.literals: ["msg.subject", "subject", "query", "body", "sharethis","bodysended","bodyextra"] =} {strip}{txt}{% styles %}' . $tpl_title . '{/txt}{/strip}', $data);
+		$subject = new ApretasteView('{= div.literals: ["msg.subject", "subject", "query", "body", "sharethis","bodysent","bodyextra"] =} {strip}{txt}{% styles %}' . $tpl_title . '{/txt}{/strip}', $data);
 		
 		$subject = ApretasteEncoding::UTF8FixWin1252Chars($subject);
 		

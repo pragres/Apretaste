@@ -59,7 +59,7 @@
                 </table>
 
                 {$hr}
-                
+                {$br}
                 {= body: "" =}
                 
                 {br:body}

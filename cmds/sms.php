@@ -140,25 +140,26 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	}
 	
 	$bodyextra = false;
-	$bodysended = $body;
+	$bodysent = $body;
 	
 	if (strlen($body) > 160) {
 		$bodyextra = substr($body, 160);
-		$bodysended = substr($body, 0, 160);
+		$bodysent = substr($body, 0, 160);
 	}
 	
 	$newcredit = ApretasteMoney::getCreditOf($from);
 	
 	return array(
-			"answer_type" => "sms_sended",
+			"answer_type" => "sms_sent",
 			"credit" => $credit,
 			"newcredit" => $newcredit,
 			"discount" => $discount,
 			"smsparts" => $parts,
 			"bodyextra" => $bodyextra,
-			"bodysended" => $bodysended,
+			"bodysent" => $bodysent,
 			"totaldiscount" => $discount * $tparts,
-			"as_plain_text" => $as_plain_text
+			"as_plain_text" => $as_plain_text,
+			"cellnumber" => "(+$code)$number"
 	);
 }
 	

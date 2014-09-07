@@ -1,4 +1,5 @@
 {= *AnswerSubject: Ayuda de {$apretaste} =}
+{$h1}{$AnswerSubject}{$_h1}
 {$p}
 	Apretaste <i>permite revisar servicios en Internet mediante el email</i>. Usando Apretaste 
 	usted puede Vender o Comprar algo que necesite, consultar la Enciclopedia, Traducir documentos a 

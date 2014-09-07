@@ -37,7 +37,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td valign="top" style="font-size: 12px;padding: 5px; background: white; border: 1px solid gray; !$cuerpo height: 30px; $cuerpo! text-align: justify;"  colspan="2">			
+		<td valign="top" style="font-size: 12px;padding: 5px; background: white; border: 1px solid gray; !$cuerpo height: 150px; $cuerpo! text-align: justify;"  colspan="2">			
 			{$cuerpo}&nbsp;
 		</td>
 	</tr>

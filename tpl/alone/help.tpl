@@ -27,12 +27,12 @@
 			</table>
 		</td>
 		<td valign="top">
-        	 [[_
-        	 	{= wintitle: "Buscar anuncios" =}
-	            {= asunto: "BUSCAR televisor lcd" =}
-	            {= cuerpo: "" =}
-	            {% email_client %}
-             _]]
+        	 {%% email_client: {
+        	 	wintitle: "Buscar anuncios",
+	            asunto: "BUSCAR televisor lcd",
+	            cuerpo: "",
+				ecw: 250
+	         } %%}
 		</td>
 	</tr>
 </table>

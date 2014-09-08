@@ -130,9 +130,10 @@
 						{$space10}
 						<table border="0">
 							<tr>
-								<td class="phone-block" style="margin-right: 20px;">
+								<!--{<td class="phone-block" style="margin-right: 20px;">
 									<img width="200" src="cid:logo" alt="Apretaste!" /> 
-								</td>
+								</td>}-->
+								<span style="color:green;font-weight:bold;font-size: 18px;"><i>A</i>pretaste</span><span style="font-weight: bold; color: #A03E3B;font-size: 20px;"><i>!</i></span>
 								?$command
 								<td class="phone-block" align="center">
 									<font size="6" face="Tahoma" color="#A03E3B"><b>{$commands.{$command}.cmd}</b></font>

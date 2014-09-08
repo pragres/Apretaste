@@ -63,12 +63,11 @@
 			</table>
 		</td>
 		<td valign="top">
-        	 [[_
-        	 	{= wintitle: "Traducir" =}
-	            {= asunto: "TRADUCIR A ingles" =}
-	            {= cuerpo: "Este es un texto en espanol que pronto sera traducido al ingles" =}
-	            {% email_client %}
-             _]]
+        	 {%% email_client: {
+        	 	wintitle: "Traducir",
+	            asunto: "TRADUCIR ingles",
+	            cuerpo: "Este es un texto en espanol que pronto sera traducido al ingles"
+	         } %%}
 		</td>
 	</tr>
 </table>
@@ -95,12 +94,11 @@
 			</table>
 		</td>
 		<td valign="top">
-        	 [[_
-        	 	{= wintitle: "Usar la Enciclopedia" =}
-	            {= asunto: "ARTICULO jose marti" =}
-	            {= cuerpo: "" =}
-	            {% email_client %}
-             _]]
+			{%% email_client: {
+        	 	wintitle: "Usar la Enciclopedia",
+	            asunto: "ARTICULO jose marti",
+	            cuerpo: "Este es un texto en espanol que pronto sera traducido al ingles"
+	         } %%}
 		</td>
 	</tr>
 </table>
@@ -127,12 +125,11 @@
 			</table>
 		</td>
 		<td valign="top">
-        	 [[_
-        	 	{= wintitle: "Consultar el mapa" =}
-	            {= asunto: "MAPA capitolio, cuba" =}
-	            {= cuerpo: "" =}
-	            {% email_client %}
-             _]]
+			{%% email_client: {
+        	 	wintitle: "Consultar el mapa",
+	            asunto: "MAPA capitolio, cuba",
+	            cuerpo: ""
+	         } %%}
 		</td>
 	</tr>
 </table>

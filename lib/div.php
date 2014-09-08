@@ -390,6 +390,7 @@ define('DIV_DEFAULT_DIALECT', '{
 		\'DIV_TAG_DEFAULT_REPLACEMENT_BEGIN\' : \'{@\',		        \'DIV_TAG_DEFAULT_REPLACEMENT_END\' : \'@}\',
 		\'DIV_TAG_INCLUDE_BEGIN\' : \'{% \',		                \'DIV_TAG_INCLUDE_END\' : \' %}\',
 		\'DIV_TAG_PREPROCESSED_BEGIN\' : \'{%% \',		            \'DIV_TAG_PREPROCESSED_END\' : \' %%}\',
+		\'DIV_TAG_PREPROCESSED_SEPARATOR\' : \':\',		            
 		\'DIV_TAG_CAPSULE_BEGIN_PREFIX\' : \'[[\',		            \'DIV_TAG_CAPSULE_BEGIN_SUFFIX\' : \'\',
 		\'DIV_TAG_CAPSULE_END_PREFIX\' : \'\',		                \'DIV_TAG_CAPSULE_END_SUFFIX\' : \']]\',
 		\'DIV_TAG_MULTI_REPLACEMENT_BEGIN_PREFIX\' : \'{:\', 	    \'DIV_TAG_MULTI_REPLACEMENT_BEGIN_SUFFIX\' : \'}\',
@@ -3106,7 +3107,11 @@ class div {
 		$restore = array();
 		
 		$pos = 0;
+		$originalitems = $items;
 		while ( true ) {
+			
+			$items = $originalitems;
+			
 			$ranges = $this->getRanges($prefix, $suffix, null, true, $pos);
 			if (count($ranges) < 1)
 				break;
@@ -3183,7 +3188,11 @@ class div {
 				
 				$engine->__path = $path;
 				self::$__includes_historial[] = $path;
+				
+				$originals = self::$__globals_design;
 				$engine->parse(false);
+				self::$__globals_design = $originals;
+				 
 				$pre = $engine->__src;
 				
 				$this->__src = substr($this->__src, 0, $ini) . $pre . substr($this->__src, $fin + $l2);

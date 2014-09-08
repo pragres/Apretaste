@@ -2,12 +2,12 @@
 
 {= ecw: 250 =} <!--{ email client width }-->
 
-<table style="font-size: 12px;font-family: Verdana; border: 1px solid gray; background:#eeeeee; width:{$ecw}px;" cellspacing="0" cellpadding="0" width="{$ecw}">
-	<tr style="background: navy;">
+<table style="font-size: 12px;font-family: Verdana; border: 1px solid gray; background:#eeeeee; width:{$ecw}px;margin-left: 8px;" cellspacing="0" cellpadding="0" width="{$ecw}">
+	<tr style="background: #4c9ed9;">
 		<td style="padding: 5px;" align="left" colspan="2">
 			<table width="{$ecw}" cellspacing="0" cellpadding="0" style="margin: 0px;">
 				<tr>
-					<td style="font-family: Verdana; color:white; font-weight: bold;font-size: 12px;" width="(# {$ecw} * 300/397 :0 #)">{$wintitle}</td>
+					<td style="font-family: Verdana; color: white; font-weight: bold;font-size: 12px;" width="(# {$ecw} * 300/397 :0 #)">{$wintitle}</td>
 				</tr>
 			</table>
 		</td>
@@ -37,8 +37,8 @@
 		</td>
 	</tr>
 	<tr>
-		<td valign="top" style="font-size: 12px;padding: 5px; background: white; border: 1px solid gray; !$cuerpo height: 100px; @else@ height: 150px; $cuerpo! text-align: justify;"  colspan="2">			
-			{$cuerpo}&nbsp;
+		<td valign="top" style="font-size: 12px;padding: 5px; background: white; border-top: 1px solid gray; !$cuerpo height: 100px; @else@ height: 150px; $cuerpo! text-align: justify;"  colspan="2">			
+			?$cuerpo {$cuerpo} $cuerpo?&nbsp;
 		</td>
 	</tr>
 </table>

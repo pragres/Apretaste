@@ -23,30 +23,7 @@
 		<input onclick = "return confirm('Are you sure?');" type="submit" value = "Drop" name="btnDropAddress">
 		</form>
 		</fieldset>
-		<fieldset>
-		<legend>Domains</legend>
-		<button onclick="$('#domains').show();">Show</button>
-		<button onclick="$('#domains').hide();">Hide</button>
 		
-		<table id="domains" style="display:none;">
-			<tr>
-			<?
-			
-			$i = 0;
-			foreach ($providers as $p){
-				$i++;
-				echo '<td>';
-				echo '<a href="index.php?path=admin&page=address_list&download=true&filter=@'.$p['provider'].'">';
-				if ($p['national']) echo '<b>'.$p['provider'].'</b>'; else echo $p['provider']; 
-				echo '</a>';
-				echo ' <b>('.$p['total'].')</b></td>';
-				if ($i % 4 == 0)
-					echo '</tr><tr>';
-			}
-			?>
-		</tr>
-		</table>
-		</fieldset>
 		?$msg
 			<div id = "message" class = "{$msg-type}">{$msg}</div>
 		$msg?

@@ -1407,7 +1407,7 @@ class Apretaste {
 			$allads = array(); // self::query($subq);
 			                   
 			// pricing
-			$subq = "
+			/*$subq = "
 			SELECT announcement.price 
 			FROM announcement
 			inner join $table_temp 
@@ -1469,7 +1469,7 @@ class Apretaste {
 				$pricing = false;
 				
 				// var_dump($pricing);
-			
+			*/
 			self::query("drop table $table_temp;");
 		}
 		

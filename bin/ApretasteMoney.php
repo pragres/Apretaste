@@ -70,7 +70,14 @@ class ApretasteMoney {
 	 * @param string $contact
 	 */
 	static function addDispatcher($email, $name, $contact){
-		Apretaste::query("INSERT INTO dispatcher (email,name,contact) VALUES ('$email','$name','$contact');");
+		$r = self::getDispatcher($email);
+		
+		if ($r == false) {
+			Apretaste::query("INSERT INTO dispatcher (email,name,contact) VALUES ('$email','$name','$contact');");
+			return true;
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -115,11 +122,39 @@ class ApretasteMoney {
 		Apretaste::query("INSERT INTO recharge_card_sale (id, dispatcher, quantity, sale_price, card_price)
 				VALUES ('$id', '$dispatcher', $quantity, $sale_price, $card_price);");
 	}
+	
+	/**
+	 * Return the list of dispatchers
+	 *
+	 * @return array
+	 */
 	static function getDispatchers(){
 		$r = Apretaste::query("SELECT *, (select count(*) from recharge_card_sale WHERE dispatcher = email) as sales FROM dispatcher;");
+		
 		if (! is_array($r))
 			$r = array();
+		
+		foreach ( $r as $k => $v ) {
+			$r[$k] = array_merge(Apretaste::getAuthor($v['email'], false, 20), $v);
+		}
+		
 		return $r;
+	}
+	
+	/**
+	 * Return a dispatcher
+	 *
+	 * @return array
+	 */
+	static function getDispatcher($email){
+		$r = Apretaste::query("SELECT *, (select count(*) from recharge_card_sale WHERE dispatcher = email) as sales FROM dispatcher WHERE email = '$email';");
+		
+		if (! is_array($r))
+			return false;
+		
+		$r[0] = array_merge(Apretaste::getAuthor($r[0]['email'], false, 20), $r[0]);
+		
+		return $r[0];
 	}
 	static function getRechargeCardSalesOf($email){
 		$r = Apretaste::query("SELECT *, (select count(*) from recharge_card WHERE sale = id) as cards FROM recharge_card_sale WHERE dispatcher = '$email';");
@@ -127,16 +162,13 @@ class ApretasteMoney {
 			$r = array();
 		return $r;
 	}
-	
 	static function getSaleCards($id){
 		$r = Apretaste::query("SELECT * FROm recharge_card WHERE sale= '$id';");
 		if (! is_array($r))
 			$r = array();
 		return $r;
 	}
-	
 	static function delSale($id){
 		Apretaste::query("DELETE FROM recharge_card_sale WHERE id = '$id';");
-		
 	}
 }

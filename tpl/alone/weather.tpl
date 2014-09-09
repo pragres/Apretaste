@@ -11,16 +11,16 @@
 
 {$h1}{$title}{$_h1}
 {$p}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA satelite">Imagen del sat&eacute;lite</a> {$splitter} 
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA nasa">Imagen de la NASA </a> {$splitter}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA caribe">El Caribe</a> {$splitter}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA satelite">Imagen del sat&eacute;lite</a> {$separatorLinks} 
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA nasa">Imagen de la NASA </a> {$separatorLinks}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA caribe">El Caribe</a> {$separatorLinks}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA radar">Radar</a> {$br}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA sector">Sector visible</a> {$splitter}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA infrarroja">Infrarroja</a> {$splitter}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA sector">Sector visible</a> {$separatorLinks}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA infrarroja">Infrarroja</a> {$separatorLinks}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA vapor">Vapor de Agua</a> {$br}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA temperatura">Temperatura del mar</a> {$splitter}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA superficie">Superficie del Atl&aacute;ntico y el Caribe</a> {$splitter}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA atlantico">Estado del Atl&aacute;ntico</a> {$splitter}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA temperatura">Temperatura del mar</a> {$separatorLinks}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA superficie">Superficie del Atl&aacute;ntico y el Caribe</a> {$separatorLinks}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA atlantico">Estado del Atl&aacute;ntico</a> {$separatorLinks}
 {$_p}
 {$hr}
 ?$provincias
@@ -34,13 +34,13 @@
 				</td>
 				<td valign="top">
 					<h2>{$locality}, {$weather_now.weatherTime}</h2>
-					<strong>Temperatura:</strong> {$weather_now.weatherTemp} {$splitter}
-					<strong>Viento: </strong> {$weather_now.windSpeed} {$splitter}
-					<strong>Lluvias:</strong> {$weather_now.precipitation} {$splitter}
+					<strong>Temperatura:</strong> {$weather_now.weatherTemp} {$separatorLinks}
+					<strong>Viento: </strong> {$weather_now.windSpeed} {$separatorLinks}
+					<strong>Lluvias:</strong> {$weather_now.precipitation} {$separatorLinks}
 					<strong>Humedad:</strong> {$weather_now.humidity}<br/>
-					<strong>Visibilidad:</strong> {$weather_now.visibility} {$splitter}
-					<strong>Presi&oacute;n:</strong> {$weather_now.pressure} {$splitter}
-					<strong>Nubosidad:</strong> {$weather_now.cloudcover} {$splitter}<br/>
+					<strong>Visibilidad:</strong> {$weather_now.visibility} {$separatorLinks}
+					<strong>Presi&oacute;n:</strong> {$weather_now.pressure} {$separatorLinks}
+					<strong>Nubosidad:</strong> {$weather_now.cloudcover} {$separatorLinks}<br/>
 					<hr/>
 					<b>Pron&oacute;stico:</b>
 					<table>

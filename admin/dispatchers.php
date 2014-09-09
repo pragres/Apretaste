@@ -1,6 +1,20 @@
 <?php
+
+/**
+ * Apretaste!com Administration
+ *
+ * Dispatchers
+ */
 if (isset($_POST['btnAddDispatcher'])) {
-	ApretasteMoney::addDispatcher($_POST['edtEmail'], $_POST['edtName'], $_POST['edtContact']);
+	$r = ApretasteMoney::addDispatcher($_POST['edtEmail'], $_POST['edtName'], $_POST['edtContact']);
+	
+	if ($r == false) {
+		$data['msg'] = 'The dispatcher <b>' . $_POST['edtEmail'] . '</b> already exists';
+		$data['msg-type'] = 'msg-error';
+	} else {
+		$data['msg'] = 'The dispatcher <b>' . $_POST['edtEmail'] . '</b> was inserted successfull';
+		$data['msg-type'] = 'msg-ok';
+	}
 }
 
 if (isset($_GET['delete'])) {
@@ -87,3 +101,4 @@ if (isset($_GET['sales'])) {
 }
 
 $data['dispatchers'] = ApretasteMoney::getDispatchers();
+

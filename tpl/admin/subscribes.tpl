@@ -1,9 +1,11 @@
-<!--{ vars }-->
 {= path: "index.php?path=admin&page=subscribes" =}
 {= title: Subscribes =}
+{= pagewidth: 1024 =}
 
-<!--{ page -->
-{{page				
+{% layout %}
+
+{{page			
+	{% ad_panel %}
 	?$subscribes
 		<table width="100%" class="tabla">
 			<tr><th>ID</th><th>User</th><th>Phrase</th><th>Post date</th><th></th></tr>
@@ -16,7 +18,8 @@
 			</tr>
 		[/$subscribes]
 		</table>
+	@else@
+	No subscribes yet!
 	$subscribes?
 page}}
 
-{% layout %}

@@ -51,7 +51,7 @@
                  @else@
                  <a href="mailto:{$reply_to}?subject=DENUNCIAR {$id}&body=Haga clic en Enviar para denunciar el anuncio" title="&iquest;Piensa que este anuncio no cumple funci&oacute;n alguna en el sitio?">Denunciar</a>
                  {/?}
-                 {$splitter} <a href="mailto:{$reply_to}?subject=COMENTAR {$id}">Comentar</a>
+                 {$separatorLinks} <a href="mailto:{$reply_to}?subject=COMENTAR {$id}">Comentar</a>
                  </span>
                             
                         </td>

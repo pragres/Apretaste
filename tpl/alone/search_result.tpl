@@ -35,17 +35,17 @@
 			$body?
 			</td></tr><tr><td colspan="2">
 			<span style="font-size: small; float: left; margin-top: 10px;">
-			?$tax  <a href="mailto:{$reply_to}?subject=BUSCAR {$tax}">{$tax}</a> {$splitter} $tax?
-				?$price <span style="{$style-price}">{$price}&nbsp;{$currency}</span> {$splitter} $price? 
-				?$phones Tel&eacute;fono: <b>{$phones.0}</b> {$splitter} $phones?
-				?$emails <a href ="mailto:{$emails.0}">{$emails.0}</a> {$splitter} $emails?
-				?$hits {$hits} {?( {$hits} > 1)?} veces @else@ vez {/?} visto {$splitter} $hits?
-				{$post_date:10} {$splitter}
+			?$tax  <a href="mailto:{$reply_to}?subject=BUSCAR {$tax}">{$tax}</a> {$separatorLinks} $tax?
+				?$price <span style="{$style-price}">{$price}&nbsp;{$currency}</span> {$separatorLinks} $price? 
+				?$phones Tel&eacute;fono: <b>{$phones.0}</b> {$separatorLinks} $phones?
+				?$emails <a href ="mailto:{$emails.0}">{$emails.0}</a> {$separatorLinks} $emails?
+				?$hits {$hits} {?( {$hits} > 1)?} veces @else@ vez {/?} visto {$separatorLinks} $hits?
+				{$post_date:10} {$separatorLinks}
 				<span style="font-size: small;font-size: small; margin-top: 10px;"> 
 				<a href="mailto:{$reply_to}?subject=DENUNCIAR {$id}&body=Haga clic en Enviar para denunciar el anuncio." title="¿Piensa que este anuncio no cumple funci&oacute;n alguna en el sitio?">Denunciar</a>
-				{$splitter}
+				{$separatorLinks}
 				{?( "{$from}" === "{$author}")?}
-					<a href="mailto:{$reply_to}?subject=QUITAR {$id}">Quitar el anuncio</a> {$splitter}
+					<a href="mailto:{$reply_to}?subject=QUITAR {$id}">Quitar el anuncio</a> {$separatorLinks}
 				{/?}
 				<a href="mailto:{$reply_to}?subject=COMPARTIR ANUNCIO {$id}">Compartir</a>
 				</span>

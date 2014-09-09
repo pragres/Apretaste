@@ -281,12 +281,9 @@ class ApretasteAnswerEmail {
 			
 			$this->message->setHTMLBody($html_body->__src);
 			
-		/*	$data['images']['logo'] = array(
-					"type" => "image/jpg",
-					"content" => file_get_contents("../web/static/apretaste.png"),
-					"name" => "apretaste.logo.jpg",
-					"id" => "logo"
-			);*/
+			/*
+			 * $data['images']['logo'] = array( "type" => "image/jpg", "content" => file_get_contents("../web/static/apretaste.png"), "name" => "apretaste.logo.jpg", "id" => "logo" );
+			 */
 			
 			if ($data) {
 				if (isset($data['images']))

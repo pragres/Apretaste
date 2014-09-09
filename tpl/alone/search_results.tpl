@@ -4,7 +4,6 @@
 	{= *AnswerSubject:  Resultado de buscar: {$query} =}
 $alerta?
  
-{= splitter: " | " =}
 <!--{  Preparing the data }-->
 
 ?$showminimal 
@@ -77,7 +76,7 @@ $search_results?
                     <br/>                      
                         [$related_phrases]
                         <a title = "Clic para buscar con esta frase" href="mailto:{$reply_to}?subject=BUSCAR {$phrase}&body=Haga clic en Enviar para buscar">{$phrase}</a>
-                        !$_is_last {$splitter} $_is_last!
+                        !$_is_last {$separatorLinks} $_is_last!
                         [/$related_phrases]
                     $related_phrases?
                     <br/><br/>
@@ -95,7 +94,7 @@ $search_results?
 	
                                     [$dwords]
                                             <a href="{$url_search} {$value}">{$value}</a> 
-                                            !$_is_last {$splitter} $_is_last!
+                                            !$_is_last {$separatorLinks} $_is_last!
                                     [/$dwords]
                                     
                             $dwords?
@@ -108,7 +107,7 @@ $search_results?
                         <br/>
                         [$recommended_phrases]
                             <a style="{$font};" title = "Clic para buscar con esta frase" href="mailto:{$reply_to}?subject=BUSCAR {$value}&body=Haga clic en Enviar para buscar">{$value}</a>
-                            !$_is_last {$splitter} $_is_last!
+                            !$_is_last {$separatorLinks} $_is_last!
                         [/$recommended_phrases]
    
                  $recommended_phrases?

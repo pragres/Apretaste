@@ -3455,6 +3455,9 @@ class Apretaste {
 		
 		// Delete subscribes
 		self::query("DELETE FROM subscribe WHERE email = '$email';");
+		
+		ApretasteMarketing::delSubscriber($email);
+		
 	}
 	static function startSimulator(){
 		self::$simulator = true;

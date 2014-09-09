@@ -133,8 +133,8 @@
 								<!--{
 									<img width="200" src="cid:logo" alt="Apretaste!" /> 
 								}-->
-								<font size="6" face="Tahoma" color="#5ebb47"><i>A</i>pretaste</font>
-								<font size="8" face="Curlz MT" color="#A03E3B">!</font>
+								<font size="10" face="Tahoma" color="#5ebb47"><i>A</i>pretaste</font>
+								<font size="12" face="Curlz MT" color="#A03E3B">!</font>
 								</td>
 								
 								?$command

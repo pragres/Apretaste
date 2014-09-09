@@ -3145,6 +3145,12 @@ class div {
 			$ini = $ranges[0][0];
 			$fin = $ranges[0][1];
 			
+			$r = $this->checkLogicalOrder($ini, "", false, false, false, true);
+			if ($r !== false) {
+				$pos = $ini + 1;
+				continue;
+			}
+			
 			$path = trim(substr($this->__src, $ini + $l1, $fin - $ini - $l1));
 			
 			// New feature in 4.5: specific data for preprocessed template
@@ -3661,6 +3667,23 @@ class div {
 				$exp = "";
 			
 			$var = trim($var);
+			
+			$setup_design = true;
+			
+			// Check for append of array items
+			$ni = strpos($var, '[]');
+			if ($ni !== false) {
+				
+				$tempvalue = self::getVarValue(trim(substr($var, 0, $ni)), $items);
+				
+				if (is_array($tempvalue)) {
+					if (! isset(self::$__globals_design[$var]))
+						$setup_design = false;
+					$var = str_replace('[]', '[' . count($tempvalue) . ']', $var);
+				}
+			}
+			
+			// Normalize varname syntax (to dots)
 			$var = str_replace(array(
 					"[",
 					"]"
@@ -3670,6 +3693,22 @@ class div {
 			), $var);
 			
 			$var = str_replace("->", ".", $var);
+			
+			if ($setup_design) {
+				// Search if var is design var or not
+				$ni = - 1;
+				do {
+					$ni = strpos($var, '.', $ni + 1);
+					
+					if ($ni !== false) {
+						$nv = trim(substr($var, 0, $ni));
+						if (! isset(self::$__globals_design[$nv]) && self::issetVar($nv, $items)) {
+							$setup_design = false;
+							break;
+						}
+					}
+				} while ( $ni !== false );
+			}
 			
 			// Protect the variable
 			if (substr($var, 0, 1) == DIV_TAG_TPLVAR_PROTECTOR) {
@@ -3694,7 +3733,6 @@ class div {
 			$setup = false;
 			
 			// Check protection
-			
 			if ((! isset(self::$__globals_design[$var]) || (isset(self::$__globals_design[$var]) && ! isset(self::$__globals_design_protected[$var])))) {
 				
 				$exp = trim($exp);
@@ -3780,7 +3818,8 @@ class div {
 			}
 			if ($setup == true) {
 				self::setVarValue($var, $value, $items);
-				self::setVarValue($var, $value, self::$__globals_design);
+				if ($setup_design)
+					self::setVarValue($var, $value, self::$__globals_design);
 			}
 			
 			$this->__src = substr($this->__src, 0, $ini) . substr($this->__src, $fin + $l2);
@@ -5482,6 +5521,7 @@ class div {
 						// Data in templates
 					if (strpos($this->__src, DIV_TAG_TPLVAR_BEGIN) !== false)
 						if (strpos($this->__src, DIV_TAG_TPLVAR_END) !== false) {
+							$items = array_merge($this->__memory, $items);
 							$this->parseData($items);
 							$this->memory($items);
 						}

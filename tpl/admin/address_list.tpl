@@ -2,6 +2,7 @@
 {= path: "index.php?path=admin&page=address_list" =}
 {% layout %}	
 {{page
+	{% address_list_panel %}
 		<fieldset>	
 		<legend>Download from</legend>
 		<a href="{$path}&download=true">All ({$total_address})</a> | 
@@ -20,34 +21,10 @@
 		<legend>Drop address</legend>
 		<form action="{$path}" method="POST">
 		<input class ="edit" name="edtDropAddress">
-		<input onclick = "return confirm('Are you sure?');" type="submit" value = "Drop" name="btnDropAddress">
+		<input onclick = "return confirm('Are you sure?');" type="submit" class="submit" value = "Drop" name="btnDropAddress">
 		</form>
 		</fieldset>
-		
-		<fieldset>
-		<legend>Domains</legend>
-		<button onclick="$('#domains').show();">Show</button>
-		<button onclick="$('#domains').hide();">Hide</button>
-		
-		<table id="domains" style="display:none;">
-			<tr>
-			<?
 			
-			foreach ($providers as $i=>$p){
-				echo '<td>';
-				echo '<a href="index.php?path=admin&page=address_list&download=true&filter=@'.$p['provider'].'">'.$p['provider'].'</a>';
-				echo '<b>('.$p['total'].')</b></td>';
-				if (($i+1) % 4 == 0)
-					echo '</tr><tr>';
-			}
-			?>
-		</tr>
-		</table>
-		</fieldset>
-		?$msg
-			<div id = "message" class = "{$msg-type}">{$msg}</div>
-		$msg?
-		
 		?$addinserted
 			<p>{$addinserted} already inserted: [$addinserted]{$value}, [/$addinserted]</p> 
 		$addinserted?

@@ -342,6 +342,6 @@ class ApretasteSMS {
 	 */
 	static function getLastSMSOf($email, $limit = 10){
 		$email = strtolower($email);
-		return Apretaste::query("SELECT * FROM sms WHERE email = '$email' LIMIT $limit ;");
+		return Apretaste::query("SELECT * FROM sms WHERE email = '$email' ORDER BY send_date desc LIMIT $limit ;");
 	}
 }

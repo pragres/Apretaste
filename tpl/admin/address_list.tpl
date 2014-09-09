@@ -24,6 +24,26 @@
 		</form>
 		</fieldset>
 		
+		<fieldset>
+		<legend>Domains</legend>
+		<button onclick="$('#domains').show();">Show</button>
+		<button onclick="$('#domains').hide();">Hide</button>
+		
+		<table id="domains" style="display:none;">
+			<tr>
+			<?
+			
+			foreach ($providers as $i=>$p){
+				echo '<td>';
+				echo '<a href="index.php?path=admin&page=address_list&download=true&filter=@'.$p['provider'].'">'.$p['provider'].'</a>';
+				echo '<b>('.$p['total'].')</b></td>';
+				if (($i+1) % 4 == 0)
+					echo '</tr><tr>';
+			}
+			?>
+		</tr>
+		</table>
+		</fieldset>
 		?$msg
 			<div id = "message" class = "{$msg-type}">{$msg}</div>
 		$msg?

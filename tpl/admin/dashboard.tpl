@@ -13,12 +13,12 @@
 
 {% layout %}		
 
-{{page	  		
+{{page
 		<!--{ BEGIN Hourly access }-->
 
 		<h2>Access by hour</h2>
 		<p style="color:gray;">Number of emails received and sent every hour (last {$lastdays} days)</p>
-		<table width="100%">
+		<table style="margin-left:10px;">
 			<tr>
 				<th></th>
 				<?

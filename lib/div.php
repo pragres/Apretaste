@@ -2701,8 +2701,8 @@ class div {
 						foreach ( $item as $kkk => $vvv )
 							if (isset($engine->__memory[$kkk]))
 								unset($engine->__memory[$kkk]);
-						
-						// Parse minihtml
+							
+							// Parse minihtml
 						$engine->parse(true, $xkey);
 						
 						// Rresore some vars
@@ -5156,11 +5156,11 @@ class div {
 			$ini = $r[0][0] + strlen($begin_prefix) + strlen($r[0][2]) + strlen($begin_suffix);
 			$length = $r[0][1] - $ini;
 			
-			$uid = uniqid();
+			$uid = '{' . uniqid() . '}';
 			$section = substr($src, $ini, $length);
 			$saved_sections[$uid] = $section;
 			
-			$src = substr($src, 0, $ini) . '{' . $uid . '}' . substr($src, $ini + $length);
+			$src = substr($src, 0, $ini) . $uid . substr($src, $ini + $length);
 			
 			$pos = $ini + 1;
 		}

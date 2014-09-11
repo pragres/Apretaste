@@ -115,7 +115,11 @@ class ApretasteAdmin {
 				if (! file_exists($tpl))
 					$tpl = 'auth';
 				
+				$t1 = microtime(true);
 				echo new ApretasteView($tpl, $data);
+				$t2 = microtime(true);
+				if ($user['user_role'] == 'admin')
+					echo '<p style="color:white;background:white;" align="center">Page rendered by Div in ' . number_format($t2 - $t1) . ' secs</p>';
 			} else
 				eval('self::page_' . $url . '();');
 		} elseif (isset($_GET['chart'])) {

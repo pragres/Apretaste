@@ -2702,30 +2702,12 @@ class div {
 							if (isset($engine->__memory[$kkk]))
 								unset($engine->__memory[$kkk]);
 						
-						$dri = self::$__dont_remember_it;
-						
-						self::$__dont_remember_it = array_merge(self::$__dont_remember_it, array(
-								"_key" => true,
-								"_order" => true,
-								"_item" => true,
-								"_previus" => true,
-								"_next" => true,
-								"_is_odd" => true,
-								"_is_even" => true,
-								"_is_first" => true,
-								"_is_last" => true,
-								"_index" => true,
-								"_index_random" => true,
-								"_list" => true
-						));
-						
 						// Parse minihtml
 						$engine->parse(true, $xkey);
 						
 						// Rresore some vars
 						$engine->__memory = $memory;
 						$engine->__items[$xkey] = $item;
-						self::$__dont_remember_it = $dri;
 						self::$__globals_design = array_merge($tempglobal, self::$__globals_design);
 						
 						$break = strpos($engine->__src, DIV_TAG_BREAK);
@@ -5148,6 +5130,62 @@ class div {
 	}
 	
 	/**
+	 * Extract sections or source that will be restored in the future
+	 *
+	 * @param string $begin_prefix
+	 * @param string $begin_suffix
+	 * @param string $end_prefix
+	 * @param string $end_suffix
+	 * @param string $src
+	 * @return array
+	 */
+	final public function saveSections($begin_prefix, $begin_suffix, $end_prefix, $end_suffix, $src = null){
+		if (is_null($src))
+			$src = $this->__src;
+		
+		$pos = 0;
+		
+		$saved_sections = array();
+		
+		while ( true ) {
+			$r = $this->getBlockRanges($src, $begin_prefix, $begin_suffix, $end_prefix, $end_suffix, $pos, null, true);
+			
+			if (count($r) < 1)
+				break;
+			
+			$ini = $r[0][0] + strlen($begin_prefix) + strlen($r[0][2]) + strlen($begin_suffix);
+			$length = $r[0][1] - $ini;
+			
+			$uid = uniqid();
+			$section = substr($src, $ini, $length);
+			$saved_sections[$uid] = $section;
+			
+			$src = substr($src, 0, $ini) . '{' . $uid . '}' . substr($src, $ini + $length);
+			
+			$pos = $ini + 1;
+		}
+		
+		return array(
+				'src' => $src,
+				'sections' => $saved_sections
+		);
+	}
+	
+	/**
+	 * Restoring saved sections
+	 *
+	 * @param string $src
+	 * @param array $sections
+	 * @return string
+	 */
+	final public function restoreSavedSections($src, $sections){
+		foreach ( $sections as $uid => $section ) {
+			$src = str_replace($uid, $section, $src);
+		}
+		return $src;
+	}
+	
+	/**
 	 * Making that remembered
 	 *
 	 * @param integer $checksum
@@ -5157,6 +5195,20 @@ class div {
 			$this->logger("Making again some remembered tasks...");
 		
 		$simple = DIV_TAG_REPLACEMENT_PREFIX . DIV_TAG_MODIFIER_SIMPLE;
+		
+		// Save some sections (to ignore)
+		
+		$saved_sections = array();
+		
+		// ... saving loops
+		$r = $this->saveSections(DIV_TAG_LOOP_BEGIN_PREFIX, DIV_TAG_LOOP_BEGIN_SUFFIX, DIV_TAG_LOOP_END_PREFIX, DIV_TAG_LOOP_END_SUFFIX, $this->__src);
+		$this->__src = $r['src'];
+		$saved_sections = $r['sections'];
+		
+		// ... saving capsules
+		$r = $this->saveSections(DIV_TAG_CAPSULE_BEGIN_PREFIX, DIV_TAG_CAPSULE_BEGIN_SUFFIX, DIV_TAG_CAPSULE_END_PREFIX, DIV_TAG_CAPSULE_END_SUFFIX, $this->__src);
+		$this->__src = $r['src'];
+		$saved_sections = array_merge($saved_sections, $r['sections']);
 		
 		foreach ( self::$__remember[$checksum] as $params ) {
 			
@@ -5261,6 +5313,9 @@ class div {
 					break;
 			}
 		}
+		
+		// Restoring saved sections
+		$this->__src = $this->restoreSavedSections($this->__src, $saved_sections);
 	}
 	
 	/**

@@ -12,16 +12,18 @@
 	[/$phonebook]
 	</table>
 	
-	<table>
-				<tr>
-					<td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
-						<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
-						href="mailto:{$reply_to}?subject=AGENDA&body=Escriba%20el%20nombre%20a%20la%20izquierda%20del%20igual(=)%20y%20el%20telefono%20a%20la%20derecha%0ANombre%20=%20Telefono">
-							<label style="margin: 5px;" title="Agregar un contacto a su agenda" >
-							Agregar contacto
-							</label>
-						</a>
-					</td>
-				</tr>
-			</table>
+	
 $phonebook?
+
+<table>
+	<tr>
+		<td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
+			<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
+			href="mailto:{$reply_to}?subject=AGENDA&body=Escriba%20el%20nombre%20a%20la%20izquierda%20del%20igual(=)%20y%20el%20telefono%20a%20la%20derecha%0ANombre%20=%20Telefono">
+				<label style="margin: 5px;" title="Agregar un contacto a su agenda" >
+				Agregar contacto
+				</label>
+			</a>
+		</td>
+	</tr>
+</table>

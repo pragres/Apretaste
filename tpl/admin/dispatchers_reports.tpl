@@ -1,6 +1,5 @@
 {= path: "index.php?path=admin&page=dispatchers_reports" =}
 {= title: "Dispatchers's reports" =}
-{= pagewidth: 700 =}
 {% layout %}
 
 {{page
@@ -18,6 +17,9 @@
 		total_recharges: "<b>{$sum:crosstable-total}</b>"
 	} =}
 	
+	<table width="100%"><tr><td valign="top" width="33%">
+	<img src="index.php?path=admin&chart=dispatchers_recharges_by_card_price">
+	</td><td valign="top">
 	{%% table: {
 		data: "crosstable",
 		wrappers: {
@@ -26,7 +28,7 @@
 		},
 		width: "100%"
 	} %%}
-	
+	</td></tr></table>
 	{$br}
 	{$h1}Recharges by day (this month){$_h1}
 
@@ -49,5 +51,13 @@
 		},
 		width: "100%"
 	} %%}
+	
+	{$br}
+	{$h1}Recharges by month (quantity){$_h1}
+	<img src="index.php?path=admin&chart=dispatchers_recharges_by_month"  width="100%" height="70%">
+	
+	{$br}
+	{$h1}Recharges by month (amount){$_h1}
+	<img src="index.php?path=admin&chart=dispatchers_recharges_by_month_amount" width="100%" height="70%">
 	
 page}}

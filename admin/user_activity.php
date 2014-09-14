@@ -36,7 +36,9 @@ if (isset($_GET['user'])) {
 	$user['subscribes'] = Apretaste::getSubscribesOf($_GET['user']);
 	
 	// answers
-	$user['answers'] = Apretaste::query("SELECT extract_email(sender) as xsender,* FROM answer WHERE extract_email(receiver) = '{$_GET['user']}' order by send_date desc limit 20;");
+	$user['answers'] = Apretaste::query("SELECT extract_email(sender) as xsender,* FROM answer WHERE extract_email(receiver) = '{$_GET['user']}' and (message is null or message = '') order by send_date desc limit 20;");
+	
+	$data['author'] = Apretaste::getAuthor($_GET['user'],true,100);
 }
 
 $data['client'] = $user;

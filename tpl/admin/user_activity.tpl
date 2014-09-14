@@ -38,7 +38,7 @@
 		?$skin {$p}Piel: <b>{$skin}</b> {$_p} $skin?
 		?$eyes {$p}Ojos: <b>{$eyes}</b> {$_p} $eyes?
 		?$interest {$p}Intereses: <b>{$interest}</b> {$_p} $interest?
-		?$friends <fieldset><legend>Friends</legend>
+		?$friends <fieldset style="max-height: 200px;overflow:auto;"><legend>Friends</legend>
 		[$friends]{$xname} (<a href="index.php?path=admin&page=user_activity&user={$xemail}">{$xemail}</a>)<br/>[/$friends]
 		</fieldset>
 		$friends?

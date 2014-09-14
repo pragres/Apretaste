@@ -285,6 +285,6 @@ $data['sources_of_traffic'] = ApretasteAnalitics::getBestUsers(true);
 $data['popular_phrases'] = ApretasteAnalitics::getPopularPhrases(20, null, null, true);
 
 // Total users
-$r = Apretaste::query("SELECT count(*) as total from (SELECT extract_email(author) as xauthor FROM message GROUP by xauthor) as subq;");
+$r = Apretaste::query("SELECT count(*) as total from messages_authors;");
 
 $data['total_users'] = $r[0]['total'];

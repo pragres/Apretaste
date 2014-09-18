@@ -3145,14 +3145,14 @@ class div {
 					
 					if (self::fileExists($pdata . "." . DIV_DEFAULT_DATA_FILE_EXT)) {
 						$pdata = file_get_contents($pdata . "." . DIV_DEFAULT_DATA_FILE_EXT);
-						$pdata = self::jsonDecode($pdata);
+						$pdata = self::jsonDecode($pdata, $items);
 					} elseif (self::fileExists($pdata)) {
 						$pdata = file_get_contents($pdata);
-						$pdata = self::jsonDecode($pdata);
+						$pdata = self::jsonDecode($pdata, $items);
 					} elseif (self::varExists($pdata, $items))
 						$pdata = self::getVarValue($pdata, $items);
 					else
-						$pdata = self::jsonDecode($pdata);
+						$pdata = self::jsonDecode($pdata, $items);
 					
 					if (is_object($pdata))
 						$pdata = get_object_vars($pdata);
@@ -3204,6 +3204,7 @@ class div {
 				self::$__includes_historial[] = $path;
 				
 				$originals = self::$__globals_design;
+				self::$__globals_design = array_merge(self::$__globals_design, $items);
 				$engine->parse(false);
 				self::$__globals_design = $originals;
 				
@@ -3626,7 +3627,10 @@ class div {
 				$pos = $ini + 1;
 				continue;
 			}
-			if ($this->searchInRanges($this->getConditionalRanges(false), $ini)) {
+			
+			// Div 4.5: checking also orphan parts
+			// TODO: see "last chance" algorithm in ->parse(); and improve this solution (2 solutions was found)
+			if ($this->searchInRanges($this->getConditionalRanges(true), $ini)) {
 				$pos = $ini + 1;
 				continue;
 			}
@@ -5515,8 +5519,8 @@ class div {
 			$this->memory($items);
 			
 			$msg_infinite_cycle = 'Too many iterations of the parser: possible infinite cycle. Review your template code.';
+			
 			do {
-				
 				$cycles1 = 0;
 				$cycles2 ++;
 				
@@ -5673,6 +5677,13 @@ class div {
 					// Searching orphan parts (conditions)
 				if (strpos($this->__src, DIV_TAG_CONDITIONS_BEGIN_PREFIX) !== false)
 					$this->parseConditions($items, true);
+					
+					// Div 4.5: One more time? Parsing orphans's parts while checksum not change.
+					// (do it because the orphan's parts stop the parser and the results are ugly)
+					// TODO: research best solution for this! (this is the second solution found)
+				if ($checksum == crc32($this->__src) && self::$__parse_level == 1) {
+					$this->parseOrphanParts();
+				}
 			} while ( $checksum != crc32($this->__src) );
 			
 			// Searching orphan parts (conditionals)

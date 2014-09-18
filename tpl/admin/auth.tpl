@@ -1,17 +1,44 @@
-{= title: Apretaste! Administration =}
+{= title: "" =}
+
 {% layout %}
-{{page
 	
-	<form action = "index.php?path=admin&page=auth" method = "post">
-	<p align="center">
-		?$error <span id = "message" class = "msg-error" style="float:right;">Access denied</span><br/><br/> $error?
-		User:
-		<input class="text" name="user"><br/><br/>
-		Pass:
-		<input class="text" name="pass" type="password"><br/>
-		<br/>
-		<input style="float:none;" class="submit" type="submit" name="login" value="Login">
-	</p>
-	</form>
+{{headerup
+	<div class="col-md-12">
+	<p align="center">{% ../alone/logohtml %}</p>
+	</div>
+headerup}}
+
+{{headerdown
+
+	?$div.get.error 
+		{= alert: 'Access denied' =}
+	@else@
+		{= alert: false =}
+	$div.get.error?
 	
-page}}
+	{%% form-block: {
+		id: "form-auth",
+		title: 'Authentication',
+		action: 'auth',
+		width: '300px',
+		fields: [
+			{
+				id: 'user',
+				label: 'User',
+				type: 'text',
+				placeholder: 'Enter user login'
+			},{
+				id: 'pass',
+				label: 'Password',
+				type: 'password',
+				placeholder: 'Enter password'
+			}
+		],
+		submit: {
+			name: 'login',
+			caption: 'Login'
+		},
+		alert: $alert
+	} %%}
+	
+headerdown}}

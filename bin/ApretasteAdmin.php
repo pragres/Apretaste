@@ -71,6 +71,25 @@ class ApretasteAdmin {
 			Apretaste::query($sql);
 		}
 	}
+	static function buildMenu(){
+		
+		$user = self::getUser();
+		
+		$chksum = md5(file_get_contents("../tpl/admin/menu.tpl") . $user['user_role']);
+		
+		if (! isset($_SESSION['menuchksum']))
+			$_SESSION['menuchksum'] = null;
+		
+		if (! isset($_SESSION['menu']) || $chksum != $_SESSION['menuchksum']) {
+			
+			$menu = new div('admin/menu.tpl', array(
+					"user" => $user
+			));
+			
+			$_SESSION['menu'] = "$menu";
+			$_SESSION['menuchksum'] = $chksum;
+		}
+	}
 	
 	/**
 	 * Run the app
@@ -79,7 +98,9 @@ class ApretasteAdmin {
 	 */
 	static function Run(){
 		Apretaste::connect();
+		
 		div::enableSystemVar("div.session");
+		
 		$login = self::verifyLogin();
 		
 		if (isset($_GET['page'])) {
@@ -116,7 +137,12 @@ class ApretasteAdmin {
 					$tpl = 'auth';
 				
 				$t1 = microtime(true);
+				
+				self::buildMenu();
+				$data['menu'] = $_SESSION['menu'];
+				
 				echo new ApretasteView($tpl, $data);
+				
 				$t2 = microtime(true);
 				if ($data['user']['user_role'] == 'admin')
 					echo '<p style="color:white;background:white;" align="center">Page rendered by Div in ' . number_format($t2 - $t1) . ' secs</p>';
@@ -138,7 +164,8 @@ class ApretasteAdmin {
 			} else
 				echo new div("../tpl/admin/auth", array(
 						"error" => ! self::$login_result,
-						"user" => self::getUser()
+						"user" => self::getUser(),
+						"menu" => false
 				));
 		}
 	}

@@ -36,6 +36,9 @@ foreach ( $r as $row ) {
 	$engagement[$row['year']][$row['month']] = intval($row['engagement_percent'])."%";
 }
 
+
+
+
 $dcurrent = $engagement[$current_year];
 $dlast = $engagement[$current_year - 1];
 

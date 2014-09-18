@@ -146,18 +146,18 @@ class ApretasteMoney {
 	 *
 	 * @return array
 	 */
-	static function getDispatcher($email){
+	static function getDispatcher($email, $pic_width = 20){
 		$r = Apretaste::query("SELECT *, (select count(*) from recharge_card_sale WHERE dispatcher = email) as sales FROM dispatcher WHERE email = '$email';");
 		
 		if (! is_array($r))
 			return false;
 		
-		$r[0] = array_merge(Apretaste::getAuthor($r[0]['email'], false, 20), $r[0]);
+		$r[0] = array_merge(Apretaste::getAuthor($r[0]['email'], false, $pic_width), $r[0]);
 		
 		return $r[0];
 	}
 	static function getRechargeCardSalesOf($email){
-		$r = Apretaste::query("SELECT *, (select count(*) from recharge_card WHERE sale = id) as cards FROM recharge_card_sale WHERE dispatcher = '$email';");
+		$r = Apretaste::query("SELECT sale_date, *, (select count(*) from recharge_card WHERE sale = id) as cards FROM recharge_card_sale WHERE dispatcher = '$email';");
 		if (! is_array($r))
 			$r = array();
 		return $r;

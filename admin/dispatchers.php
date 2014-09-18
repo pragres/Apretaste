@@ -95,10 +95,24 @@ if (isset($_GET['sales'])) {
 	}
 	
 	$data['sales'] = ApretasteMoney::getRechargeCardSalesOf($_GET['sales']);
+	$data['dispatcher'] = ApretasteMoney::getDispatcher($_GET['sales'],100);
 	
-	echo new ApretasteView("../tpl/admin/recharge_card_sales.tpl", $data);
+	echo new ApretasteView("../tpl/admin/dispatchers_card_sales.tpl", $data);
 	exit();
 }
 
-$data['dispatchers'] = ApretasteMoney::getDispatchers();
+$data['dispatchers'] = array();
+
+$r = ApretasteMoney::getDispatchers();
+
+foreach ($r as $row){
+	$data['dispatchers'][] = array(
+		"picture" => $row['picture'],
+		"email" => $row['email'],
+		"name" => $row['name'],
+		"contact" => $row['contact'],
+		"cards" => $row['sales'],
+		"options" => $row['email']			
+	);
+}
 

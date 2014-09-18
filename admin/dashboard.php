@@ -44,15 +44,16 @@ $data['messages_by_day'] = 0;
 $data['messages_by_week'] = 0;
 $data['messages_by_hour'] = 0;
 $data['messages_by_minute'] = 0;
-
+/*
 if ($data['days_online'] > 0) {
 	$data['messages_by_day'] = number_format($data['total_messages'] / $data['days_online'], 2);
 	$data['messages_by_week'] = number_format($data['messages_by_day'] * 7, 2);
 	$data['messages_by_hour'] = number_format($data['messages_by_day'] / 24, 2);
 	$data['messages_by_minute'] = number_format($data['messages_by_hour'] / 60, 2);
 }
-
+*/
 // New users
+/*
 $newusers = array();
 
 for($year = $current_year - 1; $year <= $current_year; $year ++) {
@@ -63,7 +64,7 @@ for($year = $current_year - 1; $year <= $current_year; $year ++) {
 }
 
 $data['newusers'] = $newusers;
-
+*/
 // Access by month
 $access_by_month = array();
 
@@ -194,13 +195,14 @@ $data['ans'] = $ah;
 $data['lastdays'] = $lastdays;
 
 // Best users
-$data['best_users'] = array();
+/*$data['best_users'] = array();
 
 $r = ApretasteAnalitics::getBestUsers();
 
 $data['best_users'] = $r;
-
+*/
 // Last message
+/*
 $r = Apretaste::query("SELECT * FROM message WHERE moment = (SELECT max(moment) FROM message);");
 $r = $r[0];
 
@@ -210,8 +212,9 @@ $r['author'] = htmlentities($r['author']);
 $r['author_email'] = Apretaste::extractEmailAddress($r['author']);
 
 $data['last_msg'] = $r;
-
+*/
 // Last messages
+/*
 $r = Apretaste::query("SELECT * FROM message order by moment desc limit 20;");
 if (is_array($r))
 	foreach ( $r as $k => $v ) {
@@ -220,8 +223,9 @@ if (is_array($r))
 		$r[$k]['author_email'] = Apretaste::extractEmailAddress($r[$k]['author']);
 	}
 $data['last_msgs'] = $r;
-
+*/
 // Linker
+/*
 $r = Apretaste::query("SELECT extract(month from send_date::date) as mes, count(*) as total FROM linker WHERE extract(year from send_date::date) = extract(year from current_date) group by mes;");
 
 $data['linker'] = array();
@@ -245,9 +249,9 @@ $r = Apretaste::query("SELECT w1 || ' ' || w2 || ' ' ||  w3 || ' ' || w4  as nan
 				order by popularity desc limit 20");
 
 $data['nanotitles'] = $r;
-
+*/
 // engagement and bounce
-
+/*
 $r = ApretasteAnalitics::getEngagementAndBounce();
 
 $engagement = array();
@@ -271,20 +275,64 @@ if (is_array($r))
 	}
 
 $data['engagement'] = $engagement;
+*/
 $data['current_year'] = $current_year;
 $data['current_month'] = $current_month;
 
 // Sources of traffic
-$data['sources_of_traffic'] = ApretasteAnalitics::getBestUsers(true);
+//$data['sources_of_traffic'] = ApretasteAnalitics::getBestUsers(true);
 
 /*
  * $r = Apretaste::query("SELECT servidor,mes,cant FROM source_of_traffic WHERE ano = extract(year from current_date);"); foreach ( $r as $x ) { if (! isset($data['sources_of_traffic'][$x['servidor']])) { $data['sources_of_traffic'][$x['servidor']] = array(); for($i = 1; $i <= 12; $i ++) $data['sources_of_traffic'][$x['servidor']][$i] = 0; } $data['sources_of_traffic'][$x['servidor']][$x['mes']] = $x['cant']; }
  */
 
 // Popular phrases
-$data['popular_phrases'] = ApretasteAnalitics::getPopularPhrases(20, null, null, true);
+//$data['popular_phrases'] = ApretasteAnalitics::getPopularPhrases(20, null, null, true);
 
 // Total users
+/*
 $r = Apretaste::query("SELECT count(*) as total from messages_authors;");
 
 $data['total_users'] = $r[0]['total'];
+*/
+$months = array(
+		"Jan",
+		"Feb",
+		"Mar",
+		"Apr",
+		"May",
+		"Jun",
+		"Jul",
+		"Aug",
+		"Sep",
+		"Oct",
+		"Nov",
+		"Dec"
+);
+
+// engagement and bounce
+/*
+$r = ApretasteAnalitics::getEngagementAndBounce();
+
+$engagement = array();
+
+for($i = 1; $i <= 12; $i ++) {
+	$engagement[$i - 1] = array(
+			"y" => $months[$i - 1],
+			"a" => 0,
+			"b" => 0
+	);
+}
+
+foreach ( $r as $row ) {
+	$prop = "a";
+	if ($row['year'] == $current_year)
+		$prop = "b";
+	$engagement[$row['month'] - 1][$prop] = intval($row['engagement_percent']);
+}
+
+$data['engagement'] = $engagement;
+*/
+$data['current_year'] = $current_year;
+$data['current_month'] = $current_month;
+

@@ -12,19 +12,43 @@
 {= br: <font class="space_small" size="2" color="white"><div>&nbsp;</div></font> =}
 {= br2: <font class="space_medium" size="5" color="white"><div>&nbsp;</div></font> =}
 {= br3: <font class="space_big" size="7" color="white"><div>&nbsp;</div></font> =}
+{= months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] =}
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="es">
 	<head>
-		<title>Apretaste!com | {$title} </title>
+		<title>Apretaste! ?$title {$title} $title?</title>
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<link href="static/admin.css" rel="stylesheet"></link>
+		<!--{ <link href="static/admin.css" rel="stylesheet"></link> }-->
 		<script src="static/phpHotMap.js" type="text/javascript"></script>
 		<script src="static/jquery.min.js" type="text/javascript"></script>
 		<script src="static/jquery.cookie.js" type="text/javascript"></script>
+		<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+		<link href="static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"></link>
+		<link href="static/bootstrap/css/datepicker.css" rel="stylesheet"></link>
+		<link href="static/timeline.css" rel="stylesheet">
+		<link href="static/metisMenu/metisMenu.min.css" rel="stylesheet">
+		<link href="static/morris.css" rel="stylesheet">
+		<link href="static/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">	
+		<script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="static/bootstrap/js/bootstrap-modal.js"></script>
+		<script type="text/javascript" src="static/bootstrap/js/bootstrap-tooltip.js"></script>
+		<script type="text/javascript" src="static/bootstrap/js/bootstrap-popover.js"></script>
+		<script type="text/javascript" src="static/bootstrap/js/bootstrap-datepicker.js"></script>
+		<script type="text/javascript" src="static/metisMenu/metisMenu.min.js"></script>
+		<script type="text/javascript" src="static/flot/excanvas.min.js"></script>
+		<script type="text/javascript" src="static/flot/jquery.flot.js"></script>
+		<script type="text/javascript" src="static/flot/jquery.flot.pie.js"></script>
+		<script type="text/javascript" src="static/flot/jquery.flot.resize.js"></script>
+		<script type="text/javascript" src="static/flot/jquery.flot.tooltip.min.js"></script>
+		<script type="text/javascript" src="static/morris/raphael.min.js"></script>
+		<script type="text/javascript" src="static/morris/morris.min.js"></script>
 		<script type="text/javascript" src="static/php_json.js"></script>
 		<script type="text/javascript" src="static/php_string.js"></script>
 		<script type="text/javascript">
 			{ignore}
+			function isset(v) {
+				return typeof v !== 'undefined';
+			}
 			$(function(){
 				$(".number").keydown(function(e){
         			var value = e.value;
@@ -49,6 +73,11 @@
 		</script>
 		<style type="text/css">
 		{ignore}
+		.flot-chart-content {
+			width: 100%;
+			height: 100%;
+		}
+
 		@media only screen and (max-width: 600px) {
 			#container {
 				width: 100%;
@@ -73,26 +102,72 @@
 				display: block;
 			}
 		}
+		
+		body{
+			margin-top: 50px;
+		}
+		
 		{/ignore}
 		</style>
+		
+		(( head ))
 	</head>
-<body>
+<body onload="(( onload ))">
+		?$user
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation"> 
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button> 
+				<a class="navbar-brand" href="index.php?path=admin">Apretaste!</a> 
+			</div>
+			<div class="collapse navbar-collapse" id="example-navbar-collapse">
+			?$menu
+				{$menu}
+			@else@
+				{% menu %}
+			$menu?
+			</div>
+		</nav>
+		$user?
+		
 	<div class="top-bar">
-		<a href = "index.php?path=admin">Apretaste! - {$title}</a>
 		?$div.session.user 
 			?$user
 			[[user 
-			?$picture<img style= "float:right;" src="data:image/jpeg;base64,{$picture}" width="50"> 
+			?$picture
+			<img style= "z-index: 9999; position: fixed; right: 5px; top: 5px;" src="data:image/jpeg;base64,{$picture}" width="40"> 
 			 $picture? 
 			 user]]
 			$user?
-			<a style= "float:right; margin-top:-5x; margin-right: 10px;font-size:13px;" href="?path=admin&page=logout">Logout</a> 
-		<br/>
-		{% menu %}
 		$div.session.user?
 	</div>
-	<div id = "page" ?$pagewidth style="margin:0 auto;width:{$pagewidth}px;" $pagewidth?>
-		(( page ))
+	
+	<div class="container">
+		<div class="row">
+		(( headerup ))
+		</div>
+		<div class="row">
+			
+			<div class="col-md-12">
+			?$title <h1>{$title}</h1> $title?
+			</div>
+			
+		</div>
+		<div class="row">
+		(( headerdown ))
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+			(( blocks ))
+			</div>
+			<div class="col-md-9">
+			(( page ))
+			</div>
+		</div>
 	</div>
-</body>
+	</body>
 </html>

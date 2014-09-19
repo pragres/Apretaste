@@ -10,7 +10,6 @@ if (isset($_POST['btnUpdateConfig'])) {
 	$data['msg'] = "The configuration was been saved";
 }
 
-
 // Load data
 $data['chkEnableHistorial'] = Apretaste::getConfiguration("enable_history");
 $data['chkSmsFree'] = Apretaste::getConfiguration("sms_free");

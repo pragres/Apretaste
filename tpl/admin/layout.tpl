@@ -139,7 +139,7 @@
 			?$user
 			[[user 
 			?$picture
-			<img style= "z-index: 9999; position: fixed; right: 5px; top: 5px;" src="data:image/jpeg;base64,{$picture}" width="40"> 
+			<img style= "z-index: 9999; position: fixed; right: 5px; top: 5px;" src="data:image/jpeg;base64,{$picture}" height="40"> 
 			 $picture? 
 			 user]]
 			$user?

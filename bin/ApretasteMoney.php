@@ -162,6 +162,13 @@ class ApretasteMoney {
 			$r = array();
 		return $r;
 	}
+	
+	/**
+	 * Return a list of sale's cards
+	 * 
+	 * @param string $id
+	 * @return multitype:
+	 */
 	static function getSaleCards($id){
 		$r = Apretaste::query("SELECT * FROm recharge_card WHERE sale= '$id';");
 		if (! is_array($r))

@@ -1,13 +1,19 @@
 {= path: "index.php?path=admin&page=dispatchers_reports" =}
 {= title: "Dispatchers's reports" =}
 {% layout %}
-
+{{blocks
+<div class="panel panel-success" style="width: {$width}; margin: auto;">
+	<div class="panel-heading">
+		<h3 class="panel-title">Recharges by price</h3>
+	</div>
+	<div class="panel-body">
+	<img src="index.php?path=admin&chart=dispatchers_recharges_by_card_price" style="margin-left:-140px;margin-top: -70px;">
+	</div>
+</div>
+blocks}}
 {{page
 
-	{% dispatchers_panel %}
-	
-	{$br}
-	{$h1}Recharges by card price (this month){$_h1}
+	<h2>Recharges by card price (this month)</h2>
 		
 	{= crosstable[]: {
 		dispatchers: "<i>{$count:crosstable-dispatcher} dispatchers</i>",
@@ -17,20 +23,18 @@
 		total_recharges: "<b>{$sum:crosstable-total}</b>"
 	} =}
 	
-	<table width="100%"><tr><td valign="top" width="33%">
-	<img src="index.php?path=admin&chart=dispatchers_recharges_by_card_price">
-	</td><td valign="top">
+	
 	{%% table: {
-		data: "crosstable",
+		data: $crosstable,
 		wrappers: {
 			dispatcher: '<a href='index.php?path=admin&page=user_activity&user={$value}'>{$value}</a>',
 			'*': '<center>{$value}</center>'
 		},
 		width: "100%"
 	} %%}
-	</td></tr></table>
-	{$br}
-	{$h1}Recharges by day (this month){$_h1}
+	
+	<br/>
+	<h2>Recharges by day (this month)</h2>
 
 	{= recharges_by_day[]: {
 			summary: "<b>Total</b>",
@@ -41,7 +45,7 @@
 	
 	{%% table: {
 		id: 'recharges_by_day',
-		data: 'recharges_by_day',
+		data: $recharges_by_day,
 		wrappers: {
 			'*': '<center>{$value}</center>',
 			recharges: '<div style="height: 20px; background: green; color: white; padding: 2px; width: (# {$value} / {$max:recharges_by_day-recharges} * 100 #)px;">{$value}</div>',
@@ -53,11 +57,11 @@
 	} %%}
 	
 	{$br}
-	{$h1}Recharges by month (quantity){$_h1}
+	<h2>Recharges by month (quantity)</h2>
 	<img src="index.php?path=admin&chart=dispatchers_recharges_by_month"  width="100%" height="70%">
 	
 	{$br}
-	{$h1}Recharges by month (amount){$_h1}
+	<h2>Recharges by month (amount)</h2>
 	<img src="index.php?path=admin&chart=dispatchers_recharges_by_month_amount" width="100%" height="70%">
 	
 page}}

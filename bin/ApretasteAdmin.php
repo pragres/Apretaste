@@ -82,7 +82,7 @@ class ApretasteAdmin {
 		
 		if (! isset($_SESSION['menu']) || $chksum != $_SESSION['menuchksum']) {
 			
-			$menu = new div('admin/menu.tpl', array(
+			$menu = new div('../tpl/admin/menu.tpl', array(
 					"user" => $user
 			));
 			

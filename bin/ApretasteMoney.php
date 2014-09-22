@@ -29,11 +29,21 @@ class ApretasteMoney {
 	}
 	
 	/**
+	 * Fixing credit precision
+	 * TODO: research better solution
+	 */
+	static function fixCreditPrecision(){
+		q("update credit set credit = round(credit::numeric,2) where credit::numeric <> round(credit::numeric,2);");
+	}
+	
+	/**
 	 * Returns the total of credits a user has
 	 * @param unknown $email
 	 * @return boolean number
 	 */
 	static function getCreditOf($email){
+		self::fixCreditPrecision();
+		
 		$email = strtolower($email);
 		
 		$r = Apretaste::query("SELECT email, credit FROM credit WHERE email = '$email';");
@@ -169,7 +179,7 @@ class ApretasteMoney {
 	
 	/**
 	 * Return a list of sale's cards
-	 * 
+	 *
 	 * @param string $id
 	 * @return multitype:
 	 */

@@ -44,7 +44,9 @@
 			
 			if (isset($orders)) if ($orders==true) 
 				echo "<td>{$_order}</td>";
-				
+			
+			if (!is_array($row)) $row = get_object_vars($row);
+			
 			foreach($row as $field => $value){
 				if (!isset($hideColumns->$field)){
 					echo '<td>';

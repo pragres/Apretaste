@@ -5,15 +5,22 @@
 		submenu: {
 			dashboard: "Home",
 			sep1: "-",
-			dashboard_visitors: '<i class="fa fa-bar-chart-o fa-fw"></i> Visitors',
-			dashboard_unique_visitors: '<i class="fa fa-bar-chart-o fa-fw"></i> Unique visitors',
-			dashboard_new_users: '<i class="fa fa-bar-chart-o fa-fw"></i> New users',
-			dashboard_engagement: '<i class="fa fa-bar-chart-o fa-fw"></i> Engagement level',
-			dashboard_bouncerate: '<i class="fa fa-bar-chart-o fa-fw"></i> Bounce rate',
+			dashboard_visitors: 'Visitors',
+			dashboard_unique_visitors: 'Unique visitors',
+			dashboard_new_users: 'New users',
+			dashboard_engagement: 'Engagement level',
+			dashboard_bouncerate: 'Bounce rate',
 			dashboard_source_of_traffic: 'Source of traffic',
 			dashboard_service_usage: 'Service usage',
-			dashboard_vip: 'VIP users',
-			dashboard_ads: 'Classified service'
+			dashboard_vip: 'VIP users'			
+		}
+	},
+	service: {
+		caption: 'Services',
+		icon: 'globe',
+		submenu: {
+			dashboard_ads: 'Classified service',
+			sms: 'SMS' 
 		}
 	},
 	config: {
@@ -38,7 +45,6 @@
 			address_list: "Address list"
 		}
 	},	
-	sms: "SMS",
 	ad: "Ads",
 	raffles: "Raffles",
 	dispatchers: {

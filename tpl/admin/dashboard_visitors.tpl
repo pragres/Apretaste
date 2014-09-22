@@ -1,13 +1,14 @@
 {= title: "Visitors" =}
 {% layout %}
 
+<!--{ begin }-->
 {{onload 
 	showVisitors(); 
 onload}}
-
+<!--{ end }-->
 {{headerdown
-
-<div class="panel panel-default">
+<!--{ begin }-->
+<div class="panel panel-success">
 	<div class="panel-heading">
 		<i class="fa fa-bar-chart-o fa-fw"></i>Number of emails received
 	</div>
@@ -15,8 +16,9 @@ onload}}
 		<div id="visitors-chart"></div>
 	</div>
 </div>
+<!--{ end }-->
 headerdown}}
-
+<!--{ begin }-->
 <script type="text/javascript">
 {ignore}
 function showVisitors(){
@@ -35,3 +37,4 @@ function showVisitors(){
 }
 {/ignore}
 </script>
+<!--{ end }-->

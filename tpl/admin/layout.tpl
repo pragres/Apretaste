@@ -1,3 +1,4 @@
+{strip}
 {= space10: <div class="space_10">&nbsp;</div> =}
 {= space15: <div class="space_15" style="margin-bottom: 15px;">&nbsp;</div> =}
 {= space30: <div class="space_30" style="margin-bottom: 30px;">&nbsp;</div> =}
@@ -102,19 +103,15 @@
 				display: block;
 			}
 		}
-		
-		body{
-			margin-top: 50px;
-		}
-		
+				
 		{/ignore}
 		</style>
 		
 		(( head ))
 	</head>
-<body onload="(( onload ))">
+	<body onload="(( onload ))">
 		?$user
-		<nav class="navbar navbar-default navbar-fixed-top" role="navigation"> 
+		<nav class="navbar navbar-default" role="navigation"> 
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
 					<span class="sr-only">Toggle navigation</span>
@@ -125,11 +122,7 @@
 				<a class="navbar-brand" href="index.php?path=admin">Apretaste!</a> 
 			</div>
 			<div class="collapse navbar-collapse" id="example-navbar-collapse">
-			?$menu
 				{$menu}
-			@else@
-				{% menu %}
-			$menu?
 			</div>
 		</nav>
 		$user?
@@ -139,7 +132,7 @@
 			?$user
 			[[user 
 			?$picture
-			<img style= "z-index: 9999; position: fixed; right: 5px; top: 5px;" src="data:image/jpeg;base64,{$picture}" height="40"> 
+			<img style= "z-index: 9999; position: absolute; right: 5px; top: 5px;" src="data:image/jpeg;base64,{$picture}" height="40"> 
 			 $picture? 
 			 user]]
 			$user?
@@ -151,13 +144,19 @@
 		(( headerup ))
 		</div>
 		<div class="row">
-			
 			<div class="col-md-12">
 			?$title <h1>{$title}</h1> $title?
 			</div>
-			
 		</div>
 		<div class="row">
+			?$msg
+			<div class="col-md-12">
+				<div class="alert alert-{$msg-type} alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> 
+					{$msg}
+				</div>
+			</div>
+			$msg?
 		(( headerdown ))
 		</div>
 		<div class="row">
@@ -171,3 +170,4 @@
 	</div>
 	</body>
 </html>
+{/strip}

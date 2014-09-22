@@ -37,7 +37,7 @@ foreach ( $r as $row ) {
 	$engagement[$row['month'] - 1][$prop] = intval($row['bounce_rate']);
 }
 
-$data['engagement'] = $engagement;
+$data['bouncerate'] = $engagement;
 $data['current_year'] = $current_year;
 $data['current_month'] = $current_month;
 

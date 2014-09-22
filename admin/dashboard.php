@@ -1,4 +1,5 @@
 <?php
+
 $current_year = intval(date("Y"));
 $current_month = intval(date("m"));
 
@@ -336,3 +337,11 @@ $data['engagement'] = $engagement;
 $data['current_year'] = $current_year;
 $data['current_month'] = $current_month;
 
+include "../admin/dashboard_visitors.php";
+include "../admin/dashboard_unique_visitors.php";
+include "../admin/dashboard_new_users.php";
+include "../admin/dashboard_engagement.php";
+include "../admin/dashboard_bouncerate.php";
+include "../admin/dashboard_source_of_traffic.php";
+include "../admin/dashboard_vip.php";
+include "../admin/dashboard_service_usage.php";

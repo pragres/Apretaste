@@ -1,27 +1,28 @@
 {= title: "Engagement level" =}
 {% layout %}
-
+<!--{ begin }-->
 {{onload 
 	showEngagement(); 
 onload}}
-
+<!--{ end }-->
 {{headerdown
-
-<div class="panel panel-default">
+<!--{ begin }-->
+<div class="panel panel-success">
 	<div class="panel-heading">
 		<i class="fa fa-bar-chart-o fa-fw"></i> Number of emails repeated more than three times a month.
 	</div>
 	<div class="panel-body">
-		<div id="morris-bar-chart"></div>
+		<div id="engagement-chart"></div>
 	</div>
 </div>
+<!--{ end }-->
 headerdown}}
-
+<!--{ begin }-->
 <script type="text/javascript">
 {ignore}
 function showEngagement(){
 	 Morris.Bar({
-		element: 'morris-bar-chart',
+		element: 'engagement-chart',
 		data: {/ignore}{json:engagement}{ignore},
 		xkey: 'y',
 		ykeys: ['a', 'b'],
@@ -32,3 +33,4 @@ function showEngagement(){
 }
 {/ignore}
 </script>
+<!--{ end }-->

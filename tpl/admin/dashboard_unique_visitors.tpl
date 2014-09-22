@@ -1,13 +1,13 @@
 {= title: "Unique visitors" =}
 {% layout %}
-
+<!--{ begin }-->
 {{onload 
 	showUniqueVisitors(); 
 onload}}
-
+<!--{ end }-->
 {{headerdown
-
-<div class="panel panel-default">
+<!--{ begin }-->
+<div class="panel panel-success">
 	<div class="panel-heading">
 		<i class="fa fa-bar-chart-o fa-fw"></i>Number of unique emails received
 	</div>
@@ -15,8 +15,9 @@ onload}}
 		<div id="unique-visitors-chart"></div>
 	</div>
 </div>
+<!--{ end }-->
 headerdown}}
-
+<!--{ begin }-->
 <script type="text/javascript">
 {ignore}
 function showUniqueVisitors(){
@@ -35,3 +36,4 @@ function showUniqueVisitors(){
 }
 {/ignore}
 </script>
+<!--{ end }-->

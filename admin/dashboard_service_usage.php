@@ -19,10 +19,10 @@ $year = intval(date('Y'));
 $month = intval(date('m'));
 
 if ($r) {
-	$data['pie_data'] = array();
+	$data['service_usage_data'] = array();
 	
 	foreach ( $r as $s ) {
-		$data['pie_data'][] = array(
+		$data['service_usage_data'][] = array(
 				'label' => $s['command'] . " ({$s['cant']})",
 				'data' => $s['cant'] * 1
 		);

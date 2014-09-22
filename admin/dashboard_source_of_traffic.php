@@ -30,10 +30,10 @@ $servers[] = array(
 		'cant' => $total - $subtotal
 );
 
-$data['pie_data'] = array();
+$data['source_of_traffic_data'] = array();
 
 foreach ( $servers as $s ) {
-	$data['pie_data'][] = array(
+	$data['source_of_traffic_data'][] = array(
 			'label' => $s['servidor'] . "({$s['cant']})",
 			'data' => $s['cant'] * 1
 	);

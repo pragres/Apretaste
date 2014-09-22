@@ -47,16 +47,16 @@ if (! defined('DIV_MAX_FILENAME_SIZE'))
 	define('DIV_MAX_FILENAME_SIZE', 250);
 	
 	// PHP allowed functions for macros and formulas
-define('DIV_PHP_ALLOWED_FUNCTIONS', 'isset,empty,is_null,is_numeric,is_bool,is_integer,is_double,is_array,sizeof,is_finite,is_float,is_infinite,is_int,is_long,is_nan,is_real,is_scalar,is_string,mt_rand,mt_srand,mt_getrandmax,rand,urlencode,urldecode,uniqid,date,time,intval,htmlspecialchars,htmlspecialchars_decode,strtr,strpos,str_replace,str_ireplace,substr,sprintf,abs,acos,acosh,asin,atan2,atanh,base_convert,bindec,ceil,cos,cosh,decbin,dechex,decoct,deg2rad,exp,expm1,floor,fmod,getrandmax,hexdec,hypot,lcg_value,log10,log1p,log,max,min,octdec,pi,pow,rad2deg,rand,round,sin,sinh,sqrt,srand,tan,tanh,cal_days_in_month,cal_from_jd,cal_info,cal_to_jd,easter_date,easter_days,frenchtojd,gregoriantojd,jddayofweek,jdmonthname,jdtofrench,jdtogregorian,jdtojewish,jdtojulian,jdtounix,jewishtojd,jewishtojd,unixtojd,checkdate,date_default_timezone_get,strtotime,date_sunset,gmdate,gmmktime,gmstrftime,idate,microtime,mktime,strftime,strptime,strtotime,timezone_name_from_abbr,timezone_version_get,bcadd,bccomp,bcdiv,bcmod,bcmul,bcpow,bcpowmod,bcscale,bcsqrt,bcsub,addcslashes,addslashes,bin2hex,chop,chr,chunk_split,convert_cyr_string,convert_uudecode,convert_uuencode,count,count_chars,crc32,crypt,hebrev,hebrevc,hex2bin,html_entity_decode,htmlentities,htmlspecialchars_decode,htmlspecialchars,lcfirst,levenshtein,ltrim,md5,metaphone,money_format,nl_langinfo,nl2br,number_format,ord,quoted_printable_decode,quoted_printable_encode,quotemeta,rtrim,sha1,similar_text,soundex,sprintf,str_pad,str_repeat,str_rot13,str_shuffle,strcasecmp,strchr,strcmp,strcoll,strcspn,strip_tags,stripcslashes,stripos,stripslashes,stristr,strlen,strnatcasecmp,strnatcmp,strncasecmp,strncmp,strpbrk,strrchr,strrev,strripos,strrpos,strspn,strtolower,strtoupper,strtr,substr_compare,substr_count,substr_replace,trim,ucfirst,ucwords,wordwrap,floatval,strval,implode,explode');
+define('DIV_PHP_ALLOWED_FUNCTIONS', 'isset,empty,is_null,is_numeric,is_bool,is_integer,is_double,is_array,sizeof,is_finite,is_float,is_infinite,is_int,is_long,is_nan,is_real,is_scalar,is_string,mt_rand,mt_srand,mt_getrandmax,rand,urlencode,urldecode,uniqid,date,time,intval,htmlspecialchars,htmlspecialchars_decode,strtr,strpos,str_replace,str_ireplace,substr,sprintf,abs,acos,acosh,asin,atan2,atanh,base_convert,bindec,ceil,cos,cosh,decbin,dechex,decoct,deg2rad,exp,expm1,floor,fmod,getrandmax,hexdec,hypot,lcg_value,log10,log1p,log,max,min,octdec,pi,pow,rad2deg,rand,round,sin,sinh,sqrt,srand,tan,tanh,cal_days_in_month,cal_from_jd,cal_info,cal_to_jd,easter_date,easter_days,frenchtojd,gregoriantojd,jddayofweek,jdmonthname,jdtofrench,jdtogregorian,jdtojewish,jdtojulian,jdtounix,jewishtojd,jewishtojd,unixtojd,checkdate,date_default_timezone_get,strtotime,date_sunset,gmdate,gmmktime,gmstrftime,idate,microtime,mktime,strftime,strptime,strtotime,timezone_name_from_abbr,timezone_version_get,bcadd,bccomp,bcdiv,bcmod,bcmul,bcpow,bcpowmod,bcscale,bcsqrt,bcsub,addcslashes,addslashes,bin2hex,chop,chr,chunk_split,convert_cyr_string,convert_uudecode,convert_uuencode,count,count_chars,crc32,crypt,hebrev,hebrevc,hex2bin,html_entity_decode,htmlentities,htmlspecialchars_decode,htmlspecialchars,lcfirst,levenshtein,ltrim,md5,metaphone,money_format,nl_langinfo,nl2br,number_format,ord,quoted_printable_decode,quoted_printable_encode,quotemeta,rtrim,sha1,similar_text,soundex,sprintf,str_pad,str_repeat,str_rot13,str_shuffle,strcasecmp,strchr,strcmp,strcoll,strcspn,strip_tags,stripcslashes,stripos,stripslashes,stristr,strlen,strnatcasecmp,strnatcmp,strncasecmp,strncmp,strpbrk,strrchr,strrev,strripos,strrpos,strspn,strtolower,strtoupper,strtr,substr_compare,substr_count,substr_replace,trim,ucfirst,ucwords,wordwrap,floatval,strval,implode,explode,array_keys,get_object_vars,is_object');
 
 // Valid PHP tokens in expressions
 define('DIV_PHP_VALID_TOKENS_FOR_EXPRESSIONS', 'T_ARRAY,T_ARRAY_CAST,T_BOOLEAN_AND,T_BOOLEAN_OR,T_BOOL_CAST,T_CHARACTER,T_CONSTANT_ENCAPSED_STRING,T_DNUMBER,T_DOUBLE_CAST,T_EMPTY,T_INT_CAST,T_ISSET,T_IS_EQUAL,T_IS_GREATER_OR_EQUAL,T_SR,T_IS_IDENTICAL,T_IS_NOT_EQUAL,T_IS_NOT_IDENTICAL,T_IS_SMALLER_OR_EQUAL,T_LNUMBER,T_LOGICAL_AND,T_LOGICAL_OR,T_LOGICAL_XOR,T_SL,T_SL_EQUAL,T_SR_EQUAL,T_STRING_CAST,T_STRING_VARNAME,T_VARIABLE,T_WHITESPACE,T_CURLY_OPEN,T_INC,T_COMMENT,T_DOUBLE_ARROW,T_ENCAPSED_AND_WHITESPACE');
 
 // Valid PHP tokens in macros
-define('DIV_PHP_VALID_TOKENS_FOR_MACROS', 'T_AS,T_DO,T_DOUBLE_COLON,T_ECHO,T_ELSE,T_ELSEIF,T_FOR,T_FOREACH,T_IF,T_MOD_EQUAL,T_MUL_EQUAL,T_OBJECT_OPERATOR,T_NUM_STRING,T_OR_EQUAL,T_PAAMAYIM_NEKUDOTAYIM,T_PLUS_EQUAL,T_PRINT,T_START_HEREDOC,T_SWITCH,T_WHILE,T_ENDIF,T_ENDFOR,T_ENDFOREACH,T_ENDSWITCH,T_ENDWHILE,T_END_HEREDOC,T_PAAMAYIM_NEKUDOTAYIM');
+define('DIV_PHP_VALID_TOKENS_FOR_MACROS', 'T_AS,T_DO,T_DOUBLE_COLON,T_ECHO,T_ELSE,T_ELSEIF,T_FOR,T_FOREACH,T_IF,T_MOD_EQUAL,T_MUL_EQUAL,T_OBJECT_OPERATOR,T_NUM_STRING,T_OR_EQUAL,T_PAAMAYIM_NEKUDOTAYIM,T_PLUS_EQUAL,T_PRINT,T_START_HEREDOC,T_SWITCH,T_WHILE,T_ENDIF,T_ENDFOR,T_ENDFOREACH,T_ENDSWITCH,T_ENDWHILE,T_END_HEREDOC,T_PAAMAYIM_NEKUDOTAYIM,T_BREAK');
 
 // Allowed Div methods in macros and formulas
-define('DIV_PHP_ALLOWED_METHODS', 'getRanges,asThis,atLeastOneString,getLastKeyOfArray,getCountOfParagraphs,getCountOfSentences,getCountOfWords,htmlToText,isArrayOfArray,isArrayOfObjects,isCli,isNumericList,jsonDecode,jsonEncode,isString,mixedBool');
+define('DIV_PHP_ALLOWED_METHODS', 'getRanges,asThis,atLeastOneString,getLastKeyOfArray,getCountOfParagraphs,getCountOfSentences,getCountOfWords,htmlToText,isArrayOfArray,isArrayOfObjects,isCli,isNumericList,jsonDecode,jsonEncode,isString,mixedBool,div');
 
 // Other internal constatns
 define('DIV_ERROR_WARNING', 'WARNING');
@@ -689,6 +689,9 @@ class div {
 	
 	// packages by class
 	private static $__packages_by_class = array();
+	
+	// internal messages
+	private static $__internal_messages = array();
 	
 	/**
 	 * Constructor
@@ -2999,6 +3002,32 @@ class div {
 			}
 			
 			$path = trim(substr($this->__src, $ini + $l1, $fin - $ini - $l1));
+			
+			// New feature in 4.5: advanced params for includes
+			$pdata = null;
+			if (! self::fileExists($path)) {
+				$sep = strpos($path, DIV_TAG_PREPROCESSED_SEPARATOR);
+				
+				if ($sep !== false) {
+					$pdata = trim(substr($path, $sep + 1));
+					$path = substr($path, 0, $sep);
+					
+					if (self::fileExists($pdata . "." . DIV_DEFAULT_DATA_FILE_EXT)) {
+						$pdata = file_get_contents($pdata . "." . DIV_DEFAULT_DATA_FILE_EXT);
+						$pdata = self::jsonDecode($pdata, $items);
+					} elseif (self::fileExists($pdata)) {
+						$pdata = file_get_contents($pdata);
+						$pdata = self::jsonDecode($pdata, $items);
+					} elseif (self::varExists($pdata, $items))
+						$pdata = self::getVarValue($pdata, $items);
+					else
+						$pdata = self::jsonDecode($pdata, $items);
+					
+					if (is_object($pdata))
+						$pdata = get_object_vars($pdata);
+				}
+			}
+			
 			$path = $this->getTplPath($path);
 			
 			if (self::$__log_mode)
@@ -3012,6 +3041,82 @@ class div {
 						self::$__includes_historial[] = $path;
 						
 						$c = self::getFileContents($path);
+						
+						// advanced operations before include
+						if (! is_null($pdata)) {
+							
+							// extract part of template
+							if (isset($pdata['from'])) {
+								if (isset($pdata['to'])) {
+									$from = $pdata['from'];
+									$to = $pdata['to'];
+									
+									if (! is_numeric($from) && ! is_numeric($to))
+										if (! empty($from) && ! empty($to)) {
+											// string from/to (ranges)
+											
+											$extract = $this->getRanges($from, $to, $c);
+											
+											$newc = '';
+											$lfrom = strlen($from);
+											
+											$i = 0;
+											foreach ( $extract as $extr ) {
+												$i ++;
+												
+												if (isset($pdata['offset']))
+													if ($i < $pdata['offset'] * 1)
+														continue;
+												
+												$newc .= substr($c, $extr[0] + $lfrom, $extr[1] - $extr[0] - $lfrom);
+												
+												if (isset($pdata['limit']))
+													if ($i == $pdata['limit'] * 1)
+														break;
+											}
+											
+											$c = $newc;
+										} else {
+											// numeric/string from/to
+											if (! is_numeric($from))
+												if (! empty($from))
+													$from = strpos($c, $from);
+												else
+													$from = false;
+											if (! is_numeric($to))
+												if (! empty($to))
+													$to = strpos($c, $to);
+												else
+													$to = false;
+											
+											if ($from !== false && $to !== false && $from <= $to) {
+												$c = substr($c, $from, $from + ($to - $from) + 1);
+											}
+										}
+								} else {
+									// only from
+									$from = $pdata['from'];
+									
+									if (! is_numeric($from))
+										$from = strpos($c, $from);
+									
+									if ($from !== false) {
+										$c = substr($c, $from);
+									}
+								}
+							} else {
+								// only to
+								if (isset($pdata['to'])) {
+									if (! is_numeric($to))
+										$to = strpos($c, $to);
+									
+									if ($to !== false) {
+										$c = substr($c, 0, $to + 1);
+									}
+								}
+							}
+						}
+						
 						$tpl_prop = $this->getTemplateProperties($c);
 						$c = $this->prepareDialect($c, $tpl_prop);
 						
@@ -3205,7 +3310,9 @@ class div {
 				
 				$originals = self::$__globals_design;
 				self::$__globals_design = array_merge(self::$__globals_design, $items);
-				$engine->parse(false);
+				
+				$engine->__items = $items;
+				$engine->parse(false, null, self::$__parse_level + 1);
 				self::$__globals_design = $originals;
 				
 				$pre = $engine->__src;
@@ -3237,13 +3344,22 @@ class div {
 		
 		if (self::$__log_mode)
 			$this->logger("Parsing comments...");
+		
 		$lbegin = strlen(DIV_TAG_COMMENT_BEGIN);
+		
+		$pos = 0;
 		while ( true ) {
-			$ranges = $this->getRanges(DIV_TAG_COMMENT_BEGIN, DIV_TAG_COMMENT_END, null, true);
+			$ranges = $this->getRanges(DIV_TAG_COMMENT_BEGIN, DIV_TAG_COMMENT_END, null, true, $pos);
+			
 			if (count($ranges) < 1)
 				break;
-				
-				// Parse template's docs
+			
+			if (self::searchInRanges($this->getRanges(DIV_TAG_INCLUDE_BEGIN, DIV_TAG_INCLUDE_END), $ranges[0][0]) !== false) {
+				$pos = $ranges[0][1] + 1;
+				continue;
+			}
+			
+			// Parse template's docs
 			if (self::$__docs_on) {
 				$subsrc = substr($this->__src, $ranges[0][0] + $lbegin, $ranges[0][1] - $ranges[0][0] - $lbegin);
 				$arr = explode("\n", $subsrc);
@@ -5024,6 +5140,7 @@ class div {
 		
 		$l1 = strlen(DIV_TAG_MACRO_BEGIN);
 		$l2 = strlen(DIV_TAG_MACRO_END);
+		
 		while ( true ) {
 			
 			$classname = get_class($this);
@@ -5039,7 +5156,6 @@ class div {
 			$this->__temp['r'] = $this->checkLogicalOrder($this->__temp['ini'], "", true, ! $ignore_previous_match, true, false);
 			
 			if ($this->searchInListRanges($this->__temp['ini'])) {
-				
 				$this->__temp['p'] = $this->__temp['ini'] + 1;
 				continue;
 			}
@@ -5065,7 +5181,7 @@ class div {
 				
 				// Preparing methods
 				$this->__temp['validmethods'] = implode(',', self::$__allowed_methods);
-				$this->__temp['validmethods'] = str_replace(',', '(,' . $classname . '::', $classname . '::' . $this->__temp['validmethods']);
+				$this->__temp['validmethods'] = str_replace(',', '(,' . $classname . '::', $classname . '::' . $this->__temp['validmethods']).'(';
 				$this->__temp['methods'] = explode(',', str_replace($classname . '::', '', $this->__temp['validmethods']));
 				$this->__temp['methodsx'] = explode(',', $this->__temp['validmethods']);
 				$this->__temp['code'] = str_replace($this->__temp['methods'], $this->__temp['methodsx'], $this->__temp['code']);
@@ -5121,7 +5237,14 @@ class div {
 			ob_end_clean();
 			
 			if ($this->__temp['invalid_macro']) {
-				self::error("Invalid macro: \n\n" . $this->__temp['code']);
+				$this->__temp['msgs'] = self::getInternalMsg('php_validations');
+				$this->__temp['details'] = "<ul>\n";
+				foreach ( $this->__temp['msgs'] as $msg ) {
+					$this->__temp['details'] .= '<li>' . $msg['msg'] . "</li>\n";
+				}
+				$this->__temp['details'] .= '</ul>';
+				
+				self::error("Invalid macro: \n\n <br/> <pre width=\"80\">" . substr($this->__temp['code'], 0, 300) . '(...)</pre><br/>' . $this->__temp['details']);
 			}
 			
 			$this->__temp['p'] = $this->__temp['ini'] + 1;
@@ -5433,9 +5556,11 @@ class div {
 	 * Parse the template
 	 *
 	 * @param boolean $from_original
+	 * @param mixed $index_item
+	 * @param integer $min_level
 	 * @return string
 	 */
-	final public function parse($from_original = true, $index_item = null){
+	final public function parse($from_original = true, $index_item = null, $min_level = 1){
 		
 		// Generate internal and random ignore tag (security reasons)
 		if (is_null($this->__ignore_secret_tag))
@@ -5473,6 +5598,9 @@ class div {
 				$items = $this->__items[$index_item];
 			} else
 				$items = $this->__items;
+			
+			if (is_null($items))
+				$items = array();
 				
 				// Add global vars (self::$globals)
 			foreach ( self::$__globals as $var => $value )
@@ -5480,7 +5608,6 @@ class div {
 					$items[$var] = $value;
 			
 			$items = array_merge($items, self::$__globals_design);
-			
 			$items = array_merge($items, self::getSystemData());
 			
 			// Add properties
@@ -5516,6 +5643,7 @@ class div {
 				$this->parseFriendly();
 			
 			$cycles2 = 0;
+			
 			$this->memory($items);
 			
 			$msg_infinite_cycle = 'Too many iterations of the parser: possible infinite cycle. Review your template code.';
@@ -5681,7 +5809,7 @@ class div {
 					// Div 4.5: One more time? Parsing orphans's parts while checksum not change.
 					// (do it because the orphan's parts stop the parser and the results are ugly)
 					// TODO: research best solution for this! (this is the second solution found)
-				if ($checksum == crc32($this->__src) && self::$__parse_level == 1) {
+				if ($checksum == crc32($this->__src) && self::$__parse_level <= $min_level) {
 					$this->parseOrphanParts();
 				}
 			} while ( $checksum != crc32($this->__src) );
@@ -5713,7 +5841,7 @@ class div {
 			$this->clean();
 			
 			// The last action
-			if (self::$__parse_level == 1) {
+			if (self::$__parse_level <= $min_level) {
 				
 				// Parsing macros
 				for($i = 0; $i < 3; $i ++) { // 3 passes
@@ -5770,8 +5898,8 @@ class div {
 				}
 				$this->__memory = $items;
 				
-				self::$__ignored_parts = array();
-				self::$__globals_design = array();
+				// self::$__ignored_parts = array();
+				// self::$__globals_design = array();
 			}
 		}
 		
@@ -6540,7 +6668,7 @@ class div {
 					break;
 				
 				case 'preprocessed' :
-					$src = $this->translateSimpleBlocks($src, $DIV_TAG_PREPROCESSED_BEGIN, $DIV_TAG_PREPROCESSED_END, DIV_TAG_PREPROCESSED_BEGIN, DIV_TAG_PREPROCESSED_END);
+					$src = $this->translateSimpleBlocks($src, $DIV_TAG_PREPROCESSED_BEGIN, $DIV_TAG_PREPROCESSED_END, DIV_TAG_PREPROCESSED_BEGIN, DIV_TAG_PREPROCESSED_END, DIV_TAG_PREPROCESSED_SEPARATOR);
 					break;
 				
 				case 'capsules' :
@@ -6658,6 +6786,21 @@ class div {
 	}
 	
 	// -------------------------------- Functions ------------------------------------- //
+	/**
+	 * Parse a template
+	 *
+	 * @param string $src
+	 * @param string $items
+	 * @param array $ignore
+	 * @param number $min_level
+	 * @return string
+	 */
+	final static function div($src = null, $items = null, $ignore = array(), $min_level = 1){
+		$class = get_class();
+		$engine = new $class($src, $items, $ignore);
+		$engine->parse(false, null, $min_level);
+		return $engine->__src;
+	}
 	
 	/**
 	 * Enable documentation
@@ -7773,6 +7916,7 @@ class div {
 				DIV_TAG_INCLUDE_END,
 				DIV_TAG_PREPROCESSED_BEGIN,
 				DIV_TAG_PREPROCESSED_END,
+				DIV_TAG_PREPROCESSED_SEPARATOR,
 				DIV_TAG_CAPSULE_BEGIN_PREFIX,
 				DIV_TAG_CAPSULE_BEGIN_SUFFIX,
 				DIV_TAG_CAPSULE_END_PREFIX,
@@ -7881,6 +8025,7 @@ class div {
 				'DIV_TAG_INCLUDE_END',
 				'DIV_TAG_PREPROCESSED_BEGIN',
 				'DIV_TAG_PREPROCESSED_END',
+				'DIV_TAG_PREPROCESSED_SEPARATOR',
 				'DIV_TAG_CAPSULE_BEGIN_PREFIX',
 				'DIV_TAG_CAPSULE_END_SUFFIX',
 				'DIV_TAG_MULTI_REPLACEMENT_BEGIN_PREFIX',
@@ -7983,6 +8128,7 @@ class div {
 				DIV_TAG_INCLUDE_END,
 				DIV_TAG_PREPROCESSED_BEGIN,
 				DIV_TAG_PREPROCESSED_END,
+				DIV_TAG_PREPROCESSED_SEPARATOR,
 				DIV_TAG_CAPSULE_BEGIN_PREFIX,
 				DIV_TAG_CAPSULE_END_SUFFIX,
 				DIV_TAG_MULTI_REPLACEMENT_BEGIN_PREFIX,
@@ -8152,8 +8298,12 @@ class div {
 		
 		$object_operator = false;
 		foreach ( $t as $idx => $token ) {
-			if ($token == ';' && $multi_lines == false)
+			
+			if ($token == ';' && $multi_lines == false) {
+				self::internalMsg("Multi-lines not allowed", "php_validations");
 				return false;
+			}
+			
 			if (is_array($token)) {
 				$n = $token[0];
 				
@@ -8169,18 +8319,24 @@ class div {
 								'$_COOKIE',
 								'$_ENV',
 								'$_REQUEST'
-						)) !== false)
+						)) !== false) {
+							self::internalMsg("Access denied to {$token[1]}", "php_validations");
 							return false;
+						}
 						break;
 					
 					case 'T_OPEN_TAG' :
-						if ($idx > 0)
+						if ($idx > 0) {
+							self::internalMsg("Invalid token T_OPEN_TAG", "php_validations");
 							return false;
+						}
 						break;
 					
 					case 'T_CLOSE_TAG' :
-						if ($idx < $count - 1)
+						if ($idx < $count - 1) {
+							self::internalMsg("Invalid token T_CLOSE_TAG", "php_validations");
 							return false;
+						}
 						break;
 					
 					case 'T_STRING' :
@@ -8190,20 +8346,28 @@ class div {
 							if ($lw != 'true' && $lw != 'false' && $lw != 'null') {
 								if (is_callable($f)) {
 									if (! isset(self::$__allowed_php_functions[$f])) {
-										if (! isset(self::$__allowed_functions[$f]))
+										if (! isset(self::$__allowed_functions[$f])) {
+											self::internalMsg("Invalid function $f", "php_validations");
 											return false;
-										if (self::$__allowed_functions[$f] === false)
+										}
+										if (self::$__allowed_functions[$f] === false) {
+											self::internalMsg("Invalid function $f", "php_validations");
 											return false;
+										}
 									}
-								} else
+								} else {
+									self::internalMsg("$f is not callable", "php_validations");
 									return false;
+								}
 							}
 						}
 						break;
 					
 					default :
-						if (! isset($valid_tokens[$n]))
+						if (! isset($valid_tokens[$n])) {
+							self::internalMsg("Invalid token $n", "php_validations");
 							return false;
+						}
 				}
 			}
 		}
@@ -8243,6 +8407,36 @@ class div {
 	}
 	
 	/**
+	 * Save internal message
+	 *
+	 * @param string $msg
+	 * @param string $category
+	 * @return array
+	 */
+	static function internalMsg($msg, $category = 'global'){
+		$d = debug_backtrace();
+		$caller = $d[0]['function'];
+		
+		if (isset($d['class']))
+			$caller = $d['class'] . "::" . $caller;
+		
+		self::$__internal_messages[$category][] = array(
+				"msg" => $msg,
+				"date" => date("Y-m-d h:i:s"),
+				"caller" => $caller
+		);
+	}
+	
+	/**
+	 * Return a list of internal messages
+	 * @param string $category
+	 * @return array
+	 */
+	static function getInternalMsg($category){
+		return self::$__internal_messages[$category];
+	}
+	
+	/**
 	 * Show error and die
 	 *
 	 * @param string $errmsg
@@ -8260,11 +8454,9 @@ class div {
 		$func = 'warn';
 		if ($iscli)
 			$errmsg = self::htmlToText($errmsg, null);
-		else
-			$errmsg = htmlentities($errmsg, null, null, false);
 		
 		if ($iscli === false)
-			echo "<div style = \"z-index:9999; position: fixed; top: " . ((count(self::$__errors) - 1) * 50 + 10) . "px; right: 20px; min-width: 60%; font-family: verdana; border-radius: 5px; padding: 10px;";
+			echo "<div style = \"z-index:9999; position: absolute; top: " . ((count(self::$__errors) - 1) * 50 + 10) . "px; right: 20px; width: 600px;max-height: 600px; overflow:auto;; font-family: courier; padding: 10px;";
 		
 		switch ($level) {
 			case DIV_ERROR_WARNING :

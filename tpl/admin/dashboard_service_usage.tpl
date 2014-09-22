@@ -4,25 +4,20 @@
 {= div.literals: ['s'] =}	
 
 {% layout %}
-
+<!--{ begin }-->
 {{onload 
 	showMessagesByCommand(); 
 onload}}
 
 {{blocks
-<div class="panel panel-default">
+<div class="panel panel-success">
 	<div class="panel-heading">
-		<i class="fa fa-bar-chart-o fa-fw"></i> Messages/Command
+		<i class="fa fa-bar-chart-o fa-fw"></i> Usage
 		<div class="pull-right">
 			<div class="btn-group">
-				<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-					Actions
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu pull-right" role="menu">
-					<li><a href="#" onclick="showMessagesByCommand();">Refresh</a></li>
-					<li><a href="#" onclick="zoomMessagesByCommand();">Zoom</a></li>
-				</ul>
+				<button type="button" class="btn btn-default" onclick="zoomMessagesByCommand();"><span class="glyphicon glyphicon-zoom-in" title="Zoom"></span></button>
+				<button type="button" class="btn btn-default" onclick="showMessagesByCommand();"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+				(( service_usage_panel_actions ))
 			</div>
 		</div>
 	</div>
@@ -34,7 +29,7 @@ onload}}
 	</div>
 </div>
 blocks}}
-
+<!--{ end }-->
 {{page
 <div class="panel panel-default"> 
 	<div class="panel-heading">
@@ -70,7 +65,7 @@ blocks}}
 </div>
 </div>
 page}}
-
+<!--{ begin }-->
 <script type="text/javascript">
 {ignore}
 function showMessagesByCommand(id, labels, legend){
@@ -78,7 +73,7 @@ function showMessagesByCommand(id, labels, legend){
 	if (!isset(labels)) labels = true;
 	if (!isset(legend)) legend = false;
 	
-	var data = {/ignore}{json:pie_data}{ignore};
+	var data = {/ignore}{json:service_usage_data}{ignore};
     var plotObj = $.plot($("#"+id), data, {
 		legend: {
 			show: legend
@@ -132,6 +127,7 @@ function zoomMessagesByCommand(){
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
 				</div> 
 			</form>
-		</div><!-- /.modal-content --> 
-	</div><!-- /.modal -->
+		</div>
+	</div>
 </div>
+<!--{ end }-->

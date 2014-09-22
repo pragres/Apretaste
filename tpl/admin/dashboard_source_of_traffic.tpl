@@ -4,19 +4,20 @@
 {= div.literals: ['s'] =}	
 
 {% layout %}
-
+<!--{ begin }-->
 {{onload 
 	showSourcesOfTraffic(); 
 onload}}
 
 {{blocks
-<div class="panel panel-default">
+<div class="panel panel-success">
 	<div class="panel-heading">
 		<i class="fa fa-bar-chart-o fa-fw"></i> Sources
 		<div class="pull-right">
 			<div class="btn-group">
 				<button type="button" class="btn btn-default" onclick="zoomSourcesOfTraffic();"><span class="glyphicon glyphicon-zoom-in" title="Zoom"></span></button>
 				<button type="button" class="btn btn-default" onclick="showSourcesOfTraffic();"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
+				(( source_of_traffic_panel_actions ))
 			</div>
 		</div>
 	</div>
@@ -28,7 +29,7 @@ onload}}
 	</div>
 </div>
 blocks}}
-
+<!--{ end }-->
 {{page
 <div class="panel panel-default"> 
 	<div class="panel-heading">
@@ -54,7 +55,7 @@ blocks}}
 	</div>
 </div>
 page}}
-
+<!--{ begin }-->
 <script type="text/javascript">
 {ignore}
 function showSourcesOfTraffic(id, labels, legend){
@@ -62,7 +63,7 @@ function showSourcesOfTraffic(id, labels, legend){
 	if (!isset(labels)) labels = true;
 	if (!isset(legend)) legend = false;
 	
-	var data = {/ignore}{json:pie_data}{ignore};
+	var data = {/ignore}{json:source_of_traffic_data}{ignore};
     var plotObj = $.plot($("#" + id), data, {
 		legend: {
 			show: legend
@@ -102,7 +103,6 @@ function zoomSourcesOfTraffic(){
 <div class="modal fade" id="sources_of_traffic-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
 	<div class="modal-dialog" style="width:600px;"> 
 		<div class="modal-content"> 
-			<form role="form" action="index.php?path=admin&page=config_add_agency" method="post">
 				<div class="modal-header"> 
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button> 
 					<h4 class="modal-title" id="myModalLabel">Source of traffic</h4>
@@ -115,7 +115,7 @@ function zoomSourcesOfTraffic(){
 				<div class="modal-footer"> 
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
 				</div> 
-			</form>
-		</div><!-- /.modal-content --> 
-	</div><!-- /.modal -->
+		</div>
+	</div>
 </div>
+<!--{ end }-->

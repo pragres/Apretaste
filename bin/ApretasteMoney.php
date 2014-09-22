@@ -129,8 +129,12 @@ class ApretasteMoney {
 	 * @return array
 	 */
 	static function getDispatchers(){
-		$r = Apretaste::query("SELECT *, (select count(*) from recharge_card_sale WHERE dispatcher = email) as sales FROM dispatcher;");
-		
+		$r = Apretaste::query("SELECT *, 
+				(select count(*) from recharge_card_sale WHERE dispatcher = email) as sales,
+				coalesce((select total_sold from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as total_sold,
+				coalesce((select profit from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as profit,
+				coalesce((select owe from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as owe 
+				FROM dispatcher;");
 		if (! is_array($r))
 			$r = array();
 		

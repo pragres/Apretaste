@@ -139,6 +139,7 @@ class ApretasteAdmin {
 				$t1 = microtime(true);
 				
 				self::buildMenu();
+				
 				$data['menu'] = $_SESSION['menu'];
 				
 				echo new ApretasteView($tpl, $data);

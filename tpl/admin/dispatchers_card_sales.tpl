@@ -1,4 +1,4 @@
-{= title: Packages of cards of <i>{$dispatcher.email}</i> =}
+{= title: Card packs of <i>{$dispatcher.email}</i> =}
 {= path: "index.php?path=admin&page=dispatchers_card_sales&sales={$email}" =}
 
 {% layout %}

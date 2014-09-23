@@ -242,13 +242,16 @@ class ApretasteAnswerEmail {
 			
 			$plain_body->parse();
 			
-			if (isset($plain_body->$__globals_design_protected['AnswerSubject']))
-				$tpl_title = $plain_body->$__globals_design_protected['AnswerSubject'];
+			if (isset($plain_body->__items['AnswerSubject'])){
+				$tpl_title = $plain_body->__items['AnswerSubject'];
+			} else $tpl_title = "Respondiendo a su mensaje";
+			
 			/*else if (isset($data['subject']))
 				$tpl_title = $data['subject'];
 			else if (isset($data['title']))
 				$tpl_title = $data['title'];
 			*/
+			
 			$pbody = ApretasteView::htmlToText($plain_body->__src);
 			
 			while ( strpos($pbody, "\n\n") !== false )
@@ -270,13 +273,17 @@ class ApretasteAnswerEmail {
 			
 			$html_body->parse();
 			
+			if (isset($plain_body->__items['AnswerSubject'])){
+				$tpl_title = $plain_body->__items['AnswerSubject'];
+			} else $tpl_title = "Respondiendo a su mensaje";
+			/*
 			if (isset($html_body->__memory['AnswerSubject']))
 				$tpl_title = $html_body->__memory['AnswerSubject'];
 			else if (isset($data['subject']))
 				$tpl_title = $data['subject'];
 			else if (isset($data['title']))
 				$tpl_title = $data['title'];
-			
+			*/
 			echo "[INFO] Answer subject = " . $tpl_title . "\n";
 			
 			$this->message->setHTMLBody($html_body->__src);

@@ -5927,6 +5927,13 @@ class div {
 		self::$__parse_duration = $time_end - $time_start;
 		self::$__parse_level --;
 		
+		if (self::$__parse_level == 0){
+			$this->__items = array_merge($this->__items, self::$__globals_design);
+			$this->__items = array_merge($this->__items, self::$__globals_design_protected);
+			self::$__globals_design = array();
+			self::$__globals_design_protected = array();
+		}
+		
 		// Calling the afterParse hook
 		$this->afterParse();
 	}

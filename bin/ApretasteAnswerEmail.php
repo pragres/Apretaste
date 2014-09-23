@@ -242,13 +242,13 @@ class ApretasteAnswerEmail {
 			
 			$plain_body->parse();
 			
-			if (isset($plain_body->__memory['AnswerSubject']))
-				$tpl_title = $plain_body->__memory['AnswerSubject'];
-			else if (isset($data['subject']))
+			if (isset($plain_body->$__globals_design_protected['AnswerSubject']))
+				$tpl_title = $plain_body->$__globals_design_protected['AnswerSubject'];
+			/*else if (isset($data['subject']))
 				$tpl_title = $data['subject'];
 			else if (isset($data['title']))
 				$tpl_title = $data['title'];
-			
+			*/
 			$pbody = ApretasteView::htmlToText($plain_body->__src);
 			
 			while ( strpos($pbody, "\n\n") !== false )

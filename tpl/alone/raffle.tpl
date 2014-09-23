@@ -25,13 +25,13 @@ bombo y enviaremos un email con la lista de ganadores. Como en todas las rifas, 
 {$br}
 <center>
 	<table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
-	<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" href="mailto:anuncios@apretaste.com?subject=INVITAR escriba aqui las direcciones email de sus amigos">
+	<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" href="mailto:{$reply_to}?subject=INVITAR escriba aqui las direcciones email de sus amigos">
 	<label style="margin: 5px;">Invitar y Ganar Tickets!</label>
 	</a></td></tr></table>
 	{$br}
 	{$p}
 		Usted tiene hasta ahora un total de <b>{$total_tickets} tickets</b><br/>
-		Para contar los tickets que ha ganado puede <a href="mailto:anuncios@apretaste.com?subject=ESTADO">revisar su estado en Apretaste!</a>.
+		Para contar los tickets que ha ganado puede <a href="mailto:{$reply_to}?subject=ESTADO">revisar su estado en Apretaste!</a>.
 	{$_p}
 	<font size="15" color="green">&iexcl;Buena suerte!</font>
 </center>

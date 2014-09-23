@@ -11,7 +11,7 @@
 	<tr>
 		<td valign="top">
 			<h3 style="{$font}">&#191;Quiere probar Apretaste? Siga esto pasos para usar nuestro servicio de Compra/Venta</h3>
-			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a>{$_p}
+			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:{$reply_to}">{$reply_to}</a>{$_p}
 			{$p}2. En la secci&oacute;n "Asunto" escriba: <span style="color:green;">BUSCAR televisor LCD</span>{$_p}
 			{$p}3. Haga clic en "Enviar", no necesita llenar ning&uacute;n otro campo.{$_p}
 			{$br}
@@ -44,7 +44,7 @@
 	<tr>
 		<td valign="top">
 			<h3 style="{$font}">Traducci&oacute;n, para traducir documentos a una infinidad de idiomas</h3>
-			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a>{$_p}
+			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:{$reply_to}">{$reply_to}</a>{$_p}
 			{$p}2. En la secci&oacute;n "Asunto" escriba: <span style="color:green;">TRADUCIR </span> seguido del idimoma a traducir{$_p}
 			{$p}3. En el cuerpo del mensaje escriba el texto a traducir, Apretaste! entender&accute; el idioma en que est&aacute;, no necesita especificarlo.{$_p} 
 			{$p}4. Haga clic en "Enviar".{$_p}
@@ -76,7 +76,7 @@
 	<tr>
 		<td valign="top">
 			<h3 style="{$font}">Enciclopedia, para obtener informaci&oacute;n enciclop&eacute;dica</h3>
-			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a>{$_p}
+			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:{$reply_to}">{$reply_to}</a>{$_p}
 			{$p}2. En la secci&oacute;n "Asunto" escriba: <span style="color:green;">ARTICULO</span> seguido del nombre de una persona, lugar u obra famosa{$_p}
 			{$p}3. Haga clic en "Enviar", no necesita llenar ning&uacute;n otro campo.{$_p}
 			{$br}
@@ -106,7 +106,7 @@
 	<tr>
 		<td valign="top">
 			<h3 style="{$font}">Mapa, ver mapa de alg&uacute;n barrio o fotos de estructuras famosas</h3>
-			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a>{$_p}
+			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:{$reply_to}">{$reply_to}</a>{$_p}
 			{$p}2. En la secci&oacute;n "Asunto" escriba: <span style="color:green;">MAPA</span> seguido una direcci&oacute;n o nombre de estructura famosa{$_p}
 			{$p}3. Haga clic en "Enviar", no necesita llenar ning&uacute;n otro campo.{$_p}
 			{$br}
@@ -136,7 +136,7 @@
 	<tr>
 		<td valign="top">
 			<h3 style="{$font}">Clima, consultar el estado del tiempo</h3>
-			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a>{$_p}
+			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:{$reply_to}">{$reply_to}</a>{$_p}
 			{$p}2. En la secci&oacute;n "Asunto" escriba: <span style="color:green;">CLIMA</span>{$_p}
 			{$p}3. Haga clic en "Enviar", no necesita llenar ning&uacute;n otro campo.{$_p}
 			{$br}
@@ -166,7 +166,7 @@
 	<tr>
 		<td valign="top">
 			<h3 style="{$font}">SMS, mandar SMS nacional o internacional mediante su email a precio reducido</h3>
-			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a>{$_p}
+			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:{$reply_to}">{$reply_to}</a>{$_p}
 			{$p}2. En la secci&oacute;n "Asunto" escriba: <span style="color:green;">SMS</span> seguido del numero de tel&eacute;fono que recibir&accute; el SMS{$_p}
 			{$p}3. En el cuerpo del mensaje escriba el texto a enviar{$_p} 
 			{$p}4. Haga clic en "Enviar", no necesita llenar ning&uacute;n otro campo.{$_p}
@@ -219,7 +219,7 @@
 	<tr>
 		<td valign="top">
 			{$p}Invite a sus amigos y familia a conocer Apretaste.{$_p}
-			{$p}Env&iacute;e un email a <a style="color:green;" href="mailto:anuncios@apretaste.com">anuncios@apretaste.com</a> y en el asunto escriba la palabra <span style="color:green;">INVITAR</span> seguida de la direcci&oacute;n email de su amigo.{$_p}
+			{$p}Env&iacute;e un email a <a style="color:green;" href="mailto:{$reply_to}">{$reply_to}</a> y en el asunto escriba la palabra <span style="color:green;">INVITAR</span> seguida de la direcci&oacute;n email de su amigo.{$_p}
 			{$br}
 			{$br}
 			{$p}En menos de 3 minutos le mandaremos un email de confirmaci&oacute;n.{$_p}

@@ -122,7 +122,7 @@ Apretaste <i>permite revisar servicios en Internet mediante el email</i>. Usando
 			</p>
 
 			<p align="justify" style="text-align:justify;{$font}">
-			Envíe un email a anuncios@apretaste.com y en el asunto escriba INVITAR email@deSuAmigo.cu. En menos de 3 minutos le mandaremos un email de confirmación.
+			Envíe un email a {$reply_to} y en el asunto escriba INVITAR email@deSuAmigo.cu. En menos de 3 minutos le mandaremos un email de confirmación.
 			Recuerde reemplazar email@deSuAmigo.cu por el correo electrónico de la persona que quiera invitar.
 			</p>
 

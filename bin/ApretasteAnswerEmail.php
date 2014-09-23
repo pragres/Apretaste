@@ -273,9 +273,10 @@ class ApretasteAnswerEmail {
 			
 			$html_body->parse();
 			
-			if (isset($plain_body->__items['AnswerSubject'])){
-				$tpl_title = $plain_body->__items['AnswerSubject'];
+			if (isset($html_body->__items['AnswerSubject'])){
+				$tpl_title = $html_body->__items['AnswerSubject'];
 			} else $tpl_title = "Respondiendo a su mensaje";
+			
 			/*
 			if (isset($html_body->__memory['AnswerSubject']))
 				$tpl_title = $html_body->__memory['AnswerSubject'];
@@ -284,6 +285,7 @@ class ApretasteAnswerEmail {
 			else if (isset($data['title']))
 				$tpl_title = $data['title'];
 			*/
+			
 			echo "[INFO] Answer subject = " . $tpl_title . "\n";
 			
 			$this->message->setHTMLBody($html_body->__src);

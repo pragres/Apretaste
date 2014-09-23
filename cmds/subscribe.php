@@ -19,19 +19,20 @@ function cmd_subscribe($robot, $from, $argument, $body = '', $images = array()){
 	
 	$robot->log("Subscribe: $phrase from $from");
 	
-	if (! Apretaste::isSimulator())
+	if (! Apretaste::isSimulator()) {
 		$r = Apretaste::subscribe($from, $phrase);
-	
-	switch ($r) {
-		case APRETASTE_SUBSCRIBE_DUPLICATED :
-			return array(
-					'command' => 'subscribe',
-					'answer_type' => 'subscribe_repeat',
-					'phrase' => $phrase,
-					"compactmode" => true,
-					'title' => 'Ud. ya se encuentra subscrito(a) a la alerta "{$phrase}"'
-			);
-			break;
+		
+		switch ($r) {
+			case APRETASTE_SUBSCRIBE_DUPLICATED :
+				return array(
+						'command' => 'subscribe',
+						'answer_type' => 'subscribe_repeat',
+						'phrase' => $phrase,
+						"compactmode" => true,
+						'title' => 'Ud. ya se encuentra subscrito(a) a la alerta "{$phrase}"'
+				);
+				break;
+		}
 	}
 	
 	return array(

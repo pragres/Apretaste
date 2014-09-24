@@ -161,7 +161,12 @@ class ApretasteMoney {
 	 * @return array
 	 */
 	static function getDispatcher($email, $pic_width = 20){
-		$r = Apretaste::query("SELECT *, (select count(*) from recharge_card_sale WHERE dispatcher = email) as sales FROM dispatcher WHERE email = '$email';");
+		$r = Apretaste::query("SELECT *, (select count(*) from recharge_card_sale WHERE dispatcher = email) as sales,
+				coalesce((select total_sold from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as total_sold,
+				coalesce((select profit from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as profit,
+				coalesce((select owe from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as owe
+				FROM dispatcher 
+				WHERE email = '$email';");
 		
 		if (! is_array($r))
 			return false;
@@ -189,7 +194,47 @@ class ApretasteMoney {
 			$r = array();
 		return $r;
 	}
+	
+	/**
+	 * Delete a sale of cards
+	 *
+	 * @param string $id
+	 */
 	static function delSale($id){
 		Apretaste::query("DELETE FROM recharge_card_sale WHERE id = '$id';");
+	}
+	
+	/**
+	 * Return the data of payment warning report
+	 *
+	 * @param string $email
+	 * @return array
+	 */
+	static function getPaymentWarning($email){
+		$dispatcher = self::getDispatcher($email);
+		$cards = q("SELECT * FROM dispatchers_cards_without_pay WHERE dispatcher='$email' order by date;");
+		
+		$from_date = q("SELECT min(date) as d FROM dispatchers_cards_without_pay WHERE dispatcher='$email';");
+		
+		if (isset($from_date[0]))
+			$from_date = $from_date[0]['d'];
+		else
+			$from_date = false;
+		
+		$to_date = q("SELECT min(date) as d FROM dispatchers_cards_without_pay WHERE dispatcher='$email';");
+		
+		if (isset($to_date[0]))
+			$to_date = $to_date[0]['d'];
+		else
+			$to_date = false;
+		
+		return array(
+				'dispatcher_email' => $dispatcher['email'],
+				'dispatcher_name' => $dispatcher['name'],
+				'owe' => $dispatcher['owe'],
+				'from_date' => $from_date,
+				'to_date' => $to_date,
+				'cards' => $cards
+		);
 	}
 }

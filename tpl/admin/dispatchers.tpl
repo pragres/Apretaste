@@ -16,7 +16,7 @@
 				cards: '{$value} pkgs',
 				options: '<a href="{$path}_card_sales&sales={$value}">view pkgs</a> &nbsp; <a href="{$path}&delete={$value}" onclick="return confirm(\'Are you sure?\');"><span class="glyphicon glyphicon-trash"></span></a>',
 				total_sold: '${#value:2.#}',
-				owe: '${#value:2.#}'
+				owe: '<a class="btn btn-default" href="index.php?path=admin&page=dispatchers_payment_warning&dispatcher={$email}" title="View payment warning">${#value:2.#}</a>'
 			}
 		} %%}
 		

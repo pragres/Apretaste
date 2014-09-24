@@ -4,11 +4,7 @@
 {% layout %}
 
 {{blocks
-	{%% dispatcher_block: {
-		email: $dispatcher.email,
-		name: $dispatcher.name,
-		picture: $dispatcher.picture
-	} %%}
+	{%% dispatcher_block: $dispatcher %%}
 blocks}}
 
 {{page
@@ -26,7 +22,7 @@ blocks}}
 		wrappers: {
 			quantity: '<a href="index.php?path=admin&page=dispatchers_cards&dispatcher={$email}&cards={$id}">{$quantity} cards</a> * ${#card_price:2.#} = $(# {$quantity} * {$card_price} :2.#) <a href="{$path}&pdf={$id}"><span class="glyphicon glyphicon-print"></span></a>',
 			sale_date: '{$value:10}',
-			id: '<a href="{$path}&sale={$email}&delete={$id}" onclick="return confirm(\'Are you sure?\');"><span class="glyphicon glyphicon-trash"></span></a>'
+			id: '<a href="{$path}&sale={$email}&delete={$id}" onclick="return confirm(\'Are you sure?\');"><span class="glyphicon glyphicon-trash"></span></a><span class="glyphicon glyphicon-trash"></span></a>'
 		}
 	} %%}
 	

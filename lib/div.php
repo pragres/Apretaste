@@ -20,7 +20,7 @@
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
  *
  * @author Rafa Rodriguez <rafa@pragres.com>
- * @version : 4.5
+ * @version 4.5
  * @link http://divengine.com
  */
 
@@ -1289,6 +1289,22 @@ class div {
 	}
 	
 	/**
+	 * Return all items (in memory and context)
+	 * @param array $items
+	 * @return array
+	 */
+	final public function getAllItems($items = array()){
+		$i = $this->__items;
+		$m = $this->__memory;
+		$g = self::$__globals_design;
+		$i = self::cop($i, $m);
+		$i = self::cop($i, $g);
+		$i = self::cop($i, $items);
+		
+		return $i;
+	}
+	
+	/**
 	 * Return a list of block's ranges
 	 *
 	 * @param string $tagini
@@ -1847,7 +1863,14 @@ class div {
 			
 			if ($ini > $p1 && $p1 !== false)
 				return true;
+			
 			if ($this->searchPosAfterRange(DIV_TAG_TPLVAR_BEGIN, DIV_TAG_TPLVAR_END, $ini)) {
+				$pos = $ini + 1;
+				continue;
+			}
+			
+			if ($this->searchInListRanges($pos)){
+				
 				$pos = $ini + 1;
 				continue;
 			}
@@ -2704,7 +2727,7 @@ class div {
 						foreach ( $item as $kkk => $vvv )
 							if (isset($engine->__memory[$kkk]))
 								unset($engine->__memory[$kkk]);
-							
+
 							// Parse minihtml
 						$engine->parse(true, $xkey);
 						
@@ -3012,16 +3035,18 @@ class div {
 					$pdata = trim(substr($path, $sep + 1));
 					$path = substr($path, 0, $sep);
 					
+					$allitems = $this->getAllItems($items);
+					
 					if (self::fileExists($pdata . "." . DIV_DEFAULT_DATA_FILE_EXT)) {
 						$pdata = file_get_contents($pdata . "." . DIV_DEFAULT_DATA_FILE_EXT);
-						$pdata = self::jsonDecode($pdata, $items);
+						$pdata = self::jsonDecode($pdata, $allitems);
 					} elseif (self::fileExists($pdata)) {
 						$pdata = file_get_contents($pdata);
-						$pdata = self::jsonDecode($pdata, $items);
-					} elseif (self::varExists($pdata, $items))
-						$pdata = self::getVarValue($pdata, $items);
+						$pdata = self::jsonDecode($pdata, $allitems);
+					} elseif (self::varExists($pdata, $allitems))
+						$pdata = self::getVarValue($pdata, $allitems);
 					else
-						$pdata = self::jsonDecode($pdata, $items);
+						$pdata = self::jsonDecode($pdata, $allitems);
 					
 					if (is_object($pdata))
 						$pdata = get_object_vars($pdata);
@@ -3245,24 +3270,29 @@ class div {
 				$sep = strpos($path, DIV_TAG_PREPROCESSED_SEPARATOR);
 				
 				if ($sep !== false) {
+					
 					$pdata = trim(substr($path, $sep + 1));
+					
 					$path = substr($path, 0, $sep);
+					
+					$allitems = $this->getAllItems($items);
 					
 					if (self::fileExists($pdata . "." . DIV_DEFAULT_DATA_FILE_EXT)) {
 						$pdata = file_get_contents($pdata . "." . DIV_DEFAULT_DATA_FILE_EXT);
-						$pdata = self::jsonDecode($pdata, $items);
+						$pdata = self::jsonDecode($pdata, $allitems);
 					} elseif (self::fileExists($pdata)) {
 						$pdata = file_get_contents($pdata);
-						$pdata = self::jsonDecode($pdata, $items);
-					} elseif (self::varExists($pdata, $items))
-						$pdata = self::getVarValue($pdata, $items);
+						$pdata = self::jsonDecode($pdata, $allitems);
+					} elseif (self::varExists($pdata, $allitems))
+						$pdata = self::getVarValue($pdata, $allitems);
 					else
-						$pdata = self::jsonDecode($pdata, $items);
+						$pdata = self::jsonDecode($pdata, $allitems);
 					
 					if (is_object($pdata))
 						$pdata = get_object_vars($pdata);
 					
-					$items = array_merge($items, $pdata);
+					if (!is_null($pdata))
+						$items = array_merge($items, $pdata);
 				}
 			}
 			
@@ -3850,14 +3880,15 @@ class div {
 						$setup = ! self::issetVar($var, $items) || self::issetVar($var, self::$__globals_design);
 					}
 				} else { // parsing a JSON code
-					$json = self::jsonDecode($exp, self::cop($this->__memory, $items));
+					$allitems = $this->getAllItems($items);
+					$json = self::jsonDecode($exp, $allitems);
 					
 					if (is_null(self::compact($json))) {
 						$temp = uniqid();
 						$temp1 = uniqid();
 						$exp = str_replace(DIV_TAG_INCLUDE_BEGIN, $temp, $exp);
 						$exp = str_replace(DIV_TAG_PREPROCESSED_BEGIN, $temp1, $exp);
-						$engine = self::getAuxiliaryEngineClone($items);
+						$engine = self::getAuxiliaryEngineClone($allitems);
 						$engine->__src = $exp;
 						$engine->parse(false);
 						$exp = $engine->__src;
@@ -3890,7 +3921,7 @@ class div {
 							$exp = '"' . str_replace('"', '\"', $exp) . '"';
 						}
 						
-						$value = self::jsonDecode($exp, self::cop($this->__memory, $items));
+						$value = self::jsonDecode($exp, $allitems);
 						
 						$remember['vars'] = array();
 						$vars = $value;
@@ -3953,7 +3984,7 @@ class div {
 			
 			$body = substr($this->__src, $ini + $l1, $fin - $ini - $l1);
 			
-			$arr = self::jsonDecode($body, self::cop($this->__memory, $items));
+			$arr = self::jsonDecode($body, $this->getAllItems($items));
 			
 			if (! isset($arr[0]) || ! isset($arr[1]))
 				self::error("Was detected an invalid JSON in default values: " . substr($body, 0, 80) . "...", DIV_ERROR_FATAL);
@@ -3971,13 +4002,13 @@ class div {
 			}
 			
 			if (self::fileExists($replace) && ! self::isDir($search))
-				$replace = self::jsonDecode(self::getFileContents($replace), self::cop($this->__memory, $items));
+				$replace = self::jsonDecode(self::getFileContents($replace), $this->getAllItems($items));
 			if (self::fileExists($replace . "." . DIV_DEFAULT_DATA_FILE_EXT) && ! self::isDir($search . "." . DIV_DEFAULT_DATA_FILE_EXT))
 				$replace = self::jsonDecode(self::getFileContents($replace . "." . DIV_DEFAULT_DATA_FILE_EXT), self::cop($this->__memory, $items));
 			if (self::fileExists($search) && ! self::isDir($search))
-				$search = self::jsonDecode(self::getFileContents($search), self::cop($this->__memory, $items));
+				$search = self::jsonDecode(self::getFileContents($search), $this->getAllItems($items));
 			if (self::fileExists($search . "." . DIV_DEFAULT_DATA_FILE_EXT) && ! self::isDir($search . "." . DIV_DEFAULT_DATA_FILE_EXT))
-				$search = self::jsonDecode(self::getFileContents($search . "." . DIV_DEFAULT_DATA_FILE_EXT), self::cop($this->__memory, $items));
+				$search = self::jsonDecode(self::getFileContents($search . "." . DIV_DEFAULT_DATA_FILE_EXT), $this->getAllItems($items));
 			
 			if (is_null($var)) {
 				self::setDefault($search, $replace);
@@ -4818,7 +4849,7 @@ class div {
 						
 						return $r;
 					} else {
-						$params = self::jsonDecode($params, self::cop($this->__memory, $items));
+						$params = self::jsonDecode($params, $this->getAllItems($items));
 						return $obj->$method($params);
 					}
 				} else
@@ -5181,7 +5212,7 @@ class div {
 				
 				// Preparing methods
 				$this->__temp['validmethods'] = implode(',', self::$__allowed_methods);
-				$this->__temp['validmethods'] = str_replace(',', '(,' . $classname . '::', $classname . '::' . $this->__temp['validmethods']).'(';
+				$this->__temp['validmethods'] = str_replace(',', '(,' . $classname . '::', $classname . '::' . $this->__temp['validmethods']) . '(';
 				$this->__temp['methods'] = explode(',', str_replace($classname . '::', '', $this->__temp['validmethods']));
 				$this->__temp['methodsx'] = explode(',', $this->__temp['validmethods']);
 				$this->__temp['code'] = str_replace($this->__temp['methods'], $this->__temp['methodsx'], $this->__temp['code']);
@@ -5481,7 +5512,7 @@ class div {
 								$engine->__src = $value;
 								$engine->parse(false);
 								$value = $engine->__src;
-								$vvalue = self::jsonDecode($value, $this->__memory);
+								$vvalue = self::jsonDecode($value, $this->getAllItems());
 								if (! is_null($vvalue))
 									$value = $vvalue;
 								else
@@ -5927,7 +5958,7 @@ class div {
 		self::$__parse_duration = $time_end - $time_start;
 		self::$__parse_level --;
 		
-		if (self::$__parse_level == 0){
+		if (self::$__parse_level == 0) {
 			$this->__items = array_merge($this->__items, $this->__memory);
 			$this->__items = array_merge($this->__items, self::$__globals_design);
 			self::$__globals_design = array();
@@ -7092,12 +7123,13 @@ class div {
 		), '', $str));
 		
 		// Syntax specific for div
-		if (isset($str[0]))
+		if (isset($str[0])) {
 			if ($str[0] == '$') {
 				$str = substr($str, 1);
 				$r = self::getVarValue($str, $items);
 				return $r;
 			}
+		}
 		
 		switch (strtolower($str)) {
 			case 'true' :

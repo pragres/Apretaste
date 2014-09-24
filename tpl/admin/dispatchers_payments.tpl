@@ -43,7 +43,8 @@ blocks}}
 		title: '{ico}Money{/ico} Payments',
 		wrappers: {
 			dispatcher: "<a href=\"index.php?path=admin&page=user_activity&user={$value}\">{$value}</a>",
-			amount: '${#value:2.#}'
+			amount: '${#value:2.#}',
+			id: '<a href="{$path}&delete={$value}" onclick="return confirm(\'Are you sure?\');"><span class="glyphicon glyphicon-trash"></span></a>'
 		}
 	} %%}
 	

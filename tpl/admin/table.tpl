@@ -13,7 +13,7 @@
 	
 		if (!isset($columns)){
 			$columns = array();
-			foreach($data as $k => $v){
+			if (is_array($data)) foreach($data as $k => $v){
 				if (is_object($v)) 
 					$v = get_object_vars($v);
 				$columns = array_keys($v);
@@ -24,7 +24,7 @@
 		if (isset($orders)) if ($orders==true) 
 			echo "<th>#</th>";
 
-		foreach ($columns as $field){
+		if (is_array($columns)) foreach ($columns as $field){
 			if (!isset($hideColumns->$field)){
 				echo '<th>';
 				if (isset($headers->$field))
@@ -39,7 +39,7 @@
 		
 		$_order = 0;
 		
-		foreach($data as $_key => $row){
+		if (is_array($data)) foreach($data as $_key => $row){
 			echo '<tr>';
 			
 			if (isset($orders)) if ($orders==true) 
@@ -47,7 +47,7 @@
 			
 			if (!is_array($row)) $row = get_object_vars($row);
 			
-			foreach($row as $field => $value){
+			if (is_array($row)) foreach($row as $field => $value){
 				if (!isset($hideColumns->$field)){
 					echo '<td>';
 						if (isset($wrappers)){

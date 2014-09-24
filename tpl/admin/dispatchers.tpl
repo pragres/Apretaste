@@ -6,12 +6,13 @@
 {{headerdown
 		{%% table: {
 			data: $dispatchers,
+			hideColumns: {name: true},
 			headers: {
 				picture: "",
 				total_sold: "Sold"
 			},
 			wrappers:{
-				email: '<a href="index.php?path=admin&page=user_activity&user={$value}" target="_blank">{$value}</a>',
+				email: '{$name}<br/><a href="index.php?path=admin&page=user_activity&user={$value}" target="_blank">{$value}</a>',
 				picture: '<img src="data:image/jpeg;base64,{$value}">',
 				cards: '{$value} pkgs',
 				options: '<a href="{$path}_card_sales&sales={$value}">view pkgs</a> &nbsp; <a href="{$path}&delete={$value}" onclick="return confirm(\'Are you sure?\');"><span class="glyphicon glyphicon-trash"></span></a>',

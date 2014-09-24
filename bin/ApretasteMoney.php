@@ -138,7 +138,7 @@ class ApretasteMoney {
 	 *
 	 * @return array
 	 */
-	static function getDispatchers(){
+	static function getDispatchers($pic_width=20){
 		$r = Apretaste::query("SELECT *, 
 				(select count(*) from recharge_card_sale WHERE dispatcher = email) as sales,
 				coalesce((select total_sold from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as total_sold,
@@ -149,7 +149,7 @@ class ApretasteMoney {
 			$r = array();
 		
 		foreach ( $r as $k => $v ) {
-			$r[$k] = array_merge(Apretaste::getAuthor($v['email'], false, 20), $v);
+			$r[$k] = array_merge(Apretaste::getAuthor($v['email'], false, $pic_width), $v);
 		}
 		
 		return $r;

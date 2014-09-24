@@ -26,7 +26,7 @@ if (isset($_GET['delete'])) {
 
 $data['dispatchers'] = array();
 
-$r = ApretasteMoney::getDispatchers(50);
+$r = ApretasteMoney::getDispatchers(30);
 
 foreach ( $r as $row ) {
 	$data['dispatchers'][] = array(

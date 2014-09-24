@@ -176,7 +176,7 @@ class ApretasteMoney {
 		return $r[0];
 	}
 	static function getRechargeCardSalesOf($email){
-		$r = Apretaste::query("SELECT sale_date, *, (select count(*) from recharge_card WHERE sale = id) as cards FROM recharge_card_sale WHERE dispatcher = '$email';");
+		$r = Apretaste::query("SELECT sale_date, quantity, id, * FROM recharge_card_sale WHERE dispatcher = '$email';");
 		if (! is_array($r))
 			$r = array();
 		return $r;

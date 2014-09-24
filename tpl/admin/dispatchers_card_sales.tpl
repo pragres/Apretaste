@@ -13,16 +13,15 @@ blocks}}
 	{%% table: {
 		data: $sales,
 		title: "Packages of cards",
-		hideColumns: {dispatcher: true, sale_price: true, card_price: true, cards: true},
-		columns: ['sale_date','quantity','id'],
+		hideColumns: {dispatcher: true, sale_price: true, card_price: true},
 		headers: {
 			sale_date: "Date",
 			id: "&nbsp;"
 		},
 		wrappers: {
-			quantity: '<a href="index.php?path=admin&page=dispatchers_cards&dispatcher={$email}&cards={$id}">{$quantity} cards</a> * ${#card_price:2.#} = $(# {$quantity} * {$card_price} :2.#) <a href="{$path}&pdf={$id}"><span class="glyphicon glyphicon-print"></span></a>',
+			quantity: '<a href="index.php?path=admin&page=dispatchers_cards&dispatcher={$email}&cards={$id}">{$quantity} cards</a> * ${#card_price:2.#} = $(# {$quantity} * {$card_price} :2.#)',
 			sale_date: '{$value:10}',
-			id: '<a href="{$path}&sale={$email}&delete={$id}" onclick="return confirm(\'Are you sure?\');"><span class="glyphicon glyphicon-trash"></span></a><span class="glyphicon glyphicon-trash"></span></a>'
+			id: '<a href="{$path}&pdf={$id}"><span class="glyphicon glyphicon-print"></span></a>&nbsp;<a href="{$path}&sale={$email}&delete={$id}" onclick="return confirm(\'Are you sure?\');"><span class="glyphicon glyphicon-trash"></span></a></a>'
 		}
 	} %%}
 	

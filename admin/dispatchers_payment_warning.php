@@ -1,5 +1,7 @@
 <?php
+
 $email = get('dispatcher');
+
 if (! is_null($email)) {
 	$data['dispatcher'] = ApretasteMoney::getDispatcher($email, 60);
 	$data['payment_warning'] = ApretasteMoney::getPaymentWarning($email);
@@ -8,10 +10,6 @@ if (! is_null($email)) {
 		
 		$html = new div("../tpl/admin/dispatchers_payment_warning.pdf.tpl", $data['payment_warning']);
 		$html = "$html";
-
-		echo $html;
-		
-		exit();
 		
 		include "../lib/mpdf/mpdf.php";
 		$mpdf=new mPDF();

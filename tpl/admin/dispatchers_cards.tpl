@@ -4,11 +4,7 @@
 {% layout %}
 
 {{blocks
-	{%% dispatcher_block: {
-		email: $dispatcher.email,
-		name: $dispatcher.name,
-		picture: $dispatcher.picture
-	} %%}
+	{%% dispatcher_block: $dispatcher %%}
 blocks}}
 
 {{page

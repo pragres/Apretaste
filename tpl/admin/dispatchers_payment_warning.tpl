@@ -25,4 +25,6 @@ blocks}}
 		},
 		footer: "Total owe: ${#sum:payment_warning.cards-owe:2.#}"
 	} %%}
+	
+	<a class="btn btn-default" href="{$path}&pdf=true">Download as PDF</a>
 page}}

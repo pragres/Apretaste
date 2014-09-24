@@ -1869,8 +1869,7 @@ class div {
 				continue;
 			}
 			
-			if ($this->searchInListRanges($pos)){
-				
+			if ($this->searchInListRanges($ini)) {
 				$pos = $ini + 1;
 				continue;
 			}
@@ -2727,7 +2726,7 @@ class div {
 						foreach ( $item as $kkk => $vvv )
 							if (isset($engine->__memory[$kkk]))
 								unset($engine->__memory[$kkk]);
-
+							
 							// Parse minihtml
 						$engine->parse(true, $xkey);
 						
@@ -3291,7 +3290,7 @@ class div {
 					if (is_object($pdata))
 						$pdata = get_object_vars($pdata);
 					
-					if (!is_null($pdata))
+					if (! is_null($pdata))
 						$items = array_merge($items, $pdata);
 				}
 			}
@@ -5821,7 +5820,7 @@ class div {
 				if (strpos($this->__src, DIV_TAG_FORMULA_BEGIN) !== false)
 					if (strpos($this->__src, DIV_TAG_FORMULA_END) !== false)
 						$this->parseFormulas($items);
-					
+										
 					// Date format
 				if (strpos($this->__src, DIV_TAG_DATE_FORMAT_PREFIX) !== false)
 					if (strpos($this->__src, DIV_TAG_DATE_FORMAT_SUFFIX) !== false)

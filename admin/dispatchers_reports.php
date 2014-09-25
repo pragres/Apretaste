@@ -66,7 +66,7 @@ foreach ( $r as $row ) {
 	$prop = "last";
 	if ($row['ano'] == $current_year)
 		$prop = "current";
-	$visitors[$row['mes'] - 1][$prop] = intval($row['total']);
+	$visitors[$row['mes'] - 1][$prop] = intval($row['amount']);
 }
 
 $data['recharges_amount'] = $visitors;

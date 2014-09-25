@@ -1,13 +1,28 @@
 {= path: "index.php?path=admin&page=dispatchers_payments" =}
 {= title: "Dispatcher's payments" =}
 {= pagewidth: 700 =}
+
 {% layout %}
-
-
-{{blocks
+	
+{{headerdown
+	{% dispatchers_panel %}
+	
+	{%% table: {
+		data: $payments,
+		title: '{ico}money{/ico} Payments',
+		headers: {id: ""},
+		wrappers: {
+			dispatcher: "<a href=\"index.php?path=admin&page=user_activity&user={$value}\">{$value}</a>",
+			amount: '${#value:2.#}',
+			id: '<a href="{$path}&delete={$value}" onclick="return confirm(\'Are you sure?\');"><span class="glyphicon glyphicon-trash"></span></a>'
+		}
+	} %%}
+	
 	{%% form-block: {
 		action: "dispatchers_payments",
 		title: "Add payment",
+		modal: true,
+		id: "addPayment",
 		fields: [
 			{
 				id: "edtDispatcher",
@@ -34,19 +49,5 @@
 			caption: "Add payment" 
 		}	
 	} %%}
-blocks}}
-{{page
-	{% dispatchers_panel %}
-	
-	{%% table: {
-		data: $payments,
-		title: '{ico}Money{/ico} Payments',
-		wrappers: {
-			dispatcher: "<a href=\"index.php?path=admin&page=user_activity&user={$value}\">{$value}</a>",
-			amount: '${#value:2.#}',
-			id: '<a href="{$path}&delete={$value}" onclick="return confirm(\'Are you sure?\');"><span class="glyphicon glyphicon-trash"></span></a>'
-		}
-	} %%}
-	
-	
-page}}
+
+headerdown}}

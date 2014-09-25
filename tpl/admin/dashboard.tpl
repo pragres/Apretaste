@@ -106,7 +106,7 @@
 								<i class="fa fa-thumbs-o-up fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge">{$engagement.(# {$current_month} - 1 #).b}/{$bouncerate.(# {$current_month} - 1 #).b}%</div>
+								<div class="huge">{$engagement.(# {$current_month} - 1 #).b}%/{$bouncerate.(# {$current_month} - 1 #).b}</div>
 								<div>Engagement / Bounce rate</div>
 							</div>
 						</div>

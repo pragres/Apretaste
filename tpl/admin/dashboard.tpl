@@ -21,7 +21,7 @@
 	else 
 		$goal_completation = 0;
 		
-	$real_goal_completation = $goal_completation;
+	$real_goal_completation = number_format($goal_completation,2) * 1;
 	
 	if ($goal_completation > 100) 
 		$goal_completation = 100;

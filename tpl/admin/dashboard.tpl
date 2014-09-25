@@ -106,7 +106,7 @@
 								<i class="fa fa-thumbs-o-up fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge">{$engagement.(# {$current_month} - 1 #).b}%/{$bouncerate.(# {$current_month} - 1 #).b}</div>
+								<div class="huge">{$engagement.(# {$current_month} - 1 #).b}<small>%</small>/{$bouncerate.(# {$current_month} - 1 #).b}<small>%</small></div>
 								<div>Engagement / Bounce rate</div>
 							</div>
 						</div>
@@ -124,7 +124,7 @@
 		<div class="row">
 			<div class="col-lg-12 col-md-6">
 				<div class="progress progress-striped active">
-					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{$goal_completation}" aria-valuemin="0" aria-valuemax="100" style="width: {$goal_completation}%;"> <span style="font-fize:24px;">{$goal_completation}%</span> 
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{$goal_completation}" aria-valuemin="0" aria-valuemax="100" style="width: {$goal_completation}%;"> <span style="font-fize:24px;">{$goal_completation}% </span> 
 				</div>
 			</div>
 		</div>

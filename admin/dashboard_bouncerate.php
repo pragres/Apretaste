@@ -34,7 +34,7 @@ foreach ( $r as $row ) {
 	$prop = "a";
 	if ($row['year'] == $current_year)
 		$prop = "b";
-	$engagement[$row['month'] - 1][$prop] = intval($row['bounce_rate']);
+	$engagement[$row['month'] - 1][$prop] = intval($row['bounce_rate_percent']);
 }
 
 $data['bouncerate'] = $engagement;

@@ -20,6 +20,8 @@
 		$goal_completation = $current_visitors / $last_visitors * 100;
 	else 
 		$goal_completation = 0;
+		
+	$real_goal_completation = $goal_completation;
 	
 	if ($goal_completation > 100) 
 		$goal_completation = 100;
@@ -124,7 +126,7 @@
 		<div class="row">
 			<div class="col-lg-12 col-md-6">
 				<div class="progress progress-striped active">
-					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{$goal_completation}" aria-valuemin="0" aria-valuemax="100" style="width: {$goal_completation}%;"> <span style="font-fize:24px;">{$goal_completation}% </span> 
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{$goal_completation}" aria-valuemin="0" aria-valuemax="100" style="width: {$goal_completation}%;"> <span style="font-fize:24px;">{$real_goal_completation}% </span> 
 				</div>
 			</div>
 		</div>

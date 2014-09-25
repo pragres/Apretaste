@@ -3290,7 +3290,7 @@ class div {
 					if (is_object($pdata))
 						$pdata = get_object_vars($pdata);
 					
-					if (! is_null($pdata))
+					if (is_array($pdata))
 						$items = array_merge($items, $pdata);
 				}
 			}

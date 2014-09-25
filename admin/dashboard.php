@@ -3,19 +3,6 @@
 $current_year = intval(date("Y"));
 $current_month = intval(date("m"));
 
-// subscribes
-
-$r = Apretaste::query("select count(*) as cant from subscribe;");
-
-$data['subscribes_count'] = $r[0]['cant'];
-
-// messages metrics
-$data['total_internal'] = ApretasteAnalitics::getTotalInternalActiveAds();
-$data['total_external'] = ApretasteAnalitics::getTotalExternalActiveAds();
-$data['total_messages'] = ApretasteAnalitics::getTotalOfMessages();
-$data['historial_internal'] = ApretasteAnalitics::getHistoricalInternalAds();
-$data['historial_external'] = ApretasteAnalitics::getHistoricalExternalAds();
-$data['total_visits'] = ApretasteAnalitics::getTotalOfVisits();
 $data['email_servers'] = ApretasteAnalitics::getEmailServers(20);
 
 $r = ApretasteAnalitics::getMessagesByCommand(null, false);

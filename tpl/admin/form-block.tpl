@@ -15,6 +15,9 @@
 	</div>
 	<div class="panel-body">
 $modal?
+		?$explanation
+		<p>{$explanation}</p>
+		$explanation?
 		<form role="form" action = "index.php?path=admin&page={$action}" method = "post" id="{$id}">
 		?$alert
 		<div class="alert alert-danger alert-dismissable">
@@ -23,8 +26,8 @@ $modal?
 		</div>
 		$alert?
 		[$fields]
-		<div class="form-group">	
-			<label for="{$id}">{$label}</label>
+		<div class="form-group ?$addon input-group $addon?">	
+			?$label <label for="{$id}">{$label}</label> $label?
 			{?( "{$type}" == "select" )?}
 			<select class="form-control" name="{$id}" id="{$id}">
 				[$options]
@@ -35,7 +38,10 @@ $modal?
 				{?( "{$type}" == "textarea" )?}
 				<textarea class="form-control" ?$rows rows="{$rows}" $rows? name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$help title="{$help}" $help?>?$value {$value} $value?</textarea>
 				@else@
-				<input type="{$type}" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>
+					?$addon
+						<span class="input-group-addon">{$addon}</span>
+					$addon?
+					<input type="{$type}" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>
 				{/?}
 			{/?}
 		</div>

@@ -2,12 +2,20 @@
 	<div class="panel-heading">
 		<h3 class="panel-title">{$title}</h3>
 	</div>
-	?$body
 	<div class="panel-body">
+	?$body
 		{$body}
-	</div>
+		<br/>
 	$body?
-	<table ?$id id = "{$id}" $id? class="table table-hover table-condensed table-responsive" ?$width width="{$width}" $width? >
+	
+	!$id
+		{{id (# uniqid() #) id}}
+	@else@
+		{{id {$id} id}}
+	$id!
+	<table id = "(( id ))" class="table table-bordered table-hover dataTables" ?$width width="{$width}" $width? >
+	
+	<thead>
 	<tr>		
 	<?
 	
@@ -35,7 +43,7 @@
 			}
 		}
 		
-		echo '</tr>';
+		echo '</tr></thead><tbody>';
 		
 		$_order = 0;
 		
@@ -49,7 +57,7 @@
 			
 			if (is_array($row)) foreach($row as $field => $value){
 				if (!isset($hideColumns->$field)){
-					echo '<td>';
+					echo '<td valign="center">';
 						if (isset($wrappers)){
 							if (isset($wrappers->$field)){
 								$row['value'] = $value;
@@ -64,10 +72,15 @@
 			echo '</tr>';
 		}
 	?>
+	</tbody>
 	</table>
+	</div>
 	?$footer
 	<div class="panel-footer">
 		{$footer}
 	</div>
 	$footer?
 </div>
+{{onload
+	$('#(( id ))').dataTable();
+onload}}

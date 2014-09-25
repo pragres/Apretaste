@@ -4930,6 +4930,7 @@ class div {
 		$tags = array();
 		foreach ( $r as $item ) {
 			$tagname = substr($this->__src, $item[0] + $lprefix, $item[1] - $item[0] - $lprefix);
+						
 			if (! isset($locations[$tagname]))
 				$locations[$tagname] = array();
 			$locations[$tagname][] = $item[0];
@@ -5873,6 +5874,7 @@ class div {
 			// The last action
 			if (self::$__parse_level <= $min_level) {
 				
+				
 				// Parsing macros
 				for($i = 0; $i < 3; $i ++) { // 3 passes
 					if (strpos($this->__src, DIV_TAG_MACRO_BEGIN) !== false) {
@@ -5890,6 +5892,7 @@ class div {
 					if (self::atLeastOneString($this->__src, self::$__modifiers) || (strpos($this->__src, DIV_TAG_NUMBER_FORMAT_PREFIX) !== false && strpos($this->__src, DIV_TAG_NUMBER_FORMAT_SUFFIX) !== false)) {
 						$this->parseMatches($items);
 					}
+					
 				}
 				
 				$this->parseSpecialChars();

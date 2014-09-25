@@ -1,5 +1,5 @@
 <!--{
-	Apretaste!com - Stats page
+	Apretaste - Dashboard
 	@author rafa <rafa@pragres.com>
 	@version 1.0
 	@note This template use macros for best performance 
@@ -8,11 +8,127 @@
 <!--{ auxiliary vars }-->
 {= year_color: ["", "#ff9886","#7a6fbf"] =}
 {= div.literals: ['s'] =}	
-{= title: Access by hour =} 				
-
+{= title: "Dashboard" =} 				
+{= current_visitors: {$visitors.(# {$current_month} - 1 #).current} =}
+<?
+	if ($current_month == 1){
+		$last_visitors = $visitors[11]['last'];
+	} else 
+		$last_visitors = $visitors[$current_month - 2]['current'];
+	
+	if ($last_visitors > 0)
+		$goal_completation = $current_visitors / $last_visitors * 100;
+	else 
+		$goal_completation = 0;
+	
+	if ($goal_completation > 100) 
+		$goal_completation = 100;
+		
+	$goal_completation = number_format($goal_completation,2) * 1;
+?>
 {% layout %}	
 
-{{headerdown		
+{{headerdown	
+
+		<!-- /.row -->
+		<div class="row">
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-green">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-comments fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge">{$current_visitors}</div>
+								<div>Visitors</div>
+							</div>
+						</div>
+					</div>
+					<a href="index.php?path=admin&page=dashboard_visitors">
+						<div class="panel-footer">
+							<span class="pull-left">View Details</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-user fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge">{$unique_visitors.(# {$current_month} - 1 #).current}</div>
+								<div>Unique visitors</div>
+							</div>
+						</div>
+					</div>
+					<a href="index.php?path=admin&page=dashboard_unique_visitors">
+						<div class="panel-footer">
+							<span class="pull-left">View Details</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-yellow">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-users fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge">{$new_users.(# {$current_month} - 1 #).b}</div>
+								<div>New users</div>
+							</div>
+						</div>
+					</div>
+					<a href="index.php?path=admin&page=dashboard_new_users">
+						<div class="panel-footer">
+							<span class="pull-left">View Details</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-red">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-thumbs-o-up fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge">{$engagement.(# {$current_month} - 1 #).b}/{$bouncerate.(# {$current_month} - 1 #).b}%</div>
+								<div>Engagement / Bounce rate</div>
+							</div>
+						</div>
+					</div>
+					<a href="index.php?path=admin&page=dashboard_new_users">
+						<div class="panel-footer">
+							<span class="pull-left">View Details</span>
+							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 col-md-6">
+				<div class="progress progress-striped active">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{$goal_completation}" aria-valuemin="0" aria-valuemax="100" style="width: {$goal_completation}%;"> <span style="font-fize:24px;">{$goal_completation}%</span> 
+				</div>
+			</div>
+		</div>
+		<h3>Access by hour</h3>		
 		<div class="panel panel-success"> 
 			<div class="panel-heading">Number of emails received and sent every hour (last {$lastdays} days)</div> 
 			<div class="panel-body">
@@ -94,72 +210,72 @@
 		
 headerdown}}
 {{page	
-		<h2>Visitors</h2>
+		<h3>Visitors</h3>
 		
 		{% dashboard_visitors: {
 			from: "<!--{ begin }-->",
 			to: "<!--{ end }-->"
 		} %}
 		
-		<h2>Unique visitors</h2>
+		<h3>Unique visitors</h3>
 		
 		{% dashboard_unique_visitors: {
 			from: "<!--{ begin }-->",
 			to: "<!--{ end }-->"
 		} %}
 		
-		<h2>New users</h2>
+		<h3>New users</h3>
 		
 		{% dashboard_new_users: {
 			from: "<!--{ begin }-->",
 			to: "<!--{ end }-->"
 		} %}
 		
-		<h2>Engagement level</h2>
+		<h3>Engagement level</h3>
 		
 		{% dashboard_engagement: {
 			from: "<!--{ begin }-->",
 			to: "<!--{ end }-->"
 		} %}
 		
-		<h2>Bounce rate</h2>
+		<h3>Bounce rate</h3>
 		
 		{% dashboard_bouncerate: {
 			from: "<!--{ begin }-->",
 			to: "<!--{ end }-->"
 		} %}
 		
+		<h3>VIP users</h3>
+		{% dashboard_vip: {
+			from: "<!--{ begin }-->",
+			to: "<!--{ end }-->"
+		} %}
 
 page}}
 
-{{blocks
-<h2>Source of traffic</h2>
-blocks}}
 
-{% dashboard_source_of_traffic: {
-	from: "<!--{ begin }-->",
-	to: "<!--{ end }-->"
-} %}
 
 {{blocks
-<h2>Service usage</h2>
-blocks}}
 
-{% dashboard_service_usage: {
-	from: "<!--{ begin }-->",
-	to: "<!--{ end }-->"
-} %}
+{%% chart_block_pie: {
+	data: $source_of_traffic_data,
+	id: "source_of_traffic",
+	title: "Source of traffic"
+} %%}
+
+{%% chart_block_pie: {
+	data: $service_usage_data,
+	id: "service_usage",
+	title: "Service usage"
+} %%}
+
+blocks}}
 
 {{source_of_traffic_panel_actions
-	<a class="btn btn-default" href="index.php?path=admin&page=dashboard_source_of_traffic"><span class="glyphicon glyphicon-folder-open" title="Details"></span></a>
+	<a class="btn btn-success" href="index.php?path=admin&page=dashboard_source_of_traffic"><span class="glyphicon glyphicon-folder-open" title="Details"></span></a>
 source_of_traffic_panel_actions}}
+
 {{service_usage_panel_actions
-	<a class="btn btn-default" href="index.php?path=admin&page=dashboard_service_usage"><span class="glyphicon glyphicon-folder-open" title="Details"></span></a>
+	<a class="btn btn-success" href="index.php?path=admin&page=dashboard_service_usage"><span class="glyphicon glyphicon-folder-open" title="Details"></span></a>
 service_usage_panel_actions}}
 
-{{blocks
-{% dashboard_vip: {
-	from: "<!--{ begin }-->",
-	to: "<!--{ end }-->"
-} %}
-blocks}}

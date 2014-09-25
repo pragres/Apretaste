@@ -1,4 +1,19 @@
 <?php
+
+// subscribes
+
+$r = Apretaste::query("select count(*) as cant from subscribe;");
+
+$data['subscribes_count'] = $r[0]['cant'];
+
+// messages metrics
+$data['total_internal'] = ApretasteAnalitics::getTotalInternalActiveAds();
+$data['total_external'] = ApretasteAnalitics::getTotalExternalActiveAds();
+$data['total_messages'] = ApretasteAnalitics::getTotalOfMessages();
+$data['historial_internal'] = ApretasteAnalitics::getHistoricalInternalAds();
+$data['historial_external'] = ApretasteAnalitics::getHistoricalExternalAds();
+$data['total_visits'] = ApretasteAnalitics::getTotalOfVisits();
+
 $r = Apretaste::query("SELECT extract(month from send_date::date) as mes, count(*) as total FROM linker WHERE extract(year from send_date::date) = extract(year from current_date) group by mes;");
 
 $data['linker'] = array();

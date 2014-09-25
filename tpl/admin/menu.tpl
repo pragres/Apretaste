@@ -56,7 +56,15 @@
 		}
 	},
 	robot: "Simulator",
-	agency: "Agency",
+	agency: {
+		caption: "Agency",
+		submenu: {
+			agency: "Search customer",
+			agency_recharge_list: "Recharges today",
+			agency_reports: "Reports",
+			agency_bill: "My bill"
+		}
+	},
 	logout: "Logout"
 } =}
 

@@ -30,6 +30,8 @@
 		<link href="static/metisMenu/metisMenu.min.css" rel="stylesheet">
 		<link href="static/morris.css" rel="stylesheet">
 		<link href="static/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">	
+		<link href="static/admin.css" rel="stylesheet"></link>
+		<link href="static/dataTables.bootstrap.css" rel="stylesheet"></link>
 		<script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="static/bootstrap/js/bootstrap-modal.js"></script>
 		<script type="text/javascript" src="static/bootstrap/js/bootstrap-tooltip.js"></script>
@@ -45,6 +47,8 @@
 		<script type="text/javascript" src="static/morris/morris.min.js"></script>
 		<script type="text/javascript" src="static/php_json.js"></script>
 		<script type="text/javascript" src="static/php_string.js"></script>
+		<script src="static/dataTables/jquery.dataTables.js"></script>
+		<script src="static/dataTables/dataTables.bootstrap.js"></script>
 		<script type="text/javascript">
 			{ignore}
 			function isset(v) {
@@ -64,12 +68,15 @@
         
         			return true;
     			});
+				
+				
     		{/ignore}
     		
     		(( jquery ))
     		
     		{ignore}		
 			});
+						
     		{/ignore}
 		</script>
 		<style type="text/css">
@@ -161,10 +168,10 @@
 		</div>
 		<div class="row">
 			<div class="col-md-3">
-			(( blocks ))
+				(( blocks ))
 			</div>
 			<div class="col-md-9">
-			(( page ))
+				(( page ))
 			</div>
 		</div>
 	</div>

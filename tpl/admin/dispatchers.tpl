@@ -5,19 +5,22 @@
 
 {{headerdown
 		{%% table: {
+			id: "dispatchers",
 			data: $dispatchers,
-			hideColumns: {name: true},
+			hideColumns: {picture: true, name: true},
 			headers: {
 				picture: "",
-				total_sold: "Sold"
+				total_sold: "Sold",
+				contact: "Contact info",
+				options: "",
+				email: "Dispatcher"
 			},
 			wrappers:{
-				email: '{$name}<br/><a href="index.php?path=admin&page=user_activity&user={$value}" target="_blank">{$value}</a>',
-				picture: '<img src="data:image/jpeg;base64,{$value}">',
+				email: '<img height="100%" src="data:image/jpeg;base64,{$picture}">&nbsp;{$name}&nbsp;(<a href="index.php?path=admin&page=user_activity&user={$value}" target="_blank">{$value}</a>)',
 				cards: '<a href="{$path}_card_sales&sales={$email}">{$value} pkgs</a>',
 				options: '<a href="{$path}&delete={$value}" onclick="return confirm(\'Are you sure?\');"><span class="glyphicon glyphicon-trash"></span></a>',
 				total_sold: '${#value:2.#}',
-				owe: '<a class="btn btn-default" href="index.php?path=admin&page=dispatchers_payment_warning&dispatcher={$email}" title="View payment warning">${#value:2.#}</a>'
+				owe: '<a href="index.php?path=admin&page=dispatchers_payment_warning&dispatcher={$email}" title="View payment warning">${#value:2.#}</a>'
 			}
 		} %%}
 		

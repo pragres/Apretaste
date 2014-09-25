@@ -4,77 +4,84 @@
 
 {% layout %}
 
+{{blocks
+	{%% form-block: {
+		action: $path,
+		title: "Search customer",
+		explanation: "Insert part of the name, phone or email",
+		fields: [
+			{
+				id: "edtSearch",
+				placeholder: "Type search phrase here",
+				type: "text",
+				addon: '<i class="fa fa-search"></i>'
+			}
+		],
+		submit: {
+			caption: 'Search',
+			name: "btnSearch"
+		}
+	} %%}
+blocks}}
+
 {{page
-	
-
-	{% agency_panel %}
-		
-		?$div.get.customer_not_found
-		<div class="msg-error">Customer not found</div>
-		$div.get.customer_not_found? 	
-		
-		?$msgerror
-		<div class="msg-error">{$msgerror}</div>
-		$msgerror?
-				
-		
-		!$div.get.section
-		
-		<form action="index.php?path=admin&page=agency_search_customer" method="POST">
-		<p align="center">
-		Insert part of the name, phone or email<br/>
-		<input class="text" name="edtSearch"><input type="submit" value="Search" class="submit" name="btnSearch">
-		</p>
-		</form>
-		
-		?$searchresults
-		
-		&nbsp;
-		[$searchresults]
-			?$_is_first
-			<table align="center" class="tabla"><tr><td></td><th>Name</th><th>Email</th><th>Phone</th><th>Last recharge</th></tr>
-			$_is_first?
+			?$searchresults
+			{%% table: {
+				data: $searchresults,
+				title: "Customers",
+				hideColumns: {id: true, date_registered: true},
+				headers: {full_name: "Name", last_recharge: "Last recharge", picture: ""},
+				wrappers: {
+					picture: '<img src="data:image/jpeg;base64,{$picture}" width="50">',
+					full_name: '<a href="index.php?path=admin&page=agency_customer&id={$id}">{$full_name}</a>',
+					last_recharge: '?$last_recharge {$last_recharge} @else@ Never $last_recharge?'
+				}
+			} %%}
+			$searchresults?	
 			
-			<tr>
-				<td>?$picture <img src="data:image/jpeg;base64,{$picture}" width="50"> $picture? </td>
-				<td><a href="index.php?path=admin&page=agency_customer&id={$id}">{$full_name}</a></td><td>{$email}</td><td>{$phone}</td><td>?$last_recharge {$last_recharge} @else@ Never $last_recharge?</td></tr>
+			?$div.post.edtSearch
+			<p align="center">
+			Can't find the person ?$searchresults in the list $searchresults? ? 
 			
-			?$_is_last
-			</table>
-			$_is_last?
-		@empty@
-		<!--{ Do nothing }-->
-		[/$searchresults]
+			{%% form-block: {
+				id: "new_customer",
+				title: "New customer",
+				action: "{$path}&page=agency_add_customer" ,
+				modal: true,
+				width: 400,
+				fields: [
+					{
+						id: "edtName",
+						label: "Full name",
+						type: "text"
+					},{
+						id: "edtEmail",
+						label: "Email",
+						type: text
+					},{
+						id: "edtPhone",
+						label: "Phone",
+						type: text
+					}
+				],
+				submit: {
+					caption: "Create new customer",
+					name: 
+				},
+				explanation: "The fields name and email are required. We need the customer's email to send them a confirmation once they shop. This information will be collected only once in their lifetime."
+			} %%}
+			</p>
+			$div.post.edtSearch?
 		
-		<p align="center">
-		Can't find the person in the list? <a class="button" href="index.php?path=admin&page=agency&section=add_customer">Add new customer</a>
-		</p>
-		$searchresults?
 		
-		
-		
-		@else@
-		
-		{?( "{$div.get.section}"=="add_customer" )?}
-			{= pagewidth: 500 =}
-			<table><tr><td valign="top"  style="padding: 10px;">
-			<h1>New customer</h1>
+		{% agency_footer %}
+page}}
 
-		 	<form action="{$path}&page=agency_add_customer" method="POST">
-		 	Full name: <br/>
-			<input class="text" name ="edtName" ?$edtName value="{$edtName}" $edtName?><br/>
-			Email:  <br/>
-			<input class="text" name="edtEmail" ?$edtEmail value="{$edtEmail}" $edtEmail?><br/>
-		 	Phone:  <br/>
-			<input class="text" name="edtPhone" ?$edtPhone value="{$edtPhone}" $edtPhone?><br/>
 
-			<input class="submit" type="submit" name="btnAddCustomer" value="Create new customer"> &nbsp; <a href="{$path}" class="button">Cancel</a></td>
-		 	</form>
-			</td>
 			
 			?$customer_exists
 			[[customer_exists
-			<td valign="top"  style="border-left: 2px solid black;padding: 10px;">
+
 				<h1>Customer exists</h1>
 				<table><tr>
 				?$picture
@@ -88,18 +95,7 @@
 				?$phone Phone: <br/><b>{$phone}</b> $phone?<br/> 
 				</td></tr></table>
 				<a class ="button" href="index.php?path=admin&page=agency_customer&id={$id}">This is the customer?</a>
-			</td>
+
 			customer_exists]]
-			@else@
-			<td valign="middle" width="50%"  style="border-left: 2px solid black;padding: 10px;">
-				<p>The fields name and email are required. We need the customer's email to send 
-				them a confirmation once they shop. This information will be collected only 
-				once in their lifetime.</p>
-			</td>
 			$customer_exists?
-			</tr></table>
-		{/?}
-		$div.get.section!
-		
-		{% agency_footer %}
-page}}
+

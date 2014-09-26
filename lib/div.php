@@ -2144,14 +2144,14 @@ class div {
 		if ($is_string || is_numeric($value)) {
 			
 			$p1 = - 1;
-			do {
+			//do {
 				$p1 = strpos($this->__src, DIV_TAG_TPLVAR_BEGIN, $p1 + 1);
-			} while ( $this->searchInRanges($this->getConditionalRanges(true), $p1) && $p1 !== false );
+			//} while ( $this->searchInRanges($this->getConditionalRanges(true), $p1) && $p1 !== false );
 
 			$p2 = - 1;
-			do {
+			//do {
 				$p2 = strpos($this->__src, DIV_TAG_MACRO_BEGIN, $p2 + 1);
-			} while ( $this->searchInRanges($this->getConditionalRanges(true), $p2) && $p2 !== false );
+			//} while ( $this->searchInRanges($this->getConditionalRanges(true), $p2) && $p2 !== false );
 						
 			if ($p1 === false && $p2 === false)
 				$substr = $this->__src;

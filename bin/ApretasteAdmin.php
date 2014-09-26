@@ -39,6 +39,8 @@ class ApretasteAdmin {
 						$k['access_to'][trim($value)] = true;
 					}
 					
+					$k['access_to']['logout'] = true;
+					
 					$r[0]['perms'] = $k;
 					$p = Apretaste::getAuthor($r[0]['email'], false, 50);
 					$p = array_merge($p, $r[0]);

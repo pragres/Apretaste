@@ -35,7 +35,8 @@ blocks}}
 					picture: '<img src="data:image/jpeg;base64,{$picture}" width="50">',
 					full_name: '<a href="index.php?path=admin&page=agency_customer&id={$id}">{$full_name}</a>',
 					last_recharge: '?$last_recharge {$last_recharge} @else@ Never $last_recharge?'
-				}
+				},
+				simple: true
 			} %%}
 			$searchresults?	
 			

@@ -2,10 +2,12 @@
 	<div class="panel-heading">
 		<h3 class="panel-title">{$title}</h3>
 	</div>
-	<div class="panel-body">
+	!$simple<div class="panel-body">$simple!
 	?$body
+		?$simple<div class="panel-body">$simple?
 		{$body}
 		<br/>
+		?$simple</div>$simple?
 	$body?
 	
 	!$id
@@ -13,7 +15,7 @@
 	@else@
 		{{id {$id} id}}
 	$id!
-	<table id = "(( id ))" class="table table-bordered table-hover dataTables" ?$width width="{$width}" $width? >
+	<table id = "(( id ))" class="table table-condensed table-hover !$simple dataTables $simple!" ?$width width="{$width}" $width? >
 	
 	<thead>
 	<tr>		
@@ -55,7 +57,12 @@
 			
 			if (!is_array($row)) $row = get_object_vars($row);
 			
-			if (is_array($row)) foreach($row as $field => $value){
+			$xrow = array();
+			foreach($columns as $col){
+				$xrow[$col] = $row[$col];
+			}
+			
+			if (is_array($row)) foreach($xrow as $field => $value){
 				if (!isset($hideColumns->$field)){
 					echo '<td valign="center">';
 						if (isset($wrappers)){
@@ -74,7 +81,7 @@
 	?>
 	</tbody>
 	</table>
-	</div>
+	!$simple </div> $simple!
 	?$footer
 	<div class="panel-footer">
 		{$footer}
@@ -82,5 +89,7 @@
 	$footer?
 </div>
 {{onload
+	!$simple
 	$('#(( id ))').dataTable();
+	$simple!
 onload}}

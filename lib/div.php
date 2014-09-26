@@ -2143,9 +2143,16 @@ class div {
 		
 		if ($is_string || is_numeric($value)) {
 			
-			$p1 = strpos($this->__src, DIV_TAG_TPLVAR_BEGIN);
-			$p2 = strpos($this->__src, DIV_TAG_MACRO_BEGIN);
-			
+			$p1 = - 1;
+			do {
+				$p1 = strpos($this->__src, DIV_TAG_TPLVAR_BEGIN, $p1 + 1);
+			} while ( $this->searchInRanges($this->getConditionalRanges(true), $p1) && $p1 !== false );
+
+			$p2 = - 1;
+			do {
+				$p2 = strpos($this->__src, DIV_TAG_MACRO_BEGIN, $p2 + 1);
+			} while ( $this->searchInRanges($this->getConditionalRanges(true), $p2) && $p2 !== false );
+						
 			if ($p1 === false && $p2 === false)
 				$substr = $this->__src;
 			elseif ($p1 !== false && $p2 !== false) {
@@ -3775,14 +3782,17 @@ class div {
 			
 			// Div 4.5: checking also orphan parts
 			// TODO: see "last chance" algorithm in ->parse(); and improve this solution (2 solutions was found)
-			if ($this->searchInRanges($this->getConditionalRanges(true), $ini)) {
+			$cr = $this->getConditionalRanges(true, null, false);
+			if ($this->searchInRanges($cr, $ini)) {
 				$pos = $ini + 1;
 				continue;
 			}
+			
 			if ($this->searchInCapsuleRanges($items, $ini)) {
 				$pos = $ini + 1;
 				continue;
 			}
+			
 			if ($this->searchInRanges($this->getRanges(DIV_TAG_CONDITIONS_BEGIN_PREFIX, DIV_TAG_CONDITIONS_END), $ini)) {
 				$pos = $ini + 1;
 				continue;
@@ -4501,8 +4511,11 @@ class div {
 					} else {
 						if (self::$__log_mode)
 							$this->logger("The condition $condition is not valid");
-						$pos = $ini + $lprefix;
-						continue;
+						
+						if ($cleanorphan === false) {
+							$pos = $ini + $lprefix;
+							continue;
+						}
 					}
 					
 					if ($r === true) {
@@ -4604,12 +4617,142 @@ class div {
 	}
 	
 	/**
+	 * Return true if $src have a div code
+	 */
+	final static function haveDivCode($src){
+		$all_tags = array(
+				DIV_TAG_REPLACEMENT_PREFIX,
+				DIV_TAG_REPLACEMENT_SUFFIX,
+				DIV_TAG_MULTI_MODIFIERS_PREFIX,
+				DIV_TAG_MULTI_MODIFIERS_OPERATOR,
+				DIV_TAG_MULTI_MODIFIERS_SEPARATOR,
+				DIV_TAG_MULTI_MODIFIERS_SUFFIX,
+				DIV_TAG_SUBMATCH_SEPARATOR,
+				DIV_TAG_MODIFIER_SIMPLE,
+				DIV_TAG_MODIFIER_CAPITALIZE_FIRST,
+				DIV_TAG_MODIFIER_CAPITALIZE_WORDS,
+				DIV_TAG_MODIFIER_UPPERCASE,
+				DIV_TAG_MODIFIER_LOWERCASE,
+				DIV_TAG_MODIFIER_LENGTH,
+				DIV_TAG_MODIFIER_COUNT_WORDS,
+				DIV_TAG_MODIFIER_COUNT_SENTENCES,
+				DIV_TAG_MODIFIER_COUNT_PARAGRAPHS,
+				DIV_TAG_MODIFIER_ENCODE_URL,
+				DIV_TAG_MODIFIER_ENCODE_RAW_URL,
+				DIV_TAG_MODIFIER_ENCODE_JSON,
+				DIV_TAG_MODIFIER_HTML_ENTITIES,
+				DIV_TAG_MODIFIER_NL2BR,
+				DIV_TAG_MODIFIER_TRUNCATE,
+				DIV_TAG_MODIFIER_WORDWRAP,
+				DIV_TAG_MODIFIER_SUBSTRING_SEPARATOR,
+				DIV_TAG_MODIFIER_SINGLE_QUOTES,
+				DIV_TAG_MODIFIER_JS,
+				DIV_TAG_MODIFIER_FORMAT,
+				DIV_TAG_DATE_FORMAT_PREFIX,
+				DIV_TAG_DATE_FORMAT_SUFFIX,
+				DIV_TAG_DATE_FORMAT_SEPARATOR,
+				DIV_TAG_NUMBER_FORMAT_PREFIX,
+				DIV_TAG_NUMBER_FORMAT_SUFFIX,
+				DIV_TAG_NUMBER_FORMAT_SEPARATOR,
+				DIV_TAG_FORMULA_BEGIN,
+				DIV_TAG_FORMULA_END,
+				DIV_TAG_FORMULA_FORMAT_SEPARATOR,
+				DIV_TAG_SUBPARSER_BEGIN_PREFIX,
+				DIV_TAG_SUBPARSER_BEGIN_SUFFIX,
+				DIV_TAG_SUBPARSER_END_PREFIX,
+				DIV_TAG_SUBPARSER_END_SUFFIX,
+				DIV_TAG_IGNORE_BEGIN,
+				DIV_TAG_IGNORE_END,
+				DIV_TAG_COMMENT_BEGIN,
+				DIV_TAG_COMMENT_END,
+				DIV_TAG_TXT_BEGIN,
+				DIV_TAG_TXT_END,
+				DIV_TAG_TXT_WIDTH_SEPARATOR,
+				DIV_TAG_STRIP_BEGIN,
+				DIV_TAG_STRIP_END,
+				DIV_TAG_LOOP_BEGIN_PREFIX,
+				DIV_TAG_LOOP_BEGIN_SUFFIX,
+				DIV_TAG_LOOP_END_PREFIX,
+				DIV_TAG_LOOP_END_SUFFIX,
+				DIV_TAG_EMPTY,
+				DIV_TAG_BREAK,
+				DIV_TAG_LOOP_VAR_SEPARATOR,
+				DIV_TAG_ITERATION_BEGIN_PREFIX,
+				DIV_TAG_ITERATION_BEGIN_SUFFIX,
+				DIV_TAG_ITERATION_END,
+				DIV_TAG_ITERATION_PARAM_SEPARATOR,
+				DIV_TAG_CONDITIONAL_TRUE_BEGIN_PREFIX,
+				DIV_TAG_CONDITIONAL_TRUE_BEGIN_SUFFIX,
+				DIV_TAG_CONDITIONAL_TRUE_END_PREFIX,
+				DIV_TAG_CONDITIONAL_TRUE_END_SUFFIX,
+				DIV_TAG_CONDITIONAL_FALSE_BEGIN_PREFIX,
+				DIV_TAG_CONDITIONAL_FALSE_BEGIN_SUFFIX,
+				DIV_TAG_CONDITIONAL_FALSE_END_PREFIX,
+				DIV_TAG_CONDITIONAL_FALSE_END_SUFFIX,
+				DIV_TAG_ELSE,
+				DIV_TAG_CONDITIONS_BEGIN_PREFIX,
+				DIV_TAG_CONDITIONS_BEGIN_SUFFIX,
+				DIV_TAG_CONDITIONS_END,
+				DIV_TAG_TPLVAR_BEGIN,
+				DIV_TAG_TPLVAR_END,
+				DIV_TAG_TPLVAR_ASSIGN_OPERATOR,
+				DIV_TAG_TPLVAR_PROTECTOR,
+				DIV_TAG_DEFAULT_REPLACEMENT_BEGIN,
+				DIV_TAG_DEFAULT_REPLACEMENT_END,
+				DIV_TAG_INCLUDE_BEGIN,
+				DIV_TAG_INCLUDE_END,
+				DIV_TAG_PREPROCESSED_BEGIN,
+				DIV_TAG_PREPROCESSED_END,
+				DIV_TAG_PREPROCESSED_SEPARATOR,
+				DIV_TAG_CAPSULE_BEGIN_PREFIX,
+				DIV_TAG_CAPSULE_BEGIN_SUFFIX,
+				DIV_TAG_CAPSULE_END_PREFIX,
+				DIV_TAG_CAPSULE_END_SUFFIX,
+				DIV_TAG_MULTI_REPLACEMENT_BEGIN_PREFIX,
+				DIV_TAG_MULTI_REPLACEMENT_BEGIN_SUFFIX,
+				DIV_TAG_MULTI_REPLACEMENT_END_PREFIX,
+				DIV_TAG_MULTI_REPLACEMENT_END_SUFFIX,
+				DIV_TAG_FRIENDLY_BEGIN,
+				DIV_TAG_FRIENDLY_END,
+				DIV_TAG_AGGREGATE_FUNCTION_COUNT,
+				DIV_TAG_AGGREGATE_FUNCTION_MAX,
+				DIV_TAG_AGGREGATE_FUNCTION_MIN,
+				DIV_TAG_AGGREGATE_FUNCTION_SUM,
+				DIV_TAG_AGGREGATE_FUNCTION_AVG,
+				DIV_TAG_AGGREGATE_FUNCTION_SEPARATOR,
+				DIV_TAG_AGGREGATE_FUNCTION_PROPERTY_SEPARATOR,
+				DIV_TAG_LOCATION_BEGIN,
+				DIV_TAG_LOCATION_END,
+				DIV_TAG_LOCATION_CONTENT_BEGIN_PREFIX,
+				DIV_TAG_LOCATION_CONTENT_BEGIN_SUFFIX,
+				DIV_TAG_LOCATION_CONTENT_END_PREFIX,
+				DIV_TAG_LOCATION_CONTENT_END_SUFFIX,
+				DIV_TAG_MACRO_BEGIN,
+				DIV_TAG_MACRO_END,
+				DIV_TAG_SPECIAL_REPLACE_NEW_LINE,
+				DIV_TAG_SPECIAL_REPLACE_CAR_RETURN,
+				DIV_TAG_SPECIAL_REPLACE_HORIZONTAL_TAB,
+				DIV_TAG_SPECIAL_REPLACE_VERTICAL_TAB,
+				DIV_TAG_SPECIAL_REPLACE_NEXT_PAGE,
+				DIV_TAG_SPECIAL_REPLACE_DOLLAR_SYMBOL
+		);
+		
+		foreach ( $all_tags as $tag ) {
+			if ($tag !== '')
+				if (strpos($src, $tag) !== false)
+					return true;
+		}
+		
+		return false;
+	}
+	
+	/**
 	 * Return a list of conditional parts ranges
 	 *
 	 * @param boolean $orphans
 	 * @return array
 	 */
-	final public function getConditionalRanges($orphans = true, $src = null){
+	final public function getConditionalRanges($orphans = true, $src = null, $strict = false){
 		$ranges = $this->getBlockRanges($src, DIV_TAG_CONDITIONAL_FALSE_BEGIN_PREFIX, DIV_TAG_CONDITIONAL_FALSE_BEGIN_SUFFIX, DIV_TAG_CONDITIONAL_FALSE_END_PREFIX, DIV_TAG_CONDITIONAL_FALSE_END_SUFFIX);
 		
 		$ranges = array_merge($ranges, $this->getBlockRanges($src, DIV_TAG_CONDITIONAL_TRUE_BEGIN_PREFIX, DIV_TAG_CONDITIONAL_TRUE_BEGIN_SUFFIX, DIV_TAG_CONDITIONAL_TRUE_END_PREFIX, DIV_TAG_CONDITIONAL_TRUE_END_SUFFIX));
@@ -4618,6 +4761,14 @@ class div {
 			$nranges = array();
 			foreach ( $ranges as $rang )
 				if (self::varExists($rang[2], $this->__items))
+					$nranges[] = $rang;
+			$ranges = $nranges;
+		}
+		
+		if ($strict !== false) {
+			$nranges = array();
+			foreach ( $ranges as $rang )
+				if (! self::haveDivCode($rang[2]))
 					$nranges[] = $rang;
 			$ranges = $nranges;
 		}
@@ -4930,7 +5081,7 @@ class div {
 		$tags = array();
 		foreach ( $r as $item ) {
 			$tagname = substr($this->__src, $item[0] + $lprefix, $item[1] - $item[0] - $lprefix);
-						
+			
 			if (! isset($locations[$tagname]))
 				$locations[$tagname] = array();
 			$locations[$tagname][] = $item[0];
@@ -5680,6 +5831,7 @@ class div {
 			$msg_infinite_cycle = 'Too many iterations of the parser: possible infinite cycle. Review your template code.';
 			
 			do {
+				
 				$cycles1 = 0;
 				$cycles2 ++;
 				
@@ -5687,6 +5839,7 @@ class div {
 					$this->error($msg_infinite_cycle, "FATAL");
 				
 				do {
+					
 					$checksum = crc32($this->__src);
 					$this->__crc = $checksum;
 					
@@ -5737,7 +5890,9 @@ class div {
 						$this->parseMultipleModifiers();
 						
 						// Data in templates
+					
 					if (strpos($this->__src, DIV_TAG_TPLVAR_BEGIN) !== false)
+						
 						if (strpos($this->__src, DIV_TAG_TPLVAR_END) !== false) {
 							$items = array_merge($this->__memory, $items);
 							$this->parseData($items);
@@ -5796,11 +5951,11 @@ class div {
 					// Sub-Matches
 					if (self::atLeastOneString($this->__src, self::$__modifiers))
 						$this->parseSubmatches($items);
-						
+									
 						// Matches
 					if (self::atLeastOneString($this->__src, self::$__modifiers) || (strpos($this->__src, DIV_TAG_NUMBER_FORMAT_PREFIX) !== false && strpos($this->__src, DIV_TAG_NUMBER_FORMAT_SUFFIX) !== false))
 						$this->parseMatches($items);
-						
+					
 						// Discard literal vars
 					if (strpos($this->__src, DIV_TAG_IGNORE_BEGIN) !== false || strpos($this->__src, '{' . $this->__ignore_secret_tag . '}') !== false)
 						$this->parseIgnore();
@@ -5821,7 +5976,7 @@ class div {
 				if (strpos($this->__src, DIV_TAG_FORMULA_BEGIN) !== false)
 					if (strpos($this->__src, DIV_TAG_FORMULA_END) !== false)
 						$this->parseFormulas($items);
-										
+					
 					// Date format
 				if (strpos($this->__src, DIV_TAG_DATE_FORMAT_PREFIX) !== false)
 					if (strpos($this->__src, DIV_TAG_DATE_FORMAT_SUFFIX) !== false)
@@ -5874,7 +6029,6 @@ class div {
 			// The last action
 			if (self::$__parse_level <= $min_level) {
 				
-				
 				// Parsing macros
 				for($i = 0; $i < 3; $i ++) { // 3 passes
 					if (strpos($this->__src, DIV_TAG_MACRO_BEGIN) !== false) {
@@ -5892,7 +6046,6 @@ class div {
 					if (self::atLeastOneString($this->__src, self::$__modifiers) || (strpos($this->__src, DIV_TAG_NUMBER_FORMAT_PREFIX) !== false && strpos($this->__src, DIV_TAG_NUMBER_FORMAT_SUFFIX) !== false)) {
 						$this->parseMatches($items);
 					}
-					
 				}
 				
 				$this->parseSpecialChars();

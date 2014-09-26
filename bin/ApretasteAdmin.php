@@ -32,7 +32,7 @@ class ApretasteAdmin {
 				$r = Apretaste::query("SELECT * FROM users WHERE user_login='$u';");
 				if (isset($r[0])) {
 					$k = Apretaste::query("SELECT * FROM users_perms WHERE user_role ='{$r[0]['user_role']}';");
-					
+					$k = $k[0];
 					$k['access_to'] = explode(" ", trim(strtolower($k['access_to'])));
 					
 					foreach ( $k['access_to'] as $key => $value ) {
@@ -40,12 +40,11 @@ class ApretasteAdmin {
 					}
 					
 					$r[0]['perms'] = $k;
-					
 					$p = Apretaste::getAuthor($r[0]['email'], false, 50);
-					// var_dump($p);
 					$p = array_merge($p, $r[0]);
 					
 					self::$current_user = $p;
+					
 				}
 			}
 			return self::$current_user;
@@ -72,7 +71,6 @@ class ApretasteAdmin {
 		}
 	}
 	static function buildMenu(){
-		
 		$user = self::getUser();
 		
 		$chksum = md5(file_get_contents("../tpl/admin/menu.tpl") . $user['user_role']);
@@ -135,13 +133,12 @@ class ApretasteAdmin {
 				
 				if (! file_exists($tpl))
 					$tpl = 'auth';
-			
+				
 				self::buildMenu();
 				
 				$data['menu'] = $_SESSION['menu'];
 				
 				echo new ApretasteView($tpl, $data);
-				
 			} else
 				eval('self::page_' . $url . '();');
 		} elseif (isset($_GET['chart'])) {

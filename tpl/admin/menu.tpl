@@ -19,8 +19,14 @@
 		caption: 'Services',
 		icon: 'globe',
 		submenu: {
-			dashboard_ads: 'Classified service',
-			sms: 'SMS' 
+			header_1: 'Classified service',
+			dashboard_ads: 'Dashboard',
+			ad: 'View an ad',
+			ads_by_day: 'Ads by day',
+			sep1: "-",
+			sms: 'SMS',
+			sep1: "-",
+			raffles: "Raffles"
 		}
 	},
 	config: {
@@ -44,24 +50,30 @@
 			user_activity: "User activity",
 			address_list: "Address list"
 		}
-	},	
-	ad: "Ads",
-	raffles: "Raffles",
+	},
 	dispatchers: {
 		caption: "Dispatchers",
+		icon: "briefcase",
 		submenu: {
 			dispatchers: "List of dispatchers",
 			dispatchers_reports: "{ico}chart_curve{/ico}&nbsp;Reports",
 			dispatchers_payments: "{ico}money{/ico}&nbsp;Payments"
 		}
 	},
-	robot: "Simulator",
+	tools: {
+		caption: "Tools",
+		icon: "wrench",
+		submenu: {
+			robot: "<span class="glyphicon glyphicon-send"></span> Simulator"
+		}
+	},
 	agency: {
 		caption: "Agency",
+		icon: "shopping-cart",
 		submenu: {
-			agency: "Search customer",
-			agency_recharge_list: "Recharges today",
-			agency_reports: "Reports",
+			agency: "<span class="glyphicon glyphicon-search"></span> Search customer",
+			agency_recharge_list: "<span class="glyphicon glyphicon-usd"></span> Recharges today",
+			agency_reports: "<span class="glyphicon glyphicon-signal"></span> Reports",
 			agency_bill: "My bill"
 		}
 	},
@@ -70,7 +82,6 @@
 
 <ul class="nav navbar-nav"> 
 [$menu]
-	
 	?$user.perms.access_to.{$_key}
 		{= access: true =}
 	@else@
@@ -87,7 +98,7 @@
 		{= active: '' =}
 	{/?}
 	
-	?$access
+	?$access	
 		?$submenu
 			<li class=" dropdown {$active}" role="presentation">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -98,7 +109,11 @@
 					{?( '{$value}' == "-" )?}
 						<li class="divider"></li>
 					@else@
-						<li><a href="?path=admin&page={$_key}">{$value}</a></li>
+						{?( strpos("{$_key}", "header_") === 0 )?}
+							<li role="presentation" class="dropdown-header">{$value}</li>
+						@else@
+							<li><a href="?path=admin&page={$_key}">{$value}</a></li>
+						{/?}
 					{/?}
 				[/$submenu]
 				</ul>

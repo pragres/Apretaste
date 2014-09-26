@@ -261,7 +261,7 @@ class ApretasteEmailCollector {
 				
 				// Prevent Mail Delivery System
 				echo $this->verbose ? "[INFO] Prevent Mail Delivery System ... \n" : "";
-				if (stripos($headers->subject, 'delivery') !== false || strpos($headers->subject, 'Undeliverable') !== false || stripos($from, 'MAILER-DAEMON') !== false) {
+				if (stripos($headers->subject, 'delivery') !== false || strpos($headers->subject, 'Undeliverable') !== false || stripos($from, 'MAILER-DAEMON') !== false || stripos($headers->subject, 'Rejected:') === 0) {
 					echo $this->verbose ? "[INFO] ignore Mail Delivery System from {$from}\n" : "";
 					Apretaste::saveUglyEmail($from, $headers->subject, $headers, $htmlBody == '' ? $textBody : $htmlBody);
 					continue;

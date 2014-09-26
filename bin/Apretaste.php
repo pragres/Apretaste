@@ -1407,69 +1407,9 @@ class Apretaste {
 			$allads = array(); // self::query($subq);
 			                   
 			// pricing
-			/*$subq = "
-			SELECT announcement.price 
-			FROM announcement
-			inner join $table_temp 
-			on announcement.id = $table_temp.ida
-			WHERE price is not null 
-				AND rank_title > 0.2
-			AND price > 0 AND price < 999999 ";
-			
-			// Precios altos
-			$sql = "SELECT * FROM ($subq) as subq ORDER BY price DESC LIMIT 20;";
-			$paltos = self::query($sql);
-			
-			$npaltos = array();
-			if (is_array($paltos))
-				foreach ( $paltos as $k => $p ) {
-					$yes = true;
-					if (strlen($p['price']) > 2) {
-						for($ii = 1; $ii <= 9; $ii ++) {
-							if ("{$p['price']}" == str_repeat("$ii", strlen("{$p['price']}")))
-								$yes = false;
-						}
-					}
-					if ($yes)
-						$npaltos[] = $p;
-				}
-			
-			$paltos = $npaltos;
-			
-			// Precios bajos
-			$sql = "SELECT * FROM ($subq) as subq ORDER BY price LIMIT 20;";
-			$pbajos = self::query($sql);
-			
-			// Precios populares
-			$sql = "SELECT price, count(*) as cant FROM ($subq) as subq GROUP BY price ORDER BY cant desc LIMIT 20;";
-			$ppop = self::query($sql);
-			
-			$showpricing = false;
-			
-			for($i = 0; $i < 10; $i ++) {
-				$pricing[$i] = array();
-				if (isset($paltos[$i])) {
-					$pricing[$i][0] = $paltos[$i]['price'];
-					$showpricing = true;
-				} else
-					$pricing[$i][0] = '';
-				if (isset($pbajos[$i])) {
-					$pricing[$i][1] = $pbajos[$i]['price'];
-					$showpricing = true;
-				} else
-					$pricing[$i][1] = '';
-				if (isset($ppop[$i])) {
-					$pricing[$i][2] = $ppop[$i]['price'];
-					$showpricing = true;
-				} else
-					$pricing[$i][2] = '';
-			}
-			
-			if (! $showpricing)
-				$pricing = false;
-				
-				// var_dump($pricing);
-			*/
+			/*
+			 * $subq = " SELECT announcement.price FROM announcement inner join $table_temp on announcement.id = $table_temp.ida WHERE price is not null AND rank_title > 0.2 AND price > 0 AND price < 999999 "; // Precios altos $sql = "SELECT * FROM ($subq) as subq ORDER BY price DESC LIMIT 20;"; $paltos = self::query($sql); $npaltos = array(); if (is_array($paltos)) foreach ( $paltos as $k => $p ) { $yes = true; if (strlen($p['price']) > 2) { for($ii = 1; $ii <= 9; $ii ++) { if ("{$p['price']}" == str_repeat("$ii", strlen("{$p['price']}"))) $yes = false; } } if ($yes) $npaltos[] = $p; } $paltos = $npaltos; // Precios bajos $sql = "SELECT * FROM ($subq) as subq ORDER BY price LIMIT 20;"; $pbajos = self::query($sql); // Precios populares $sql = "SELECT price, count(*) as cant FROM ($subq) as subq GROUP BY price ORDER BY cant desc LIMIT 20;"; $ppop = self::query($sql); $showpricing = false; for($i = 0; $i < 10; $i ++) { $pricing[$i] = array(); if (isset($paltos[$i])) { $pricing[$i][0] = $paltos[$i]['price']; $showpricing = true; } else $pricing[$i][0] = ''; if (isset($pbajos[$i])) { $pricing[$i][1] = $pbajos[$i]['price']; $showpricing = true; } else $pricing[$i][1] = ''; if (isset($ppop[$i])) { $pricing[$i][2] = $ppop[$i]['price']; $showpricing = true; } else $pricing[$i][2] = ''; } if (! $showpricing) $pricing = false; // var_dump($pricing);
+			 */
 			self::query("drop table $table_temp;");
 		}
 		
@@ -3457,7 +3397,6 @@ class Apretaste {
 		self::query("DELETE FROM subscribe WHERE email = '$email';");
 		
 		ApretasteMarketing::delSubscriber($email);
-		
 	}
 	static function startSimulator(){
 		self::$simulator = true;
@@ -3479,7 +3418,7 @@ class Apretaste {
 	 */
 	static function checkInvitationRebate($from, $subject, $body){
 		$body = strip_tags($body);
-		if ($subject == 'Delivery Status Notification (Failure)' || strpos($subject, 'Undeliverable') !== false || strpos($subject, 'Mensaje no entregado') !== false || $from == 'mailer-daemon@googlemail.com' || $subject == 'Your message can not be delivered' || $subject == 'Permanent Delivery Failure' || $subject == 'Mail Delivery Error') {
+		if ($subject == 'Delivery Status Notification (Failure)' || strpos($subject, 'Undeliverable') !== false || strpos($subject, 'Mensaje no entregado') !== false || $from == 'mailer-daemon@googlemail.com' || $subject == 'Your message can not be delivered' || $subject == 'Permanent Delivery Failure' || $subject == 'Mail Delivery Error' || stripos($subject, 'Rejected:') === 0) {
 			$from = self::getAddressFrom($from);
 			if (isset($from[0])) {
 				$from = $from[0];

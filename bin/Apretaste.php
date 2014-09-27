@@ -3418,7 +3418,7 @@ class Apretaste {
 	 */
 	static function checkInvitationRebate($from, $subject, $body){
 		$body = strip_tags($body);
-		if ($subject == 'Delivery Status Notification (Failure)' || strpos($subject, 'Undeliverable') !== false || strpos($subject, 'Mensaje no entregado') !== false || $from == 'mailer-daemon@googlemail.com' || $subject == 'Your message can not be delivered' || $subject == 'Permanent Delivery Failure' || $subject == 'Mail Delivery Error' || stripos($subject, 'Rejected:') === 0) {
+		if ($subject == 'Delivery Status Notification (Failure)' || strpos($subject, 'Undeliverable') !== false || strpos($subject, 'Mensaje no entregado') !== false || $from == 'mailer-daemon@googlemail.com' || $subject == 'Your message can not be delivered' || $subject == 'Permanent Delivery Failure' || $subject == 'Mail Delivery Error' || stripos($subject, 'Rejected:') === 0 || stripos($subject, 'lo ha invitado a usar Apretaste!') !== false || stripos($subject, 'Correo electrónico devuelto:') === 0) {
 			$from = self::getAddressFrom($from);
 			if (isset($from[0])) {
 				$from = $from[0];

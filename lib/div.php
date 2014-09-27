@@ -2113,7 +2113,7 @@ class div {
 	 * @param string $key
 	 * @param mixed $value
 	 */
-	final public function parseMatch($key, $value, &$engine){
+	final public function parseMatch($key, $value, &$engine, $ignore_logical_order = false){
 		if (isset($this->__ignore[$key]))
 			return false;
 		
@@ -2142,17 +2142,20 @@ class div {
 		$suffix = DIV_TAG_REPLACEMENT_SUFFIX;
 		
 		if ($is_string || is_numeric($value)) {
-			
-			$p1 = - 1;
-			//do {
-				$p1 = strpos($this->__src, DIV_TAG_TPLVAR_BEGIN, $p1 + 1);
-			//} while ( $this->searchInRanges($this->getConditionalRanges(true), $p1) && $p1 !== false );
-
-			$p2 = - 1;
-			//do {
-				$p2 = strpos($this->__src, DIV_TAG_MACRO_BEGIN, $p2 + 1);
-			//} while ( $this->searchInRanges($this->getConditionalRanges(true), $p2) && $p2 !== false );
-						
+			if (! $ignore_logical_order) {
+				$p1 = - 1;
+			//	do {
+					$p1 = strpos($this->__src, DIV_TAG_TPLVAR_BEGIN, $p1 + 1);
+				//} while ( $this->searchInRanges($this->getConditionalRanges(true), $p1) && $p1 !== false );
+				
+				$p2 = - 1;
+				//do {
+					$p2 = strpos($this->__src, DIV_TAG_MACRO_BEGIN, $p2 + 1);
+			//	} while ( $this->searchInRanges($this->getConditionalRanges(true), $p2) && $p2 !== false );
+			} else {
+				$p1 = false;
+				$p2 = false;
+			}
 			if ($p1 === false && $p2 === false)
 				$substr = $this->__src;
 			elseif ($p1 !== false && $p2 !== false) {
@@ -4065,7 +4068,7 @@ class div {
 	 * @param string $key
 	 * @param mixed $value
 	 */
-	final public function scanMatch($key, $value, $engine = null, &$items = null){
+	final public function scanMatch($key, $value, $engine = null, &$items = null, $ignore_logical_order = false){
 		if (is_null($items))
 			$items = &$this->__items;
 		if (is_null($engine))
@@ -4092,7 +4095,7 @@ class div {
 		}
 		
 		// Match this key
-		$this->parseMatch($key, $value, $engine);
+		$this->parseMatch($key, $value, $engine, $ignore_logical_order);
 		
 		// Match aggregate functions
 		if (is_object($value))
@@ -4103,7 +4106,7 @@ class div {
 			
 			$cant_values = count($value);
 			
-			$this->parseMatch($key, $cant_values, $engine);
+			$this->parseMatch($key, $cant_values, $engine, $ignore_logical_order);
 			
 			if ($cant_values > 0) {
 				if (strpos($this->__src, $key) !== false) {
@@ -4295,7 +4298,7 @@ class div {
 	 *
 	 * @param array $items
 	 */
-	final public function parseMatches(&$items = null){
+	final public function parseMatches(&$items = null, $ignore_logical_order = false){
 		if (self::$__log_mode)
 			$this->logger("Parsing matches...");
 		if (is_null($items))
@@ -4330,7 +4333,7 @@ class div {
 		$engine = self::getAuxiliaryEngineClone($items);
 		if (is_array($items))
 			foreach ( $items as $key => $value )
-				$this->scanMatch($key, $value, $engine, $items);
+				$this->scanMatch($key, $value, $engine, $items, $ignore_logical_order);
 		
 		foreach ( $restore as $ukey => $part )
 			$this->__src = str_replace($ukey, $part, $this->__src);
@@ -5335,18 +5338,21 @@ class div {
 			$this->__temp['ini'] = $this->__temp['ranges'][0][0];
 			$this->__temp['fin'] = $this->__temp['ranges'][0][1];
 			
-			$this->__temp['r'] = $this->checkLogicalOrder($this->__temp['ini'], "", true, ! $ignore_previous_match, true, false);
-			
-			if ($this->searchInListRanges($this->__temp['ini'])) {
-				$this->__temp['p'] = $this->__temp['ini'] + 1;
-				continue;
+			if (! $ignore_previous_match) {
+				$this->__temp['r'] = $this->checkLogicalOrder($this->__temp['ini'], "", true, ! $ignore_previous_match, true, false);
+				
+				if ($this->searchInListRanges($this->__temp['ini'])) {
+					$this->__temp['p'] = $this->__temp['ini'] + 1;
+					continue;
+				}
+				
+				if ($this->__temp['r'] !== false) {
+					$this->__temp['p'] = $this->__temp['r'];
+					continue;
+				}
+			} else {
+				$this->__temp['r'] = false;
 			}
-			
-			if ($this->__temp['r'] !== false) {
-				$this->__temp['p'] = $this->__temp['r'];
-				continue;
-			}
-			
 			$this->__temp['code'] = trim(substr($this->__src, $this->__temp['ini'] + $l1, $this->__temp['fin'] - $this->__temp['ini'] - $l1));
 			$this->__temp['temp'] = uniqid();
 			
@@ -5951,11 +5957,11 @@ class div {
 					// Sub-Matches
 					if (self::atLeastOneString($this->__src, self::$__modifiers))
 						$this->parseSubmatches($items);
-									
+						
 						// Matches
 					if (self::atLeastOneString($this->__src, self::$__modifiers) || (strpos($this->__src, DIV_TAG_NUMBER_FORMAT_PREFIX) !== false && strpos($this->__src, DIV_TAG_NUMBER_FORMAT_SUFFIX) !== false))
 						$this->parseMatches($items);
-					
+						
 						// Discard literal vars
 					if (strpos($this->__src, DIV_TAG_IGNORE_BEGIN) !== false || strpos($this->__src, '{' . $this->__ignore_secret_tag . '}') !== false)
 						$this->parseIgnore();
@@ -6036,7 +6042,7 @@ class div {
 						$items = $this->parseMacros($items, true);
 						$this->memory($items);
 					}
-					
+										
 					// Sub-Matches
 					if (self::atLeastOneString($this->__src, self::$__modifiers)) {
 						$this->parseSubmatches($items);
@@ -6044,7 +6050,7 @@ class div {
 					
 					// Matches
 					if (self::atLeastOneString($this->__src, self::$__modifiers) || (strpos($this->__src, DIV_TAG_NUMBER_FORMAT_PREFIX) !== false && strpos($this->__src, DIV_TAG_NUMBER_FORMAT_SUFFIX) !== false)) {
-						$this->parseMatches($items);
+						$this->parseMatches($items, true);
 					}
 				}
 				

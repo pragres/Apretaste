@@ -1,3 +1,5 @@
+{strip}
+<!--{ Apretaste! admin menu }-->
 {= menu:{
 	dashboard: {
 		caption: "<i class="fa fa-dashboard fa-fw"></i>Dashboard",
@@ -79,27 +81,10 @@
 	},
 	logout: "Logout"
 } =}
-
 <ul class="nav navbar-nav"> 
 [$menu]
-	?$user.perms.access_to.{$_key}
-		{= access: true =}
-	@else@
-		{?( "{$user.user_role}" == "admin" )?}
-			{= access: true =}
-		@else@
-			{= access: false =}
-		{/?}
-	$user.perms.access_to.{$_key}?
-	
-	{?( strpos("{$div.get.page}","{$_key}") === 0 )?} 
-		{= active: 'active' =}
-	@else@
-		{= active: '' =}
-	{/?}
-	
-	?$access	
-		?$submenu
+	?$submenu
+		?$user.perms.access_to.{$_key}
 			<li class=" dropdown {$active}" role="presentation">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					?$icon <span class="glyphicon glyphicon-{$icon}"></span> $icon? {$caption}<b class="caret"></b>
@@ -118,11 +103,20 @@
 				[/$submenu]
 				</ul>
 			</li> 
-		@else@
+		$user.perms.access_to.{$_key}?
+	@else@
+		?$user.perms.access_to.{$_key}
+			{?( strpos("{$div.get.page}","{$_key}") === 0 )?} 
+				{= active: 'active' =}	
+			@else@
+				{= active: '' =}
+			{/?}
 			<li class="{$active}" role="presentation">
 				<a href="?path=admin&page={$_key}">{$value}</a>
 			</li>
-		$submenu?
-	$access?
+		$user.perms.access_to.{$_key}?
+	$submenu?
+	
 [/$menu]
 </ul>
+{/strip}

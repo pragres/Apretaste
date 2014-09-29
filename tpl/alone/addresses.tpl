@@ -14,7 +14,8 @@ a los cuales puede escribir para interactuar con {$apretaste}.
     "apretaste@hotmail.com",
     "apretaste@live.com",
     "apretaste@rebateninja.com",
-    "apretaste@pragres.com"    
+    "apretaste@pragres.com",
+	"apretaste1@yahoo.com"	
 ] =}
 <ul style="{$font}">
 [$addresses]

@@ -18,7 +18,7 @@
 			amount: '${#amount:2.#}',
 			user_email: '<a href="index.php?path=admin&page=user_activity&user={$user_email}">{$user_email}</a>'
 		},
-		footer: "Totals: <b>{$recharges-user_email}</b> user(s), <b>{$recharges-customer_id}</b> customer(s), <b>${#sum:recharges-amount:2.#}</b>"
+		footer: "?$recharges Totals: <b>{$recharges-user_email}</b> user(s), <b>{$recharges-customer_id}</b> customer(s), <b>${#sum:recharges-amount:2.#}</b> $recharges? "
 	} %%}
 	
 headerdown}}

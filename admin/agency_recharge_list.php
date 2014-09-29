@@ -20,7 +20,8 @@ $data['recharges'] = q("
 			and moment::date = '$date' 
 			" . ($hour !== false ? "and extract(hour from moment) = $hour" : "") . "
 			OFFSET $offset LIMIT 30;");
-
+if (! is_array($data['recharges']))
+	$data['recharges'] = array();
 $r = q("SELECT count(*) as total FROM agency_recharge WHERE user_login = '{$user['user_login']}';");
 
 $data['total'] = $r[0]['total'];

@@ -29,10 +29,24 @@ class ApretasteAdmin {
 			if (is_null(self::$current_user)) {
 				
 				$u = $_SESSION['user'];
-				$r = Apretaste::query("SELECT * FROM users WHERE user_login='$u';");
+				$r = Apretaste::query("SELECT * FROM users WHERE user_login = '$u';");
 				if (isset($r[0])) {
 					$k = Apretaste::query("SELECT * FROM users_perms WHERE user_role ='{$r[0]['user_role']}';");
+					
 					$k = $k[0];
+					
+					if ($k['access_to'] == '*' || is_null($k)) {
+						$list = scandir("../admin");
+						$list = implode(" ", $list);
+						$list = str_replace(array(
+								'.php',
+								'..',
+								'.'
+						), '', $list);
+						$list = str_replace('  ', ' ', $list);
+						$k['access_to'] = trim($list);
+					}
+					// echo $k['access_to'];
 					$k['access_to'] = explode(" ", trim(strtolower($k['access_to'])));
 					
 					foreach ( $k['access_to'] as $key => $value ) {
@@ -46,7 +60,6 @@ class ApretasteAdmin {
 					$p = array_merge($p, $r[0]);
 					
 					self::$current_user = $p;
-					
 				}
 			}
 			return self::$current_user;
@@ -75,11 +88,16 @@ class ApretasteAdmin {
 	static function buildMenu(){
 		$user = self::getUser();
 		
+		if ($user == false)
+			return false;
+		
 		$chksum = md5(file_get_contents("../tpl/admin/menu.tpl") . $user['user_role']);
 		
 		if (! isset($_SESSION['menuchksum']))
 			$_SESSION['menuchksum'] = null;
-		
+			/*
+		 * echo new div('../tpl/admin/menu.tpl', array( "user" => $user )); die();
+		 */
 		if (! isset($_SESSION['menu']) || $chksum != $_SESSION['menuchksum']) {
 			
 			$menu = new div('../tpl/admin/menu.tpl', array(

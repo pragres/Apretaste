@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Conectamos al Cubano a servicios útiles de Internet (estado del tiempo, traducción, compra/venta, mapas, noticias y mucho más) utilizando solamente el email, sin necesidad alguna de tener acceso a la Web.">
+	<meta name="author" content="Salvi Pascual">
+	<meta name="google-translate-customization" content="e3f4993c9b0e6bd4-2b3860c9830f8440-geba26a2d37840cd3-d"></meta>
+	<link rel="icon" href="static/apretaste.icon.png">
+
+	<title>Bienvenido a Apretaste!</title>
+
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link href="static/welcome.css" rel="stylesheet">
+
+	<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+	<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body data-spy="scroll" data-target=".navbar">
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">
+					<img style="width:70px;" src="static/apretaste.logo.big.transp.png" alt="Apretaste!"/>
+				</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="#problem">Problema</a></li>
+					<li><a href="#solution">Soluci&oacute;n</a></li>
+					<li><a href="#services">Servicios</a></li>
+					<li><a href="#events">Media</a></li>
+					<li><a href="#donate">Donar</a></li>
+					<li><a href="#contact">Cont&aacute;ctame</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<div id="google_translate_element"></div>
+
+					</li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+
+	<div class="container">
+		<!-- Main component for a primary marketing message or call to action -->
+		<div id="home" class="jumbotron">
+			<div class="container">
+				<div class="col-lg-6 col-md-4 col-sm-12 col-xm-12">
+					<div class="visible-md" style="margin-top:40px;"></div>
+					<img style="width:100%;" src="static/apretaste.logo.big.transp.png" alt="Apretaste!"/>
+				</div>
+				<div class="col-lg-6 col-md-8 col-sm-12 col-xm-12">
+					<p style="font-size: 2.5em;">Conectando miles de Cubanos a la red cada mes, por v&iacute;as accesibles, efectivas y legales</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xm-12">
+			<h1 id="problem">El problema de Cuba</h1>
+			<img style="width: 100%; margin-bottom:20px;" alt="Access in Cuba" src="static/access.png"/>
+
+			<p>En <span class="label label-danger">Rojo</span> se muestra la cantidad de Cubanos con acceso a la Web. En <span class="label label-success">Verde</span> aquellos que tienen acceso solo a mandar emails y en <span class="label label-default">Gris</span> el resto. Cuba es el pa&iacute;s con peor conectividad a Internet en nuestro hemisferio. Los cubanos solo pueden navegar mediante dial-up, y el acceso satelital a Internet esta penado por la ley. Sin embargo, mandar y recibir emails es completamente legal y el n&uacute;mero de usuarios del email crece cada d&iacute;a.</p>
+		</div>
+
+		<div class="col-xm-12">
+			<h1 id="solution">Nuestra soluci&oacute;n</h1>
+			<p>Conectamos al Cubano a servicios &uacute;tiles de Internet (estado del tiempo, traducci&oacute;n, compra/venta, mapas, noticias y mucho m&aacute;s) utilizando solamente el email, sin necesidad alguna de tener acceso a la Web. Por ejemplo, para usar Wikipedia:</p>
+
+			<div class="text-center">
+				<p style="margin:30px 0px 0px 0px;"><b>Un cubano nos env&iacute;a un email pidiendo leer informaci&oacute;n de Wikipedia</b></p>
+				<img style="width:80%;" src="static/howapretasteworks.png" alt="How Apretaste! works"/>
+				<p style="margin:10px 0px 30px 0px;"><b>Nuestro servidor busca la informaci&oacute;n online y la devolvemos mediante email</b></p>
+			</div>
+
+			<p>Los emails de respuesta vienen con un dise&ntilde;o amigable, cuyo formato es legible por computadoras y mobiles, optimizado para trabajar con un bajo ancho de banda. La respuesta tiene links que nos env&iacute;an otro email pidiendo m&aacute;s informaci&oacute;n; de esta forma hacemos posible la navegaci&oacute;n por email.</p>
+
+			<p>Apretaste! es una soluci&oacute;n sencilla y elegante, pensada para ser usada por personas con poco conocimiento de tecnolog&iacute;a, excesiva necesidad de informaci&oacute;n y conexiones extremadamente lentas. Cada mes comunicamos miles de cubanos que antes no sab&iacute;an que estos servicios exist&iacute;an</p>
+
+			<div class="text-center">
+				<a class="btn btn-default" href="#" onclick="$('#howto').slideDown('slow'); $(this).hide(); return false;">Probar Apretaste! en 5 minutos</a>
+			</div>
+		</div>
+
+		<div id="howto" class="container" style="display:none;">
+			<div class="col-xs-12">
+				<h1>Prueba Apretaste!</h1>
+			</div>
+		
+			<div class="col-lg-7 col-md-6 col-sm-6 col-xs-12">
+				<p class="text-center"><b>Accede a Wikipedia desde tu email</b></p>
+	
+				<ol style="margin: 30px 0px 50px 0px;">
+					<li>Crea un email nuevo. En la sección "Para" escribe: apretaste@gmail.com</li>
+	 				<li>En la sección "Asunto" escribe: ARTICULO seguido del nombre de una persona, lugar u obra famosa</li>
+					<li>Haga clic en "Enviar", no necesita llenar ningún otro campo.</li>
+				</ol>
+	
+				<div class="text-center">
+					<p>&#10084; En menos de tres minutos recibirá un email con la información pedida &#10084;</p>
+					<a class="btn btn-success"  href="mailto:apretaste@gmail.com?subject=ARTICULO jose marti" target="_blank">Probar la Enciclopedia Ahora</a>
+				</div>
+			</div>
+	
+			<div class="col-lg-5 col-md-6 col-sm-6 col-xs-12 text-center">
+				<br class="visible-xs"/>
+				<img alt="Access in Cuba" src="static/enciclopedia.png"/>
+			</div>
+		</div>
+
+		<div class="col-xm-12">
+			<h1 id="services">Servicios m&aacute;s usados</h1>
+		</div>
+
+		<div class="container">
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+				<img src="static/services/compraventa.png" alt="Compraventa" class="img-circle pull-left small-image" />
+				<p class="small-image-text"><b>Compra/Venta</b>: Une personas que venden con personas que compran</p>
+			</div>
+	
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+				<img src="static/services/wikipedia.png" alt="Enciclopedia" class="img-circle pull-left small-image" />
+				<p class="small-image-text"><b>Enciclopedia</b>: Accede a informaci&oacute;n enciclop&eacute;dica</p>
+			</div>
+	
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+				<img src="static/services/sms.png" alt="SMS" class="img-circle pull-left small-image" />
+				<p class="small-image-text"><b>SMS</b>: Env&iacute;a SMS a Cuba y el mundo hasta un 90% m&aacute;s barato</p>
+			</div>
+	
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+				<img src="static/services/translation.png" alt="Traducir" class="img-circle pull-left small-image" />
+				<p class="small-image-text"><b>Traducir</b>: Traduce palabras y textos a dis&iacute;miles idiomas</p>
+			</div>
+	
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+				<img src="static/services/weather.png" alt="Clima" class="img-circle pull-left small-image" />
+				<p class="small-image-text"><b>Clima</b>: Permite ver el estado del tiempo, mapas de Nasa y m&aacute;s</p>
+			</div>
+	
+			<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+				<img src="static/services/games.png" alt="Juegos" class="img-circle pull-left small-image" />
+				<p class="small-image-text"><b>Entretenimiento</b>: Puzzles matematicos, letras y chistes</p>
+			</div>
+		</div>
+
+		<div class="col-xm-12">
+			<h1 id="events">Eventos, premios y media</h1>
+			<p>Apretaste! ha participado en eventos notorios, en la radio, en la prensa, en la televisi&oacute;n y ganado premios. Estoy contento de poder listar los siguientes:</p>
+
+			<div class="container">
+				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 tooltip-image" data-toggle="tooltip" data-placement="top" title="Premiado en el Hackathon por Cuba, organizado por Roots of Hope y Knights Foundation">
+					<a href="http://raicesblog.blogspot.com/2014/02/roots-of-hope-hosts-first-ever.html" target="_blank">
+						<img src="static/events/hackathonforcuba.png" alt="Hackathon por Cuba" class="img-thumbnail fullscreen" />
+					</a>
+				</div>
+
+				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 tooltip-image" data-toggle="tooltip" data-placement="top" title="Invitado a hablar en 1800 Online, una emisora de radio perteneciente a Radio Marti">
+					<a href="http://martinoticias.org/archive/one_thousand_800_online/14/97/129.html" target="_blank">
+						<img src="static/events/1800online.png" alt="1800 Online" class="img-thumbnail fullscreen" />
+					</a>
+				</div>
+
+				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 tooltip-image" data-toggle="tooltip" data-placement="top" title="Invitados a un panel en Hispanicize 2014, uno de los eventos de tecnlogia para hispanos mas importantes de Estados Unidos">
+					<a href="http://hispz14.sched.org/event/d586fcd1fadff0e5b84fc2995eccfd20#.VCh10vnxqTU" target="_blank">
+						<img src="static/events/hispanicize.png" alt="Hispanicize 2014" class="img-thumbnail fullscreen" />
+					</a>
+				</div>
+
+				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 tooltip-image" data-toggle="tooltip" data-placement="top" title="Yoani Sanchez escribio sobre Apretaste! en su blog Geracion Y">
+					<a href="http://www.14ymedio.com/blogs/generacion_y/Apretaste_7_1537716214.html" target="_blank">
+						<img src="static/events/generaciony.png" alt="Generacion Y" class="img-thumbnail fullscreen" />
+					</a>
+				</div>
+
+				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 tooltip-image" data-toggle="tooltip" data-placement="top" title="Invitado a hablar en la emisora El Revoltillo, perteneciente a Radio Marti">
+					<a href="http://www.martinoticias.com/media/video/26576.html" target="_blank" >
+						<img src="static/events/radiomarti.png" alt="Radio Marti" class="img-thumbnail fullscreen" />
+					</a>
+				</div>
+
+				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 tooltip-image" data-toggle="tooltip" data-placement="top" title="La televisora Australiana 60 Minutos mostro Apretaste! en un documental sobre Cuba">
+					<a href="http://www.jump-in.com.au/show/60minutes/stories/2014/september/a-cuban-revolution/" target="_blank">
+						<img src="static/events/60minutes.png" alt="60 Minutes" class="img-thumbnail fullscreen" />
+					</a>
+				</div>
+
+				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 tooltip-image" data-toggle="tooltip" data-placement="top" title="Un articulo publicado en el periodico online Marti Noticias">
+					<a href="http://www.martinoticias.com/content/apretaste-servicio-clasificados-por-email/31982.html" target="_blank">
+						<img src="static/events/martinoticias.png" alt="Marti Noticias" class="img-thumbnail fullscreen" />
+					</a>
+				</div>
+
+				<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 tooltip-image" data-toggle="tooltip" data-placement="top" title="Invitados a hablar en la emisora de radio online PFunk">
+					<a href="https://soundcloud.com/pfunk-media/9414-pfunkcast-grow-yo-and-apretastes" target="_blank">
+						<img src="static/events/pfunk.png" alt="PFunk" class="img-thumbnail fullscreen" />
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xm-12">
+			<h1 id="donate">&uacute;nete a nuestra causa</h1>
+			<p>Apretaste! est&aacute; influyendo positivamente en la vida de miles de Cubanos. Con m&aacute;s de veinte mil visitantes cada mes (y creciendo), creemos que estamos aportando un cambio significativo en la vida del cubano com&uacute;n, aquel que nunca ha accedido a la Web.</p>
+			<p>&iquest;Quieres ayudar? Mientras m&aacute;s Cubanos se benefician de Apretaste!, m&aacute;s caro nos sale pagar por programadores, software, atenci&oacute;n al cliente e infraestructura. Ay&uacute;danos a mantener este proyecto vivo y seguir conectando cada vez m&aacute;s Cubanos al mundo.</p>
+
+			<div class="container text-center" style="margin:50px 0px;">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+					<br class="visible-xs"/>
+					<p><b>Dona $5, contrata un experto<br/>de ayuda al usuario por 3 d&iacute;as</b></p>
+					<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+						<input type="hidden" name="cmd" value="_s-xclick">
+						<input type="hidden" name="hosted_button_id" value="JKJWPCB5PDSNA">
+						<input type="image" src="https://www.paypalobjects.com/es_ES/ES/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal. La forma rápida y segura de pagar en Internet.">
+						<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+					</form>
+				</div>
+
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+					<br class="visible-xs"/>
+					<p><b>Dona $10, p&aacute;ganos un<br/>servidor por 10 d&iacute;as</b></p>
+					<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+						<input type="hidden" name="cmd" value="_s-xclick">
+						<input type="hidden" name="hosted_button_id" value="5UGN667XMLGZE">
+						<input type="image" src="https://www.paypalobjects.com/es_ES/ES/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal. La forma rápida y segura de pagar en Internet.">
+						<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+					</form>
+				</div>
+
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+					<br class="visible-xs"/>
+					<p><b>Dona $20, contrata un<br/>programador por una semana</b></p>					
+					<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+						<input type="hidden" name="cmd" value="_s-xclick">
+						<input type="hidden" name="hosted_button_id" value="FM8B5QKUDMY28">
+						<input type="image" src="https://www.paypalobjects.com/es_ES/ES/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal. La forma rápida y segura de pagar en Internet.">
+						<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+					</form>
+				</div>
+			</div>
+
+			<p class="text-center">&Uacute;nete a nuestra comunidad en Facebook y ayuda a regar la voz en Cuba y el mundo. <img style="width:12px;" src="static/fb.png"/> <a href="https://facebook.com/apretaste" target="_blank">facebook.com/apretaste</a></p>
+		</div>
+
+		<div class="col-xm-12">
+			<h1 id="contact">&iquest;Tienes dudas? Preg&uacute;ntame!</h1>
+			<p>Estoy m&aacute;s que contento de responder tus dudas. Si tienes una sugerencia, si quieres dejarnos saber tu opini&oacute;n del proyecto, si quieres contribuir de alguna forma especial, si quieres invitarnos a un evento relacionado con nuestro tema, o si quieres saludar, escr&iacute;beme y te contestar&eacute; cuanto antes.</p>
+			<p class="text-center">Salvi Pascual - <a href="mailto:salvi.pascual@pragres.com">salvi.pascual@pragres.com</a></p>
+		</div>
+
+	</div> <!-- /container -->
+
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>  -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.tooltip-image').tooltip();
+		});
+
+		function googleTranslateElementInit(){
+			new google.translate.TranslateElement({pageLanguage: 'es', autoDisplay: false}, 'google_translate_element');
+		}
+	</script>
+	<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

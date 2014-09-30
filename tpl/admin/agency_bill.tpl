@@ -25,7 +25,7 @@ blocks}}
 	{%% table: {
 		data: $weeks,
 		title: 'Details',
-		hideColumns: {agency: true, month:true, payment: true},
+		hideColumns: {agency: true, month:true, payment: true, owe_cumul:true},
 		headers: {year: "Date"},
 		wrappers: {
 			year: '{$year}, {$month}',

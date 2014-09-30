@@ -1,4 +1,4 @@
-{= title: Agency reports =}
+{= title: Reports =}
 {= path: index.php?path=admin&page=agency_reports =}
 {= pagewidth: 1024 =}
 
@@ -6,12 +6,16 @@
 
 {= months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] =}
 {= year_color: ["", "#ff9886","#7a6fbf"] =}
+{{headerdown
 
-{{page 
-	{% agency_panel %}
-	<h2>Recharges by hour</h2>
+<div class="panel panel-success" style="width: {$width}; margin: auto;">
+	<div class="panel-heading">
+		<h3 class="panel-title">Recharges by hour: <i>Number of recharges every hour (last {$lastdays} days)</i></h3>
+	</div>
+	<div class="panel-body">
+
 	<p style="color:gray;">Number of recharges every hour (last {$lastdays} days)</p>
-	<table width="100%">
+	<table width="100%" class="table table-hover">
 		<tr>
 			<th></th>
 			<?
@@ -78,26 +82,25 @@
 			?>
 		</tr>
 	</table>
+	</div>
+</div>
+	<br/>
+	{%% chart_line: {
+		id: "salescount",
+		data: $salescount,
+		title: "Recharges by month" 
+	} %%}
+	<br/>
+	{%% chart_line: {
+		id: "salesamount",
+		data: $salesamount,
+		title: "Amount by month" 
+	} %%}
+	<br/>
+	{%% chart_line: {
+		id: "residuals",
+		data: $residuals,
+		title: "Residuals by month" 
+	} %%}
 		
-	<h1>Recharges by month</h1>
-	<img width = "95%" height="60%" src="index.php?path=admin&chart=agency_sales_count">
-	
-	<h1>Amount by month</h1>
-	<img width = "95%" height="60%" src="index.php?path=admin&chart=agency_sales_amount">
-
-	<h1>Residuals by month</h1>
-	<img width = "95%" height="60%" src="index.php?path=admin&chart=agency_residuals">
-
-	
-	<!--{ <h1>Profits by month</h1>
-	<table class="tabla" width="100%">
-		<tr><th>Year</th><th>Month</th><th>Recharges</th><th>Amount</th><th>Profit</th><th>To pay</th></tr>
-		[$profits]
-		<tr><td>{$year}</td><td>{$months.(# {$mes} - 1 #)}</td><td>{$total}</td>
-		<td align="right">${#amount:2,#}</td>
-		<td align="right">${#profit:2,#}</td>
-		<td align="right">${#debt:2,0#}</td></tr>
-		[/$profits]
-	</table>
-	}-->
-page}}
+headerdown}}

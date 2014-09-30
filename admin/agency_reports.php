@@ -5,7 +5,7 @@ $debt_percent = 0.2;
 
 $user = ApretasteAdmin::getUser();
 
-$lastdays = 20;
+$lastdays = 15;
 
 $data['lastdays'] = $lastdays;
 
@@ -75,6 +75,7 @@ $data['amount_by_hour'] = $amount_by_hour;
 $data['ah'] = $ah;
 $data['ans'] = $ah;
 
+/*
 $sql = "select  
 extract(year from moment::date) as year,
 extract(month from moment::date) as mes,
@@ -91,3 +92,130 @@ order by year, mes";
 $r = Apretaste::query($sql);
 
 $data['profits'] = $r;
+*/
+
+
+$current_year = intval(date("Y"));
+$current_month = intval(date("m"));
+
+$months = array(
+		"Jan",
+		"Feb",
+		"Mar",
+		"Apr",
+		"May",
+		"Jun",
+		"Jul",
+		"Aug",
+		"Sep",
+		"Oct",
+		"Nov",
+		"Dec"
+);
+
+
+$sql = "
+			select extract(year from moment::date) as ano,
+			extract(month from moment) as mes,
+			sum(amount) as total
+			from agency_recharge
+			where 
+		    user_login = '{$user['user_login']}' AND
+		    extract(year from moment::date) = extract(year from current_date)
+			or extract(year from moment::date) = extract(year from current_date) - 1
+			group by ano, mes
+			order by ano, mes;";
+
+$r = Apretaste::query($sql);
+
+$salesamount = array();
+
+for($i = 1; $i <= 12; $i ++) {
+	$salesamount[$i - 1] = array(
+			"period" => $current_year.'-'.$i,
+			"last" => 0,
+			"current" => 0
+	);
+}
+
+foreach ( $r as $row ) {
+	$prop = "last";
+	if ($row['ano'] == $current_year)
+		$prop = "current";
+	$salesamount[$row['mes'] - 1][$prop] = intval($row['total']);
+}
+
+$data['salesamount'] = $salesamount;
+
+
+$sql = "
+select extract(year from moment::date) as ano,
+extract(month from moment) as mes,
+count(*) as total
+from agency_recharge
+where
+user_login = '{$user['user_login']}' AND
+extract(year from moment::date) = extract(year from current_date)
+or extract(year from moment::date) = extract(year from current_date) - 1
+group by ano, mes
+order by ano, mes;";
+
+$r = Apretaste::query($sql);
+
+
+$salescount = array();
+
+for($i = 1; $i <= 12; $i ++) {
+	$salescount[$i - 1] = array(
+			"period" => $current_year.'-'.$i,
+			"last" => 0,
+			"current" => 0
+	);
+}
+
+foreach ( $r as $row ) {
+	$prop = "last";
+	if ($row['ano'] == $current_year)
+		$prop = "current";
+	$salescount[$row['mes'] - 1][$prop] = intval($row['total']);
+}
+
+$data['salescount'] = $salescount;
+
+
+$sql = "
+select extract(year from moment::date) as ano,
+extract(month from moment) as mes,
+count(*) as total
+from agency_recharge
+where
+user_login = '{$user['user_login']}' AND
+extract(year from moment::date) = extract(year from current_date)
+or extract(year from moment::date) = extract(year from current_date) - 1
+group by ano, mes
+order by ano, mes;";
+
+$r = Apretaste::query($sql);
+
+
+$residuals = array();
+
+for($i = 1; $i <= 12; $i ++) {
+	$residuals[$i - 1] = array(
+			"period" => $current_year.'-'.$i,
+			"last" => 0,
+			"current" => 0
+	);
+}
+
+foreach ( $r as $row ) {
+	$prop = "last";
+	if ($row['ano'] == $current_year)
+		$prop = "current";
+	$residuals[$row['mes'] - 1][$prop] = intval($row['total']);
+}
+
+$data['residuals'] = $residuals;
+
+$data['current_year'] = $current_year;
+$data['current_month'] = $current_month;

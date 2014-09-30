@@ -138,7 +138,7 @@ class ApretasteMoney {
 	 *
 	 * @return array
 	 */
-	static function getDispatchers($pic_width=20){
+	static function getDispatchers($pic_width = 20){
 		$r = Apretaste::query("SELECT *, 
 				(select count(*) from recharge_card_sale WHERE dispatcher = email) as sales,
 				coalesce((select total_sold from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as total_sold,
@@ -236,5 +236,11 @@ class ApretasteMoney {
 				'to_date' => $to_date,
 				'cards' => $cards
 		);
+	}
+	static function getAgency($id){
+		$a = q("SELECT * FROM agency_expanded WHERE id = '$id';");
+		if (isset($a[0]))
+			return $a[0];
+		return false;
 	}
 }

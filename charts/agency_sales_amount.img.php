@@ -32,16 +32,16 @@ for($year = $current_year - 1; $year <= $current_year; $year ++) {
 }
 
 $sql = "
-			select extract(year from moment::date) as ano,
-			extract(month from moment) as mes,
-			sum(amount) as total
-			from agency_recharge
-			where 
-		    user_login = '{$user['user_login']}' AND
-		    extract(year from moment::date) = extract(year from current_date)
-			or extract(year from moment::date) = extract(year from current_date) - 1
-			group by ano, mes
-			order by ano, mes;";
+	select extract(year from moment::date) as ano,
+	extract(month from moment) as mes,
+	sum(amount) as total
+	from agency_recharge
+	where 
+    user_login = '{$user['user_login']}' AND
+    extract(year from moment::date) = extract(year from current_date)
+	or extract(year from moment::date) = extract(year from current_date) - 1
+	group by ano, mes
+	order by ano, mes;";
 
 $r = Apretaste::query($sql);
 

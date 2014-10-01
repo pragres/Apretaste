@@ -39,7 +39,8 @@ $modal?
 				text: '?$addon
 						<span class="input-group-addon">{$addon}</span>
 					$addon?
-					<input type="{$type}" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
+					<input type="text" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
+				password: '<input type="password" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
 				open_fieldset: '<fieldset><legend>{$legend}</legend>',
 				close_fieldset: '</fieldset>'			
 			} =}

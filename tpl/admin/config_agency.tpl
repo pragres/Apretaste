@@ -1,5 +1,6 @@
 {= title: Agencies =}
 {= path: "index.php?path=admin&page=config_agency" =}
+
 {% layout %}
 
 {{blocks
@@ -37,7 +38,7 @@
 				id: "cboAgencyPercents",
 				label: "Agency",
 				type: "select",
-				options: "agency_percents",
+				options: $agency_percents,
 				value: '{$id}', 
 				text: '{$name} ((# {$profit_percent} *100:2. #)% | (# {$residual_percent}*100:2.#)%)' 
 			},
@@ -64,59 +65,65 @@
 blocks}}
 
 {{page
-	<div class="panel panel-success" style="width: 90%; margin: auto;">
-	<div class="panel-heading"> <h3 class="panel-title">Agencies</h3>
-	</div> 
-	<div class="panel-body">
-	<div class="table-responsive">
-	<table class="table table-hover">
-	<tr>
-	<th><a href="{$path}&orderby=name">Name</a></th>
-	<th><a href="{$path}&orderby=phone">Phone</a></th>
-	<th><a href="{$path}&orderby=credit_line">Credit</a></th>
-	<th><a href="{$path}&orderby=sold">Sold</a></th>
-	<th><a href="{$path}&orderby=residual">Residuals</a></th>
-	<th><a href="{$path}&orderby=owe">Owe</a></th></tr>
-	?$agencies
-	[$agencies]
-	<tr><td>{$name}</td><td>{$phone}</td><td>${#credit_line:2.#}</td><td align="right">${#sold:2.#}</td><td align="right">${#residual:2.#}</td><td align="right">${#owe:2.#}</td></tr>
-	[/$agencies]
-	$agencies?
-	</table>
-	</div>
-	<button class="btn btn-primary btn-lg" onclick="$('#myModal').modal('show');">New agency</button> 
-	</div>
-	</div>		
+
+	{%% table: {
+		data: $agencies,
+		title: "Agencies",
+		hideColumns: {id: true, profit_percent: false, residual_percent: false, address: false},
+		headers: {
+			credit_line: "Credit",
+			residual: "Residuals"			
+		},
+		wrappers: {
+			credit_line: '${#value:2.#}',
+			sold: '${#value:2.#}',
+			residual: '${#value:2.#}',
+			owe: '<a href="index.php?path=admin&page=config_agency_bill&agency={$id}" title="View the bill">${#value:2.#}</a>'
+		}
+	} %%}
+
+	{%% form-block: {
+		title: "New agency",
+		modal: true,
+		id: "newAgency",
+		action: "index.php?path=admin&page=config_add_agency",
+		fields: [
+			{
+				id: "edtName",
+				type: "text",
+				label: "Name"
+			},{
+				id: "edtPhone",
+				type: "text",
+				label: "Phone"
+			},{
+				id: "edtCreditLine",
+				type: "text",
+				class: "number",
+				label: "Credit line"
+			},{
+				id: "edtAddress",
+				type: "text",
+				label: "Address"
+			},{
+				type: 'open_fieldset',
+				legend: 'Adjust percents'				
+			},{
+				id: "edtProfitPercent",
+				type: "text", 
+				label: "Sold",
+				class: "number"
+			},{
+				id: "edtResidualPercent",
+				type: "text", 
+				label: "Residual",
+				class: "number"
+			}
+			
+		], 
+		submit:{
+			caption: "Add",
+			name: "btnAddAgency"
+		}
+	} %%}
 page}}
-<!-- Modal --> 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
-	<div class="modal-dialog"> 
-		<div class="modal-content"> 
-			<form role="form" action="index.php?path=admin&page=config_add_agency" method="post">
-				<div class="modal-header"> 
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"> &times; </button> 
-					<h4 class="modal-title" id="myModalLabel">Add new agency</h4>
-				</div>
-				<div class="modal-body"> 
-					
-					Name: <br/>
-					<input class= "text" name="edtName"><br/>
-					Phone: <br/>
-					<input class="text" name="edtPhone"><br/>
-					Credit line: <br/>
-					<input class="number" name="edtCreditLine"><br/>
-					Address: <br/>
-					<input class="text" name="edtAddress"><br/>
-					<fieldset>
-						<legend>Adjust percents</legend>
-						Sold: <input class="number" name="edtProfitPercent"> Residual: <input class="number" name="edtResidualPercent">
-					</fieldset>
-				</div> 
-				<div class="modal-footer"> 
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel </button> 
-					<input type="submit" class="btn btn-primary" name="btnAddAgency" value="Add"> 
-				</div> 
-			</form>
-		</div><!-- /.modal-content --> 
-	</div><!-- /.modal -->
-</div>

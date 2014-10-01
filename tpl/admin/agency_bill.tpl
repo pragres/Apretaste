@@ -3,7 +3,7 @@
 {= pagewidth: 1024 =}
 
 {% layout %}
-
+<!--{ begin }-->
 {{blocks
 	<div class="panel panel-success" style="width: {$width}; margin: auto;">
 		<div class="panel-heading">
@@ -37,3 +37,4 @@ blocks}}
 	} %%}
 page}}
 
+<!--{ end }-->

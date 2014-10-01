@@ -26,24 +26,26 @@ $modal?
 		</div>
 		$alert?
 		[$fields]
-		<div class="form-group ?$addon input-group $addon?">	
+		<div class="form-group ?$addon input-group $addon?">
 			?$label <label for="{$id}">{$label}</label> $label?
-			{?( "{$type}" == "select" )?}
-			<select class="form-control" name="{$id}" id="{$id}">
-				[$options]
-				<option value="{$value}">{$text}</option>
-				[/$options]			
-			</select>
-			@else@
-				{?( "{$type}" == "textarea" )?}
-				<textarea class="form-control" ?$rows rows="{$rows}" $rows? name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$help title="{$help}" $help?>?$value {$value} $value?</textarea>
-				@else@
-					?$addon
+			
+			{= controls: {
+				select: '<select class="form-control" name="{$id}" id="{$id}">
+							[$options]
+							<option value="{$value}">{$text}</option>
+							[/$options]			
+						</select>',
+				textarea: '<textarea class="form-control" ?$rows rows="{$rows}" $rows? name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$help title="{$help}" $help?>?$value {$value} $value?</textarea>',
+				text: '?$addon
 						<span class="input-group-addon">{$addon}</span>
 					$addon?
-					<input type="{$type}" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>
-				{/?}
-			{/?}
+					<input type="{$type}" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
+				open_fieldset: '<fieldset><legend>{$legend}</legend>',
+				close_fieldset: '</fieldset>'			
+			} =}
+			
+			{$controls.{$type}}
+			
 		</div>
 		[/$fields]
 		?$modal

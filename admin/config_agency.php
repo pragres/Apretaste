@@ -37,5 +37,4 @@ $data['edtProfit'] = c("agency_profit", 0);
 $data['edtResidualProfit'] = c("agency_residual_profit", 0);
 $data['agents'] = q("SELECT * FROM users where user_role = 'agent' order by user_login;");
 $data['agency_percents'] = q("select * from agency_percents order by name;");
-$order = get('orderby', 'name');
-$data['agencies'] = q("select * from agency_expanded order by $order;");
+$data['agencies'] = q("select * from agency_expanded;");

@@ -6,10 +6,8 @@
  * Dispatchers
  */
 
-
-
 if (isset($_POST['btnAddDispatcher'])) {
-	$r = ApretasteMoney::addDispatcher($_POST['edtEmail'], $_POST['edtName'], $_POST['edtContact']);
+	$r = ApretasteMoney::addDispatcher(strtolower(trim($_POST['edtEmail'])), $_POST['edtName'], $_POST['edtContact']);
 	
 	if ($r == false) {
 		$data['msg'] = 'The dispatcher <b>' . $_POST['edtEmail'] . '</b> already exists';

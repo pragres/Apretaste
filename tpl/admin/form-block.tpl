@@ -41,6 +41,7 @@ $modal?
 					$addon?
 					<input type="text" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
 				password: '<input type="password" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
+				hidden: '<input type="hidden" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
 				open_fieldset: '<fieldset><legend>{$legend}</legend>',
 				close_fieldset: '</fieldset>'			
 			} =}

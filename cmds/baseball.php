@@ -4,7 +4,7 @@ require '../lib/simple_html_dom.php';
 /**
  * Apretaste!com Baseball Command
  *
- * @author charlys <charlysbisnes@gmail.com>
+ * @author pcabreus <pcabreus@gmail.com>
  *        
  * @param ApretasteEmailRobot $robot
  * @param string $from
@@ -40,7 +40,7 @@ function cmd_baseball($robot, $from, $argument, $body = '', $images = array()){
 /**
  * Get the list of news of the $host and $requiredDate
  *
- * @author charlys <charlysbisnes@gmail.com>
+ * @author charlys <pcabreus@gmail.com>
  *        
  * @param $host
  * @param $requiredDate
@@ -77,7 +77,7 @@ function cmd_baseball_get_list_news_beisbol($host, $requiredDate, $robot){
 /**
  * Get the list of news of the $host and $requiredDate
  *
- * @author charlys <charlysbisnes@gmail.com>
+ * @author charlys <pcabreus@gmail.com>
  *        
  * @param $host
  * @param $requiredDate
@@ -133,14 +133,14 @@ function cmd_baseball_get_list_news_mlb($host, $requiredDate, $robot){
 
 /**
  * Response of command
- * @author charlys <charlysbisnes@gmail.com>
+ * @author charlys <pcabreus@gmail.com>
  *        
  *        
  * @param $news
- * @param $title
+ * @param $header
  * @return array
  */
-function cmd_baseball_response($news, $title){
+function cmd_baseball_response($news, $header){
 	$tags = "<div><h2><p><span>";
 	
 	$drop = array(
@@ -156,7 +156,7 @@ function cmd_baseball_response($news, $title){
 	return array(
 			"answer_type" => "baseball",
 			"command" => "baseball",
-			"title" => $title,
+			"header" => $header,
 			"news" => $news
 	);
 }
@@ -165,7 +165,7 @@ function cmd_baseball_response($news, $title){
  * Get the date from the string date in other language
  * This function need php_intl extension
  *
- * @author charlys <charlysbisnes@gmail.com>
+ * @author charlys <pcabreus@gmail.com>
  *        
  * @param string $date
  * @param string $language
@@ -190,7 +190,7 @@ function cmd_baseball_get_date_from_language($date, $language = "es-ES"){
 /**
  * Parser for the node notice of the Beisbol Site
  *
- * @author charlys <charlysbisnes@gmail.com>
+ * @author charlys <pcabreus@gmail.com>
  *        
  * @param simple_html_dom_node $news
  * @return DateTime null
@@ -207,7 +207,7 @@ function cmd_baseball_get_date_from_site($news){
 /**
  * Return the day for search information
  *
- * @author charlys <charlysbisnes@gmail.com>
+ * @author charlys <pcabreus@gmail.com>
  *        
  * @todo charlys get the image of news
  *      
@@ -229,7 +229,7 @@ function cmd_baseball_create_news($news, $date){
 /**
  * Trim function for clean the input command
  *
- * @author charlys <charlysbisnes@gmail.com>
+ * @author charlys <pcabreus@gmail.com>
  *        
  * @param $text
  * @param $alterText

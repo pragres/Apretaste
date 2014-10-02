@@ -1,4 +1,4 @@
-{= *AnswerSubject: $title =}
+{= *AnswerSubject: $header =}
 {$h1}{$header}{$_h1}
 ?$news
     [$news]

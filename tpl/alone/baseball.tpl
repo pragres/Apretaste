@@ -1,5 +1,5 @@
 {= *AnswerSubject: $title =}
-{$h1}{$title}{$_h1}
+{$h1}{$header}{$_h1}
 ?$news
     [$news]
         <table>

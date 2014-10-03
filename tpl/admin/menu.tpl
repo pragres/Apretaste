@@ -39,7 +39,10 @@
 			sep1: "-",
 			config_keywords: "Black list for keywords",
 			config_whiteblack: "Black and white lists",
-			config_agency: "Agencies",
+			sep3: "-",
+			header_agencies: "Agencies",
+			config_agency: "Browse agencies",
+			config_agency_payments: "Payments",
 			sep2: "-",
 			mailboxes: "Mailboxes"
 		}

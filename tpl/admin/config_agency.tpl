@@ -4,63 +4,16 @@
 {% layout %}
 
 {{blocks
-	{%% form-block: {
-		action: "config_agency",
-		title: "Adjust percents",
-		fields: [
-			{
-				id: "edtProfit",
-				value: "{$edtProfit}",
-				label: "Sold",
-				type: "text",
-				class: "number"	,
-				placeholder: "Type the sold %"				
-			},{
-				id: "edtResidualProfit",
-				value: "{$edtResidualProfit}",
-				type: "text",
-				label: "Residual",
-				class: "number",
-				placeholder: "Type the residual %" 
-			}
-		],
-		submit: {
-			name: "Update agency",
-			caption: "Update" 
-		}
+	{%% chart_block_pie: {
+		data: $best_amount,
+		id: "best_amount",
+		title: "Best agencies (amount)"
 	} %%}
 	<br/>
-	{%% form-block: {
-		action: "config_agency",
-		title: "Agency percents",
-		fields: [
-			{
-				id: "cboAgencyPercents",
-				label: "Agency",
-				type: "select",
-				options: $agency_percents,
-				value: '{$id}', 
-				text: '{$name} ((# {$profit_percent} *100:2. #)% | (# {$residual_percent}*100:2.#)%)' 
-			},
-			{
-				id: "edtAgencyProfitPercent",
-				label: "Sold",
-				type: "text",
-				class: "number",
-				placeholder: "Type the sold %",
-				help: "The profit percent to give by agency"
-			},{
-				id: "edtAgencyResidualPercent",
-				type: "text",
-				label: "Residual",
-				class: "number",
-				placeholder: "Type the residual %" 
-			}
-		],
-		submit: {
-			name: "btnUpdateAgencyPercents",
-			caption: "Update"
-		}
+	{%% chart_block_pie: {
+		data: $best_recharges,
+		id: "best_recharges",
+		title: "Best agencies (recharges)"
 	} %%}
 blocks}}
 
@@ -124,6 +77,69 @@ blocks}}
 		submit:{
 			caption: "Add",
 			name: "btnAddAgency"
+		}
+	} %%}
+	
+	{%% form-block: {
+		id: "adjustPercents",
+		modal: true,
+		action: "config_agency",
+		title: "Adjust percents",
+		fields: [
+			{
+				id: "edtProfit",
+				value: "{$edtProfit}",
+				label: "Sold",
+				type: "text",
+				class: "number"	,
+				placeholder: "Type the sold %"				
+			},{
+				id: "edtResidualProfit",
+				value: "{$edtResidualProfit}",
+				type: "text",
+				label: "Residual",
+				class: "number",
+				placeholder: "Type the residual %" 
+			}
+		],
+		submit: {
+			name: "Update agency",
+			caption: "Update" 
+		}
+	} %%}
+
+	{%% form-block: {
+		id: "agencyPercents",
+		modal: true,
+		action: "config_agency",
+		title: "Agency percents",
+		fields: [
+			{
+				id: "cboAgencyPercents",
+				label: "Agency",
+				type: "select",
+				options: $agency_percents,
+				value: '{$id}', 
+				text: '{$name} ((# {$profit_percent} *100:2. #)% | (# {$residual_percent}*100:2.#)%)' 
+			},
+			{
+				id: "edtAgencyProfitPercent",
+				label: "Sold",
+				type: "text",
+				class: "number",
+				placeholder: "Type the sold %",
+				help: "The profit percent to give by agency"
+			},{
+				id: "edtAgencyResidualPercent",
+				type: "text",
+				label: "Residual",
+				class: "number",
+				placeholder: "Type the residual %" 
+			}
+		],
+		submit: {
+			name: "btnUpdateAgencyPercents",
+			caption: "Update"
 		}
 	} %%}
 page}}

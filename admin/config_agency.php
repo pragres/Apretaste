@@ -38,3 +38,11 @@ $data['edtResidualProfit'] = c("agency_residual_profit", 0);
 $data['agents'] = q("SELECT * FROM users where user_role = 'agent' order by user_login;");
 $data['agency_percents'] = q("select * from agency_percents order by name;");
 $data['agencies'] = q("select * from agency_expanded;");
+
+$data['best_amount'] = q("select (select name from agency where id = agency) as label, amount as data from agency_best_amount;");
+foreach ( $data['best_amount'] as $k => $v )
+	$data['best_amount'][$k]['data'] *= 1;
+
+$data['best_recharges'] = q("select (select name from agency where id = agency) as label, recharges as data from agency_best_recharges;");
+foreach ( $data['best_recharges'] as $k => $v )
+	$data['best_recharges'][$k]['data'] *= 1;

@@ -32,7 +32,7 @@
 		}
 	},
 	config: {
-		caption: "Configurations",
+		caption: "Setup",
 		icon: "adjust",
 		submenu: {
 			config: "General options",

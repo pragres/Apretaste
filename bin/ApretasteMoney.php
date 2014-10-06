@@ -243,4 +243,46 @@ class ApretasteMoney {
 			return $a[0];
 		return false;
 	}
+	
+	/**
+	 * Check credit line vs new recharge ammount
+	 *
+	 * @param string $agency
+	 * @param float $amount
+	 *
+	 * @return array/boolean
+	 */
+	static function checkCreditLine($agency, $amount){
+		
+		// profit = amount * profit_percent
+		// owe = amount * (1 - profit_percent) = amount - profit
+		// amount = profit / profit_percent
+		// amount = owe / (1 - profit_percent)
+		// max_amount = (credit_line - amount) / (1 - profit_percent)
+		$owe = q("SELECT owe from agency_expanded where id = '$agency';");
+		if (isset($owe[0])) {
+			$owe = $owe[0]['owe'] * 1;
+			$credit_line = q("SELECT credit_line, profit_percent from agency where id = '$agency';");
+			if (isset($credit_line[0])) {
+				$credit_line = $credit_line[0]['credit_line'] * 1;
+				$profit_percent = $credit_line[0]['profit_percent'] * 1;
+				if ($owe + (1 - $profit_percent) * $amount > $credit_line) {
+					
+					$max_amount = ($credit_line - $owe) / (1 - $profit_percent);
+					
+					if ($max_amount < 0)
+						$max_amount = 0;
+					
+					return array(
+							'owe' => $owe,
+							'credit_line' => $credit_line,
+							'profit_percent' => $profit_percent,
+							'max_amount' => $max_amount
+					);
+				}
+			}
+		}
+		
+		return true;
+	}
 }

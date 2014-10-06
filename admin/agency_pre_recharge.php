@@ -1,22 +1,26 @@
 <?php
-
-$email = post("edtEmail");
-$user = Apretaste::getAuthor($email);
-$user['picture'] = Apretaste::resizeImage($user['picture'], 200);
 $amount = post("edtAmount");
-
 $amount = $amount * 1;
 
 if ($amount < 0)
 	$amount = 0;
 
+$chk = ApretasteMoney::checkCreditLine($data['user']['agency'], $amount);
 
-$agency = ApretasteAdmin::getAgency($data['user']['agency']);
-
-//if ($agency['credit']<$amount)
+if ($chk !== true) {
+	$data['msg'] = 'This recharge exceeds the credit limit of your agency. Your agency must pay the debt of <b>${#owe:2.#}</b> to recharge over <b>${#max_amount:2.#}</b>.';
+	$data['msg-type'] = 'danger';
+	$data['owe'] = $chk['owe'];
+	$data['max_amount'] = $chk['max_amount'];
+	$data['limitcredit'] = true;
+} else {
+	$email = post("edtEmail");
+	$user = Apretaste::getAuthor($email);
+	$user['picture'] = Apretaste::resizeImage($user['picture'], 200);
+	$agency = ApretasteAdmin::getAgency($data['user']['agency']);
 	
-
-$customer = post('edtCustomer');
-
-$data['author'] = $user;
- 
+	$customer = post('edtCustomer');
+	
+	$data['author'] = $user;
+	$data['limitcredit'] = false;
+}

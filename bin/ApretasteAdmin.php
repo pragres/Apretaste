@@ -86,6 +86,8 @@ class ApretasteAdmin {
 		}
 	}
 	static function buildMenu(){
+		self::log('Building menu...');
+		
 		$user = self::getUser();
 		
 		if ($user == false)
@@ -144,6 +146,8 @@ class ApretasteAdmin {
 				$data = array();
 				$data['user'] = $user;
 				
+				self::log("Preprocessing page $url");
+				
 				include "../admin/$url.php";
 				
 				$tpl = "../tpl/admin/{$url}.tpl";
@@ -155,10 +159,29 @@ class ApretasteAdmin {
 					$tpl = 'auth';
 				
 				self::buildMenu();
-				
 				$data['menu'] = $_SESSION['menu'];
 				
-				echo new ApretasteView($tpl, $data);
+				if (! isset($_SESSION['div.cache']))
+					$_SESSION['div.cache'] = array();
+				
+				ApretasteView::setMemories($_SESSION['div.cache']);
+				
+				self::log("Showing page $url");
+				
+				$t1 = microtime(true);
+				$t = new ApretasteView($tpl, $data);
+				$t->show();
+				$t2 = microtime(true);
+				self::log("Page $url rendered in " . number_format($t2 - $t1, 2) . ' secs', 'DIV');
+				
+				$c = ApretasteView::getMemories();
+				
+				self::log("Saving memories in SESSION", "DIV");
+				
+				foreach ( $c as $k => $v ) {
+					$_SESSION['div.cache'][$k] = $v;
+				}
+				self::log(count($_SESSION['div.cache']) . " memories saved in SESSION", "DIV");
 			} else
 				eval('self::page_' . $url . '();');
 		} elseif (isset($_GET['chart'])) {
@@ -181,6 +204,27 @@ class ApretasteAdmin {
 						"menu" => false
 				));
 		}
+	}
+	
+	/**
+	 * Log messages
+	 *
+	 * @param string $msg
+	 * @param string $level
+	 */
+	static function log($msg, $level = 'INFO'){
+		if (! isset($level[3])) {
+			$x = 4 - strlen($level);
+			if ($x < 0)
+				$x = 0;
+			$level = str_repeat(' ', $x) . $level;
+		}
+		
+		$user = self::getUser();
+		
+		$f = fopen('../log/admin.log', 'a');
+		fputs($f, '[' . $level . '] ' . date('Y-m-d H:i:s') . ' - ' . $user['user_login'] . ' - ' . $msg . "\n");
+		fclose($f);
 	}
 	
 	/**

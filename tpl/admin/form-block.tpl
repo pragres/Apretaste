@@ -36,10 +36,10 @@ $modal?
 							[/$options]			
 						</select>',
 				textarea: '<textarea class="form-control" ?$rows rows="{$rows}" $rows? name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$help title="{$help}" $help?>?$value {$value} $value?</textarea>',
-				text: '?$addon
-						<span class="input-group-addon">{$addon}</span>
-					$addon?
-					<input type="text" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
+				text: '?$addon <span class="input-group-addon">{$addon}</span> $addon?
+				<input type="text" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
+				number: '?$addon <span class="input-group-addon">{$addon}</span> $addon?
+					<input type="text" class="form-control number {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
 				password: '<input type="password" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
 				hidden: '<input type="hidden" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
 				open_fieldset: '<fieldset><legend>{$legend}</legend>',

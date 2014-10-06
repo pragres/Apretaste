@@ -10,12 +10,13 @@
 {= div.literals: ['s'] =}	
 {= title: "Dashboard" =} 				
 {= current_visitors: {$visitors.(# {$current_month} - 1 #).current} =}
+{= days: [0,31,28,31,30,31,30,31,31,30,31,30,31] =}
 <?
 	if ($current_month == 1){
 		$last_visitors = $visitors[11]['last'];
 	} else 
 		$last_visitors = $visitors[$current_month - 2]['current'];
-	
+		
 	if ($last_visitors > 0)
 		$goal_completation = $current_visitors / $last_visitors * 100;
 	else 
@@ -27,6 +28,24 @@
 		$goal_completation = 100;
 		
 	$goal_completation = number_format($goal_completation,2) * 1;
+	
+	$goal_speed_shuld_be = $last_visitors / $days[date('m') * 1];
+	$goal_shuld_be = $goal_speed_shuld_be * (date('d') * 1);
+	$goal_speed = $current_visitors / $days[date('m') * 1];
+	$goal_presage = $goal_speed * $days[date('m') * 1];
+	
+	if ($last_visitors > 0)
+		$goal_presage_percent = $goal_presage / $last_visitors * 100;
+	else 
+		$goal_presage_percent = 0;
+	
+	$real_goal_presage_percent = number_format($goal_presage_percent,2) * 1;
+	
+	if ($goal_presage_percent > 100) 
+		$goal_presage_percent = 100;
+	
+	$goal_presage_percent = number_format($goal_presage_percent,2) * 1;
+	
 ?>
 {% layout %}	
 
@@ -125,8 +144,17 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-12 col-md-6">
+				Progress:
 				<div class="progress progress-striped active">
-					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{$goal_completation}" aria-valuemin="0" aria-valuemax="100" style="width: {$goal_completation}%;"> <span style="font-fize:24px;">{$real_goal_completation}% </span> 
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{$goal_completation}" aria-valuemin="0" aria-valuemax="100" style="width: {$goal_completation}%;"> <span style="font-fize:24px;">{$real_goal_completation}% </span></div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 col-md-6">
+				Presage:
+				<div class="progress progress-striped active">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{$goal_presage_percent}" aria-valuemin="0" aria-valuemax="100" style="width: {$goal_presage_percent}%;"> <span style="font-fize:24px;">{$real_goal_presage_percent}% </span></div>
 				</div>
 			</div>
 		</div>

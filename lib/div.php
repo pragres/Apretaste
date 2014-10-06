@@ -941,6 +941,26 @@ class div {
 	}
 	
 	/**
+	 * Return the saved operations in $__remember
+	 *  
+	 * @return array:
+	 */
+	final static function getMemories(){
+		return self::$__remember;
+	}
+	
+	/**
+	 * Set operations saved previously
+	 * 
+	 * @param array $memories
+	 */
+	final static function setMemories($memories){
+		foreach ($memories as $k => $v){
+			self::$__remember[$k] = $v;
+		}
+	}
+	
+	/**
 	 * Add a custom variable's modifier
 	 *
 	 * @param string $prefix
@@ -6066,8 +6086,8 @@ class div {
 			$this->clean();
 			
 			// The last action
-			if (self::$__parse_level <= $min_level) {
-				
+			if (self::$__parse_level <= 1) {
+			
 				$this->parseSpecialChars();
 				
 				// Restoring ignored parts

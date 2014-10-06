@@ -154,7 +154,7 @@ extract(month from moment) as mes,
 count(*) as total
 from agency_recharge
 where
-user_login = '{$user['user_login']}' AND
+agency = '{$user['agency']}' AND
 extract(year from moment::date) = extract(year from current_date)
 or extract(year from moment::date) = extract(year from current_date) - 1
 group by ano, mes
@@ -189,14 +189,13 @@ extract(month from moment) as mes,
 count(*) as total
 from agency_recharge
 where
-user_login = '{$user['user_login']}' AND
+residual_agency = '{$user['agency']}' AND
 extract(year from moment::date) = extract(year from current_date)
 or extract(year from moment::date) = extract(year from current_date) - 1
 group by ano, mes
 order by ano, mes;";
 
 $r = Apretaste::query($sql);
-
 
 $residuals = array();
 
@@ -208,7 +207,7 @@ for($i = 1; $i <= 12; $i ++) {
 	);
 }
 
-foreach ( $r as $row ) {
+if (is_array($r)) foreach ( $r as $row ) {
 	$prop = "last";
 	if ($row['ano'] == $current_year)
 		$prop = "current";

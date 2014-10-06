@@ -37,12 +37,8 @@
 		submenu: {
 			config: "General options",
 			sep1: "-",
+			header_1: 'Classified service',
 			config_keywords: "Black list for keywords",
-			config_whiteblack: "Black and white lists",
-			sep3: "-",
-			header_agencies: "Agencies",
-			config_agency: "Browse agencies",
-			config_agency_payments: "Payments",
 			sep2: "-",
 			mailboxes: "Mailboxes"
 		}
@@ -51,25 +47,36 @@
 		caption: 'People',
 		icon: "user",
 		submenu: {
+			header_1: "Admin page",
 			users: "Admin users",
+			users_roles: "Admin roles",
+			sep1: "-",
+			header_2: "Apretaste users",
 			user_activity: "User activity",
-			address_list: "Address list"
+			address_list: "Address list",
+			config_whiteblack: "Black and white lists"
 		}
 	},
 	dispatchers: {
-		caption: "Dispatchers",
+		caption: 'Money',
 		icon: "briefcase",
 		submenu: {
-			dispatchers: "List of dispatchers",
+			header_1: "Sellers",
+			dispatchers: "Browse sellers",
 			dispatchers_reports: "{ico}chart_curve{/ico}&nbsp;Reports",
-			dispatchers_payments: "{ico}money{/ico}&nbsp;Payments"
+			dispatchers_payments: "{ico}money{/ico}&nbsp;Payments",
+			sep3: "-",
+			header_agencies: "Agencies",
+			config_agency: "Browse agencies",
+			config_agency_payments: "Payments",
 		}
 	},
 	tools: {
 		caption: "Tools",
 		icon: "wrench",
 		submenu: {
-			robot: "<span class="glyphicon glyphicon-send"></span> Simulator"
+			robot: "<span class="glyphicon glyphicon-send"></span> Simulator",
+			queries: "DB Query tool"
 		}
 	},
 	agency: {

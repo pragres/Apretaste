@@ -69,7 +69,7 @@ if (! is_null($email)) {
 		$data['max_amount'] = $procede['max_amount'];
 	}
 	
-	$data['customer'] = $customer['id'];
+	$data['customer'] = post('edtCustomer');
 } else {
 	$data['msg'] = "The user's email was required";
 	$data['msg-type'] = "danger";

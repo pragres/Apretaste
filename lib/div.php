@@ -942,7 +942,7 @@ class div {
 	
 	/**
 	 * Return the saved operations in $__remember
-	 *  
+	 *
 	 * @return array:
 	 */
 	final static function getMemories(){
@@ -951,11 +951,11 @@ class div {
 	
 	/**
 	 * Set operations saved previously
-	 * 
+	 *
 	 * @param array $memories
 	 */
 	final static function setMemories($memories){
-		foreach ($memories as $k => $v){
+		foreach ( $memories as $k => $v ) {
 			self::$__remember[$k] = $v;
 		}
 	}
@@ -6076,10 +6076,20 @@ class div {
 					$this->parseLocations();
 				
 				// Clear location's tags
-			if (strpos($this->__src, DIV_TAG_LOCATION_BEGIN) !== false)
-				$this->clearLocations();
+			$allitems = null;
+			
+			if (strpos($this->__src, DIV_TAG_LOCATION_BEGIN) !== false) {
+				$allitems = $this->getAllItems($items);
+				$clear = self::getVarValue("div.clear_locations", $allitems);
 				
-				// Restoring parsers requests
+				if (is_null($clear))
+					$clear = true;
+				
+				if ($clear)
+					$this->clearLocations();
+			}
+			
+			// Restoring parsers requests
 			foreach ( $this->__restore as $restore_id => $rest )
 				$this->__src = str_replace('{' . $restore_id . '}', $rest, $this->__src);
 			
@@ -6087,7 +6097,11 @@ class div {
 			
 			// The last action
 			if (self::$__parse_level <= 1) {
-			
+				
+				// Clear location's tags
+				if (strpos($this->__src, DIV_TAG_LOCATION_BEGIN) !== false)
+					$this->clearLocations();
+				
 				$this->parseSpecialChars();
 				
 				// Restoring ignored parts

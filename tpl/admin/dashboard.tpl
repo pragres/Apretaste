@@ -31,7 +31,7 @@
 	
 	$goal_speed_shuld_be = $last_visitors / $days[date('m') * 1];
 	$goal_shuld_be = $goal_speed_shuld_be * (date('d') * 1);
-	$goal_speed = $current_visitors / $days[date('m') * 1];
+	$goal_speed = $current_visitors / date('d');
 	$goal_presage = $goal_speed * $days[date('m') * 1];
 	
 	if ($last_visitors > 0)
@@ -290,13 +290,19 @@ page}}
 {%% chart_block_pie: {
 	data: $source_of_traffic_data,
 	id: "source_of_traffic",
-	title: "Source of traffic"
+	title: "Source of traffic",
+	div: {
+		clear_locations: false
+	}
 } %%}
 
 {%% chart_block_pie: {
 	data: $service_usage_data,
 	id: "service_usage",
-	title: "Service usage"
+	title: "Service usage",
+	div: {
+		clear_locations: false
+	}
 } %%}
 
 blocks}}

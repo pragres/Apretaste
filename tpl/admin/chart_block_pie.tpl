@@ -9,7 +9,7 @@ onload}}
 			<div class="btn-group">
 				<button type="button" class="btn btn-success" onclick="zoom_{$id}();"><span class="glyphicon glyphicon-zoom-in" title="Zoom"></span></button>
 				<button type="button" class="btn btn-success" onclick="show_{$id}();"><span class="glyphicon glyphicon-refresh" title="Refresh"></span></button>
-				{ignore}(({/ignore} {$id}_panel_actions ))
+				(( {$id}_panel_actions ))
 			</div>
 		</div>
 	</div>

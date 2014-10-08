@@ -57,10 +57,16 @@
 				echo "<td>{$_order}</td>";
 			
 			if (!is_array($row)) $row = get_object_vars($row);
-			
+			$rkeys = array_keys($row);
 			$xrow = array();
+			$i = 0;
+			
 			foreach($columns as $col){
-				$xrow[$col] = $row[$col];
+				if (isset($row[$col]))
+					$xrow[$col] = $row[$col];
+				else 
+					$xrow[$col] =  $row[$rkeys[$i]]; 
+				$i++;
 			}
 			
 			if (is_array($row)) foreach($xrow as $field => $value){

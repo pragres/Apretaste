@@ -19,7 +19,11 @@ function show_{$id}(){
 		data: {json:data},
 		xkey: 'y',
 		ykeys: ['a', 'b'],
+		?$labels
+		labels: {json:labels},
+		@else@
 		labels: ['(# {$current_year} - 1 #)', '{$current_year}'],
+		$labels?
 		hideHover: 'auto',
 		resize: true
 	});

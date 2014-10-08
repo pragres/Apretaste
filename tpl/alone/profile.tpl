@@ -97,7 +97,7 @@ $friends?
 
 {?( "{$from}" == "{$email}" || "{$command}" == "state" )?}
 {$br}
-{$h2}¿C&oacute;mo editar mi perfil?{$_h2}
+{$h2}¿C&oacute;mo editar su perfil?{$_h2}
 {$p}Llene todos los campos de su perfil, que funcionar&aacute; como su tarjeta de presentaci&oacute;n
  en Apretaste! Tambi&eacute;n nos ayudara a mejorar las busquedas y a personalizar Apretaste! para usted.{$_p}
 {$p}Su perfil es una combinacion <b>PROPIEDAD = Valor</b>. Asigne un valor para cada PROPIEDAD despues del signo de igual (=) y envie el email. Si no especifica el valor, el dato ser&aacute; eliminado de su perfil, y en cualquier otro momento puede especificarlo nuevamente. <b>Adjunte una foto de usted si quiere que aparezca como foto del perfil</b>.{$_p}

@@ -1,2 +1,2 @@
-{= *AnswerSubject: "Su perfil a sido actualizado" =}
+{= *AnswerSubject: "Su perfil ha sido actualizado" =}
 {% profile %}

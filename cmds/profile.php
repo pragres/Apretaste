@@ -182,19 +182,17 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 			$line = trim($line);
 			if (strlen($line) > 3) {
 				
-				echo "[INFO] Analyzing profile line #$idx: $line \n";
+				$robot->log("...profile line #$idx: $line ");
 				
 				$p = strpos($line, ":");
 				$p1 = strpos($line, "=");
 				
-				if ($p !== false && $p1 !== false)
+				if ($p !== false && $p1 !== false) {
 					if ($p1 < $p)
 						$p = $p1;
-				
-				if ($p === false && $p1 !== false)
+				} elseif ($p === false && $p1 !== false)
 					$p = $p1;
-				
-				if ($p === false) {
+				elseif ($p === false) {
 					$p = strlen($line);
 					$line = $line .= ' ';
 				}
@@ -209,6 +207,8 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 				$prop = Apretaste::replaceRecursive("  ", " ", $prop);
 				
 				$value = trim($value);
+				
+				$robot->log("Updating profile's property $prop = $value");
 				
 				foreach ( $properties as $key => $val ) {
 					foreach ( $val as $kk => $vv ) {
@@ -225,7 +225,9 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 									
 									$value = trim(strtolower($value));
 									
-									if (array_search($value, $os) === false)
+									if ($value == '')
+										$value = null;
+									else if (array_search($value, $os) === false)
 										break;
 								} else if ($os == '#date') {
 									$value = trim(strtolower($value));

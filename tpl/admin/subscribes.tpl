@@ -4,22 +4,17 @@
 
 {% layout %}
 
-{{page			
-	{% ad_panel %}
-	?$subscribes
-		<table width="100%" class="tabla">
-			<tr><th>ID</th><th>User</th><th>Phrase</th><th>Post date</th><th></th></tr>
-		[$subscribes]
-			<tr><td align="center">{$id}</td>
-			<td align="center"><a href="?path=admin&page=user_activity&user={$email}">{$email}</a></td>
-			<td align="center">{$phrase}</td>
-			<td align="center">{$moment}</td>
-			<td align="center"><a href="index.php?path=admin&page=subscribes&delete={$id}" onclick="return confirm('Are you sure?');">{ico}delete{/ico}</a></td>
-			</tr>
-		[/$subscribes]
-		</table>
-	@else@
-	No subscribes yet!
-	$subscribes?
-page}}
+{{headerdown			
+	
+	{%% table: {
+		data: $subscribes,
+		title: "Browse subscribes",
+		headers: {id: "ID", email: "User", moment: "Post date", last_alert: "Last alert" },
+		wrappers: {
+			email: '<a href="?path=admin&page=user_activity&user={$email}">{$email}</a>',
+			id: '<a href="index.php?path=admin&page=subscribes&delete={$id}" onclick="return confirm(\'Are you sure?\');"><span class="glyphicon glyphicon-trash"></span></a> {$id}'
+		}
+	} %%}
+
+headerdown}}
 

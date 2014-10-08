@@ -2,7 +2,7 @@
 
 Apretaste::connect();
 
-$data['msg-type'] = "msg-ok";
+$data['msg-type'] = "success";
 
 if (isset($_POST['btnAddTip'])) {
 	$tip = $_POST['tipText'];
@@ -11,8 +11,8 @@ if (isset($_POST['btnAddTip'])) {
 	$data['msg'] = "The tip '" . substr($tip, 0, 30) . "' was inserted";
 }
 
-if (isset($_POST['delete'])) {
-	Apretaste::query("DELETE FROM tip WHERE id = '{$_POST['delete']}';");
+if (isset($_GET['delete'])) {
+	Apretaste::query("DELETE FROM tip WHERE id = '{$_GET['delete']}';");
 	$data['msg'] = "The tip was deleted";
 }
 

@@ -4,8 +4,34 @@
 {= pagewidth: 750 =}
 {% layout %}
 
+{{blocks
+
+{%% form-block: {
+	fields:[
+		{
+			type: "hidden",
+			id: "path",
+			value: "admin"
+		},{
+			type: "hidden",
+			id: "page",
+			value: "ad"
+		},{
+			type: "text",
+			label: "Type the ad ID",
+			id: "id",
+			value: $div.get.id
+		}
+	],
+	submit: {
+		caption: "Show",
+		name: "btnShowAd"		 
+	}
+} %%}
+blocks}}
+
 {{page
-		{% ad_panel %}
+
 		<form method="get" action="index.php">
 			<input type="hidden" name = "path" value="admin">
 			<input type="hidden" name = "page" value="ad">

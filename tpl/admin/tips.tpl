@@ -1,25 +1,33 @@
 {= title: Tips =}
-{= path: "tips" =}
+{= path: "index.php?path=admin&page=tips" =}
+
 {% layout %}
 
-{{page
-		{% ad_panel %}
-		
-		?$tips
-		[$tips]
-		<p>{$tip}</p>
-		<form action="tips" method="post">
-		<input type="hidden" value ="{$id}" name="delete">
-		<input class ="submit" type="submit" value ="Delete" name="btnDelete">
-		</form>
-		<hr>
-		[/$tips]
-		@else@
-		No tips<hr>
-		$tips?
-		<form action="{$path}" method="post">
-			New tip:<br/>
-			<textarea rows="10" cols="80" name="tipText" style="resize:none"></textarea><br>
-			<input class ="submit" type="submit" value="Add" name="btnAddTip">
-		</form>
-page}}
+{{headerdown
+	{%% table: {
+		data: $tips,
+		columns: ['tip','id'],
+		headers: {id: ''},
+		wrappers: {
+			id: '<a href="{$path}&delete={$id}" title="Delete" onclick="return confirm(\'Are you sure?\')">
+				 <span class="glyphicon glyphicon-trash"></span></a>'
+		}
+	} %%}	
+	
+	{%% form-block: {
+		id: "frmNewTip",
+		title: "New tip",
+		action: $path,
+		modal: true,
+		fields:[
+			{
+				type: "textarea",
+				id: "tipText"
+			}
+		],
+		submit:{
+			caption: "Add",
+			name: "btnAddTip"
+		}
+	} %%}
+headerdown}}

@@ -15,6 +15,7 @@
 	@else@
 		{{id {$id} id}}
 	$id!
+	
 	<table id = "(( id ))" class="table table-condensed table-hover !$simple dataTables $simple!" ?$width width="{$width}" $width? >
 	
 	<thead>

@@ -142,4 +142,11 @@ blocks}}
 			caption: "Update"
 		}
 	} %%}
+	<br/>
+	{%% chart_bar: {
+		id: "stats_by_month",
+		data: $stats_by_month,
+		title: "Amount and Recharges by month" 
+	} %%}
+	
 page}}

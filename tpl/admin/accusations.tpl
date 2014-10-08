@@ -4,8 +4,7 @@
 
 {% layout %}
 
-{{page
-	{% ad_panel %}
+{{headerdown
 
 	?$accusations
 	[$accusations]
@@ -27,4 +26,4 @@
 	@else@
 	They have not been carried out accusations
 	$accusations?
-page}}
+headerdown}}

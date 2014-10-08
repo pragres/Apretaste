@@ -46,3 +46,44 @@ foreach ( $data['best_amount'] as $k => $v )
 $data['best_recharges'] = q("select (select name from agency where id = agency) as label, recharges as data from agency_best_recharges;");
 foreach ( $data['best_recharges'] as $k => $v )
 	$data['best_recharges'][$k]['data'] *= 1;
+
+
+$current_year = intval(date("Y"));
+$current_month = intval(date("m"));
+
+$months = array(
+		"Jan",
+		"Feb",
+		"Mar",
+		"Apr",
+		"May",
+		"Jun",
+		"Jul",
+		"Aug",
+		"Sep",
+		"Oct",
+		"Nov",
+		"Dec"
+);
+
+$r = q("SELECT extract(month from moment::date) as mes, sum(amount) as amount, count(*) as total FROM agency_recharge WHERE extract(year from current_date) = extract(year from moment::date) group by mes;");
+
+$e = array();
+
+for($i = 1; $i <= 12; $i ++) {
+	$e[$i - 1] = array(
+			"y" => $months[$i - 1],
+			"a" => 0,
+			"b" => 0
+	);
+}
+
+foreach ( $r as $row ) {
+	$e[$row['mes'] - 1]['a'] = intval($row['amount']);
+	$e[$row['mes'] - 1]['b'] = intval($row['total']);
+}
+
+$data['stats_by_month'] = $e;
+$data['current_year'] = $current_year;
+$data['current_month'] = $current_month;
+

@@ -20,6 +20,40 @@ class ApretasteAdmin {
 	}
 	
 	/**
+	 * Returns role's permissions
+	 *
+	 * @param string $role
+	 * @return array
+	 */
+	static function getPerms($role){
+		$k = q("SELECT * FROM users_perms WHERE user_role ='$role';");
+		
+		$k = $k[0];
+		
+		if ($k['access_to'] == '*' || is_null($k)) {
+			$list = scandir("../admin");
+			$list = implode(" ", $list);
+			$list = str_replace(array(
+					'.php',
+					'..',
+					'.'
+			), '', $list);
+			$list = str_replace('  ', ' ', $list);
+			$k['access_to'] = trim($list);
+		}
+		// echo $k['access_to'];
+		$k['access_to'] = explode(" ", trim(strtolower($k['access_to'])));
+		
+		foreach ( $k['access_to'] as $key => $value ) {
+			$k['access_to'][trim($value)] = true;
+		}
+		
+		$k['access_to']['logout'] = true;
+		
+		return $k;
+	}
+	
+	/**
 	 * Return information of current admin
 	 *
 	 * @return array/boolean
@@ -29,33 +63,11 @@ class ApretasteAdmin {
 			if (is_null(self::$current_user)) {
 				
 				$u = $_SESSION['user'];
-				$r = Apretaste::query("SELECT * FROM users WHERE user_login = '$u';");
+				$r = q("SELECT * FROM users WHERE user_login = '$u';");
 				if (isset($r[0])) {
-					$k = Apretaste::query("SELECT * FROM users_perms WHERE user_role ='{$r[0]['user_role']}';");
-					
-					$k = $k[0];
-					
-					if ($k['access_to'] == '*' || is_null($k)) {
-						$list = scandir("../admin");
-						$list = implode(" ", $list);
-						$list = str_replace(array(
-								'.php',
-								'..',
-								'.'
-						), '', $list);
-						$list = str_replace('  ', ' ', $list);
-						$k['access_to'] = trim($list);
-					}
-					// echo $k['access_to'];
-					$k['access_to'] = explode(" ", trim(strtolower($k['access_to'])));
-					
-					foreach ( $k['access_to'] as $key => $value ) {
-						$k['access_to'][trim($value)] = true;
-					}
-					
-					$k['access_to']['logout'] = true;
-					
+					$k = self::getPerms($r[0]['user_role']);
 					$r[0]['perms'] = $k;
+					
 					$p = Apretaste::getAuthor($r[0]['email'], false, 50);
 					$p = array_merge($p, $r[0]);
 					
@@ -86,29 +98,47 @@ class ApretasteAdmin {
 		}
 	}
 	static function buildMenu(){
-		self::log('Building menu...');
+		self::log('Checking menu in cache...');
 		
 		$user = self::getUser();
 		
 		if ($user == false)
 			return false;
 		
-		$chksum = md5(file_get_contents("../tpl/admin/menu.tpl") . $user['user_role']);
+		$perms = self::getPerms($user['user_role']);
+		$perms = implode(' ', $perms['access_to']);
 		
-		if (! isset($_SESSION['menuchksum']))
-			$_SESSION['menuchksum'] = null;
-			/*
-		 * echo new div('../tpl/admin/menu.tpl', array( "user" => $user )); die();
-		 */
-		if (! isset($_SESSION['menu']) || $chksum != $_SESSION['menuchksum']) {
+		$chksum = md5($perms . ' ' . file_get_contents("../tpl/admin/menu.tpl"));
+		$cache_file = "../cache/menu_{$user['user_role']}.tpl";
+		$chk_file = "../cache/menu_{$user['user_role']}.checksum";
+		
+		$last_chksum = null;
+		$last_menu = '';
+		
+		if (file_exists($chk_file))
+			$last_chksum = file_get_contents($chk_file);
+		
+		if (file_exists($cache_file))
+			$last_menu = file_get_contents($cache_file);
+		
+		if ($chksum != $last_chksum) {
+			self::log('Building menu...');
 			
 			$menu = new div('../tpl/admin/menu.tpl', array(
 					"user" => $user
 			));
 			
-			$_SESSION['menu'] = "$menu";
-			$_SESSION['menuchksum'] = $chksum;
+			$menu = "$menu";
+			
+			// Write menu cache
+			file_put_contents($cache_file, $menu);
+			file_put_contents($chk_file, $chksum);
+		} else {
+			self::log('Menu not changed. Loaded from cache.');
+			$menu = $last_menu;
 		}
+		
+		return $menu;
 	}
 	
 	/**
@@ -158,8 +188,7 @@ class ApretasteAdmin {
 				if (! file_exists($tpl))
 					$tpl = 'auth';
 				
-				self::buildMenu();
-				$data['menu'] = $_SESSION['menu'];
+				$data['menu'] = self::buildMenu();
 				
 				if (! isset($_SESSION['div.cache']))
 					$_SESSION['div.cache'] = array();

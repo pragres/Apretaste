@@ -1320,7 +1320,6 @@ class div {
 		$i = self::cop($i, $m);
 		$i = self::cop($i, $g);
 		$i = self::cop($i, $items);
-		
 		return $i;
 	}
 	
@@ -3958,7 +3957,6 @@ class div {
 						
 						$value = self::jsonDecode($exp, $allitems);
 						
-						$remember['vars'] = array();
 						$vars = $value;
 						if (is_object($vars))
 							$vars = get_object_vars($vars);
@@ -5441,13 +5439,17 @@ class div {
 				unset($items);
 				
 				// Executing the macro
+				
 				eval($this->__temp['code']);
 				
-				$vars = get_defined_vars();
+				// Div 4.5: chanve $vars with temporal var, ...important! 
+				// becasuse get_defined_vars return also 'vars'
+				
+				$this->__temp['vars'] = get_defined_vars();
 				
 				$items = $this->__temp['items'];
 				
-				foreach ( $vars as $var => $value ) {
+				foreach ( $this->__temp['vars'] as $var => $value ) {
 					if ($var == 'this')
 						continue; // Very very important!!
 					
@@ -5459,7 +5461,7 @@ class div {
 			} else {
 				$this->__temp['invalid_macro'] = true;
 			}
-			
+						
 			$this->__src = str_replace('{' . $this->__temp['temp'] . '}', ob_get_contents(), $this->__src);
 			
 			ob_end_clean();
@@ -7177,50 +7179,40 @@ class div {
 	 * @param mixed $obj
 	 * @param mixed $prop
 	 */
-	final static function cop(&$source, $complement){
+	final static function cop(&$source, $complement, $level = 0){
 		$null = null;
+		
 		if (is_null($source))
 			return $complement;
+		
 		if (is_null($complement))
 			return $source;
-		if (is_scalar($complement))
+		
+		if (is_scalar($source) && is_scalar($complement))
+			return $complement;
+		
+		if (is_scalar($complement) || is_scalar($source))
 			return $source;
 		
-		if (is_object($complement)) {
-			$vars = get_object_vars($complement);
-			foreach ( $vars as $key => $value ) {
-				if (is_object($source)) {
-					if (isset($source->$key))
-						$source->$key = self::cop($source->$key, $complement->$key);
-					else
-						$source->$key = self::cop($null, $complement->$key);
-				}
-				if (is_array($source)) {
-					if (isset($source[$key]))
-						$source[$key] = self::cop($source[$key], $complement->$key);
-					else
-						$source[$key] = self::cop($null, $complement->$key);
-				}
-			}
-		}
-		
-		if (is_array($complement)) {
+		if ($level < 100) { // prevent infinite loop
+			if (is_object($complement))
+				$complement = get_object_vars($complement);
+			
 			foreach ( $complement as $key => $value ) {
 				if (is_object($source)) {
 					if (isset($source->$key))
-						$source->$key = self::cop($source->$key, $complement[$key]);
+						$source->$key = self::cop($source->$key, $value, $level + 1);
 					else
-						$source->$key = self::cop($null, $complement[$key]);
+						$source->$key = self::cop($null, $value, $level + 1);
 				}
 				if (is_array($source)) {
 					if (isset($source[$key]))
-						$source[$key] = self::cop($source[$key], $complement[$key]);
+						$source[$key] = self::cop($source[$key], $value, $level + 1);
 					else
-						$source[$key] = self::cop($null, $complement[$key]);
+						$source[$key] = self::cop($null, $value, $level + 1);
 				}
 			}
 		}
-		
 		return $source;
 	}
 	

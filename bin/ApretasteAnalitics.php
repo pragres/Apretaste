@@ -292,12 +292,12 @@ class ApretasteAnalitics {
 			$subtotal = $rr[0]['total'];
 			
 			$r = Apretaste::query($sql);
-			
-			$r[] = array(
-					's' => '[others]',
-					'n' => $total - $subtotal
-			);
-			
+			if ($total - $subtotal > 0) {
+				$r[] = array(
+						's' => '[others]',
+						'n' => $total - $subtotal
+				);
+			}
 			return $r;
 		} else {
 			$r = array();
@@ -428,7 +428,6 @@ class ApretasteAnalitics {
 		
 		return $r;
 	}
-	
 	static function getSMSByHour($lastdays = 30, $national = true){
 		$sql = '
 			select
@@ -437,16 +436,14 @@ class ApretasteAnalitics {
 				extract(hour from send_date) as hora, count(*) as total
 			from sms
 			where send_date::date >= current_date - ' . ($lastdays - 1) . '
-			'.($national?"and strpos(phone,'(+53)')>0":"and strpos(phone,'(+53)')=0").'
+			' . ($national ? "and strpos(phone,'(+53)')>0" : "and strpos(phone,'(+53)')=0") . '
 			group by orden, dia, hora
 			order by orden, dia, hora;';
-
+		
 		$r = Apretaste::query($sql);
-	
+		
 		return $r;
 	}
-	
-	
 	static function getAnswerByHour($lastdays = 30){
 		$sql = '
 			select

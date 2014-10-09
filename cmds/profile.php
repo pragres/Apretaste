@@ -18,6 +18,8 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 	$email = $from;
 	$from = strtolower($from);
 	
+	$max_length_continue_value = 1000;
+	
 	$argument = trim($argument);
 	
 	if (Apretaste::checkAddress($argument) || $argument == 'newuser@localhost')
@@ -90,6 +92,11 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 			"school_level" => array(
 					"nivel escolar",
 					"nivel de escolaridad"
+			),
+			"about" => array(
+					"acerca de",
+					"acerca de mi",
+					"sobre mi"
 			)
 	);
 	
@@ -167,7 +174,8 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 					'superior',
 					'media',
 					'primaria'
-			)
+			),
+			"about" => "#continue"
 	);
 	
 	$updated = false;
@@ -178,6 +186,10 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 		$lines = explode("\n", $body);
 		
 		$profile = array();
+		
+		$continue_value = false;
+		$continue_prop = false;
+		
 		foreach ( $lines as $idx => $line ) {
 			$line = trim($line);
 			if (strlen($line) > 3) {
@@ -207,6 +219,34 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 				$prop = Apretaste::replaceRecursive("  ", " ", $prop);
 				
 				$value = trim($value);
+				
+				if ($continue_prop !== false) {
+					
+					if (! isset($profile[$continue_prop]))
+						$profile[$continue_prop] = '';
+					
+					if (! isset($profile[$continue_prop][$max_length_continue_value])) {
+						
+						$proced = true;
+						
+						$robot->log("..continue value at line #$idx");
+						
+						foreach ( $val as $kk => $vv ) {
+							if ($prop == 'quitar foto' || $vv == $prop) {
+								$proced = false;
+								$continue_prop = false;
+								break;
+							}
+						}
+						
+						if ($proced) {
+							$prop = $properties[$continue_prop][0];
+							$value = $profile[$continue_prop] . "\n" . $line;
+						}
+						
+					} else
+						$continue_prop = false;
+				}
 				
 				$robot->log("Updating profile's property $prop = $value");
 				
@@ -253,6 +293,8 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 									$value = trim($value);
 									$arr = explode(" ", $value);
 									$value = $arr[0];
+								} else if ($os == "#continue") {
+									$continue_prop = $key;
 								}
 							}
 							

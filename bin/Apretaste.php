@@ -3065,7 +3065,8 @@ class Apretaste {
 					"picture" => $default_picture,
 					"historical_ads" => 0,
 					"historical_searchs" => 0,
-					"historical_msgs" => 0
+					"historical_msgs" => 0,
+					"about" => ""
 			);
 		} else {
 			$profile = $r[0];

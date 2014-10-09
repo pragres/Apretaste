@@ -282,6 +282,6 @@ class ApretasteEmailRobot {
 		}
 		
 		if (Apretaste::isCli())
-			echo $this->verbose ? '[' . $level . '] ' . date("h:i:s") . "-" . $message . "\n" : '';
+			echo $this->verbose ? '[' . $level . '] ' . date("Y-m-d h:i:s") . "-" . $message . "\n" : '';
 	}
 }

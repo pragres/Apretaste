@@ -1,4 +1,4 @@
-{= *AnswerSubject: $titile =}
+{= *AnswerSubject: $title =}
 
 {= name: '' =}
 {= sex: '' =}
@@ -52,7 +52,7 @@
 <table>
 <tr><td valign="top" align="center">
 ?$picture
-	<img src="cid:profile_picture" style="float:left;margin-right:10px;" width="80"><br/>
+	<img src="cid:profile_picture" style="float:left;margin-right:10px;" width="150"><br/>
 	?$edit
 		[<a href="mailto:{$reply_to}?subject=PERFIL&body=Adjunte%20una%20nueva%20foto%20para%20reemplazar%20la%20anterior">cambiar</a>]
 		{$br}
@@ -132,7 +132,26 @@ $friends?
 				</tr>
 			</table>
 		</td>
+		<td>
+			<table>
+				<tr>
+					<td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
+						<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
+						href="mailto:{$reply_to}?subject=PERFIL&body=ACERCA%20DE%20MI%20={&&about}"><label style="margin: 5px;" title="Describa su persona en un parrafo para que otros lo puedan conocer mejor.">Escribir acerca de m&iacute;</label>
+						</a>
+					</td>
+				</tr>
+			</table>
+		</td>
 	</tr>
 </table>
 {$br}
 {/?} 
+
+?$about
+{$br}
+{$h2}?$edit Acerca de usted <a href="mailto:{$reply_to}?subject=PERFIL&body=ACERCA%20DE%20MI%20={&&about}" style="font-size:14px;font-weight:normal;">[editar]</a> @else@ Acerca de {$name} $edit?{$_h2}
+{$p}{$about}{$_p}
+$about?
+
+{$br}

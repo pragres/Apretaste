@@ -63,7 +63,7 @@ function cmd_state($robot, $from, $argument, $body = '', $images = array()){
 		if ($profile['picture'] !== '') {
 			$img = base64_decode($profile['picture']);
 			// $img = Apretaste::convertImageToJpg($img);
-			$img = base64_decode(Apretaste::resizeImage(base64_encode($img), 80));
+			$img = base64_decode(Apretaste::resizeImage(base64_encode($img), 150));
 			
 			$data['images'] = array(
 					

@@ -151,7 +151,7 @@ $friends?
 ?$about
 {$br}
 {$h2}?$edit Acerca de usted <a href="mailto:{$reply_to}?subject=PERFIL&body=ACERCA%20DE%20MI%20={&&about}" style="font-size:14px;font-weight:normal;">[editar]</a> @else@ Acerca de {$name} $edit?{$_h2}
-{$p}{$about}{$_p}
+{$p}{br:about}{$_p}
 $about?
 
 {$br}

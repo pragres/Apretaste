@@ -248,7 +248,7 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 						$continue_prop = false;
 				}
 				
-				$robot->log("Updating profile's property $prop = $value");
+				
 				
 				foreach ( $properties as $key => $val ) {
 					foreach ( $val as $kk => $vv ) {
@@ -258,6 +258,8 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 						}
 						
 						if ($vv == $prop) {
+							
+							$robot->log("Updating profile's property $key = $value");
 							
 							if (isset($options[$key])) {
 								$os = $options[$key];
@@ -356,7 +358,7 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 	
 	if (isset($profile['picture']))
 		if ($profile['picture'] !== '') {
-			$img = base64_decode(Apretaste::resizeImage($profile['picture']));
+			$img = base64_decode(Apretaste::resizeImage($profile['picture'], 150));
 			
 			$data['images'] = array(
 					array(

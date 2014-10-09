@@ -20,7 +20,7 @@ if (isset($_POST['btnRun'])) {
 				"drop database",
 				"delete from",
 				"insert into"
-		));
+		), '', $query);
 		
 		$data['results'] = @q($query);
 		$e = pg_last_error(Apretaste::$db);

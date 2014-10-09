@@ -18,25 +18,29 @@ class ApretasteSMS {
 	 * @return string
 	 */
 	static function send($prefix, $number, $sender, $message, $discount){
-		$login = Apretaste::$config['sms_user'];
-		$password = Apretaste::$config['sms_pass'];
-		
-		$URL = "http://api.smsacuba.com/api10allcountries.php?";
-		$URL .= "login=" . $login . "&password=" . $password . "&prefix=" . $prefix . "&number=" . $number . "&sender=" . $sender . "&msg=" . urlencode($message);
-		
-		if (Apretaste::isCli())
-			echo "[INFO] Getting: " . $URL . "\n";
-		
-		$r = file_get_contents($URL);
-		
-		$sender = Apretaste::extractEmailAddress($sender);
-		
-		$message = str_replace("'", "''", $message);
-		
-		Apretaste::query("INSERT INTO sms (email, phone, message, discount)
+		if (self::getCredit() >= $discount * 1) {
+			
+			$login = Apretaste::$config['sms_user'];
+			$password = Apretaste::$config['sms_pass'];
+			
+			$URL = "http://api.smsacuba.com/api10allcountries.php?";
+			$URL .= "login=" . $login . "&password=" . $password . "&prefix=" . $prefix . "&number=" . $number . "&sender=" . $sender . "&msg=" . urlencode($message);
+			
+			if (Apretaste::isCli())
+				echo "[INFO] Getting: " . $URL . "\n";
+			
+			$r = file_get_contents($URL);
+			
+			$sender = Apretaste::extractEmailAddress($sender);
+			
+			$message = str_replace("'", "''", $message);
+			
+			Apretaste::query("INSERT INTO sms (email, phone, message, discount)
 				VALUES ('$sender', '(+$prefix)$number', '$message', $discount);");
-		
-		return $r;
+			
+			return $r;
+		} else
+			return false;
 	}
 	
 	/**
@@ -345,5 +349,20 @@ class ApretasteSMS {
 	static function getLastSMSOf($email, $limit = 10){
 		$email = strtolower($email);
 		return Apretaste::query("SELECT * FROM sms WHERE email = '$email' ORDER BY send_date desc LIMIT $limit ;");
+	}
+	static function getCredit(){
+		$login = Apretaste::$config['sms_user'];
+		$password = Apretaste::$config['sms_pass'];
+		
+		$URL = "http://api.smsacuba.com/saldo.php?";
+		$URL .= "login=" . $login . "&password=" . $password;
+		
+		$r = file_get_contents($URL);
+		
+		if ($r !== false) {
+			return $r * 1;
+		}
+		
+		return 0;
 	}
 }

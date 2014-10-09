@@ -17,7 +17,20 @@
  $responses?
 page}}
 
-{{footer
+{{blocks
+	?$logs
+	<div class="panel panel-success" style="width: {$width}; margin: auto;">
+		<div class="panel-heading">
+			<h3 class="panel-title">Logs</h3>
+		</div>
+		<div class="panel-body">
+			<div style="background:black;color:white;font-family:Lucida Console;padding:5px;">
+			{br:logs}
+			</div>
+		</div>
+	</div>
+	$logs?
+	<br/>
 	{%% form-block: {
 		id: "frmEmailClient",
 		title: "<span class="glyphicon glyphicon-envelope"></span> &nbsp; Email client",
@@ -49,11 +62,4 @@ page}}
 			name: "btnSend"
 		}
 	} %%}
-
-	?$logs
-	<h2>Logs</h2>
-	<div style="background:black;color:white;font-family:Lucida Console;padding:5px;">
-	{br:logs}
-	</div>
-	$logs?
-footer}}
+blocks}}

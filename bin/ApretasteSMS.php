@@ -350,6 +350,7 @@ class ApretasteSMS {
 		$email = strtolower($email);
 		return Apretaste::query("SELECT * FROM sms WHERE email = '$email' ORDER BY send_date desc LIMIT $limit ;");
 	}
+	
 	static function getCredit(){
 		$login = Apretaste::$config['sms_user'];
 		$password = Apretaste::$config['sms_pass'];

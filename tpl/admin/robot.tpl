@@ -1,6 +1,8 @@
-{= title: Robot test =}
+{= title: <span class="glyphicon glyphicon-send"></span> Simulator =}
 {= path: "index.php?path=admin&page=robot" =}
 {% layout %}
+
+{{page
  ?$responses
   <h2>HTML Responses ({$responses})</h2>
  [$responses]
@@ -13,24 +15,45 @@
  No response
  [/$responses]
  $responses?
- 
-?$logs
-<h2>Logs</h2>
-<div style="background:black;color:white;font-family:Lucida Console;padding:5px;">
-{br:logs}
-</div>
-$logs?
- 
-<h2>Email client</h2>
-<form action="{$path}" method="post">
-<fieldset style ="margin:0 auto; width: 500px">
-	<legend>Email client</legend>
-	From: <br/>
-	<input class="text" name="from" ?$div.post.from value ="{$div.post.from}" $div.post.from? ><br/>
-	Subject: <br/>
-	<input class="text" name="subject" ?$div.post.subject value ="{$div.post.subject}" $div.post.subject?><br/>
-	Body: <br/>
-	<textarea style="border: 1px solid gray;" name="body" rows="20" cols="40"></textarea><br/>
-	<input type="submit" class="submit" value ="Send" name="btnSend">
-</fieldset>
-</form>
+page}}
+
+{{footer
+	{%% form-block: {
+		id: "frmEmailClient",
+		title: "<span class="glyphicon glyphicon-envelope"></span> &nbsp; Email client",
+		action: $path,
+		modal: $div.post.subject,
+		fields: [
+			{
+				id: "from",
+				type: "text",
+				value: $div.post.from,
+				label: "From",
+				placeholder: "Type the simulated from address"
+			},{
+				id: "subject",
+				type: "text",
+				value: $div.post.subject,
+				label: "Subject",
+				placeholder: "Type the subject"
+			},{
+				id: "body",
+				type: "textarea",
+				value: $div.post.body,
+				label: "Body",
+				placeholder: "Type the body"
+			}
+		],
+		submit: {
+			caption: "Send",
+			name: "btnSend"
+		}
+	} %%}
+
+	?$logs
+	<h2>Logs</h2>
+	<div style="background:black;color:white;font-family:Lucida Console;padding:5px;">
+	{br:logs}
+	</div>
+	$logs?
+footer}}

@@ -5,7 +5,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="es">
 	<head>
-		<title>Apretaste! ?$title {$title} $title?</title>
+		<title>Apretaste! ?$title {txt}{$title}{/txt} $title?</title>
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 		<!--{ <link href="static/admin.css" rel="stylesheet"></link> }-->
 		<script src="static/phpHotMap.js" type="text/javascript"></script>
@@ -156,6 +156,11 @@
 			</div>
 			<div class="col-md-9">
 				(( page ))
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+			(( footer ))
 			</div>
 		</div>
 	</div>

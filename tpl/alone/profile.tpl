@@ -48,15 +48,15 @@
 {= edit: true =}
 {/?}
  
-{$h1} ?$edit Su perfil: $edit? ?$name {$name} ?$edit <a href="mailto:{$reply_to}?subject=PERFIL&body={$pf1}" style="font-size:14px;font-weight:normal;">[editar]</a> $edit? @else@ ?$email :{$email} $email? $name? {$_h1}
+{$h1} Perfil: ?$name {$name} @else@ {$email} $name? ?$edit <a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf1}" style="font-size:14px;font-weight:normal;">[editar]</a> $edit? {$_h1}
 <table>
 <tr><td valign="top" align="center">
 ?$picture
 	<img src="cid:profile_picture" style="float:left;margin-right:10px;" width="150"><br/>
 	?$edit
-		[<a href="mailto:{$reply_to}?subject=PERFIL&body=Adjunte%20una%20nueva%20foto%20para%20reemplazar%20la%20anterior">cambiar</a>]
-		{$br}
-		[<a href="mailto:{$reply_to}?subject=PERFIL&body=QUITAR%20FOTO">quitar</a>]
+	[<a href="mailto:{$reply_to}?subject=PERFIL&body=Adjunte%20una%20nueva%20foto%20para%20reemplazar%20la%20anterior">cambiar</a>]
+	 &nbsp;
+	[<a href="mailto:{$reply_to}?subject=PERFIL&body=QUITAR%20FOTO">quitar</a>]
 	$edit?
 $picture?
 </td><td valign="top">
@@ -76,7 +76,7 @@ $email?
 ?$hair {$p}Pelo: <b>{$hair}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf11}">editar</a>] [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pfx}%0A{&&pfx11}">borrar</a>]$edit?{$_p} $hair?
 ?$skin {$p}Piel: <b>{$skin}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf12}">editar</a>] [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pfx}%0A{&&pfx12}">borrar</a>]$edit?{$_p} $skin?
 ?$eyes {$p}Ojos: <b>{$eyes}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf13}">editar</a>] [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pfx}%0A{&&pfx13}">borrar</a>]$edit?{$_p} $eyes?
-?$interest {$p}Intereses: <b>{$interest}</b> ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf14}">editar</a>] [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pfx}%0A{&&pfx14}">borrar</a>]$edit?{$_p} $interest?
+?$interest {$p}Intereses: ?$edit [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pf14}">editar</a>] [<a href="mailto:{$reply_to}?subject=PERFIL&body={&&pfx}%0A{&&pfx14}">borrar</a>]$edit?<br/><b>{$interest}</b>{$_p} $interest?
 
 <!--{ {$p}Buscando pareja:  <b>?$cupid S&iacute; @else@ No $cupid? </b>{$_p} }-->
 </td></tr></table>

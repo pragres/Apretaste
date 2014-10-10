@@ -35,10 +35,11 @@
 		</b>
 		<hr/>
 		<form action="index.php?path=admin&page=agency_recharge" method="post">
+			<input value="{$hash}" name="hash" type="hidden">
 			<input value="{$div.post.edtEmail}" name="edtEmail" type="hidden">
 			<input value="{$div.post.edtAmount}" name="edtAmount" type="hidden" id = "edtAmount">
 			<input value="{$div.post.edtCustomer}" name="edtCustomer" type="hidden">
-			<input value="Confirm" name="btnRecharge" class="btn btn-default" type="submit">
+			<input id ="btnRecharge" onclick="$(this).addClass('disabled');" value="Confirm" name="btnRecharge" class="btn btn-default" type="submit">
 			<a class="btn btn-default" href="index.php?path=admin&page=agency_customer&id={$div.post.edtCustomer}">Cancel</a>
 		</form>
 	page}}

@@ -1,4 +1,8 @@
 <?php
+
+$data['hash'] = md5(uniqid());
+$_SESSION['agency_recharge_hash'] = $data['hash'];
+ 
 $amount = post("edtAmount");
 $amount = $amount * 1;
 

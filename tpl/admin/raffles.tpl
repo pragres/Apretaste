@@ -1,7 +1,7 @@
 {= title: "Raffles" =}
 {= path: "?path=admin&page=raffles" =}
 {% layout %}
-{{page 
+{{headerdown 
 		?$raffles
 			[$raffles]
 				<img width="150" src="data:image/jpg;base64,{$image}" style="float:left;">
@@ -11,7 +11,9 @@
 				Active: {$active} Closed: {$closed} <br/>
 				Winners: {$winners}<br/>
 				Tickets: {$tickets}<br/>
+				!$winners
 				<a href="{$path}&delete={$id}">Delete</a>
+				$winners!
 				<hr/>
 			[/$raffles]
 		$raffles?
@@ -25,4 +27,4 @@
 		<hr/>
 		<input class="submit" type="submit" value="Add" name="btnAdd">
 		</form>
-page}}
+headerdown}}

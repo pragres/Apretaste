@@ -138,7 +138,7 @@ $friends?
 				<tr>
 					<td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
 						<a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" 
-						href="mailto:{$reply_to}?subject=PERFIL&body=ACERCA%20DE%20MI%20={&&about}"><label style="margin: 5px;" title="Describa su persona en un parrafo para que otros lo puedan conocer mejor.">Escribir acerca de m&iacute;</label>
+						href="mailto:{$reply_to}?subject=PERFIL&body={&&aboutdesc}%0AACERCA%20DE%20MI%20={&&about}"><label style="margin: 5px;" title="Describa su persona en un parrafo para que otros lo puedan conocer mejor.">Escribir acerca de m&iacute;</label>
 						</a>
 					</td>
 				</tr>

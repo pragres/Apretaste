@@ -128,11 +128,11 @@
 							</div>
 							<div class="col-xs-9 text-right">
 								<div class="huge">{$engagement.(# {$current_month} - 1 #).b}<small>%</small>/{$bouncerate.(# {$current_month} - 1 #).b}<small>%</small></div>
-								<div>Engagement / Bounce rate</div>
+								<div>Engagement / <a style="color:white;" href="index.php?path=admin&page=dashboard_bouncerate">Bounce rate</a></div>
 							</div>
 						</div>
 					</div>
-					<a href="index.php?path=admin&page=dashboard_new_users">
+					<a href="index.php?path=admin&page=dashboard_engagement">
 						<div class="panel-footer">
 							<span class="pull-left">View Details</span>
 							<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

@@ -1,10 +1,15 @@
 {= title: "Raffles" =}
 {= path: "?path=admin&page=raffles" =}
+
+{@ [true,'TRUE'] @}
+{@ [false,'FALSE'] @}
+{@ ["t","TRUE"] @}
+{@ ['f','FALSE'] @}
 {% layout %}
 {{headerdown 
 		?$raffles
 			[$raffles]
-				<img width="150" src="data:image/jpg;base64,{$image}" style="float:left;">
+				<img width="150" src="data:image/jpg;base64,{$image}" style="float:left;margin: 5px;">
 				ID: <b>{$id}</b><br/>
 				<p>{$description}</p>
 				From: {$date_from} to  {$date_to}<br/>
@@ -12,19 +17,44 @@
 				Winners: {$winners}<br/>
 				Tickets: {$tickets}<br/>
 				!$winners
-				<a href="{$path}&delete={$id}">Delete</a>
+				<a href="{$path}&delete={$id}" onclick="return confirm('Are you sure?');">Delete</a>
 				$winners!
 				<hr/>
 			[/$raffles]
 		$raffles?
-		<hr/>
-		<h2>New raffle</h2>
-		<form action="{$path}&addraffle=true" method="post" enctype="multipart/form-data">
-		Description: <input class="text" name="description">
-		Date from: <input class="text" name="date_from" style="width: 150px;">
-		Date to: <input class="text" name="date_to" style="width: 150px;"><br/>
-		Image: <input type="file" name="image"><br/>
-		<hr/>
-		<input class="submit" type="submit" value="Add" name="btnAdd">
-		</form>
+		
+		<br/>
+		
+		{%% form-block: {
+			id: "frmNewRaffle",
+			title: "New raffle",
+			action: "{$path}&addraffle=true",
+			enctype: "multipart/form-data",
+			modal: true,
+			fields: [
+				{
+					id: "description",
+					label: "Description",
+					type: "textarea"					
+				},{
+					id: "date_from",
+					label: "Date from",
+					type: "text",
+					value: "{/div.now:Y-m-d/}"
+				},{
+					id: "date_to",
+					label: "Date to",
+					type: "text"					
+				},{
+					id: "image",
+					label: "Image",
+					type: "file"					
+				}
+			],
+			submit: {
+				caption: "Add",
+				name: "btnAdd"
+			}
+		} %%}
+		
 headerdown}}

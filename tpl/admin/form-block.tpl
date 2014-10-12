@@ -18,7 +18,7 @@ $modal?
 		?$explanation
 		<p>{$explanation}</p>
 		$explanation?
-		<form role="form" action = "index.php?path=admin&page={$action}" method = "post" id="{$id}">
+		<form role="form" action = "index.php?path=admin&page={$action}" method = "post" id="{$id}" ?$enctype enctype="{$enctype}" $enctype?>
 		?$alert
 		<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> 
@@ -43,7 +43,8 @@ $modal?
 				password: '<input type="password" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
 				hidden: '<input type="hidden" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
 				open_fieldset: '<fieldset><legend>{$legend}</legend>',
-				close_fieldset: '</fieldset>'			
+				close_fieldset: '</fieldset>',
+				file: '<input type="file" name="{$id}" id = "{$id}" class="{$class}" ?$placeholder placeholder="{$placeholder}" $placeholder?>'
 			} =}
 			
 			{$controls.{$type}}

@@ -11,6 +11,7 @@
 {= title: "Dashboard" =} 				
 {= current_visitors: {$visitors.(# {$current_month} - 1 #).current} =}
 {= days: [0,31,28,31,30,31,30,31,31,30,31,30,31] =}
+{= path: "index.php?path=admin&page=dashboard" =}
 <?
 	if ($current_month == 1){
 		$last_visitors = $visitors[11]['last'];

@@ -1,11 +1,8 @@
 {= title: "Raffles" =}
 {= path: "?path=admin&page=raffles" =}
 
-{@ [true,'TRUE'] @}
-{@ [false,'FALSE'] @}
-{@ ["t","TRUE"] @}
-{@ ['f','FALSE'] @}
 {% layout %}
+
 {{headerdown 
 		?$raffles
 			[$raffles]

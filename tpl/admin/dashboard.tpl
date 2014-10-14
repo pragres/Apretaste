@@ -255,7 +255,12 @@ headerdown}}
 			to: "<!--{ end }-->"
 		} %}
 		
-		<h3>New users</h3>
+		
+
+page}}
+
+{{footer
+	<h3>New users</h3>
 		
 		{% dashboard_new_users: {
 			from: "<!--{ begin }-->",
@@ -281,9 +286,7 @@ headerdown}}
 			from: "<!--{ begin }-->",
 			to: "<!--{ end }-->"
 		} %}
-
-page}}
-
+footer}}
 
 
 {{blocks

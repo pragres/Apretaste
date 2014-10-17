@@ -107,6 +107,7 @@ class ApretasteHordeClient {
 			$obj = json_decode($response);
 			
 			$cacheID = $obj->response->ViewPort->cacheid;
+			var_dump($obj);
 			$data = $obj->response->ViewPort->data;
 			
 			if (is_object($data))

@@ -121,7 +121,8 @@ class ApretasteHordeRobot {
 				$address = $mail->to;
 				
 				// Async
-				$ans = $robot->callback($mail, $textBody, $htmlBody, $images, $otherstuff, $address, true, true, true);
+				$call = $robot->callback;
+				$ans = $call($mail, $textBody, $htmlBody, $images, $otherstuff, $address, true, true, true);
 			}
 		return true;
 	}

@@ -89,11 +89,11 @@ if (div::isCli()) {
 	$user = ApretasteAdmin::getUser();
 	
 	if ($user !== false) {
-		$_GET['q'] = 'admin';
+		$_GET['path'] = 'admin';
 	}
-	
+		
 	if (isset($_GET['q']))
-		$_GET['path'] = $_GET['q'];
+		$_GET['page'] = $_GET['q'];
 	
 	switch ($_GET['path']) {
 		case "login" :

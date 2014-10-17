@@ -2193,7 +2193,7 @@ class div {
 			
 			if (strpos($value, $prefix . DIV_TAG_MODIFIER_SIMPLE . $key . $suffix) !== false) {
 				$value = str_replace($prefix . DIV_TAG_MODIFIER_SIMPLE . $key . $suffix, "", $value);
-				self::error("Was detected an infinite loop in recursive replacement of $$rk.", DIV_ERROR_WARNING);
+				self::error("Was detected an infinite loop in recursive replacement of ${$key}.", DIV_ERROR_WARNING);
 			}
 			
 			$px = false;

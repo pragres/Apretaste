@@ -3,6 +3,20 @@
 
 {% layout %}
 
+{{blocks
+?$params
+	{%% form-block: {
+			title: 'Params',
+			action: "queries&run={$query_id}",
+			fields: $params,
+			submit: {
+				caption: "Run",
+				name: "run"
+			}
+	} %%}
+$params?
+blocks}}
+
 {{headerdown
 	
 	{%% form-block: {
@@ -24,6 +38,33 @@
 		}
 	} %%}
 	
+	{%% form-block: {
+		id: "frmSaveQuery",
+		title: "Save query",
+		action: "queries",
+		modal: true,
+		fields: [
+			{
+				type: "text",
+				id: "edtTitle",
+				label: "Title",
+			},{
+				type: "textarea",
+				id: "edtQuery",
+				value: $query,
+				label: "Query"
+			},{
+				type: "text",
+				id: "edtParams",
+				label: "Params"
+			}
+		],
+		submit: {
+			name: "btnAdd",
+			caption: "Add"
+		}
+	} %%}
+	
 	<br/>
 	
 	?$results
@@ -34,10 +75,23 @@
 			</div>
 		</div>
 		<br/>
+		
+		<br/>
 		{%% table: {
-			title: "Results",
+			title: $query_title,
 			data: $results
 		} %%}
+	@else@
+		?$queries
+		{%% table: {
+			data: $queries,
+			title: "Queries",
+			headers: {id: ""},
+			wrappers: {
+				id: '<a href="?q=queries&run={$id}"><span class="glyphicon glyphicon-cog"></span></a>'
+			}
+		} %%}
+		$queries?
 	$results?
 	
 	

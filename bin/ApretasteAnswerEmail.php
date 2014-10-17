@@ -2,7 +2,9 @@
 include "../lib/PEAR/mime.php";
 include "../lib/PEAR/Mail.php";
 include "../lib/PEAR/Net/SMTP.php";
+
 class ApretasteAnswerEmail {
+	
 	var $from;
 	var $to;
 	var $reply_to;
@@ -14,6 +16,7 @@ class ApretasteAnswerEmail {
 	var $ads = array();
 	var $images = array();
 	var $msg_id = null;
+	var $via_horde = false;
 	
 	/**
 	 * Constructor
@@ -26,7 +29,14 @@ class ApretasteAnswerEmail {
 	 * @param unknown_type $verbose
 	 * @param unknown_type $debug
 	 */
-	function __construct($config, $to, $servers, $data, $send = false, $verbose = false, $debug = false, $msg_id = null, $save_on_fail = true, $async = false){
+	function __construct($config, $to, $servers, $data, $send = false, $verbose = false, $debug = false, $msg_id = null, $save_on_fail = true, $async = false, $via_horde = false){
+		$this->via_horde = $via_horde;
+		
+		if ($via_horde){
+			$send = true;
+			$async = true;
+		}
+		
 		$this->msg_id = $msg_id;
 		$this->config = $config;
 		$this->to = $to;

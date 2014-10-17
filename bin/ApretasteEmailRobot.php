@@ -34,7 +34,7 @@ class ApretasteEmailRobot {
 		// Callback
 		$clase = $this;
 		
-		$this->callback = function ($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false) use($clase){
+		$this->callback = function ($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false, $via_horde = false) use($clase){
 			
 			$rawCommand = array(
 					'headers' => $headers,

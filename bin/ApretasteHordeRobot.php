@@ -7,7 +7,6 @@
  * @version 1.0
  */
 class ApretasteHordeRobot {
-	
 	static function Run($account = "nauta"){
 		$client = new ApretasteHordeClient($account);
 		$inbox = $client->getInbox(10, false);
@@ -122,76 +121,80 @@ class ApretasteHordeRobot {
 				$address = $mail->to;
 				
 				// Async
-				$ans = $robot->callback($mail, $textBody, $htmlBody, $images, $otherstuff, $address, false, false);
-				
-				foreach ( $ans as $an ) {
-					
-					$an->headers = array(
-							"From" => "Apretaste! <$address>",
-							"To" => $an->to
-					);
-					
-					echo "[INFO] $i Trying send answer with $from \n";
-					
-					$this->config['reply_to'] = $address;
-					
-					// Build message one time
-					$an->_buildMessage();
-					
-					$client->login();
-					
-					curl_setopt($this->client, CURLOPT_URL, $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
-					
-					$mail = new ApretasteHordeEmail();
-					if (isset($an->headers['message_id']))
-						$mail->id = $an->headers['message_id'];
-					else
-						$mail->id = $an->msg_id;
-					
-					$mail->body = $an->message->_html_body;
-					
-					$headers = $an->headers;
-					
-					if (is_object($headers))
-						$headers = get_object_vars($headers);
-					
-					$d = date("Y-m-d h:i:s");
-					
-					if (isset($headers['MailDate']))
-						$d = $headers['MailDate'];
-					elseif (isset($headers['Date']))
-						$d = $headers['Date'];
-					elseif (isset($headers['date']))
-						$d = $headers['date'];
-					
-					$t = strtotime($d);
-					$d = date("d/m/Y", $t);
-					
-					$mail->date = $d;
-					$mail->from = $client->hordeConfig->address;
-					$mail->to = $an->to;
-					$mail->mailedBy = 'Horde';
-					$mail->signedBy = '';
-					$mail->size = 0;
-					$mail->subject = $headers['subject'];
-					
-					$fromAddress = $mail->to;
-					$fromName = '';
-					$subject = $mail->subject;
-					$msg = $mail->body;
-					
-					curl_setopt($this->client, CURLOPT_POSTFIELDS, urldecode("composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . $subject . "&message=" . $msg . "&a=Send"));
-					
-					sleep(rand(1, 5));
-					curl_exec($this->client);
-					
-					Apretaste::saveAnswer($headers, $an->type, $an->msg_id);
-					
-					$client->deleteSentMessages();
-					$client->purgeDeletedMails("U2VudA");
-					$client->logout();
-				}
+				$ans = $robot->callback($mail, $textBody, $htmlBody, $images, $otherstuff, $address, true, true, true);
 			}
 		return true;
+	}
+	static function sendAnswer($ans, $account = 'nauta'){
+		$client = new ApretasteHordeClient($account);
+		$address = $client->hordeConfig->address;
+		
+		$ans->headers = array(
+				"From" => "Apretaste! <$address>",
+				"To" => $ans->to
+		);
+		
+		echo "[INFO] $i Trying send answer with $address \n";
+		
+		$this->config['reply_to'] = $address;
+		
+		$client->login();
+		
+		curl_setopt($this->client, CURLOPT_URL, $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
+		
+		$mail = new ApretasteHordeEmail();
+		
+		if (isset($ans->headers['message_id']))
+			$mail->id = $ans->headers['message_id'];
+		else
+			$mail->id = $ans->msg_id;
+		
+		$mail->body = $ans->message->_html_body;
+		
+		$headers = $ans->headers;
+		
+		if (is_object($headers))
+			$headers = get_object_vars($headers);
+		
+		$d = date("Y-m-d h:i:s");
+		
+		if (isset($headers['MailDate']))
+			$d = $headers['MailDate'];
+		elseif (isset($headers['Date']))
+			$d = $headers['Date'];
+		elseif (isset($headers['date']))
+			$d = $headers['date'];
+		
+		$t = strtotime($d);
+		$d = date("d/m/Y", $t);
+		
+		$mail->date = $d;
+		$mail->from = $client->hordeConfig->address;
+		$mail->to = $ans->to;
+		$mail->mailedBy = 'Horde';
+		$mail->signedBy = '';
+		$mail->size = 0;
+		$mail->subject = $headers['subject'];
+		
+		$fromAddress = $mail->to;
+		$fromName = '';
+		$subject = $mail->subject;
+		$msg = $mail->body;
+		
+		curl_setopt($this->client, CURLOPT_POSTFIELDS, urldecode("composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . $subject . "&message=" . $msg . "&a=Send"));
+		
+		sleep(rand(1, 5));
+		
+		$result = @curl_exec($this->client);
+		
+		if ($result == false) {
+			$robot->log('cURL operation fail!', 'FATAL');
+		}
+		
+		Apretaste::saveAnswer($headers, $ans->type, $ans->msg_id);
+		
+		$client->deleteSentMessages();
+		$client->purgeDeletedMails("U2VudA");
+		$client->logout();
 	}
 }

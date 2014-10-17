@@ -738,11 +738,9 @@ class ApretasteAlone {
 			}
 		}
 	}
-	
 	static function test(){
 		include "../dev/test.php";
 	}
-	
 	static function goRaffleWinners(){
 		echo "[INFO] Go raffle winners - connecting to DB...\n";
 		
@@ -802,7 +800,7 @@ class ApretasteAlone {
 		echo "[INFO] Send emails of outbox...\n";
 		
 		Apretaste::connect();
-
+		
 		$max = 100;
 		
 		if (isset($_SERVER['argv'][1]))
@@ -824,20 +822,28 @@ class ApretasteAlone {
 			foreach ( $emails as $email ) {
 				$ans = unserialize(base64_decode($email['data']));
 				
-				echo "[INFO] Sending email {$email['id']} to {$ans->to}\n";
+				$horde = false;
+				if (isset($ans->via_horde))
+					if ($ans->via_horde == true) {
+						echo "[INFO] Sending email {$email['id']} to {$ans->to} via HORDE \n";
+						$r = ApretasteHordeRobot::sendAnswer($ans);
+						$horde = true;
+					}
 				
-				$r = $ans->send_answer(null, false, false);
+				if (! $horde) {
+					echo "[INFO] Sending email {$email['id']} to {$ans->to}\n";
+					$r = $ans->send_answer(null, false, false);
+				}
 				
 				if ($r == true)
 					Apretaste::query("DELETE FROM email_outbox WHERE id = '{$email['id']}';");
 				else {
-					echo "[INFO] ... Error when sending email, aborting all operations!";
+					echo "[INFO] ... Error when sending email, aborting all operations!\n";
 					break;
 				}
 			}
 		}
 	}
-	
 	static function horde(){
 		$account = 'nauta';
 		
@@ -845,7 +851,6 @@ class ApretasteAlone {
 			$account = $_SERVER['argv'][1];
 		
 		ApretasteHordeRobot::Run($account);
-		
 	}
 }
 

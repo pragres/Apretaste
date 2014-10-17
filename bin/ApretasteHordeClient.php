@@ -110,6 +110,7 @@ class ApretasteHordeClient {
 			$data = $obj->response->ViewPort->data;
 			
 			$this->inbox = array();
+			var_dump($data);
 			
 			$i = 0;
 			if (is_array($data))

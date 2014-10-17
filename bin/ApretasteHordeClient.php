@@ -107,30 +107,32 @@ class ApretasteHordeClient {
 			$obj = json_decode($response);
 			
 			$cacheID = $obj->response->ViewPort->cacheid;
-			var_dump($obj);
-			$data = $obj->response->ViewPort->data;
 			
-			if (is_object($data))
-				$data = get_object_vars($data);
-			
-			$this->inbox = array();
-			
-			$i = 0;
-			if (is_array($data))
-				foreach ( $data as $key => $value ) {
-					$i ++;
-					if ($i > $limit)
-						break;
-					if (in_array("unseen", $value->flag) && ! in_array("seen", $value->flag)) {
-						$uid = $value->uid;
-						$size = $value->size;
-						$mail = $this->getMail($cacheID, $uid, $size);
-						if ($savexml)
-							$this->saveMailToXML($mail);
-						$this->inbox[] = $mail;
-						$this->deleteMail("{7}", "SU5CT1g", $cacheID, $uid);
+			if (isset($obj->response->ViewPort->data)) {
+				$data = $obj->response->ViewPort->data;
+				
+				if (is_object($data))
+					$data = get_object_vars($data);
+				
+				$this->inbox = array();
+				
+				$i = 0;
+				if (is_array($data))
+					foreach ( $data as $key => $value ) {
+						$i ++;
+						if ($i > $limit)
+							break;
+						if (in_array("unseen", $value->flag) && ! in_array("seen", $value->flag)) {
+							$uid = $value->uid;
+							$size = $value->size;
+							$mail = $this->getMail($cacheID, $uid, $size);
+							if ($savexml)
+								$this->saveMailToXML($mail);
+							$this->inbox[] = $mail;
+							$this->deleteMail("{7}", "SU5CT1g", $cacheID, $uid);
+						}
 					}
-				}
+			}
 			
 			$this->purgeDeletedMails("SU5CT1g");
 			$this->logout();

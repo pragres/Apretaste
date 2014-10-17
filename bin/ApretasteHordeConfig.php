@@ -14,6 +14,7 @@ class ApretasteHordeConfig {
 	public $inboxPath;
 	public $outBoxPath;
 	public $successPath;
+	public $address;
 	
 	/**
 	 * Constructor
@@ -31,6 +32,7 @@ class ApretasteHordeConfig {
 			$this->inboxPath = $ini_data[$account]["inbox_path"];
 			$this->outBoxPath = $ini_data[$account]["outbox_path"];
 			$this->successPath = $ini_data[$account]["success_path"];
+			$this->address = $ini_data[$account]["address"];
 			
 			rpFileSystem::mkdir($this->inboxPath);
 			rpFileSystem::mkdir($this->outBoxPath);

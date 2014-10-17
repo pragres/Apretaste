@@ -11,9 +11,9 @@ class ApretasteHordeClient {
 	
 	/* Attributes */
 	public $account;
-	private $client;
-	private $logOutToken;
-	private $hordeConfig;
+	public $client;
+	public $logOutToken;
+	public $hordeConfig;
 	public $inbox = array();
 	
 	/**
@@ -43,7 +43,7 @@ class ApretasteHordeClient {
 	/**
 	 * Login in horde account
 	 */
-	private function login(){
+	public function login(){
 		curl_setopt($this->client, CURLOPT_URL, $this->hordeConfig->baseUrl . "/login.php");
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, "app=&login_post=1&url=&anchor_string=&ie_version=&horde_user=apretaste&horde_pass=3Jd8VfFT&horde_select_view=mobile&new_lang=en_US");
 		$response = @curl_exec($this->client);
@@ -63,7 +63,7 @@ class ApretasteHordeClient {
 	/**
 	 * Logout from horde account
 	 */
-	private function logout(){
+	public function logout(){
 		curl_setopt($this->client, CURLOPT_URL, $this->hordeConfig->baseUrl . "/login.php?horde_logout_token=" . $this->logOutToken);
 		curl_exec($this->client);
 		curl_close($this->client);
@@ -77,7 +77,7 @@ class ApretasteHordeClient {
 	 * @param string $cacheID
 	 * @param string $uid
 	 */
-	private function deleteMail($mailFolderSubFix, $mailFolderId, $cacheID, $uid){
+	public function deleteMail($mailFolderSubFix, $mailFolderId, $cacheID, $uid){
 		curl_setopt($this->client, CURLOPT_URL, $this->hordeConfig->baseUrl . "/services/ajax.php/imp/deleteMessages");
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, urldecode("view=" . $mailFolderId . "&cacheid=" . $cacheID . "&slice=&cache=&uid=" . $mailFolderSubFix . $mailFolderId . $uid));
 		curl_exec($this->client);
@@ -87,7 +87,7 @@ class ApretasteHordeClient {
 	 * Purge deleted emails
 	 * @param string $mailFolderId
 	 */
-	private function purgeDeletedMails($mailFolderId){
+	public function purgeDeletedMails($mailFolderId){
 		curl_setopt($this->client, CURLOPT_URL, $this->hordeConfig->baseUrl . "/imp/mailbox-mimp.php?mailbox=" . $mailFolderId . "&p=1&a=e");
 		curl_exec($this->client);
 	}
@@ -144,7 +144,7 @@ class ApretasteHordeClient {
 	 * @param integer $size
 	 * @return ApretasteHordeEmail
 	 */
-	private function getMail($cacheID, $uid, $size){
+	public function getMail($cacheID, $uid, $size){
 		curl_setopt($this->client, CURLOPT_URL, $this->hordeConfig->baseUrl . "/services/ajax.php/imp/showMessage");
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, urldecode("view=SU5CT1g&cacheid=" . $cacheID . "&slice=&cache=&preview=1&uid={7}SU5CT1g" . $uid));
 		$response = curl_exec($this->client);
@@ -158,12 +158,16 @@ class ApretasteHordeClient {
 		
 		$mail = new ApretasteHordeEmail();
 		$mail->id = $uid;
-		try {
+		
+		$fromName = '';
+		$toName = '';		
+		
+		if (isset($obj->response->preview->from[0]->personal))
 			$fromName = $obj->response->preview->from[0]->personal;
-		} catch ( Exception $ex ) {}
-		try {
+		
+		if (isset($obj->response->preview->to[0]->personal))
 			$toName = $obj->response->preview->to[0]->personal;
-		} catch ( Exception $ex ) {}
+		
 		$mail->from = new ApretasteEmailAddress($obj->response->preview->from[0]->inner, $fromName);
 		$mail->to = new ApretasteEmailAddress($obj->response->preview->to[0]->inner, $toName);
 		$mail->date = $obj->response->preview->localdate;
@@ -180,7 +184,7 @@ class ApretasteHordeClient {
 	 * Save email to XML
 	 * @param ApretasteHordeEmail $mail
 	 */
-	private function saveMailToXML($mail){
+	public function saveMailToXML($mail){
 		$xml = new DOMDocument("1.0", "UTF-8");
 		$xml->formatOutput = true;
 		$root = $xml->createElement("email");
@@ -260,7 +264,7 @@ class ApretasteHordeClient {
 	/**
 	 * Delete sent messages
 	 */
-	private function deleteSentMessages(){
+	public function deleteSentMessages(){
 		curl_setopt($this->client, CURLOPT_URL, $this->hordeConfig->baseUrl . "/services/ajax.php/imp/viewPort");
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, "view=U2VudA&requestid=2&initial=1&after=&before=5000&slice=");
 		$response = curl_exec($this->client);

@@ -34,7 +34,7 @@ class ApretasteEmailRobot {
 		// Callback
 		$clase = $this;
 		
-		$this->callback = function ($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true) use($clase){
+		$this->callback = function ($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false) use($clase){
 			
 			$rawCommand = array(
 					'headers' => $headers,
@@ -139,7 +139,7 @@ class ApretasteEmailRobot {
 				if (isset($ans['_to']))
 					$to = $ans['_to'];
 				
-				$answerMail[] = new ApretasteAnswerEmail($config = $clase->config_answer[$account], $to, $servers = $clase->smtp_servers, $data = $ans, $send, $verbose = $clase->verbose, $debug = $clase->debug, $msg_id);
+				$answerMail[] = new ApretasteAnswerEmail($config = $clase->config_answer[$account], $to, $servers = $clase->smtp_servers, $data = $ans, $send, $verbose = $clase->verbose, $debug = $clase->debug, $msg_id, true, $async);
 			}
 			
 			return $answerMail;

@@ -139,7 +139,7 @@ class ApretasteEmailRobot {
 				if (isset($ans['_to']))
 					$to = $ans['_to'];
 				
-				$answerMail[] = new ApretasteAnswerEmail($config = $clase->config_answer[$account], $to, $servers = $clase->smtp_servers, $data = $ans, $send, $verbose = $clase->verbose, $debug = $clase->debug, $msg_id, true, $async);
+				$answerMail[] = new ApretasteAnswerEmail($config = $clase->config_answer[$account], $to, $servers = $clase->smtp_servers, $data = $ans, $send, $verbose = $clase->verbose, $debug = $clase->debug, $msg_id, true, $async, $via_horde);
 			}
 			
 			return $answerMail;

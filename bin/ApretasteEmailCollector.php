@@ -313,6 +313,7 @@ class ApretasteEmailCollector {
 				
 				$cutbody = array(
 						"--\n",
+						"-- \n",
 						"=0A--=0A",
 						"__________ ",
 						": : CUBAMOTRICIDAD",

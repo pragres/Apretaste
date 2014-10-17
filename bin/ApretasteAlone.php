@@ -837,5 +837,15 @@ class ApretasteAlone {
 			}
 		}
 	}
+	
+	static function horde(){
+		$account = 'nauta';
+		
+		if (isset($_SERVER['argv'][1]))
+			$account = $_SERVER['argv'][1];
+		
+		ApretasteHordeRobot::Run($account);
+		
+	}
 }
 

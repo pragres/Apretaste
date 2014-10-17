@@ -13,6 +13,12 @@ ini_set('display_errors', 1);
 
 if (! defined('ENT_HTML401'))
 	define('ENT_HTML401', 0);
+
+define("ROOT", "../");
+define("TEMP", "../tmp/");
+define("FILES", "../");
+if (! defined('PACKAGES'))
+	define("PACKAGES", "./");
 	
 	// Autoload classes
 function __autoload($class){
@@ -91,7 +97,7 @@ if (div::isCli()) {
 	if ($user !== false) {
 		$_GET['path'] = 'admin';
 	}
-		
+	
 	if (isset($_GET['q']))
 		$_GET['page'] = $_GET['q'];
 	

@@ -7,9 +7,10 @@
  * @version 1.0
  */
 class ApretasteHordeRobot {
+	
 	static function Run($account = "nauta"){
 		$client = new ApretasteHordeClient($account);
-		$inbox = $client->getInbox();
+		$inbox = $client->getInbox(10, false);
 		
 		Apretaste::connect();
 		

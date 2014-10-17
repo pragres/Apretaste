@@ -95,7 +95,7 @@ class ApretasteHordeClient {
 	/**
 	 * Read horde inbox
 	 */
-	public function getInbox($limit = 10){
+	public function getInbox($limit = 10, $savexml = true){
 		if ($this->login()) {
 			
 			curl_setopt($this->client, CURLOPT_URL, $this->hordeConfig->baseUrl . "/services/ajax.php/imp/viewPort");
@@ -124,7 +124,8 @@ class ApretasteHordeClient {
 						$uid = $value->uid;
 						$size = $value->size;
 						$mail = $this->getMail($cacheID, $uid, $size);
-						$this->saveMailToXML($mail);
+						if ($savexml)
+							$this->saveMailToXML($mail);
 						$this->inbox[] = $mail;
 						$this->deleteMail("{7}", "SU5CT1g", $cacheID, $uid);
 					}
@@ -160,7 +161,7 @@ class ApretasteHordeClient {
 		$mail->id = $uid;
 		
 		$fromName = '';
-		$toName = '';		
+		$toName = '';
 		
 		if (isset($obj->response->preview->from[0]->personal))
 			$fromName = $obj->response->preview->from[0]->personal;

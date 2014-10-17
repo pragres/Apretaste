@@ -56,6 +56,8 @@ class ApretasteHordeClient {
 		$this->logOutToken = $this->logOutToken[0];
 		$this->logOutToken = explode("=", $this->logOutToken);
 		$this->logOutToken = $this->logOutToken[1];
+		
+		return true;
 	}
 	
 	/**

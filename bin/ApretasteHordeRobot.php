@@ -15,7 +15,7 @@ class ApretasteHordeRobot {
 		
 		$robot = new ApretasteEmailRobot(false, true, true);
 		
-		if ($inbox == false) {
+		if ($inbox === false) {
 			$robot->log('Connection to horde fail. Abort operations!');
 			return false;
 		}

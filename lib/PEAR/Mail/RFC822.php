@@ -206,6 +206,7 @@ class Mail_RFC822 {
 
             if ($valid === false || isset($this->error)) {
             	var_dump($address);
+            	var_dump($valid);
                 require_once '../lib/PEAR/PEAR.php';
                 return PEAR::raiseError($this->error);
             }

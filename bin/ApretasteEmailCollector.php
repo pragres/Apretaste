@@ -114,8 +114,6 @@ class ApretasteEmailCollector {
 				
 				$headers = imap_headerinfo($this->imap, $message_number_iterator);
 				
-				// var_dump($headers);
-				
 				if (isset($headers->Deleted))
 					if ($headers->Deleted == 'D') {
 						$this->log("Ignore message #$message_number_iterator marked for deletion: {$headers->subject}");
@@ -126,12 +124,6 @@ class ApretasteEmailCollector {
 					$headers->subject = '';
 				
 				$headers->subject = $this->mimeDecode($headers->subject);
-				
-				// var_dump($headers);
-				
-				/*
-				 * if (isset($headers->reply_toaddress)) $from = $headers->reply_toaddress; else
-				 */
 				
 				$from = $headers->from[0]->mailbox . "@";
 				if (isset($headers->from[0]->host))

@@ -116,13 +116,53 @@ class ApretasteHordeRobot {
 				Apretaste::addToAddressList($textBody . ' ' . $htmlBody, 'apretaste.bodies');
 				
 				$images = array();
-				$mail->fromaddress = $mail->from;
+				$mail->fromaddress = "{$mail->from}";
 				$otherstuff = array();
 				$address = $mail->to;
 				
 				// Async
 				$call = $robot->callback;
-				$ans = $call($mail, $textBody, $htmlBody, $images, $otherstuff, $address, true, true, true);
+				$headers = new stdClass();
+				
+				$xfrom = new stdClass();
+				$xfrom->mailbox = $mail->from->getMailbox();
+				$xfrom->host = $mail->from->getHost();
+				$headers->from = array($xfrom);
+				$headers->fromaddress = "{$mail->from}";
+				
+				$udate = strtotime(date("Y-m-d"));
+				$udate = @strtotime($mail->date);
+				
+				$xto = new stdClass();
+				$xto->mailbox = $mail->to->getMailBox();
+				$xto->host = $mail->to->getHost();
+				$headers->to = array($xto);
+				$headers->toaddress = "{$mail->to}";
+				
+				$headers->reply_to =$headers->from;
+				$headers->reply_toaddress =$headers->fromaddress;
+				
+				$headers->sender =$headers->from;
+				$headers->senderaddress =$headers->fromaddress;
+								
+				$headers->date = date("D, d M Y h:i:s O", $udate);
+				$headers->Date = $headers->date;
+				$headers->subject = $mail->subject;
+				$headers->Subject = $mail->subject;
+				$headers->message_id = $mail->id;
+				
+				$headers->Recent = " ";
+				$headers->Unseen = "U";
+				$headers->Flagged = " ";
+				$headers->Answered = " ";
+				$headers->Deleted = " ";
+				$headers->Draft = " ";
+				$headers->Msgno = "   0";
+				$headers->MailDate = date("d-M-Y h:i:s O", $udate);
+				$headers->Size = $mail->size;
+				$headers->udate = $udate;
+				
+				$ans = $call($headers, $textBody, $htmlBody, $images, $otherstuff, $address, true, true, true);
 			}
 		return true;
 	}

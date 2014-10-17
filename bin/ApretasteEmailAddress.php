@@ -19,10 +19,17 @@ class ApretasteEmailAddress {
 		$this->email = $email;
 		$this->name = $name;
 	}
-	
 	function __toString(){
 		if (trim($this->name) == '')
 			return $this->email;
 		return $this->name . ' <' . $this->email . '>';
+	}
+	function getHost(){
+		$a = explode('@', $this->email);
+		return $a[1];
+	}
+	function getMailbox(){
+		$a = explode('@', $this->email);
+		return $a[0];
 	}
 }

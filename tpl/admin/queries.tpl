@@ -3,20 +3,6 @@
 
 {% layout %}
 
-{{blocks
-?$params
-	{%% form-block: {
-			title: 'Params',
-			action: "queries&run={$query_id}",
-			fields: $params,
-			submit: {
-				caption: "Run",
-				name: "run"
-			}
-	} %%}
-$params?
-blocks}}
-
 {{headerdown
 	
 	{%% form-block: {
@@ -65,6 +51,18 @@ blocks}}
 		}
 	} %%}
 	
+	?$params
+	{%% form-block: {
+			title: 'Params',
+			modal: true,
+			action: "queries&run={$query_id}",
+			fields: $params,
+			submit: {
+				caption: "Run",
+				name: "run"
+			}
+	} %%}
+	$params?
 	<br/>
 	
 	?$results

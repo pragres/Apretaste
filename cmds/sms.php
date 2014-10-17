@@ -135,9 +135,12 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 			}
 		}
 		
-		if (! Apretaste::isSimulator()){
+		if (! Apretaste::isSimulator()) {
 			$r = ApretasteSMS::send($code, $number, $from, $part, $discount);
-			if ($r === false){
+			if ($r !== 'sms enviado') {
+				
+				$robot->log('SMS not sent! Server return "' . $r . '"');
+				
 				return array(
 						"answer_type" => "sms_not_sent"
 				);

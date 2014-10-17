@@ -6,6 +6,78 @@
  * @author Administrador
  *        
  */
+
+/**
+ * API de EnviarSMSaCuba.com
+ *
+ * Envíe SMS a Cuba desde su sitio Web usando nuestra API:
+ *
+ * Configuración de la API:
+ *
+ * Para poder enviar SMS desde su Web simplemente copie y pegue en sus páginas el código de ejemplo y en las lineas 2 y 3 complete con el email y la clave de EnviarSMSaCuba.com
+ *
+ * $login = ""; // Su usuario
+ * $password = ""; // Su clave
+ *
+ * Completar como sigue:
+ *
+ * $login = "sucorreo@prueba.com"; // Su usuario
+ * $password = "suclavedeacceso"; // Su clave
+ *
+ * Este es un código de ejemplo nuevo para enviar SMS a cualquier país. Los usuarios que continuan usando la API enterior para enviar solo para Cuba no deben preocuparse pues seguirá funcionando.
+ *
+ * Siga el siguiente link para ver el listado de prefijos por paises.
+ *
+ * Se puede probar este código usando el formulario de ejemplo en línea.
+ *
+ * Conozca su saldo
+ *
+ * Usted puede conocer el saldo de su cuenta usando nuestro código de ejemplo.
+ *
+ * Aqui le indicamos el listado completo de nuestra API, siguiendo las instrucciones de arriba se puede usar de igual manera:
+ * Acceso:
+ * http://api.smsacuba.com/apilogin.php?login=[email_login]&password=[password]
+ * Respuesta:
+ * Si es correcto: 1,[nombre_remitente]
+ * Si es incorrecto: 0
+ *
+ * Conocer el saldo:
+ * http://api.smsacuba.com/saldo.php?login=[email_login]&password=[password]
+ * Respuesta:
+ * Si es correcto: Valor del saldo (Ej: 10.00)
+ * Si es incorrecto:
+ * USUARIO NO ENCONTRADO
+ * CLAVE INCORRECTA
+ *
+ * Leer agenda:
+ * http://api.smsacuba.com/apiagenda.php?login=[email_login]&password=[password]
+ * Respuesta:
+ * Si es correcto: [Nombre]-[Prefijo pais]-[Nombre pais]-[Numero],... o AGENDA VACIA si no hay números en la agenda.
+ * Si es incorrecto: USUARIO O CLAVE INCORRECTA
+ *
+ * Enviar SMS a cualquier país:
+ * http://api.smsacuba.com/api10allcountries.php?login=[email_login]&password=[password]&prefix=[Prefijo pais]&number=[Numero]&sender=[Nombre remitente]&msg=[Mensaje a enviar]
+ * Si es correcto: SMS ENVIADO
+ * Si es incorrecto:
+ * SALDO INSUFICIENTE
+ * CLAVE INCORRECTA
+ * USUARIO NO ENCONTRADO
+ * SMS FALLIDO
+ *
+ * Aqui es posible enviar hasta 10 sms con la misma conexion, solo hay que enviar el campo "number" con una cadena formada por los números separados por coma (,).
+ *
+ *
+ * Para todas estas conexiones se puede usar el metodo POST o GET.
+ *
+ * Las banderitas se pueden tomar de aquí:
+ * http://www.enviarsmsacuba.com/images/flags/[Codigo pais].gif
+ *
+ * Cualquier pregunta escribamos a info@enviarsmsacuba.com
+ *
+ * Disfrutelo!!.
+ *
+ * Equipo EnviarSMSaCuba.com
+ */
 class ApretasteSMS {
 	
 	/**
@@ -35,7 +107,10 @@ class ApretasteSMS {
 			
 			$message = str_replace("'", "''", $message);
 			
-			Apretaste::query("INSERT INTO sms (email, phone, message, discount)
+			$r = strtolower(trim("$r"));
+			
+			if ($r == 'sms enviado')
+				Apretaste::query("INSERT INTO sms (email, phone, message, discount)
 				VALUES ('$sender', '(+$prefix)$number', '$message', $discount);");
 			
 			return $r;
@@ -350,7 +425,6 @@ class ApretasteSMS {
 		$email = strtolower($email);
 		return Apretaste::query("SELECT * FROM sms WHERE email = '$email' ORDER BY send_date desc LIMIT $limit ;");
 	}
-	
 	static function getCredit(){
 		$login = Apretaste::$config['sms_user'];
 		$password = Apretaste::$config['sms_pass'];

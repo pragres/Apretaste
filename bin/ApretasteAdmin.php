@@ -78,6 +78,7 @@ class ApretasteAdmin {
 		}
 		return false;
 	}
+	
 	static function saveUserAction(){
 		$u = self::getUser();
 		
@@ -157,7 +158,7 @@ class ApretasteAdmin {
 			$url = $_GET['page'];
 			
 			if (! $login && $url != 'auth') {
-				header("Location: index.php?path=admin");
+				header("Location: index.php");
 			}
 			
 			$user = self::getUser();

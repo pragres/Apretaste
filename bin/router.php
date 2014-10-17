@@ -24,7 +24,6 @@ function __autoload($class){
 		include "../crawler/{$class}.php";
 	}
 }
-
 function monthNumber($spanish){
 	$monthes = array(
 			'enero' => 1,
@@ -82,11 +81,31 @@ if (div::isCli()) {
 	$t2 = microtime(true);
 	echo "[INFO] Total execution time: " . number_format($t2 - $t1, 5) . " secs\n";
 } else {
+	session_start();
 	// Web mode
 	if (! isset($_GET['path']))
 		$_GET['path'] = 'home';
 	
+	$user = ApretasteAdmin::getUser();
+	
+	if ($user !== false) {
+		$_GET['q'] = 'admin';
+	}
+	
+	if (isset($_GET['q']))
+		$_GET['path'] = $_GET['q'];
+	
 	switch ($_GET['path']) {
+		case "login" :
+			$user = get('user');
+			if (Apretaste::checkEmailAddress($user)) {
+				ApretasteWeb::login();
+				ApretasteWeb::Run();
+			} else {
+				
+				include "../admin/auth.php";
+			}
+			break;
 		case "home" :
 			ApretasteWeb::Run();
 			break;
@@ -101,7 +120,6 @@ if (div::isCli()) {
 			$server->go();
 			break;
 		case "admin" :
-			session_start();
 			ApretasteAdmin::Run();
 			break;
 		case "ad_image" :

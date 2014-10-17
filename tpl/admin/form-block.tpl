@@ -18,7 +18,7 @@ $modal?
 		?$explanation
 		<p>{$explanation}</p>
 		$explanation?
-		<form role="form" action = "index.php?path=admin&page={$action}" method = "post" id="{$id}" ?$enctype enctype="{$enctype}" $enctype?>
+		<form role="form" action = "index.php?path=admin&page={$action}" method = "?$method {$method} @else@ post $method?" id="{$id}" ?$enctype enctype="{$enctype}" $enctype?>
 		?$alert
 		<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> 

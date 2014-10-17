@@ -2,14 +2,14 @@
 
 $data['msg-type'] = 'msg-ok';
 
-if (isset($_POST['delete'])) {
-	$id = $_POST['delete'];
+if (isset($_GET['delete'])) {
+	$id = $_GET['delete'];
 	Apretaste::query("DELETE FROM accusation WHERE id = '$id';");
 	$data['msg'] = "Accusation was been deleted";
 }
 
-if (isset($_POST['proccess'])) {
-	$id = $_POST['proccess'];
+if (isset($_GET['proccess'])) {
+	$id = $_GET['proccess'];
 	Apretaste::query("UPDATE accusation SET proccessed = true WHERE id = '$id';");
 	$data['msg'] = "Accusation was been proccessed";
 }

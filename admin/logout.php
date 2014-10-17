@@ -5,4 +5,4 @@ if (isset($_SESSION['user'])) {
 if (isset($_SESSION['menu'])) {
 	unset($_SESSION['menu']);
 }
-header("Location: index.php?path=admin");
+header("Location: index.php");

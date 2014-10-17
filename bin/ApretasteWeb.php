@@ -7,6 +7,36 @@
  * @version 1.0
  */
 class ApretasteWeb {
+	static $current_user = null;
+	static function login(){
+		$user = post('user');
+		$pass = post('pass');
+		$login = post('login');
+		$user = pg_escape_string($user);
+		
+		if (! is_null($login)) {
+			if (Apretaste::checkEmailAddress($user)) {
+				$author = Apretaste::getAuthor($email);
+				if (isset($author['password'])) {
+					if ($author['password'] == sha1($pass)) {
+						$_SESSION['user'] = $user;
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	static function getUser(){
+		if (isset($_SESSION['user'])) {
+			if (is_null(self::$current_user)) {
+				self::$current_user = Apretaste::getAuthor($_SESSION['user']);
+			}
+		}
+		return self::$current_user;
+	}
+	
 	static function Run(){
 		include "../tpl/web/index.html";
 	}

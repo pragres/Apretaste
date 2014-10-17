@@ -27,6 +27,6 @@ if ($procede) {
 ApretasteAdmin::saveUserAction();
 
 if (ApretasteAdmin::$login_result)
-	header("Location: index.php?path=admin&page=".ApretasteAdmin::getDefaultPage());
+	header("Location: index.php?page=".ApretasteAdmin::getDefaultPage());
 else
-	header("Location: index.php?path=admin".($error?'&error=true':''));
+	header("Location: index.php?".($error?'&error=true':''));

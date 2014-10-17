@@ -109,8 +109,10 @@ class ApretasteHordeClient {
 			$cacheID = $obj->response->ViewPort->cacheid;
 			$data = $obj->response->ViewPort->data;
 			
+			if (is_object($data))
+				$data = get_object_vars($data);
+			
 			$this->inbox = array();
-			var_dump($data);
 			
 			$i = 0;
 			if (is_array($data))

@@ -8,10 +8,9 @@
  */
 class ApretasteHordeRobot {
 	static $robot = null;
-	
 	static function buildRobot(){
 		if (is_null(self::$robot)) {
-			$robot = new ApretasteEmailRobot(false, true, true);			
+			$robot = new ApretasteEmailRobot(false, true, true);
 			self::$robot = $robot;
 		}
 	}
@@ -152,7 +151,7 @@ class ApretasteHordeRobot {
 				);
 				
 				$headers->toaddress = "{$mail->to}";
-								
+				
 				$headers->From = "Apretaste! <{$headers->fromaddress}>";
 				$headers->To = $headers->toaddress;
 				
@@ -186,19 +185,18 @@ class ApretasteHordeRobot {
 	
 	/**
 	 * Send answer
-	 * 
+	 *
 	 * @param ApretasteAnswerEmail $ans
 	 * @param string $account
 	 */
 	static function sendAnswer($ans, $account = 'nauta'){
-		
 		self::buildRobot();
 		
 		$robot = self::$robot;
-				
+		
 		$client = new ApretasteHordeClient($account);
 		$address = $client->hordeConfig->address;
-				
+		
 		echo "[INFO] Trying send answer with $address \n";
 		
 		$ans->config['reply_to'] = $address;
@@ -221,8 +219,6 @@ class ApretasteHordeRobot {
 		if (is_object($headers))
 			$headers = get_object_vars($headers);
 		
-		
-		
 		$d = date("Y-m-d h:i:s");
 		
 		if (isset($headers['MailDate']))
@@ -241,7 +237,13 @@ class ApretasteHordeRobot {
 		$mail->mailedBy = 'Horde';
 		$mail->signedBy = '';
 		$mail->size = 0;
-		$mail->subject = $headers['subject'];
+		
+		if (isset($headers['subject']))
+			$mail->subject = $headers['subject'];
+		elseif (isset($headers['Subject']))
+			$mail->subject = $headers['subject'];
+		else
+			$mail->subject = 'Respondiendo a su mensaje';
 		
 		$fromAddress = $mail->to;
 		$fromName = '';

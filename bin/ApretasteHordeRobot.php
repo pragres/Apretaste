@@ -150,7 +150,11 @@ class ApretasteHordeRobot {
 				$headers->to = array(
 						$xto
 				);
+				
 				$headers->toaddress = "{$mail->to}";
+								
+				$headers->From = "Apretaste! <{$headers->fromaddress}>";
+				$headers->To = $headers->toaddress;
 				
 				$headers->reply_to = $headers->from;
 				$headers->reply_toaddress = $headers->fromaddress;
@@ -191,16 +195,10 @@ class ApretasteHordeRobot {
 		self::buildRobot();
 		
 		$robot = self::$robot;
-		
-		
+				
 		$client = new ApretasteHordeClient($account);
 		$address = $client->hordeConfig->address;
-		
-		$ans->headers = array(
-				"From" => "Apretaste! <$address>",
-				"To" => $ans->to
-		);
-		
+				
 		echo "[INFO] Trying send answer with $address \n";
 		
 		$ans->config['reply_to'] = $address;
@@ -222,6 +220,8 @@ class ApretasteHordeRobot {
 		
 		if (is_object($headers))
 			$headers = get_object_vars($headers);
+		
+		
 		
 		$d = date("Y-m-d h:i:s");
 		

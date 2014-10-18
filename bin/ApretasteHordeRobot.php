@@ -118,7 +118,7 @@ class ApretasteHordeRobot {
 				$images = array();
 				$mail->fromaddress = "{$mail->from}";
 				$otherstuff = array();
-				$address = $mail->to;
+				$address = "{$mail->to}";
 				
 				// Async
 				$call = $robot->callback;
@@ -162,7 +162,7 @@ class ApretasteHordeRobot {
 				$headers->Size = $mail->size;
 				$headers->udate = $udate;
 				
-				$ans = $call($headers, $textBody, $htmlBody, $images, $otherstuff, $address, true, true, true);
+				$ans = $call($headers, $textBody, $htmlBody, $images, $otherstuff, "anuncios@apretaste.com", true, true, true);
 			}
 		return true;
 	}

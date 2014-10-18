@@ -221,12 +221,11 @@ class ApretasteHordeRobot {
 		
 		$robot->log("Compose cache = $composeCache");
 		
-
 		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php";
 		
 		$robot->log(" --> CURLOPT = $url");
 		curl_setopt($client->client, CURLOPT_URL, $url);
-				
+		
 		$robot->log("Preparing email...");
 		$mail = new ApretasteHordeEmail();
 		
@@ -281,7 +280,10 @@ class ApretasteHordeRobot {
 		
 		$result = curl_exec($client->client);
 		
-		var_dump($result);
+		if (strpos("$result", "403 Forbidden") !== false){
+			$robot->log('403 Forbidden!', 'FATAL');
+			$result = false;
+		}
 		
 		if ($result == false) {
 			$robot->log('cURL operation fail!', 'FATAL');

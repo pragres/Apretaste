@@ -204,7 +204,7 @@ class ApretasteHordeRobot {
 		$robot->log("Login in horde");
 		$client->login();
 		
-		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php";
+		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php?u=".$client->composeToken;
 		$robot->log(" --> CURLOPT = $url");
 		curl_setopt($client->client, CURLOPT_URL, $url);
 		
@@ -255,13 +255,15 @@ class ApretasteHordeRobot {
 		$msg = $mail->body;
 		$postfields = "composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . $subject . "&message=" . $msg . "&a=Send";
 		curl_setopt($client->client, CURLOPT_POSTFIELDS, urldecode($postfields));
-		$robot->log(" --> CURLOPT_POSTFIELDS = $postfields");
+		//$robot->log(" --> CURLOPT_POSTFIELDS = $postfields");
 		sleep(rand(1, 5));
 		$robot->log("Answer subject: " . $subject);
 		$robot->log("Execute cURL request...");
 		
 		$result = curl_exec($client->client);
+		
 		var_dump($result);
+		
 		if ($result == false) {
 			$robot->log('cURL operation fail!', 'FATAL');
 			return false;

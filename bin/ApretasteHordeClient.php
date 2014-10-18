@@ -15,6 +15,7 @@ class ApretasteHordeClient {
 	public $logOutToken;
 	public $hordeConfig;
 	public $inbox = array();
+	public $composeToken;
 	
 	/**
 	 * Constructor
@@ -58,6 +59,14 @@ class ApretasteHordeClient {
 		$this->logOutToken = $this->logOutToken[0];
 		$this->logOutToken = explode("=", $this->logOutToken);
 		$this->logOutToken = $this->logOutToken[1];
+		$tk1 = 'compose-mimp.php?u=';
+		$tk2 = '">New Message<';
+		$p1 = strpos($response, $tk1);
+		$p2 = strpos($response, $tk2, $p1);
+		if ($p1 !== false && $p2 !== false)
+			$this->composeToken = substr($response, $p1 + strlen($tk1), $p2 - ($p1 + strlen($tk1)));
+		
+		echo "\n[HORDE] Compose token = " . $this->composeToken . "\n";
 		
 		return true;
 	}

@@ -203,17 +203,21 @@ class ApretasteHordeRobot {
 		
 		$robot->log("Login in horde");
 		$client->login();
-				
-		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php?u=".$client->composeToken.'&uniq='.$client->composeToken;
 		
-		
+		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php?u=" . $client->composeToken . '&uniq=' . $client->composeToken;
 		
 		$robot->log(" --> CURLOPT = $url");
 		curl_setopt($client->client, CURLOPT_URL, $url);
 		
-		$r = curl_exec($client->client);
+		$response = curl_exec($client->client);
 		
-		echo $r;
+		$tk1 = '"composeCache" value="';
+		$tk2 = '" />';
+		
+		$p1 = strpos($response, $tk1);
+		$p2 = strpos($response, $tk2, $p1);
+		if ($p1 !== false && $p2 !== false)
+			$composeCache = substr($response, $p1 + strlen($tk1), $p2 - ($p1 + strlen($tk1)));
 		
 		$robot->log("Preparing email...");
 		$mail = new ApretasteHordeEmail();
@@ -260,9 +264,9 @@ class ApretasteHordeRobot {
 		$fromName = '';
 		$subject = $mail->subject;
 		$msg = $mail->body;
-		$postfields = "composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . $subject . "&message=" . $msg . "&a=Send";
+		$postfields = "composeCache=$composeCache&to=" . $fromAddress . "&cc=&bcc=&subject=" . $subject . "&message=" . $msg . "&a=Send";
 		curl_setopt($client->client, CURLOPT_POSTFIELDS, urldecode($postfields));
-		//$robot->log(" --> CURLOPT_POSTFIELDS = $postfields");
+		// $robot->log(" --> CURLOPT_POSTFIELDS = $postfields");
 		sleep(rand(1, 5));
 		$robot->log("Answer subject: " . $subject);
 		$robot->log("Execute cURL request...");

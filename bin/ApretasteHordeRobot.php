@@ -203,11 +203,14 @@ class ApretasteHordeRobot {
 		
 		$robot->log("Login in horde");
 		$client->login();
+		$composeCache = '';
 		
+		/*
 		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php?u=" . $client->composeToken . '&uniq=' . $client->composeToken;
 		
 		$robot->log(" --> CURLOPT = $url");
 		curl_setopt($client->client, CURLOPT_URL, $url);
+		
 		
 		$response = curl_exec($client->client);
 		
@@ -220,7 +223,7 @@ class ApretasteHordeRobot {
 			$composeCache = substr($response, $p1 + strlen($tk1), $p2 - ($p1 + strlen($tk1)));
 		
 		$robot->log("Compose cache = $composeCache");
-		
+		*/
 		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php";
 		
 		$robot->log(" --> CURLOPT = $url");

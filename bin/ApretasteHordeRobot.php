@@ -201,10 +201,12 @@ class ApretasteHordeRobot {
 		
 		$ans->config['reply_to'] = $address;
 		
+		$robot->log("Login in horde");
 		$client->login();
 		
 		curl_setopt($client->client, CURLOPT_URL, $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
 		
+		$robot->log("Preparing email...");
 		$mail = new ApretasteHordeEmail();
 		
 		if (isset($ans->headers['message_id']))
@@ -253,17 +255,22 @@ class ApretasteHordeRobot {
 		curl_setopt($client->client, CURLOPT_POSTFIELDS, urldecode("composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . $subject . "&message=" . $msg . "&a=Send"));
 		
 		sleep(rand(1, 5));
+		$robot->log("Answer subject: " . $subject);
+		$robot->log("Execute cURL request...");
 		
-		$result = @curl_exec($client->client);
+		$result = curl_exec($client->client);
 		
 		if ($result == false) {
 			$robot->log('cURL operation fail!', 'FATAL');
+			return false;
 		}
 		
 		Apretaste::saveAnswer($headers, $ans->type, $ans->msg_id);
 		
 		$client->deleteSentMessages();
 		$client->purgeDeletedMails("U2VudA");
+		
 		$client->logout();
+		return true;
 	}
 }

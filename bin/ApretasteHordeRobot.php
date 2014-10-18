@@ -202,32 +202,14 @@ class ApretasteHordeRobot {
 		$ans->config['reply_to'] = $address;
 		
 		$robot->log("Login in horde");
+		
 		$client->login();
+		
 		$composeCache = '';
 		
 		/*
-		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php?u=" . $client->composeToken . '&uniq=' . $client->composeToken;
-		
-		$robot->log(" --> CURLOPT = $url");
-		curl_setopt($client->client, CURLOPT_URL, $url);
-		
-		
-		$response = curl_exec($client->client);
-		
-		$tk1 = '"composeCache" value="';
-		$tk2 = '" />';
-		
-		$p1 = strpos($response, $tk1);
-		$p2 = strpos($response, $tk2, $p1);
-		if ($p1 !== false && $p2 !== false)
-			$composeCache = substr($response, $p1 + strlen($tk1), $p2 - ($p1 + strlen($tk1)));
-		
-		$robot->log("Compose cache = $composeCache");
-		*/
-		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php";
-		
-		$robot->log(" --> CURLOPT = $url");
-		curl_setopt($client->client, CURLOPT_URL, $url);
+		 * $url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php?u=" . $client->composeToken . '&uniq=' . $client->composeToken; $robot->log(" --> CURLOPT = $url"); curl_setopt($client->client, CURLOPT_URL, $url); $response = curl_exec($client->client); $tk1 = '"composeCache" value="'; $tk2 = '" />'; $p1 = strpos($response, $tk1); $p2 = strpos($response, $tk2, $p1); if ($p1 !== false && $p2 !== false) $composeCache = substr($response, $p1 + strlen($tk1), $p2 - ($p1 + strlen($tk1))); $robot->log("Compose cache = $composeCache");
+		 */
 		
 		$robot->log("Preparing email...");
 		$mail = new ApretasteHordeEmail();
@@ -274,16 +256,36 @@ class ApretasteHordeRobot {
 		$fromName = '';
 		$subject = $mail->subject;
 		$msg = $mail->body;
-		$postfields = "composeCache=$composeCache&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&message=" . urldecode($msg) . "&a=Send";
-		curl_setopt($client->client, CURLOPT_POSTFIELDS, $postfields);
-		// $robot->log(" --> CURLOPT_POSTFIELDS = $postfields");
-		//sleep(rand(1, 5));
+		
 		$robot->log("Answer subject: " . $subject);
 		$robot->log("Execute cURL request...");
 		
+		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php";
+		
+		$robot->log(" --> CURLOPT = $url");
+		
+		$c = curl_init();
+		
+		curl_setopt($c, CURLOPT_HTTPHEADER, array(
+				"Cache-Control: max-age=0",
+				"Origin: " . $client->hordeConfig->originUrl,
+				"User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36",
+				"Content-Type: application/x-www-form-urlencoded"
+		));
+		
+		curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($c, CURLOPT_COOKIEJAR, '../tmp/' . $client->account . 'cookie');
+		curl_setopt($c, CURLOPT_COOKIEFILE, '../tmp/' . $client->account . 'cookie');
+		curl_setopt($c, CURLOPT_URL, $url);
+		$postfields = "composeCache=$composeCache&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&message=" . urldecode($msg) . "&a=Send";
+		curl_setopt($c, CURLOPT_POSTFIELDS, $postfields);
+		
+		sleep(rand(1, 5));
+		
 		$result = curl_exec($client->client);
 		
-		if (strpos("$result", "403 Forbidden") !== false){
+		if (strpos("$result", "403 Forbidden") !== false) {
 			$robot->log('403 Forbidden!', 'FATAL');
 			$result = false;
 		}

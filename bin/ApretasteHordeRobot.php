@@ -277,7 +277,7 @@ class ApretasteHordeRobot {
 		$postfields = "composeCache=$composeCache&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&message=" . urldecode($msg) . "&a=Send";
 		curl_setopt($client->client, CURLOPT_POSTFIELDS, $postfields);
 		// $robot->log(" --> CURLOPT_POSTFIELDS = $postfields");
-		sleep(rand(1, 5));
+		//sleep(rand(1, 5));
 		$robot->log("Answer subject: " . $subject);
 		$robot->log("Execute cURL request...");
 		

@@ -203,8 +203,13 @@ class ApretasteHordeRobot {
 		
 		$robot->log("Login in horde");
 		$client->login();
+				
+		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php?u=".$client->composeToken.'&uniq='.$client->composeToken;
 		
-		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php?u=".$client->composeToken;
+		$r = curl_exec($client->client);
+		
+		echo $r;
+		
 		$robot->log(" --> CURLOPT = $url");
 		curl_setopt($client->client, CURLOPT_URL, $url);
 		

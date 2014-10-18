@@ -201,12 +201,10 @@ class Mail_RFC822 {
 
         // Validate each address individually.  If we encounter an invalid
         // address, stop iterating and return an error immediately.
-        foreach ($this->addresses as $address) {
+        foreach ($this->addresses as $address) {        	
             $valid = $this->_validateAddress($address);
 
-            if ($valid === false || isset($this->error)) {
-            	var_dump($address);
-            	var_dump($valid);
+            if ($valid === false || isset($this->error)) {       	
                 require_once '../lib/PEAR/PEAR.php';
                 return PEAR::raiseError($this->error);
             }

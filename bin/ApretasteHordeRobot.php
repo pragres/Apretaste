@@ -201,17 +201,19 @@ class ApretasteHordeRobot {
 		
 		$ans->config['reply_to'] = $address;
 		
-		$robot->log("Login in horde");
+		$robot->log("Login in horde...");
 		
-		$client->login();
+		$r = $client->login();
 		
-		$composeCache = '';
-		
-		/*
-		 * $url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php?u=" . $client->composeToken . '&uniq=' . $client->composeToken; $robot->log(" --> CURLOPT = $url"); curl_setopt($client->client, CURLOPT_URL, $url); $response = curl_exec($client->client); $tk1 = '"composeCache" value="'; $tk2 = '" />'; $p1 = strpos($response, $tk1); $p2 = strpos($response, $tk2, $p1); if ($p1 !== false && $p2 !== false) $composeCache = substr($response, $p1 + strlen($tk1), $p2 - ($p1 + strlen($tk1))); $robot->log("Compose cache = $composeCache");
-		 */
+		if ($r)
+			$robot->log("Login successfull!");
+		else {
+			$robot->log("Login fail!");
+			return false;
+		}
 		
 		$robot->log("Preparing email...");
+		
 		$mail = new ApretasteHordeEmail();
 		
 		if (isset($ans->headers['message_id']))
@@ -258,12 +260,9 @@ class ApretasteHordeRobot {
 		$msg = $mail->body;
 		
 		$robot->log("Answer subject: " . $subject);
+		
 		$robot->log("Execute cURL request...");
-		
-		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php";
-		
-		$robot->log(" --> CURLOPT = $url");
-		
+				
 		$c = curl_init();
 		
 		curl_setopt($c, CURLOPT_HTTPHEADER, array(
@@ -277,13 +276,12 @@ class ApretasteHordeRobot {
 		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($c, CURLOPT_COOKIEJAR, '../tmp/' . $client->account . 'cookie');
 		curl_setopt($c, CURLOPT_COOKIEFILE, '../tmp/' . $client->account . 'cookie');
-		curl_setopt($c, CURLOPT_URL, $url);
-		$postfields = "composeCache=$composeCache&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&message=" . urldecode($msg) . "&a=Send";
-		curl_setopt($c, CURLOPT_POSTFIELDS, $postfields);
+		curl_setopt($c, CURLOPT_URL, $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
+		curl_setopt($c, CURLOPT_POSTFIELDS, "composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&message=" . urldecode($msg) . "&a=Send");
 		
 		sleep(rand(1, 5));
 		
-		$result = curl_exec($client->client);
+		$result = curl_exec($c);
 		
 		if (strpos("$result", "403 Forbidden") !== false) {
 			$robot->log('403 Forbidden!', 'FATAL');
@@ -297,10 +295,15 @@ class ApretasteHordeRobot {
 		
 		Apretaste::saveAnswer($headers, $ans->type, $ans->msg_id);
 		
+		$robot->log('Delete sent messages...');
 		$client->deleteSentMessages();
+		
+		$robot->log('Purge deleted mails...');
 		$client->purgeDeletedMails("U2VudA");
 		
+		$robot->log('Logout from horde...');
 		$client->logout();
+		
 		return true;
 	}
 }

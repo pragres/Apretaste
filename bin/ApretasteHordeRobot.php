@@ -175,13 +175,13 @@ class ApretasteHordeRobot {
 				"To" => $ans->to
 		);
 		
-		echo "[INFO] $i Trying send answer with $address \n";
+		echo "[INFO] Trying send answer with $address \n";
 		
-		$this->config['reply_to'] = $address;
+		$ans->config['reply_to'] = $address;
 		
 		$client->login();
 		
-		curl_setopt($this->client, CURLOPT_URL, $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
+		curl_setopt($client, CURLOPT_URL, $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
 		
 		$mail = new ApretasteHordeEmail();
 		
@@ -222,11 +222,11 @@ class ApretasteHordeRobot {
 		$subject = $mail->subject;
 		$msg = $mail->body;
 		
-		curl_setopt($this->client, CURLOPT_POSTFIELDS, urldecode("composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . $subject . "&message=" . $msg . "&a=Send"));
+		curl_setopt($client, CURLOPT_POSTFIELDS, urldecode("composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . $subject . "&message=" . $msg . "&a=Send"));
 		
 		sleep(rand(1, 5));
 		
-		$result = @curl_exec($this->client);
+		$result = @curl_exec($client);
 		
 		if ($result == false) {
 			$robot->log('cURL operation fail!', 'FATAL');

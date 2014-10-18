@@ -7,13 +7,22 @@
  * @version 1.0
  */
 class ApretasteHordeRobot {
+	static $robot = null;
+	
+	static function buildRobot(){
+		if (is_null(self::$robot)) {
+			$robot = new ApretasteEmailRobot(false, true, true);			
+			self::$robot = $robot;
+		}
+	}
 	static function Run($account = "nauta"){
 		$client = new ApretasteHordeClient($account);
 		$inbox = $client->getInbox(10, false);
 		
 		Apretaste::connect();
+		self::buildRobot();
 		
-		$robot = new ApretasteEmailRobot(false, true, true);
+		$robot = self::$robot;
 		
 		if ($inbox === false) {
 			$robot->log('Connection to horde fail. Abort operations!');
@@ -127,7 +136,9 @@ class ApretasteHordeRobot {
 				$xfrom = new stdClass();
 				$xfrom->mailbox = $mail->from->getMailbox();
 				$xfrom->host = $mail->from->getHost();
-				$headers->from = array($xfrom);
+				$headers->from = array(
+						$xfrom
+				);
 				$headers->fromaddress = "{$mail->from}";
 				
 				$udate = strtotime(date("Y-m-d"));
@@ -136,15 +147,17 @@ class ApretasteHordeRobot {
 				$xto = new stdClass();
 				$xto->mailbox = $mail->to->getMailBox();
 				$xto->host = $mail->to->getHost();
-				$headers->to = array($xto);
+				$headers->to = array(
+						$xto
+				);
 				$headers->toaddress = "{$mail->to}";
 				
-				$headers->reply_to =$headers->from;
-				$headers->reply_toaddress =$headers->fromaddress;
+				$headers->reply_to = $headers->from;
+				$headers->reply_toaddress = $headers->fromaddress;
 				
-				$headers->sender =$headers->from;
-				$headers->senderaddress =$headers->fromaddress;
-								
+				$headers->sender = $headers->from;
+				$headers->senderaddress = $headers->fromaddress;
+				
 				$headers->date = date("D, d M Y h:i:s O", $udate);
 				$headers->Date = $headers->date;
 				$headers->subject = $mail->subject;
@@ -166,7 +179,20 @@ class ApretasteHordeRobot {
 			}
 		return true;
 	}
+	
+	/**
+	 * Send answer
+	 * 
+	 * @param ApretasteAnswerEmail $ans
+	 * @param string $account
+	 */
 	static function sendAnswer($ans, $account = 'nauta'){
+		
+		self::buildRobot();
+		
+		$robot = self::$robot;
+		
+		
 		$client = new ApretasteHordeClient($account);
 		$address = $client->hordeConfig->address;
 		
@@ -181,7 +207,7 @@ class ApretasteHordeRobot {
 		
 		$client->login();
 		
-		curl_setopt($client, CURLOPT_URL, $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
+		curl_setopt($client->client, CURLOPT_URL, $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
 		
 		$mail = new ApretasteHordeEmail();
 		
@@ -190,7 +216,7 @@ class ApretasteHordeRobot {
 		else
 			$mail->id = $ans->msg_id;
 		
-		$mail->body = $ans->message->_html_body;
+		$mail->body = $ans->message->getHTMLBody();
 		
 		$headers = $ans->headers;
 		
@@ -222,11 +248,11 @@ class ApretasteHordeRobot {
 		$subject = $mail->subject;
 		$msg = $mail->body;
 		
-		curl_setopt($client, CURLOPT_POSTFIELDS, urldecode("composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . $subject . "&message=" . $msg . "&a=Send"));
+		curl_setopt($client->client, CURLOPT_POSTFIELDS, urldecode("composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . $subject . "&message=" . $msg . "&a=Send"));
 		
 		sleep(rand(1, 5));
 		
-		$result = @curl_exec($client);
+		$result = @curl_exec($client->client);
 		
 		if ($result == false) {
 			$robot->log('cURL operation fail!', 'FATAL');

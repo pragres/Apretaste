@@ -219,6 +219,14 @@ class ApretasteHordeRobot {
 		if ($p1 !== false && $p2 !== false)
 			$composeCache = substr($response, $p1 + strlen($tk1), $p2 - ($p1 + strlen($tk1)));
 		
+		$robot->log("Compose cache = $composeCache");
+		
+
+		$url = $client->hordeConfig->baseUrl . "/imp/compose-mimp.php";
+		
+		$robot->log(" --> CURLOPT = $url");
+		curl_setopt($client->client, CURLOPT_URL, $url);
+				
 		$robot->log("Preparing email...");
 		$mail = new ApretasteHordeEmail();
 		

@@ -278,11 +278,13 @@ class ApretasteHordeClient {
 		$obj = json_decode($response);
 		
 		$cacheID = $obj->response->ViewPort->cacheid;
-		$data = $obj->response->ViewPort->data;
-		
-		foreach ( $data as $key => $value ) {
-			$uid = $value->uid;
-			$this->deleteMail("{6}", "U2VudA", $cacheID, $uid);
+		if (isset($obj->response->ViewPort->data)) {
+			$data = $obj->response->ViewPort->data;
+			
+			foreach ( $data as $key => $value ) {
+				$uid = $value->uid;
+				$this->deleteMail("{6}", "U2VudA", $cacheID, $uid);
+			}
 		}
 	}
 }

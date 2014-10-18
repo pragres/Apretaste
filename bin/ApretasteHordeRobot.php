@@ -241,7 +241,7 @@ class ApretasteHordeRobot {
 		if (isset($headers['subject']))
 			$mail->subject = $headers['subject'];
 		elseif (isset($headers['Subject']))
-			$mail->subject = $headers['subject'];
+			$mail->subject = $headers['Subject'];
 		else
 			$mail->subject = 'Respondiendo a su mensaje';
 		

@@ -261,7 +261,7 @@ class ApretasteHordeRobot {
 		$robot->log("Execute cURL request...");
 		
 		$result = curl_exec($client->client);
-		
+		var_dump($result);
 		if ($result == false) {
 			$robot->log('cURL operation fail!', 'FATAL');
 			return false;

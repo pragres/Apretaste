@@ -44,10 +44,12 @@ class ApretasteHordeClient {
 	 * Login in horde account
 	 */
 	public function login(){
+		echo "[HORDE] Login...\n";
 		curl_setopt($this->client, CURLOPT_URL, $this->hordeConfig->baseUrl . "/login.php");
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, "app=&login_post=1&url=&anchor_string=&ie_version=&horde_user=apretaste&horde_pass=3Jd8VfFT&horde_select_view=mobile&new_lang=en_US");
 		$response = curl_exec($this->client);
 		
+		echo "[HORDE] " . serialize($response) . "\n";
 		if ($response === false)
 			return false;
 		

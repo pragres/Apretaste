@@ -34,7 +34,7 @@ page}}
 	{%% form-block: {
 		id: "frmEmailClient",
 		title: "<span class="glyphicon glyphicon-envelope"></span> &nbsp; Email client",
-		action: $path,
+		action: 'robot',
 		modal: $div.post.subject,
 		fields: [
 			{

@@ -27,8 +27,8 @@ blocks}}
 				label: "Role",
 				type: "select",
 				options: $roles,
-				value: '{$user_role}',
-				text: '{$user_role}',
+				xvalue: '{$user_role}',
+				xtext: '{$user_role}',
 				default: $xuser.user_role
 			},{
 				id: "user_email",
@@ -45,8 +45,8 @@ blocks}}
 				label: "Agency",
 				type: "select",
 				options: $agencies,
-				value: "{$id}",
-				text: "{$name}",
+				xvalue: "{$id}",
+				xtext: "{$name}",
 				default: $xuser.agency
 			}
 		],

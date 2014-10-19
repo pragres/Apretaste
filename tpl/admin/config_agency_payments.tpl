@@ -12,8 +12,8 @@
 			id: "cboAgency",
 			type: "select",
 			options: $agencies,
-			value: '{$id}',
-			text: '{$name}',
+			xvalue: '{$id}',
+			xtext: '{$name}',
 			label: "Agency",
 			default: $filter.id
 		}
@@ -51,8 +51,8 @@ blocks}}
 				id: "cboAgency",
 				type: "select",
 				options: $agencies,
-				value: '{$id}',
-				text: '{$name}',
+				xvalue: '{$id}',
+				xtext: '{$name}',
 				label: "Agency"
 			},{
 				id: "edtAmount",

@@ -17,10 +17,11 @@
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA radar">Radar</a> {$br}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA sector">Sector visible</a> {$separatorLinks}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA infrarroja">Infrarroja</a> {$separatorLinks}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA vapor">Vapor de Agua</a> {$br}
-<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA temperatura">Temperatura del mar</a> {$separatorLinks}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA vapor">Vapor de Agua</a> {$separatorLinks}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA temperatura">Temperatura del mar</a> {$br}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA superficie">Superficie del Atl&aacute;ntico y el Caribe</a> {$separatorLinks}
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA atlantico">Estado del Atl&aacute;ntico</a> {$separatorLinks}
+<a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA polvo">Polvo del desierto</a> 
 {$_p}
 {$hr}
 ?$provincias

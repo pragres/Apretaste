@@ -15,9 +15,35 @@
 <link href="static/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">	
 <script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="static/bootstrap/js/bootstrap-modal.js"></script>
-
+<script type="text/javascript" src="static/bootstrap-window/bootstrap-window.min.js"></script>
+<link href="static/bootstrap-window/bootstrap-window.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="static/highlight.js"></script>
+<link rel="stylesheet" href="static/github.css"></link>
 </head>
+<style>
+.window .window-body {
+overflow: auto;
+}
+</style>
 <body>
+
+<script type="template/text" id="basic_window_template">
+        <div class="window">
+          <div class="window-header">
+            <button type="button" class="close" data-dismiss="window" aria-hidden="true">
+              x
+            </button>
+            <h4 class="window-title">
+            </h4>
+          </div>
+          <div class="window-body">
+          </div>
+          <div class="window-footer">
+            
+          </div>
+        </div>
+      </script>
+      
 	<nav class="navbar navbar-inverse" role="navigation"> 
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">

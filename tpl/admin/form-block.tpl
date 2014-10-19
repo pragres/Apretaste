@@ -18,7 +18,7 @@ $modal?
 		?$explanation
 		<p>{$explanation}</p>
 		$explanation?
-		<form role="form" action = "index.php?path=admin&page={$action}" method = "?$method {$method} @else@ post $method?" id="{$id}" ?$enctype enctype="{$enctype}" $enctype?>
+		<form role="form" action = "?q={$action}" method = "?$method {$method} @else@ post $method?" id="{$id}" ?$enctype enctype="{$enctype}" $enctype?>
 		?$alert
 		<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true"> &times; </button> 
@@ -29,39 +29,8 @@ $modal?
 		<div class="form-group ?$addon input-group $addon?">
 			?$label <label for="{$id}">{$label}</label> $label?
 			
-			{= controls: {
-				select: '<select class="form-control" name="{$id}" id="{$id}">
-							[$options]
-							<option value="{$value}" {?( "{$default}" == "{$value}" )?} selected {/?}>{$text}</option>
-							[/$options]			
-						</select>',
-				multichecks: '
-						<div class="panel panel-default" style="height: 200px; overflow: auto;">
-							<div class="form-group">
-								[$options]
-								<div class="checkbox">
-									<label>
-										<input type="checkbox" name="{$id}[]" value="{$id}" class="checkbox" style="">{$text}<br/>
-									</label>
-								</div>
-								[/$options]
-							</div>
-						</div>',
-				textarea: '<textarea class="form-control" ?$rows rows="{$rows}" $rows? name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$help title="{$help}" $help?>?$value {$value} $value?</textarea>',
-				text: '?$addon <span class="input-group-addon">{$addon}</span> $addon?
-				<input type="text" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
-				number: '?$addon <span class="input-group-addon">{$addon}</span> $addon?
-					<input type="text" class="form-control number {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
-				password: '<input type="password" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
-				hidden: '<input type="hidden" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
-				open_fieldset: '<fieldset><legend>{$legend}</legend>',
-				close_fieldset: '</fieldset>',
-				file: '<input type="file" name="{$id}" id = "{$id}" class="{$class}" ?$placeholder placeholder="{$placeholder}" $placeholder?>',
-				
-			} =}
-			
-			{$controls.{$type}}
-			
+			{%% form-control-{$type}: $value %%}
+					
 		</div>
 		[/$fields]
 		?$modal

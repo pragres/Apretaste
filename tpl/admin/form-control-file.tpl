@@ -1,0 +1,1 @@
+<input type="file" name="{$id}" id = "{$id}" class="{$class}" ?$placeholder placeholder="{$placeholder}" $placeholder?>

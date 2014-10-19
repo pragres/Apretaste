@@ -1,5 +1,5 @@
 {= title: Roles =}
-{= path: "?q=users_roles" =}
+{= path: "index.php?q=users_roles" =}
 
 {% layout %}
 {{headerdown
@@ -18,37 +18,13 @@
 		</tr>
 	[/$roles]
 	</table>
-<!--{
-	<div class="box">
-		<h2>New role</h2>
-		<form action="{$path}" method="post">
-			
-			Role: <br/>
-			<input class = "text" name="edtRole"><br/><br/>
-			Default page:<br/>
-			<select name="edtDefaultPage" class="text"><br/>
-			[$pages]
-				<option value="{$value}">{$value}</option>
-			[/$pages]
-			</select>
-			<br/><br/>
-			Access to: <br/>
-			<div class="box" style="height: 200px;overflow:auto;width: 300px;">
-			[$pages]
-				<input type="checkbox" name="chkAccessTo[]" value="{$value}" class="checkbox"> {$value}<br/>
-			[/$pages]
-			</div>
-			<br/><br/>
-			<input type="submit" name="btnAddRole" class="submit" value="Add">
-		</form>
-	</div>
-	}-->
+
 	$roles?
 
 		{%% form-block: {
 			id: "frmNewRole",
 			title: "New role",
-			action: $path,
+			action: "users_roles",
 			modal: true,
 			width: '300px',
 			fields: [
@@ -60,16 +36,16 @@
 					id: "edtDefaultPage",
 					type: "select",
 					options: $pages,
-					id: "{$value}",
-					text: "{$value}",
+					xvalue: "{$value}",
+					xtext: "{$value}",
 					label: "Default page"
 				}, {
 					id: "chkAccessTo",
 					label: "Access to:",
 					type: "multichecks",
 					options: $pages,
-					id: "{$value}",
-					text: "{$value}"
+					xvalue: "{$value}",
+					xtext: "{$value}"
 				}
 			],
 			submit: {

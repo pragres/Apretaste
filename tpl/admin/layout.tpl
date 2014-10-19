@@ -25,8 +25,6 @@
 		<script src="static/phpHotMap.js" type="text/javascript"></script>
 		<script src="static/jquery.min.js" type="text/javascript"></script>
 		<script src="static/jquery.cookie.js" type="text/javascript"></script>
-		<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
-		<link href="static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"></link>
 		<link href="static/bootstrap/css/datepicker.css" rel="stylesheet"></link>
 		<link href="static/timeline.css" rel="stylesheet">
 		<link href="static/metisMenu/metisMenu.min.css" rel="stylesheet">
@@ -51,6 +49,13 @@
 		<script type="text/javascript" src="static/php_string.js"></script>
 		<script src="static/dataTables/jquery.dataTables.js"></script>
 		<script src="static/dataTables/dataTables.bootstrap.js"></script>
+		<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+		<link href="static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet"></link>
+		<script type="text/javascript" src="static/bootstrap-window/bootstrap-window.min.js"></script>
+		<link href="static/bootstrap-window/bootstrap-window.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="static/highlight.js"></script>
+		<link rel="stylesheet" href="static/github.css"></link>
+
 		<script type="text/javascript">
 			{ignore}
 			function isset(v) {
@@ -119,6 +124,7 @@
 		(( head ))
 	</head>
 	<body onload="(( onload ))">
+	
 		?$user
 		<nav class="navbar navbar-default" role="navigation"> 
 			<div class="navbar-header">

@@ -280,6 +280,7 @@ class ApretasteHordeRobot {
 		// Login
 		curl_setopt($c, CURLOPT_URL, $client->hordeConfig->baseUrl . "/login.php");
 		curl_setopt($c, CURLOPT_POSTFIELDS, "app=&login_post=1&url=&anchor_string=&ie_version=&horde_user=apretaste&horde_pass=3Jd8VfFT&horde_select_view=mobile&new_lang=en_US");
+		
 		$response = curl_exec($c);
 		
 		if ($response === false)

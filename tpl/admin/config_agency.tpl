@@ -119,8 +119,8 @@ blocks}}
 				label: "Agency",
 				type: "select",
 				options: $agency_percents,
-				value: '{$id}', 
-				text: '{$name} ((# {$profit_percent} *100:2. #)% | (# {$residual_percent}*100:2.#)%)' 
+				xvalue: '{$id}', 
+				xtext: '{$name} ((# {$profit_percent} *100:2. #)% | (# {$residual_percent}*100:2.#)%)' 
 			},
 			{
 				id: "edtAgencyProfitPercent",

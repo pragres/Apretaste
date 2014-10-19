@@ -333,6 +333,33 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				);
 			
 				break;
+				
+		case 'polvo':
+			// Polvo en el desierto
+			//http://tropic.ssec.wisc.edu/real-time/sal/splitEW.jpg
+			
+			echo "[INFO] Download Polvo en el desierto \n";
+			$img = file_get_contents("http://tropic.ssec.wisc.edu/real-time/sal/splitEW.jpg");
+				
+			return array(
+					"answer_type" => "weather",
+					"command" => "weather",
+					"title" => "Imagen del Polvo del desierto [" . date("Y-m-d h:i:s") . "]",
+					"compactmode" => true,
+					"climaimagen" => true,
+					"sharethis" => 'CLIMA POLVO',
+					"images" => array(
+							array(
+									"type" => "image/jpeg",
+									"content" => $img,
+									"name" => "Imagen del Polvo del desierto [" . date("Y-m-d h:i:s") . "].jpg",
+									"id" => "climaimagen",
+									"src" => "cid:climaimagen"
+							)
+					)
+			);
+			
+			break;
 		/*case 'presion superficial' :
 		case 'mapa' :
 			echo "[INFO] Download Mapa Presion Superficial\n";

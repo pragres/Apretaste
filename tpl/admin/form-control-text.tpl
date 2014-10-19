@@ -1,0 +1,2 @@
+?$addon <span class="input-group-addon">{$addon}</span> $addon?
+<input type="text" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>

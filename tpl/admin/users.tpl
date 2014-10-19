@@ -37,8 +37,8 @@
 					label: "Role",
 					type: "select",
 					options: $roles,
-					value: '{$user_role}',
-					text: '{$user_role}'
+					xvalue: '{$user_role}',
+					xtext: '{$user_role}'
 				},{
 					id: "user_email",
 					type: "text",
@@ -52,8 +52,8 @@
 					label: "Agency",
 					type: "select",
 					options: $agencies,
-					value: "{$id}",
-					text: "{$name}"
+					xvalue: "{$id}",
+					xtext: "{$name}"
 				}
 			],
 			submit: {

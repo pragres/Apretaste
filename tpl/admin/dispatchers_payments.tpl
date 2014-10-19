@@ -28,8 +28,8 @@
 				id: "edtDispatcher",
 				label: "Dispatcher",
 				options: $dispatchers,
-				value: "{$email}",
-				text: "{$name}",
+				xvalue: "{$email}",
+				xtext: "{$name}",
 				type: "select"
 			},{
 				id: "edtDate",

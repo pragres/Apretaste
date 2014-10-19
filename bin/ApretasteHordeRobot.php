@@ -204,14 +204,14 @@ class ApretasteHordeRobot {
 		$robot->log("Login in horde...");
 		
 		//$r = $client->login();
-		
+		/*
 		if ($r)
 			$robot->log("Login successfull!");
 		else {
 			$robot->log("Login fail!");
 			return false;
 		}
-		
+		*/
 		$robot->log("Preparing email...");
 		
 		$mail = new ApretasteHordeEmail();

@@ -50,7 +50,7 @@ blocks}}
 				default: $xuser.agency
 			}
 		],
-		submit: [
+		submits: [
 			{
 				caption: "Add",
 				name: "btnAddUser"

@@ -64,17 +64,17 @@ $modal?
 			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> 
 		</div> 
 		@else@
-			{?( {$submit} > 1 )?}
-				[$submit]
+			?$submits
+				[$submits]
 					?$href
 						<a href="{$href}" class="btn btn-default">{$caption}</a>
 					@else@
 						<button type="submit" name="{$name}" class="btn btn-default">{$caption}</button> &nbsp;
 					$href?
-				[/$submit]
+				[/$submits]
 			@else@
 				<button type="submit" name="{$submit.name}" class="btn btn-default">{$submit.caption}</button>
-			{/?}
+			$submits?
 		$modal?
 		</form>
 	</div>

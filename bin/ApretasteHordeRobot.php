@@ -285,6 +285,8 @@ class ApretasteHordeRobot {
 		if ($response === false)
 			return false;
 		
+		echo $response;
+		
 		curl_setopt($c, CURLOPT_URL, $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
 		curl_setopt($c, CURLOPT_POSTFIELDS, "composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&message=" . urldecode($msg) . "&a=Send");
 		

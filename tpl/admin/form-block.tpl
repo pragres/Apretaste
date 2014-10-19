@@ -35,10 +35,17 @@ $modal?
 							<option value="{$value}" {?( "{$default}" == "{$value}" )?} selected {/?}>{$text}</option>
 							[/$options]			
 						</select>',
-				multichecks: '<div class="panel panel-default" style="height: 300px; overflow: auto;">
-							[$options]
-							<input type="checkbox" name="{$id}[]" value="{$id}" class="checkbox" style="">{$text}<br/>
-							[/$options]			
+				multichecks: '
+						<div class="panel panel-default" style="height: 200px; overflow: auto;">
+							<div class="form-group">
+								[$options]
+								<div class="checkbox">
+									<label>
+										<input type="checkbox" name="{$id}[]" value="{$id}" class="checkbox" style="">{$text}<br/>
+									</label>
+								</div>
+								[/$options]
+							</div>
 						</div>',
 				textarea: '<textarea class="form-control" ?$rows rows="{$rows}" $rows? name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$help title="{$help}" $help?>?$value {$value} $value?</textarea>',
 				text: '?$addon <span class="input-group-addon">{$addon}</span> $addon?

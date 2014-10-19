@@ -203,7 +203,7 @@ class ApretasteHordeRobot {
 		
 		$robot->log("Login in horde...");
 		
-		$r = $client->login();
+		//$r = $client->login();
 		
 		if ($r)
 			$robot->log("Login successfull!");
@@ -276,6 +276,15 @@ class ApretasteHordeRobot {
 		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($c, CURLOPT_COOKIEJAR, '../tmp/' . $client->account . 'cookie');
 		curl_setopt($c, CURLOPT_COOKIEFILE, '../tmp/' . $client->account . 'cookie');
+		
+		// Login
+		curl_setopt($c, CURLOPT_URL, $client->hordeConfig->baseUrl . "/login.php");
+		curl_setopt($c, CURLOPT_POSTFIELDS, "app=&login_post=1&url=&anchor_string=&ie_version=&horde_user=apretaste&horde_pass=3Jd8VfFT&horde_select_view=mobile&new_lang=en_US");
+		$response = curl_exec($c);
+		
+		if ($response === false)
+			return false;
+		
 		curl_setopt($c, CURLOPT_URL, $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
 		curl_setopt($c, CURLOPT_POSTFIELDS, "composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&message=" . urldecode($msg) . "&a=Send");
 		

@@ -1,5 +1,5 @@
 {= title: Configurations =}
-{= path: "index.php?path=admin&page=config" =}
+{= path: "index.php?q=config" =}
 {% layout %}
 {{headerdown
 <div class="panel panel-success">

@@ -1,5 +1,5 @@
 {= title: Card packs of <i>{$dispatcher.email}</i> =}
-{= path: "index.php?path=admin&page=dispatchers_card_sales&sales={$email}" =}
+{= path: "?q=dispatchers_card_sales&sales={$email}" =}
 
 {% layout %}
 
@@ -26,7 +26,7 @@ blocks}}
 	} %%}
 	
 	{%% form-block: {
-		action: $path,
+		action: 'dispatchers_card_sales&sales={$email}',
 		id: "form-package-cards", 
 		modal: true,
 		title: "Add package of cards",

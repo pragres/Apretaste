@@ -1,4 +1,4 @@
-{= path: "index.php?path=admin&page=queries" =}
+{= path: "index.php?q=queries" =}
 {= title: "Database Query Tool" =}
 
 {% layout %}
@@ -7,7 +7,7 @@
 	
 	{%% form-block: {
 		id: "frmQuery",
-		action: $path,
+		action: 'queries',
 		title: "Edit query",
 		modal: $results,
 		fields: [

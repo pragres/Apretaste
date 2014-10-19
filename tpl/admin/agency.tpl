@@ -1,11 +1,11 @@
 {= title: "Search customer" =}
-{= path: "index.php?path=admin&page=agency" =}
+{= path: "index.php?q=agency" =}
 
 {% layout %}
 
 {{blocks
 	{%% form-block: {
-		action: $path,
+		action: 'agency',
 		title: "Search customer",
 		explanation: "Insert part of the name, phone or email",
 		fields: [
@@ -46,7 +46,7 @@ blocks}}
 			{%% form-block: {
 				id: "new_customer",
 				title: "New customer",
-				action: "{$path}&page=agency_add_customer" ,
+				action: "agency&page=agency_add_customer" ,
 				modal: true,
 				width: 400,
 				fields: [

@@ -1,5 +1,5 @@
 {= title: Tips =}
-{= path: "index.php?path=admin&page=tips" =}
+{= path: "q=tips" =}
 
 {% layout %}
 
@@ -17,7 +17,7 @@
 	{%% form-block: {
 		id: "frmNewTip",
 		title: "New tip",
-		action: $path,
+		action: 'tips',
 		modal: true,
 		fields:[
 			{

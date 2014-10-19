@@ -1,11 +1,11 @@
 {= title: Keywords black list =}
-{= path: "index.php?path=admin&page=config_keywords" =}
+{= path: "index.php?q=config_keywords" =}
 {% layout %}
 
 {{blocks
 	{%% form-block:{
 		title: "New black keyword",
-		action: $path,
+		action: 'config_keywords',
 		fields:[
 			{
 				id: "edtNewBlackKeyword",

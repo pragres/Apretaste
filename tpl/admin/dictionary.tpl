@@ -1,5 +1,5 @@
 {= title: "Dictionary" =}
-{= path: "" =}
+{= path: "?q=dictionary" =}
 {% layout %}
 {{page
 		<cite>Manage synonyms and thesaurus</cite>

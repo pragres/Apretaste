@@ -1,11 +1,11 @@
-{= path: "index.php?path=admin&page=config_agency_payments" =}
+{= path: "index.php?q=config_agency_payments" =}
 {= title: "Agency's payments" =}
 
 {% layout %}
 
 {{blocks
 {%% form-block: {
-	action: $path,
+	action: 'config_agency_payments',
 	title: "Filter by agency",
 	fields: [
 		{
@@ -45,7 +45,7 @@ blocks}}
 		id: "newAgencyPayment",
 		title: "New payment",
 		modal: true,
-		action: $path,
+		action: 'config_agency_payments',
 		fields: [
 			{
 				id: "cboAgency",

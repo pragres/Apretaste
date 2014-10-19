@@ -1,5 +1,5 @@
 {= title: "Raffles" =}
-{= path: "?path=admin&page=raffles" =}
+{= path: "?q=raffles" =}
 
 {% layout %}
 
@@ -25,7 +25,7 @@
 		{%% form-block: {
 			id: "frmNewRaffle",
 			title: "New raffle",
-			action: "{$path}&addraffle=true",
+			action: "raffles&addraffle=true",
 			enctype: "multipart/form-data",
 			modal: true,
 			fields: [

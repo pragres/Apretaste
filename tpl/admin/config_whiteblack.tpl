@@ -1,11 +1,11 @@
 {= title: Black and white lists =}
-{= path: "index.php?path=admin&page=config_whiteblack" =}
+{= path: "index.php?q=config_whiteblack" =}
 {% layout %}
 
 {{blocks
 	{%% form-block: {
 		title: "New white pattern",
-		action: $path,
+		action: 'config_whiteblack',
 		fields: [
 			{
 				id: "edtNewWhiteList",
@@ -21,7 +21,7 @@
 	<br/>
 	{%% form-block: {
 		title: "New black pattern",
-		action: $path,
+		action: 'config_whiteblack',
 		fields: [
 			{
 				id: "edtNewBlackList",

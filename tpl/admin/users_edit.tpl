@@ -1,5 +1,5 @@
 {= title: "Edit admin's user" =}
-{= path: index.php?q=users_edit&user_login={$user_login} =}
+{= path: "?q=users_edit&user_login={$user_login}" =}
 
 {% layout %}
 
@@ -12,7 +12,7 @@ blocks}}
 {{page 
 	
 	{%% form-block: {
-		action: $path,
+		action: 'users_edit&user_login={$user_login}',
 		title: "Edit",
 		width: '400px',
 		float: 'left',

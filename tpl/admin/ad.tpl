@@ -7,7 +7,7 @@
 {{blocks
 
 {%% form-block: {
-	action: $path,
+	action: 'ad',
 	method: 'get',
 	fields:[
 		{

@@ -24,7 +24,7 @@
 		
 		{%% form-block: {
 			id: "frmNewUser",
-			action: $path,
+			action: 'users',
 			title: "New user",
 			modal: true,
 			fields: [

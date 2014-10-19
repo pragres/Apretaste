@@ -1,56 +1,64 @@
 {= title: "Users" =}
-{= path: "?path=admin&page=users" =}
-{= pagewidth: 780 =}
+{= path: "?q=users" =}
+
 {% layout %}
 
-{{page
-		{% users_panel %}
-		<br/>
-		?$users
-			<table class="tabla" width="100%">
-			<tr><th>User login</th><th>Role</th><th>Email</th><th>Agency</th><th></th></tr>
-		[$users]
-			<tr>
-				<td valign="center">?$picture <img src="data:image/jpeg;base64,{$picture}" width="20"> $picture?<a href = "?path=admin&page=users_edit&user_login={$user_login}">{$user_login}</a></td>
-				<td><a href="index.php?path=admin&page=users_roles_edit&user_role={$user_role}">{$user_role}</a></td>
-				<td>{$email}</td>
-				<td>?$agency {$agency.name} @else@ None $agency?&nbsp;</td>
-				<td>
-					<a href = "?path=admin&page=users&delete={$user_login}" onclick="return confirm('Are you sure?');">{ico}delete{/ico}</a>
-				</td>
-			</tr>
-		[/$users]
-		</table>
-		@else@
-			No users<hr>
-		$users?
-	<br/>
-		<div class="box">
-			<h2>New user:</h2>
-			<form action="{$path}" method="post">
-			Login: <br/>
-			<input class = "text" name = "user_login"><br/>
-			
-			Role: <br/>
-			<select name ="user_role">
-			[$roles]
-			<option value="{$user_role}">{$user_role}</option>
-			[/$roles]
-			</select>
-			<br/>
-			Email: <br/>
-			<input class = "text" name = "user_email"><br/>
-			Password: <br/>
-			<input class = "text" name = "user_pass" type="password"><br/>
-			?$agencies
-			Agencies: <br/>
-			<select name="agency">
-				[$agencies]
-				<option value="{$id}">{$name}</option>
-				[/$agencies]
-			</select>
-			$agencies?
-			<input class = "submit" type="submit" value="Add" name="btnAddUser">
-			</form>
-		</div>
-page}}
+{{headerdown
+
+		{%% table: {
+			title: "Admin's users",
+			data: $users,
+			columns: ["picture","user_login","user_role","email","agency"],
+			headers: {
+				user_login: "User login",
+				user_role: "Role"
+			},
+			wrappers: {
+				agency: "?$agency {$agency.name} @else@ None $agency?",
+				picture: '<a href = "?path=admin&page=users&delete={$user_login}" onclick="return confirm('Are you sure?');"><span class="glyphicon glyphicon-trash"></a>&nbsp;<img src="data:image/jpeg;base64,{$picture}" width="20">',
+				user_role: '<a href="index.php?q=users_roles_edit&user_role={$user_role}">{$user_role}</a>',
+				user_login: '<a href = "?q=users_edit&user_login={$user_login}">{$user_login}</a>'
+				
+			}
+		} %%}
+		
+		{%% form-block: {
+			id: "frmNewUser",
+			action: $path,
+			title: "New user",
+			modal: true,
+			fields: [
+				{
+					id: "user_login",
+					type: "text",
+					label: "Login"
+				},{
+					id: "user_role",
+					label: "Role",
+					type: "select",
+					options: $roles,
+					value: '{$user_role}',
+					text: '{$user_role}'
+				},{
+					id: "user_email",
+					type: "text",
+					label: "Email"
+				},{
+					id: "user_pass",
+					label: "Password",
+					type: "password"
+				},{
+					id: "agency",
+					label: "Agency",
+					type: "select",
+					options: $agencies,
+					value: "{$id}",
+					text: "{$name}"
+				}
+			],
+			submit: {
+				caption: "Add",
+				name: "btnAddUser"
+			}
+		} %%}
+headerdown}}

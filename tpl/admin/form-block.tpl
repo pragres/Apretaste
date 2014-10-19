@@ -9,7 +9,7 @@
 				</div>
 				<div class="modal-body"> 
 @else@
-<div class="panel panel-success" style="width: {$width}; margin: auto;">
+<div class="panel panel-success" style="width: {$width}; margin: auto; ?$float float: {$float}; $float?">
 	<div class="panel-heading">
 		<h3 class="panel-title">{$title}</h3>
 	</div>
@@ -35,6 +35,11 @@ $modal?
 							<option value="{$value}" {?( "{$default}" == "{$value}" )?} selected {/?}>{$text}</option>
 							[/$options]			
 						</select>',
+				multichecks: '<div class="panel panel-default" style="height: 300px; overflow: auto;">
+							[$options]
+							<input type="checkbox" name="{$id}[]" value="{$id}" class="checkbox" style="">{$text}<br/>
+							[/$options]			
+						</div>',
 				textarea: '<textarea class="form-control" ?$rows rows="{$rows}" $rows? name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$help title="{$help}" $help?>?$value {$value} $value?</textarea>',
 				text: '?$addon <span class="input-group-addon">{$addon}</span> $addon?
 				<input type="text" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
@@ -44,7 +49,8 @@ $modal?
 				hidden: '<input type="hidden" class="form-control {$class}" name="{$id}" id="{$id}" ?$placeholder placeholder="{$placeholder}" $placeholder? ?$value value="{$value}" $value? ?$help title="{$help}" $help?>',
 				open_fieldset: '<fieldset><legend>{$legend}</legend>',
 				close_fieldset: '</fieldset>',
-				file: '<input type="file" name="{$id}" id = "{$id}" class="{$class}" ?$placeholder placeholder="{$placeholder}" $placeholder?>'
+				file: '<input type="file" name="{$id}" id = "{$id}" class="{$class}" ?$placeholder placeholder="{$placeholder}" $placeholder?>',
+				
 			} =}
 			
 			{$controls.{$type}}
@@ -58,7 +64,17 @@ $modal?
 			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button> 
 		</div> 
 		@else@
-		<button type="submit" name="{$submit.name}" class="btn btn-default">{$submit.caption}</button>
+			{?( {$submit} > 1 )?}
+				[$submit]
+					?$href
+						<a href="{$href}" class="btn btn-default">{$caption}</a>
+					@else@
+						<button type="submit" name="{$name}" class="btn btn-default">{$caption}</button> &nbsp;
+					$href?
+				[/$submit]
+			@else@
+				<button type="submit" name="{$submit.name}" class="btn btn-default">{$submit.caption}</button>
+			{/?}
 		$modal?
 		</form>
 	</div>

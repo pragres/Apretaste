@@ -20,6 +20,7 @@ if ($chk !== true) {
 } else {
 	$email = post("edtEmail");
 	$user = Apretaste::getAuthor($email);
+	$user['credit'] = ApretasteMoney::getCreditOf($email);
 	$user['picture'] = Apretaste::resizeImage($user['picture'], 200);
 	$agency = ApretasteAdmin::getAgency($data['user']['agency']);
 	

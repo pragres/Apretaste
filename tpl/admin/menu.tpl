@@ -111,7 +111,7 @@
 						{?( strpos("{$_key}", "header_") === 0 )?}
 							<li role="presentation" class="dropdown-header">{$value}</li>
 						@else@
-							<li><a href="?path=admin&page={$_key}">{$value}</a></li>
+							<li><a href="?q={$_key}">{$value}</a></li>
 						{/?}
 					{/?}
 				[/$submenu]
@@ -126,7 +126,7 @@
 				{= active: '' =}
 			{/?}
 			<li class="{$active}" role="presentation">
-				<a href="?path=admin&page={$_key}">{$value}</a>
+				<a href="?q={$_key}">{$value}</a>
 			</li>
 		$user.perms.access_to.{$_key}?
 	$submenu?

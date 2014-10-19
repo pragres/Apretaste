@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Apretaste!com Stand Alone
+ * Apretaste! Stand Alone
  *
- * @author rafa <rafa@pragres.com>
+ * @author rafa
  *        
  */
 class ApretasteAlone {
@@ -796,6 +796,12 @@ class ApretasteAlone {
 			Apretaste::query("UPDATE announcement SET image = '" . base64_encode($photo) . "', image_type='$type' WHERE id = '{$ad[0]['id']}';");
 		}
 	}
+	
+	/**
+	 * Send emails of outbox
+	 * 
+	 * @author rafa 
+	 */
 	static function sendOutbox(){
 		echo "[INFO] Send emails of outbox...\n";
 		
@@ -818,8 +824,19 @@ class ApretasteAlone {
 		
 		$emails = Apretaste::query("SELECT * FROM email_outbox LIMIT $max;");
 		
+		$max_time = Apretaste::getConfiguration("cron_max_time", 120);
+		
 		if (is_array($emails)) {
-			foreach ( $emails as $email ) {
+			$t1 = microtime(true);
+			foreach ( $emails as $i => $email ) {
+				
+				$t2 = microtime(true);
+				
+				if ($t2 - $t1 > $max_time) {
+					echo "[INFO] Stoping the outboxer by time limit: max_time = $max_time and timmer = " . ($t2 - $t1) . "\n";
+					echo "[INFO] --> $i of " . count($email) . " messages was sent \n";
+					break;
+				}
 				$ans = unserialize(base64_decode($email['data']));
 				
 				$horde = false;
@@ -832,7 +849,7 @@ class ApretasteAlone {
 				
 				if (! $horde) {
 					echo "[INFO] Sending email {$email['id']} to {$ans->to}\n";
-					$r = $ans->send_answer(null, false, false);
+					$r = $ans->send_answer(null, false, false, true);
 				}
 				
 				if ($r == true)
@@ -841,9 +858,16 @@ class ApretasteAlone {
 					echo "[INFO] ... Error when sending email, aborting all operations!\n";
 					break;
 				}
+				$t2 = microtime(true);
 			}
 		}
 	}
+	
+	/**
+	 * Robot for Horde web applicactions
+	 * 
+	 * @author rafa 
+	 */
 	static function horde(){
 		$account = 'nauta';
 		

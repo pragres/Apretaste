@@ -1,14 +1,13 @@
 {= title: Roles =}
-{= path: index.php?path=admin&page=users_roles =}
-{= pagewidth: 1024 =}
+{= path: "?q=users_roles" =}
+
 {% layout %}
-{{page
-	{% users_panel %}
-	<table><tr><td valign = "top">
+{{headerdown
+
 	?$roles
-	<div class="box">
-		<h2>Roles</h2>
-	<table class="tabla">
+
+	<h2>Roles</h2>
+	<table class="table">
 		<tr><th>Role</th><th>Access/Permissions</th><th>Default page</th><th></th></tr>
 		<tr><td>admin</td><td>[all pages]</td><td>dashboard</td><td></td></tr>
 	[$roles]
@@ -19,9 +18,7 @@
 		</tr>
 	[/$roles]
 	</table>
-	</div>
-	$roles?
-	</td><td valign="top">
+<!--{
 	<div class="box">
 		<h2>New role</h2>
 		<form action="{$path}" method="post">
@@ -45,5 +42,41 @@
 			<input type="submit" name="btnAddRole" class="submit" value="Add">
 		</form>
 	</div>
-	</td></tr></table>
-page}}
+	}-->
+	$roles?
+
+		{%% form-block: {
+			id: "frmNewRole",
+			title: "New role",
+			action: $path,
+			modal: true,
+			width: '300px',
+			fields: [
+				{
+					id: "edtRole",
+					type: "text",
+					label: "Role"					
+				},{
+					id: "edtDefaultPage",
+					type: "select",
+					options: $pages,
+					id: "{$value}",
+					text: "{$value}",
+					label: "Default page"
+				}, {
+					id: "chkAccessTo",
+					label: "Access to:",
+					type: "multichecks",
+					options: $pages,
+					id: "{$value}",
+					text: "{$value}"
+				}
+			],
+			submit: {
+				name: "btnAddRole",
+				caption: "Add"
+			}
+		} %%}
+headerdown}}	
+	
+

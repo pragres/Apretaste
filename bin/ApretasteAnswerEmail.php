@@ -2,9 +2,7 @@
 include "../lib/PEAR/mime.php";
 include "../lib/PEAR/Mail.php";
 include "../lib/PEAR/Net/SMTP.php";
-
 class ApretasteAnswerEmail {
-	
 	var $from;
 	var $to;
 	var $reply_to;
@@ -32,7 +30,7 @@ class ApretasteAnswerEmail {
 	function __construct($config, $to, $servers, $data, $send = false, $verbose = false, $debug = false, $msg_id = null, $save_on_fail = true, $async = false, $via_horde = false){
 		$this->via_horde = $via_horde;
 		
-		if ($via_horde){
+		if ($via_horde) {
 			$send = true;
 			$async = true;
 		}
@@ -113,9 +111,10 @@ class ApretasteAnswerEmail {
 			$this->config['reply_to'] = $from;
 			
 			// Build message one time
-			$this->_buildMessage();
-			
-			// After build.... if it is async then break
+			if (!$async)
+				$this->_buildMessage();
+				
+				// After build.... if it is async then break
 			if ($async)
 				break;
 			
@@ -252,15 +251,14 @@ class ApretasteAnswerEmail {
 			
 			$plain_body->parse();
 			
-			if (isset($plain_body->__items['AnswerSubject'])){
+			if (isset($plain_body->__items['AnswerSubject'])) {
 				$tpl_title = $plain_body->__items['AnswerSubject'];
-			} else $tpl_title = "Respondiendo a su mensaje";
-			
-			/*else if (isset($data['subject']))
-				$tpl_title = $data['subject'];
-			else if (isset($data['title']))
-				$tpl_title = $data['title'];
-			*/
+			} else
+				$tpl_title = "Respondiendo a su mensaje";
+				
+				/*
+			 * else if (isset($data['subject'])) $tpl_title = $data['subject']; else if (isset($data['title'])) $tpl_title = $data['title'];
+			 */
 			
 			$pbody = ApretasteView::htmlToText($plain_body->__src);
 			
@@ -283,18 +281,14 @@ class ApretasteAnswerEmail {
 			
 			$html_body->parse();
 			
-			if (isset($html_body->__items['AnswerSubject'])){
+			if (isset($html_body->__items['AnswerSubject'])) {
 				$tpl_title = $html_body->__items['AnswerSubject'];
-			} else $tpl_title = "Respondiendo a su mensaje";
-			
-			/*
-			if (isset($html_body->__memory['AnswerSubject']))
-				$tpl_title = $html_body->__memory['AnswerSubject'];
-			else if (isset($data['subject']))
-				$tpl_title = $data['subject'];
-			else if (isset($data['title']))
-				$tpl_title = $data['title'];
-			*/
+			} else
+				$tpl_title = "Respondiendo a su mensaje";
+				
+				/*
+			 * if (isset($html_body->__memory['AnswerSubject'])) $tpl_title = $html_body->__memory['AnswerSubject']; else if (isset($data['subject'])) $tpl_title = $data['subject']; else if (isset($data['title'])) $tpl_title = $data['title'];
+			 */
 			
 			echo "[INFO] Answer subject = " . $tpl_title . "\n";
 			

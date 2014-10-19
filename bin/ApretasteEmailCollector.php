@@ -1,12 +1,33 @@
 <?php
-include "../lib/PEAR/mimeDecode.php";
+
+/**
+ * Apretaste! Email collector
+ *
+ * @author irving
+ * @author rafa
+ */
+include_once "../lib/PEAR/mimeDecode.php";
 class ApretasteEmailCollector {
+	var $servers;
+	var $verbose;
+	var $debug;
+	var $emails;
+	
+	/**
+	 * Constructor
+	 *
+	 * @param array $servers
+	 * @param boolean $verbose
+	 * @param boolean $debug
+	 */
 	function __construct($servers, $verbose = false, $debug = false){
 		$this->servers = $servers;
 		$this->verbose = $verbose;
 		$this->debug = $debug;
 		$this->emails = array();
+		
 		$addresses = array_keys($this->servers);
+		
 		foreach ( $addresses as $address ) {
 			$email = explode('@', $address);
 			$this->emails[] = array(
@@ -15,6 +36,12 @@ class ApretasteEmailCollector {
 			);
 		}
 	}
+	
+	/**
+	 * Get inbox foreach mailbox
+	 *
+	 * @param function $callback
+	 */
 	function get($callback){
 		foreach ( $this->servers as $address => $server ) {
 			echo $this->verbose ? "[INFO] Reading inbox from $address (" . $server['mailbox'] . ")\n" : "";
@@ -341,12 +368,11 @@ class ApretasteEmailCollector {
 	}
 	
 	/**
-	 * Echo message
-	 * @param unknown $text
+	 * Check if from is bad
+	 * 
+	 * @param object $headers
+	 * @return boolean
 	 */
-	function log($text){
-		echo $this->verbose ? "[INFO] " . date("Y-m-d h:i:s") . " - " . $text . "\n" : "";
-	}
 	function _badFrom($headers){
 		if (is_array($headers))
 			foreach ( $headers->from as $from )
@@ -357,9 +383,20 @@ class ApretasteEmailCollector {
 						return true;
 		return false;
 	}
+	
 	function _postMaster($headers, $textBody, $htmlBody, $images, $otherstuff){
 		return false;
 	}
+	
+	/**
+	 * Find parts in body
+	 * 
+	 * @param object $part
+	 * @param string $textBody
+	 * @param string $htmlBody
+	 * @param array $images
+	 * @param array $otherstuff
+	 */
 	function _findTheParts($part, &$textBody, &$htmlBody, &$images, &$otherstuff){
 		$classified = false;
 		if (isset($part->body)) {
@@ -386,5 +423,23 @@ class ApretasteEmailCollector {
 		if (isset($part->parts))
 			foreach ( $part->parts as $part )
 				$this->_findTheParts($part, $textBody, $htmlBody, $images, $otherstuff);
+	}
+	
+	/**
+	 * Output log messages
+	 *
+	 * @param string $message
+	 * @param string $level
+	 */
+	function log($message, $level = 'INFO'){
+		if (! isset($level[3])) {
+			$x = 4 - strlen($level);
+			if ($x < 0)
+				$x = 0;
+			$level = str_repeat(' ', $x) . $level;
+		}
+		
+		if (Apretaste::isCli())
+			echo $this->verbose ? '[' . $level . '] ' . date("Y-m-d h:i:s") . "-" . $message . "\n" : '';
 	}
 }

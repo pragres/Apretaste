@@ -1,5 +1,4 @@
-{= title: "Agency" =}
-{= pagewidth: 1024 =}
+{= title: "Search customer" =}
 {= path: "index.php?path=admin&page=agency" =}
 
 {% layout %}

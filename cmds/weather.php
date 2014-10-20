@@ -360,11 +360,11 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			);
 			
 			break;
-		/*case 'presion superficial' :
+		case 'presion superficial' :
 		case 'mapa' :
 			echo "[INFO] Download Mapa Presion Superficial\n";
 			
-			$pronostico = file_get_contents("http://www.met.inf.cu/Pronostico/tv18.jpg");
+			$pronostico = file_get_contents("http://www.met.inf.cu/Pronostico/tv00.jpg");
 			
 			return array(
 					"answer_type" => "weather",
@@ -387,7 +387,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 							)
 					)
 			);
-			break;*/
+			break;
 		default :
 			
 			/*$pronostico_hoy = @file_get_contents("http://www.met.inf.cu/Pronostico/pttn.txt");

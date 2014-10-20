@@ -364,9 +364,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 		case 'mapa' :
 			echo "[INFO] Download Mapa Presion Superficial\n";
 			
-			$pronostico = file_get_contents("http://www.met.inf.cu/Pronostico/tv00.jpg");
-			
-			$img = file_get_contents("http://tropic.ssec.wisc.edu/real-time/sal/splitEW.jpg");
+			$img = file_get_contents("http://www.met.inf.cu/Pronostico/tv00.jpg");
 			
 			return array(
 					"answer_type" => "weather",

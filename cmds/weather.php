@@ -366,27 +366,26 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			
 			$pronostico = file_get_contents("http://www.met.inf.cu/Pronostico/tv00.jpg");
 			
+			$img = file_get_contents("http://tropic.ssec.wisc.edu/real-time/sal/splitEW.jpg");
+			
 			return array(
 					"answer_type" => "weather",
 					"command" => "weather",
-					"title" => "Tiempo en Cuba: Presi&oacute;n superficial [" . date("Y-m-d h:i:s") . "]",
+					"title" => "Presi&oacute;n superficial  [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
-					"pronostico_hoy" => false,
-					"pronostico_manana" => false,
-					"pronostico_extendido" => false,
-					"mapa" => true,
-					"satelite" => false,
-					"radar" => false,
+					"climaimagen" => true,
+					"sharethis" => 'CLIMA PRESION SUPERFICIAL',
 					"images" => array(
 							array(
-									"type" => "image/gif",
-									"content" => $pronostico,
-									"name" => "Pronostico.jpg",
-									"id" => "pronostico",
-									"src" => "cid:pronostico"
+									"type" => "image/jpeg",
+									"content" => $img,
+									"name" => "Presion superficial [" . date("Y-m-d h:i:s") . "].jpg",
+									"id" => "climaimagen",
+									"src" => "cid:climaimagen"
 							)
 					)
 			);
+			
 			break;
 		default :
 			

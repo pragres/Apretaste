@@ -1,5 +1,5 @@
 {= title: Agencies =}
-{= path: "index.php?path=admin&page=config_agency" =}
+{= path: "?q=config_agency" =}
 
 {% layout %}
 
@@ -31,7 +31,7 @@ blocks}}
 			credit_line: '${#value:2.#}',
 			sold: '${#value:2.#}',
 			residual: '${#value:2.#}',
-			owe: '<a href="index.php?path=admin&page=config_agency_bill&agency={$id}" title="View the bill">${#value:2.#}</a>'
+			owe: '<a href="index.php?q=config_agency_bill&agency={$id}" title="View the bill">${#value:2.#}</a> <a href="?q=config_agency&download=bill&agency={$id}"><span title="Download agency\'s bill as PDF" class="glyphicon glyphicon-print"></span></a>'
 		}
 	} %%}
 

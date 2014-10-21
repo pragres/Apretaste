@@ -364,7 +364,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 		case 'mapa' :
 			echo "[INFO] Download Mapa Presion Superficial\n";
 			
-			$img = file_get_contents("http://www.met.inf.cu/Pronostico/tv00.jpg");
+			$img = file_get_contents("http://www.nhc.noaa.gov/tafb_latest/WATL_latest.gif");
 			
 			return array(
 					"answer_type" => "weather",
@@ -375,9 +375,9 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"sharethis" => 'CLIMA PRESION SUPERFICIAL',
 					"images" => array(
 							array(
-									"type" => "image/jpeg",
+									"type" => "image/gif",
 									"content" => $img,
-									"name" => "Presion superficial [" . date("Y-m-d h:i:s") . "].jpg",
+									"name" => "Presion superficial [" . date("Y-m-d h:i:s") . "].gif",
 									"id" => "climaimagen",
 									"src" => "cid:climaimagen"
 							)

@@ -1,6 +1,32 @@
 <?php
 $data['msg-type'] = "msg-ok";
 
+if (isset($_GET['download'])) {
+	
+	switch ($_GET['download']) {
+		case 'bill' :
+			$data['user']['agency'] = $_GET['agency'];
+			
+			include_once "../admin/agency_bill.php";
+			
+			$html = new div("../tpl/admin/agency_bill.pdf.tpl", $data);
+			
+			$html = "$html";
+			
+			include "../lib/mpdf/mpdf.php";
+			
+			$mpdf = new mPDF();
+			
+			$mpdf->WriteHTML($html);
+			
+			$mpdf->Output("Apretaste Payment Reminder - {$data['agency']['name']} - " . date("Y-m-d h-i-s") . ".pdf", 'D');
+			
+			return true;
+			
+			break;
+	}
+}
+
 if (isset($_POST['btnUpdateAgency'])) {
 	
 	$profit = post("edtProfit");
@@ -46,7 +72,6 @@ foreach ( $data['best_amount'] as $k => $v )
 $data['best_recharges'] = q("select (select name from agency where id = agency) as label, recharges as data from agency_best_recharges;");
 foreach ( $data['best_recharges'] as $k => $v )
 	$data['best_recharges'][$k]['data'] *= 1;
-
 
 $current_year = intval(date("Y"));
 $current_month = intval(date("m"));

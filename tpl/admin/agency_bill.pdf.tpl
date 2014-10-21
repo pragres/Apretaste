@@ -21,7 +21,6 @@
 			}
 			td,th{
 				border-bottom: 1px solid black;
-				border-right:  1px solid black;
 				padding: 5px;
 				
 			}
@@ -34,7 +33,8 @@
 					<img src="static/apretaste.white.png" width="200">
 				</td>
 				<td colspan="4" valign="center" align="center" style="color:green;font-size: 22px;">
-				<b>Agency's Payment reminder</b>- {/div.now:D, d M, Y/}
+				<b>Agency's Payment reminder</b><br/>
+				{/div.now:D, d M, Y/}
 				</td>
 			</tr>
 			<tr>

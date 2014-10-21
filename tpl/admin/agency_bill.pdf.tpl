@@ -33,7 +33,7 @@
 					<img src="static/apretaste.white.png" width="200">
 				</td>
 				<td colspan="4" valign="center" align="center" style="color:green;font-size: 22px;">
-				<b>Agency's Payment reminder</b><br/>
+				<b>Payment reminder</b><br/>
 				{/div.now:D, d M, Y/}
 				</td>
 			</tr>
@@ -58,7 +58,7 @@
 				<b><i>Details</i></b>
 				</td>
 			</tr>
-			<tr style="background: #eeeeee;"><th>Date</th><th>Week</th><th>Soles</th><th>Amount</th><th>Profit</th><th>Residuals</th><th>Owe</th></tr>
+			<tr style="background: #eeeeee;"><th>Date</th><th>Week</th><th>Sales</th><th>Amount</th><th>Profit</th><th>Residuals</th><th>Owe</th></tr>
 			[$weeks]
 					<tr><td width="100" align="center">{$months.{$month}}, {$year}</td>
 					<td align="center">{$week}</td>

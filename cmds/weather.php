@@ -463,6 +463,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				$r->locality_map = $r->locality;
 				$r->locality = str_ireplace(', Cuba', '', $r->locality);
 				$r->locality = str_ireplace(',Cuba', '', $r->locality);
+				$r->locality = str_ireplace('Wheater in ', '', $r->locality);
 				
 				$imgsrc = $r->weather_now['weatherIcon'];
 				

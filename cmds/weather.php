@@ -415,15 +415,31 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			$country = 'Cuba';
 			
 			if (trim($argument) != '') {
+				
+				$arr = explode(',', $argument);
+				
+				$arr[0] = trim($arr[0]);
+				
+				if (isset($arr[1]))
+					$arr[1] = trim($arr[1]);
+				else
+					$arr[1] = '';
+				
+				$city = $arr[0];
+				$country = $arr[1];
+				
+				if ("$country" == '')
+					$country = false;
+				
+				if ("$city" == '' && "$country" != '') {
+					$city = $country;
+					$country = false;
+				}
+				
 				$places = array(
-						$argument
+						$city
 				);
-				$country = $argument;
 			}
-			
-			/*
-			 * $pronostico_hoy = @file_get_contents("http://www.met.inf.cu/Pronostico/pttn.txt"); $pronostico_hoy = cmd_weather_clean_txt($pronostico_hoy); $pronostico_manana = @file_get_contents("http://www.met.inf.cu/Pronostico/ptm.txt"); $pronostico_manana = cmd_weather_clean_txt($pronostico_manana); // Getting rss $rss = file_get_contents('http://www.met.inf.cu/asp/genesis.asp?TB0=RSSFEED'); $p1 = strpos($rss, 'Extendido del Tiempo por Ciudades</title>') - 18; $p2 = strpos($rss, '<title>Estado de la'); $rss = substr($rss, $p1, $p2 - $p1); $rss = str_replace('<item>', '<div>', $rss); $rss = str_replace('</item>', '</div><br/>', $rss); $rss = str_replace('<description>', '', $rss); $rss = str_replace('</description>', '', $rss); $rss = str_replace('<title>', '<h2>', $rss); $rss = str_replace('</title>', '</h2>', $rss); $rss = str_replace('<![CDATA[', '', $rss); $rss = str_replace(']]>', '', $rss);
-			 */
 			
 			$provincias = array();
 			$images = array();
@@ -432,7 +448,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				
 				$robot->log("Getting weather information of $place");
 				
-				$r = cmd_weather_place($place);
+				$r = cmd_weather_place($place, $country);
 				
 				if ($r === false) {
 					$robot->log("The weather conditions were not found");
@@ -444,6 +460,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				if ($p !== false)
 					$r->locality = substr($r->locality, 0, $p);
 				
+				$r->locality_map = $r->locality;
 				$r->locality = str_ireplace(', Cuba', '', $r->locality);
 				$r->locality = str_ireplace(',Cuba', '', $r->locality);
 				
@@ -585,9 +602,9 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 	// Revisar esta que ponen por el TV, viene del WSI Coporation
 	// http://tiempo.cuba.cu/imprimir.php?opt=5
 }
-function cmd_weather_place($place){
+function cmd_weather_place($place, $country = false){
 	$weather = new WeatherForecast('93fvz526zx8uu26b59cpy9xf');
-	$weather->setRequest($place, 'Cuba', 3);
+	$weather->setRequest($place, $coutnry, 4);
 	$weather->setUSMetric(false);
 	return $weather->getLocalWeather();
 }

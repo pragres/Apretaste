@@ -27,7 +27,6 @@
 {$hr}
 ?$provincias
 	[$provincias]
-		   
 		<table>
 			<tr>
 				<td valign="top" align="center" width="100">
@@ -35,15 +34,18 @@
 					{$i18n.{$weather_now.weatherCode}} 
 				</td>
 				<td valign="top">
-					<h2>{$locality}, {$weather_now.weatherTime}</h2>
+					{$h2}{$locality}, ?$linkmap <a href="mailto:{$reply_to}?subject=MAPA%20{&&locality_map}">[ver en el mapa]</a> $linkmap?{$br} {$weather_now.weatherTime}{$_h2}
 					<strong>Temperatura:</strong> {$weather_now.weatherTemp} {$separatorLinks}
 					<strong>Viento: </strong> {$weather_now.windSpeed} {$separatorLinks}
-					<strong>Lluvias:</strong> {$weather_now.precipitation} {$separatorLinks}
-					<strong>Humedad:</strong> {$weather_now.humidity}<br/>
+					<strong>Lluvias:</strong> {$weather_now.precipitation} {$br}
+					<strong>Humedad:</strong> {$weather_now.humidity} {$separatorLinks}
 					<strong>Visibilidad:</strong> {$weather_now.visibility} {$separatorLinks}
-					<strong>Presi&oacute;n:</strong> {$weather_now.pressure} {$separatorLinks}
-					<strong>Nubosidad:</strong> {$weather_now.cloudcover} {$separatorLinks}<br/>
-					<hr/>
+					<strong>Presi&oacute;n:</strong> {$weather_now.pressure} {$br} 
+					<strong>Nubosidad:</strong> {$weather_now.cloudcover} {$br} 
+				</td>
+			</tr>
+				<td colspan="2">
+					{$hr}
 					<b>Pron&oacute;stico:</b>
 					<table>
 						<tr>
@@ -56,11 +58,11 @@
 										<img src="{$weatherIcon}" width="40"/>
 										</td>
 										<td valign="top">
-											<span class="">{$i18n.{$weatherCode}}</span><br/>
-											<span class="">Viento: <b>{$windDirection}</b> a <b>{$windSpeed}</span><br/>
+											<span class="">{$i18n.{$weatherCode}}</span>{$br}
+											<span class="">Viento: <b>{$windDirection}</b> a <b>{$windSpeed}</span>{$br}
 										</td>
 										<td valign="top">
-											<span style="color: red;">{$tempMax}</span><br/>
+											<span style="color: red;">{$tempMax}</span>{$br}
 											<span style="color: blue;">{$tempMin}</span>
 										</td>
 									</tr>
@@ -73,6 +75,8 @@
 			</tr>
 		</table>
 	[/$provincias]
+	@else@
+	{$p}No se encontro informaci&oacute;n meteorol&oacute;gica para el lugar especificado. Verifique que introdujo bien el nombre de la ciudad y/o el pa&iacute;s{$_p}
 $provincias?
 
 ?$climaimagen

@@ -34,7 +34,8 @@
 					{$i18n.{$weather_now.weatherCode}} 
 				</td>
 				<td valign="top">
-					{$h2}{$locality}, <a href="mailto:{$reply_to}?subject=MAPA%20{&&locality_map}">[ver en el mapa]</a> {$br} {$weather_now.weatherTime}{$_h2}
+					{$h2}{$locality}, {$br} {$weather_now.weatherTime}{$_h2}
+					<a href="mailto:{$reply_to}?subject=MAPA%20{&&locality_map}">[ver en el mapa]</a>
 					<strong>Temperatura:</strong> {$weather_now.weatherTemp} {$separatorLinks}
 					<strong>Viento: </strong> {$weather_now.windSpeed} {$separatorLinks}
 					<strong>Lluvias:</strong> {$weather_now.precipitation} {$br}

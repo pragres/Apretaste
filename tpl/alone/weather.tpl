@@ -48,11 +48,11 @@
 				<td colspan="2">
 					{$hr}
 					<b>Pron&oacute;stico:</b>
-					<table>
+					<table width="100%">
 						<tr>
 						[$weather_forecast]
-							<td valign="top">
-								<table>
+							<td valign="top" width="33%">
+								<table width="100%">
 									<tr><td colspan="3"><b>{$i18n_days.{$weatherDay}}, {$weatherDate:3,3}</b></td></tr>
 									<tr>
 										<td valign="top" align="center">

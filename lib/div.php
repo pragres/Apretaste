@@ -7178,6 +7178,7 @@ class div {
 	 *
 	 * @param mixed $obj
 	 * @param mixed $prop
+	 * @return mixed
 	 */
 	final static function cop(&$source, $complement, $level = 0){
 		$null = null;

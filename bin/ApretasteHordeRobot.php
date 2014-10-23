@@ -194,6 +194,9 @@ class ApretasteHordeRobot {
 				$htmlBody = str_replace('Text part ', '', $textBody);
 				$htmlBody = str_replace(' KB)', '', $textBody);
 				
+				$headers->subject = str_replace('this part is empty', '', $headers->subject);
+				$headers->Subject = str_replace('this part is empty', '', $headers->Subject);
+				
 				$ans = $call($headers, $textBody, $htmlBody, $images, $otherstuff, "anuncios@apretaste.com", true, true, true);
 			}
 		return true;
@@ -234,10 +237,10 @@ class ApretasteHordeRobot {
 		
 		$ans->_buildMessage();
 		
-		// $mail->body = $ans->message->getHTMLBody();
+		$mail->body = $ans->message->getHTMLBody();
 		
-		$mail->body = $ans->message->getMessage();
-
+		//$mail->body = $ans->message->getMessage();
+		
 		$headers = $ans->headers;
 		
 		if (is_object($headers))
@@ -300,8 +303,8 @@ class ApretasteHordeRobot {
 		
 		if ($response === false)
 			return false;
-		
-		echo $response;
+			
+			// echo $response;
 		
 		curl_setopt($c, CURLOPT_URL, "http://webmail.nauta.cu/horde/services/ajax.php/imp/sendMessage"); // $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
 		                                                                                                 // curl_setopt($c, CURLOPT_POSTFIELDS, "composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&html=" . urldecode($msg) . "&cc=&bcc=a=Send");

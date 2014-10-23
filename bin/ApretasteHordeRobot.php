@@ -193,9 +193,20 @@ class ApretasteHordeRobot {
 					$textBody = str_replace(' KB)', '', $textBody);
 				}
 				
-				$htmlBody = str_replace('Text part (1 KB)', '', $textBody);
-				$htmlBody = str_replace('Text part ', '', $textBody);
-				$htmlBody = str_replace(' KB)', '', $textBody);
+				$p1 = strpos($htmlBody, 'Text part');
+				if ($p1 !== false) {
+					$htmlBody = strip_tags($htmlBody);
+					$p1 = strpos($htmlBody, ')');
+					$htmlBody = substr($htmlBody, $p1 + 1);
+				} else {
+					
+					$htmlBody = str_replace('Text part (1 KB)', '', $htmlBody);
+					$htmlBody = str_replace('Text part ', '', $htmlBody);
+					$htmlBody = str_replace(' KB)', '', $htmlBody);
+				}
+				
+				$textBody = str_ireplace('this part is empty', '', $textBody);
+				$htmlBody = str_ireplace('this part is empty', '', $htmlBody);
 				
 				$ans = $call($headers, $textBody, $htmlBody, $images, $otherstuff, "anuncios@apretaste.com", true, true, true);
 			}

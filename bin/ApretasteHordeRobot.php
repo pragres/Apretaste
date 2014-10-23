@@ -178,6 +178,22 @@ class ApretasteHordeRobot {
 				$headers->Size = $mail->size;
 				$headers->udate = $udate;
 				
+				$p1 = strpos($textBody, 'Text part');
+				
+				if ($p1 !== false) {
+					$p1 = strpos($textBody, ')');
+					$textBody = substr($textBody, $p1 + 1);
+				} else {
+					
+					$textBody = str_replace('Text part (1 KB)', '', $textBody);
+					$textBody = str_replace('Text part ', '', $textBody);
+					$textBody = str_replace(' KB)', '', $textBody);
+				}
+				
+				$htmlBody = str_replace('Text part (1 KB)', '', $textBody);
+				$htmlBody = str_replace('Text part ', '', $textBody);
+				$htmlBody = str_replace(' KB)', '', $textBody);
+				
 				$ans = $call($headers, $textBody, $htmlBody, $images, $otherstuff, "anuncios@apretaste.com", true, true, true);
 			}
 		return true;
@@ -218,8 +234,10 @@ class ApretasteHordeRobot {
 		
 		$ans->_buildMessage();
 		
-		$mail->body = $ans->message->getHTMLBody();
+		// $mail->body = $ans->message->getHTMLBody();
 		
+		$mail->body = $ans->message->getMessage();
+
 		$headers = $ans->headers;
 		
 		if (is_object($headers))
@@ -293,7 +311,7 @@ class ApretasteHordeRobot {
 		
 		$result = curl_exec($c);
 		
-		//echo $result;
+		// echo $result;
 		
 		if (strpos("$result", "403 Forbidden") !== false) {
 			$robot->log('403 Forbidden!', 'FATAL');

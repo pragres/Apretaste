@@ -205,8 +205,8 @@ class ApretasteHordeRobot {
 					$htmlBody = str_replace(' KB)', '', $htmlBody);
 				}
 				
-				$textBody = str_ireplace('this part is empty', '', $textBody);
-				$htmlBody = str_ireplace('this part is empty', '', $htmlBody);
+				$textBody = str_ireplace('this part is empty.', '', $textBody);
+				$htmlBody = str_ireplace('this part is empty.', '', $htmlBody);
 				
 				$ans = $call($headers, $textBody, $htmlBody, $images, $otherstuff, "anuncios@apretaste.com", true, true, true);
 			}

@@ -283,7 +283,7 @@ class ApretasteHordeRobot {
 		
 		echo $response;
 		
-		curl_setopt($c, CURLOPT_URL, "http://webmail.nauta.cu/horde/servoces/ajax.php/imp/sendMessage"); // $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
+		curl_setopt($c, CURLOPT_URL, "http://webmail.nauta.cu/horde/services/ajax.php/imp/sendMessage"); // $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
 		                                                                                                 // curl_setopt($c, CURLOPT_POSTFIELDS, "composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&html=" . urldecode($msg) . "&cc=&bcc=a=Send");
 		curl_setopt($c, CURLOPT_POSTFIELDS, "composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&html=" . urldecode($msg) . "&cc=&bcc=&priority=normal&last_identity=0&identity=0&message=" . urlencode($msg));
 		

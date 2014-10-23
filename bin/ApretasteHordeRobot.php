@@ -291,6 +291,8 @@ class ApretasteHordeRobot {
 		
 		$result = curl_exec($c);
 		
+		echo $result;
+		
 		if (strpos("$result", "403 Forbidden") !== false) {
 			$robot->log('403 Forbidden!', 'FATAL');
 			$result = false;

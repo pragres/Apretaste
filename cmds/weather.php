@@ -414,6 +414,8 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			
 			$country = 'Cuba';
 			
+			$robot->log('ARGUMENT: ' . $argument);
+			
 			if (trim($argument) != '') {
 				
 				$arr = explode(',', $argument);

@@ -465,7 +465,6 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 				$r->locality = str_ireplace(', Cuba', '', $r->locality);
 				$r->locality = str_ireplace(',Cuba', '', $r->locality);
 				
-				
 				$imgsrc = $r->weather_now['weatherIcon'];
 				
 				if (! isset($images[$imgsrc])) {
@@ -586,11 +585,17 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			/*
 			 * foreach ($r->weather_forecast as $k=> $wf){ $r->weather_forecast[$k]->weatherDesc = }
 			 */
-			
+			if ($country != "Cuba") {
+				if (isset($provincias[0]))
+					$country = "en " . $provincias[0]->locality_map;
+				else
+					$country = "para " . $argument;
+			} else
+				$country = "en Cuba";
 			return array(
 					"answer_type" => "weather",
 					"command" => "weather",
-					"title" => "El clima en $country [" . date("Y-m-d h:i:s") . "]",
+					"title" => "El clima $country [" . date("Y-m-d h:i:s") . "]",
 					"compactmode" => true,
 					"climaimagen" => false,
 					"images" => $images,
@@ -600,9 +605,6 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			);
 			break;
 	}
-	
-	// Revisar esta que ponen por el TV, viene del WSI Coporation
-	// http://tiempo.cuba.cu/imprimir.php?opt=5
 }
 function cmd_weather_place($place, $country = false){
 	$weather = new WeatherForecast('93fvz526zx8uu26b59cpy9xf');

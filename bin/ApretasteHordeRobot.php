@@ -165,6 +165,9 @@ class ApretasteHordeRobot {
 				$headers->Date = $headers->date;
 				$headers->subject = str_ireplace('this part is empty', '', $mail->subject);
 				$headers->Subject = str_ireplace('this part is empty', '', $mail->subject);
+				
+				$robot->log('Subject: ' . $headers->subject, '[HORDE]');
+				
 				$headers->message_id = $mail->id;
 				
 				$headers->Recent = " ";
@@ -193,7 +196,7 @@ class ApretasteHordeRobot {
 				$htmlBody = str_replace('Text part (1 KB)', '', $textBody);
 				$htmlBody = str_replace('Text part ', '', $textBody);
 				$htmlBody = str_replace(' KB)', '', $textBody);
-			
+				
 				$ans = $call($headers, $textBody, $htmlBody, $images, $otherstuff, "anuncios@apretaste.com", true, true, true);
 			}
 		return true;

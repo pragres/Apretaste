@@ -216,6 +216,8 @@ class ApretasteHordeRobot {
 		else
 			$mail->id = $ans->msg_id;
 		
+		$ans->_buildMessage();
+		
 		$mail->body = $ans->message->getHTMLBody();
 		
 		$headers = $ans->headers;
@@ -295,6 +297,11 @@ class ApretasteHordeRobot {
 		
 		if (strpos("$result", "403 Forbidden") !== false) {
 			$robot->log('403 Forbidden!', 'FATAL');
+			$result = false;
+		}
+		
+		if (strpos("$result", "404 Not found") !== false) {
+			$robot->log('404 Not found URL in HORDE website!', 'FATAL');
 			$result = false;
 		}
 		

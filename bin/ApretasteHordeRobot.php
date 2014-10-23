@@ -203,15 +203,10 @@ class ApretasteHordeRobot {
 		
 		$robot->log("Login in horde...");
 		
-		//$r = $client->login();
+		// $r = $client->login();
 		/*
-		if ($r)
-			$robot->log("Login successfull!");
-		else {
-			$robot->log("Login fail!");
-			return false;
-		}
-		*/
+		 * if ($r) $robot->log("Login successfull!"); else { $robot->log("Login fail!"); return false; }
+		 */
 		$robot->log("Preparing email...");
 		
 		$mail = new ApretasteHordeEmail();
@@ -262,7 +257,7 @@ class ApretasteHordeRobot {
 		$robot->log("Answer subject: " . $subject);
 		
 		$robot->log("Execute cURL request...");
-				
+		
 		$c = curl_init();
 		
 		curl_setopt($c, CURLOPT_HTTPHEADER, array(
@@ -288,8 +283,9 @@ class ApretasteHordeRobot {
 		
 		echo $response;
 		
-		curl_setopt($c, CURLOPT_URL, $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
-		curl_setopt($c, CURLOPT_POSTFIELDS, "composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&message=" . urldecode($msg) . "&a=Send");
+		curl_setopt($c, CURLOPT_URL, "http://webmail.nauta.cu/horde/servoces/ajax.php/imp/sendMessage"); // $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
+		                                                                                                 // curl_setopt($c, CURLOPT_POSTFIELDS, "composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&html=" . urldecode($msg) . "&cc=&bcc=a=Send");
+		curl_setopt($c, CURLOPT_POSTFIELDS, "composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&html=" . urldecode($msg) . "&cc=&bcc=&priority=normal&last_identity=0&identity=0&message=" . urlencode($msg));
 		
 		sleep(rand(1, 5));
 		

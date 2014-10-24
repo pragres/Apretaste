@@ -1,12 +1,12 @@
 {= title: "Customer" =}
-{= path: "index.php?q=agency_customer" =}
+{= path: "?q=agency_customer" =}
 {= pagewidth: 1024 =}
 {% layout %}
 
 {{blocks
 	{%% form-block: {
 		title: "Customer details",
-		action: "?q=agency_customer&id={$customer.id}&update=true",
+		action: "agency_customer&id={$customer.id}&update=true",
 		explanation: '<img src="data:image/jpeg;base64,{$customer.picture}" width="100">',
 		fields: [
 			{
@@ -61,7 +61,7 @@ blocks}}
 	{%% form-block: {
 		id: "newContact",
 		title: "New contact",
-		action: "index.php?path=admin&page=agency_pre_recharge",
+		action: "admin&page=agency_pre_recharge",
 		modal: true,
 		fields:[
 			{

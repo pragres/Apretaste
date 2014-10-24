@@ -14,9 +14,9 @@
 			user_email: "User"			
 		},
 		wrappers: {
-			customer_name: '<a href="index.php?path=admin&page=agency_customer&id={$customer_id}">{$customer_name} ({$customer_email})</a>',
+			customer_name: '<a href="index.php?q=agency_customer&id={$customer_id}">{$customer_name} ({$customer_email})</a>',
 			amount: '${#amount:2.#}',
-			user_email: '<a href="index.php?path=admin&page=user_activity&user={$user_email}">{$user_email}</a>'
+			user_email: '<a href="index.php?q=user_activity&user={$user_email}">{$user_email}</a>'
 		},
 		footer: "?$recharges Totals: <b>{$recharges-user_email}</b> user(s), <b>{$recharges-customer_id}</b> customer(s), <b>${#sum:recharges-amount:2.#}</b> $recharges? "
 	} %%}

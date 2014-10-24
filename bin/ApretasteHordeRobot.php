@@ -3,17 +3,30 @@
 /**
  * Horde robot
  *
- * @author rafa
+ * @author rafa <rafa@pragres.com>
  * @version 1.0
  */
 class ApretasteHordeRobot {
+	
 	static $robot = null;
+	
+	/**
+	 * Build an email Robot
+	 */
+	
 	static function buildRobot(){
 		if (is_null(self::$robot)) {
 			$robot = new ApretasteEmailRobot(false, true, true);
 			self::$robot = $robot;
 		}
 	}
+	
+	/**
+	 * Run the robot
+	 * 
+	 * @param string $account
+	 * @return boolean
+	 */
 	static function Run($account = "nauta"){
 		$client = new ApretasteHordeClient($account);
 		$inbox = $client->getInbox(10, false);
@@ -246,7 +259,7 @@ class ApretasteHordeRobot {
 		else
 			$mail->id = $ans->msg_id;
 		
-		$ans->_buildMessage();
+		$ans->_buildMessage(false, true, true);
 		
 		$mail->body = $ans->message->getHTMLBody();
 		
@@ -309,7 +322,7 @@ class ApretasteHordeRobot {
 		// Login
 		curl_setopt($c, CURLOPT_URL, $client->hordeConfig->baseUrl . "/login.php");
 		curl_setopt($c, CURLOPT_POSTFIELDS, "app=&login_post=1&url=&anchor_string=&ie_version=&horde_user=apretaste&horde_pass=3Jd8VfFT&horde_select_view=mobile&new_lang=en_US");
-		
+				
 		$response = curl_exec($c);
 		
 		if ($response === false)
@@ -317,8 +330,8 @@ class ApretasteHordeRobot {
 			
 			// echo $response;
 		
-		curl_setopt($c, CURLOPT_URL, "http://webmail.nauta.cu/horde/services/ajax.php/imp/sendMessage"); // $client->hordeConfig->baseUrl . "/imp/compose-mimp.php");
-		                                                                                                 // curl_setopt($c, CURLOPT_POSTFIELDS, "composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&html=" . urldecode($msg) . "&cc=&bcc=a=Send");
+		curl_setopt($c, CURLOPT_URL, "http://webmail.nauta.cu/horde/services/ajax.php/imp/sendMessage"); 
+		
 		curl_setopt($c, CURLOPT_POSTFIELDS, "composeCache=&to=" . $fromAddress . "&cc=&bcc=&subject=" . urldecode($subject) . "&html=" . urldecode($msg) . "&cc=&bcc=&priority=normal&last_identity=0&identity=0&message=" . urlencode($msg));
 		
 		sleep(rand(1, 5));

@@ -111,7 +111,7 @@ class ApretasteAnswerEmail {
 			$this->config['reply_to'] = $from;
 			
 			// Build message one time
-			if (!$async)
+			if (! $async)
 				$this->_buildMessage();
 				
 				// After build.... if it is async then break
@@ -217,7 +217,7 @@ class ApretasteAnswerEmail {
 	 * @param boolean $build_plain
 	 * @param boolean $build_html
 	 */
-	function _buildMessage($build_plain = false, $build_html = true){
+	function _buildMessage($build_plain = false, $build_html = true, $inline_images = false){
 		$data = array(
 				'buttons' => $this->buttons,
 				'ads' => $this->ads,
@@ -292,8 +292,6 @@ class ApretasteAnswerEmail {
 			
 			echo "[INFO] Answer subject = " . $tpl_title . "\n";
 			
-			$this->message->setHTMLBody($html_body->__src);
-			
 			/*
 			 * $data['images']['logo'] = array( "type" => "image/jpg", "content" => file_get_contents("../web/static/apretaste.png"), "name" => "apretaste.logo.jpg", "id" => "logo" );
 			 */
@@ -304,9 +302,17 @@ class ApretasteAnswerEmail {
 						foreach ( $data['images'] as $image ) {
 							if ($image['type'] == 'image/' || $image['type'] == '')
 								$image['type'] = 'image/jpeg';
-							$this->message->addHTMLImage($file = $image['content'], $c_type = $image['type'], $isfile = false, $name = $image['name'], $content_id = $image['id']);
+							
+							if ($inline_images){
+								$content = rtrim(chunk_split(base64_encode($image['content']), 76, "\r\n"));
+								$html_body->__src = str_replace('cid:' . $image['id'], 'data:' . $image['type'] . ';base64,' . $content, $html_body->__src);
+							}
+							else
+								$this->message->addHTMLImage($file = $image['content'], $c_type = $image['type'], $isfile = false, $name = $image['name'], $content_id = $image['id']);
 						}
 			}
+			
+			$this->message->setHTMLBody($html_body->__src);
 		}
 		
 		echo "Adding email headers...\n";

@@ -223,10 +223,11 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 			<strong>CLIMA</strong>
 		</td>
         <td valign="top">
-                    - en blanco -
+                    ciudad, pais
         </td>
 		<td valign="top" style="text-align:justify;" align="justify">
-		Devuelve el estado del tiempo y el pron&oacute;stico para los pr&oacute;ximos d&iacute;as.
+		Devuelve el estado del tiempo y el pron&oacute;stico para los pr&oacute;ximos d&iacute;as, por defecto de Cuba si no se especifica la ciudad.
+		Trate de poner el nombre de la ciudad en Ingl&eacute;s. Por ejemplo "Moscu" es una ciudad en Colombia, y "Moscow" es una ciudad en Rusia.
 		Tambien permite ver las im&aacute;genes de sat&eacutelites, de radares y de servicios internacionales de meteorolog&iacute;a.</td>
 	</tr>
 	

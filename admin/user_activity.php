@@ -24,6 +24,7 @@ if (isset($_GET['user'])) {
 	if (is_array($user['messages']))
 		foreach ( $user['messages'] as $k => $v ) {
 			$e = @unserialize($v['extra_data']);
+			$user['messages'][$k]['extra_data'] = $e;
 			if (isset($e['headers']->subject))
 				$user['messages'][$k]['subject'] = $e['headers']->subject;
 		}

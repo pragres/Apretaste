@@ -479,7 +479,9 @@ class Mail_mime
         if ($magic_quote_setting = get_magic_quotes_runtime()) {
             @ini_set('magic_quotes_runtime', 0);
         }
+        
         $cont = file_get_contents($file_name);
+        
         if ($magic_quote_setting) {
             @ini_set('magic_quotes_runtime', $magic_quote_setting);
         }

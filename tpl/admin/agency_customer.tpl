@@ -61,7 +61,7 @@ blocks}}
 	{%% form-block: {
 		id: "newContact",
 		title: "New contact",
-		action: "admin&page=agency_pre_recharge",
+		action: "agency_pre_recharge",
 		modal: true,
 		fields:[
 			{

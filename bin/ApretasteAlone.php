@@ -848,7 +848,7 @@ class ApretasteAlone {
 					}
 				
 				if (! $horde) {
-					if (Apretaste::checkAddress($email)) {
+					if (Apretaste::checkAddress($ans->to)) {
 						echo "[INFO] Sending email {$email['id']} to {$ans->to}\n";
 						$r = $ans->send_answer(null, false, false, true);
 					} else {

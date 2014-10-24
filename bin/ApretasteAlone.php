@@ -799,8 +799,8 @@ class ApretasteAlone {
 	
 	/**
 	 * Send emails of outbox
-	 * 
-	 * @author rafa 
+	 *
+	 * @author rafa
 	 */
 	static function sendOutbox(){
 		echo "[INFO] Send emails of outbox...\n";
@@ -848,8 +848,13 @@ class ApretasteAlone {
 					}
 				
 				if (! $horde) {
-					echo "[INFO] Sending email {$email['id']} to {$ans->to}\n";
-					$r = $ans->send_answer(null, false, false, true);
+					if (Apretaste::checkAddress($email)) {
+						echo "[INFO] Sending email {$email['id']} to {$ans->to}\n";
+						$r = $ans->send_answer(null, false, false, true);
+					} else {
+						echo "[INFO] Invalid address, ignoring email...\n";
+						$r = true;
+					}
 				}
 				
 				if ($r == true)
@@ -865,8 +870,8 @@ class ApretasteAlone {
 	
 	/**
 	 * Robot for Horde web applicactions
-	 * 
-	 * @author rafa 
+	 *
+	 * @author rafa
 	 */
 	static function horde(){
 		$account = 'nauta';

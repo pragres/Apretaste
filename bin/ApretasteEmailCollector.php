@@ -411,6 +411,10 @@ class ApretasteEmailCollector {
 				$classified = true;
 			}
 			if (mb_strtolower($part->ctype_primary) == 'image') {
+				
+				if (!isset($part->ctype_parameters))
+					$part->ctype_parameters['name'] = uniqid();
+					
 				$images[] = array(
 						"content" => $part->body,
 						"type" => $part->ctype_secondary,

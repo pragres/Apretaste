@@ -156,9 +156,9 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			
 			// Analisis de la temperatura del mar (NOAA/NHC)
 			// http://www.nhc.noaa.gov/tafb/atl_anal.gif
-			
+			//http://polar.ncep.noaa.gov/sst/ophi/nwatl_sst_ophi0.png
 			echo "[INFO] Download Temperature Image [composite] \n";
-			$img = file_get_contents("http://www.nhc.noaa.gov/tafb/atl_anal.gif");
+			$img = file_get_contents("http://polar.ncep.noaa.gov/sst/ophi/nwatl_sst_ophi0.png");
 			
 			return array(
 					"answer_type" => "weather",
@@ -169,7 +169,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"sharethis" => 'CLIMA TEMPERATURA',
 					"images" => array(
 							array(
-									"type" => "image/gif",
+									"type" => "image/png",
 									"content" => $img,
 									"name" => "Imagen de temperatura [" . date("Y-m-d h:i:s") . "].gif",
 									"id" => "climaimagen",

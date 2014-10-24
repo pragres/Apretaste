@@ -394,7 +394,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			
 			// clima por provincias
 			
-			$places = array(
+			$places_cuba = array(
 					"La Habana",
 					"Pinar del Rio",
 					"Artemisa",
@@ -413,6 +413,8 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 					"Santiago de Cuba",
 					"Guantanamo"
 			);
+			
+			$places = $places_cuba;
 			
 			$country = 'Cuba';
 			
@@ -447,6 +449,15 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			
 			$provincias = array();
 			$images = array();
+			
+			
+			if ($country != 'Cuba'){
+				$r = cmd_weather_place($place, $country);
+				if ($r === false) {
+					$places = $places_cuba;
+					$country = 'Cuba';
+				}
+			}
 			
 			foreach ( $places as $place ) {
 				

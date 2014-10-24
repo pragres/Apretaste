@@ -202,10 +202,18 @@ class ApretasteSMS {
 	 * @return number
 	 */
 	static function getRate($code){
+		
+		/*$r = q("SELECT rate from sms_rate WHERE country = '$code';");
+		
+		if (isset($r[0])
+		*/
+		
 		$code = $code * 1;
+		
 		if ($code == 53)
 			return 0.05;
-		return 0.1;
+			
+		return 0.05;
 	}
 	
 	/**

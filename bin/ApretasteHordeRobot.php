@@ -354,6 +354,8 @@ class ApretasteHordeRobot {
 			$robot->log('cURL operation fail!', 'FATAL');
 			return false;
 		}
+		// save answer
+		$headers['from'] = $client->hordeConfig->address;
 		
 		Apretaste::saveAnswer($headers, $ans->type, $ans->msg_id);
 		
@@ -365,6 +367,9 @@ class ApretasteHordeRobot {
 		
 		$robot->log('Logout from horde...');
 		$client->logout();
+		
+		
+		
 		
 		return true;
 	}

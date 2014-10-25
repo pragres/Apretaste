@@ -303,11 +303,10 @@ class ApretasteAnswerEmail {
 							if ($image['type'] == 'image/' || $image['type'] == '')
 								$image['type'] = 'image/jpeg';
 							
-							if ($inline_images){
+							if ($inline_images) {
 								$content = rtrim(chunk_split(base64_encode($image['content']), 76, "\r\n"));
 								$html_body->__src = str_replace('cid:' . $image['id'], 'data:' . $image['type'] . ';base64,' . $content, $html_body->__src);
-							}
-							else
+							} else
 								$this->message->addHTMLImage($file = $image['content'], $c_type = $image['type'], $isfile = false, $name = $image['name'], $content_id = $image['id']);
 						}
 			}

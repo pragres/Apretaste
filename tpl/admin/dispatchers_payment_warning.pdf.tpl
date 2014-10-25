@@ -1,17 +1,3 @@
-{= months: {
-	m01:"Enero",
-	m02:"Febrero",
-	m03:"Marzo",
-	m04:"Abril",
-	m05:"Mayo",
-	m06:"Junio",
-	m07:"Julio",
-	m08:"Agosto",
-	m09:"Septiembre",
-	m10:"Octubre",
-	m11:"Noviembre",
-	m12:"Diciembre"
-} =}
 <html>
 	<head>
 		<style>
@@ -39,7 +25,7 @@
 		<img src="static/apretaste.white.png" width="300">
 		</p>
 		<h1 align="center">Aviso de pago</h1>
-		<p align="center"><b>{/div.now:d/} de {$months.m{/div.now:m/}} del {/div.now:Y/}</b></p>
+		<p align="center"><b>{/div.now:d/} de {$months.{/div.now:m/}} del {/div.now:Y/}</b></p>
 		<hr/>
 		<p align="center">
 		Para: <b>{$dispatcher_name}</b> ({$dispatcher_email})<br/>

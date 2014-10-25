@@ -1,4 +1,4 @@
-{= title: "Customer" =}
+{= title: <span class="glyphicon glyphicon-user"></span> Customer =}
 {= path: "?q=agency_customer" =}
 {= pagewidth: 1024 =}
 {% layout %}

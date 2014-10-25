@@ -1,11 +1,9 @@
-{= title: Reports =}
-{= path: index.php?path=admin&page=agency_reports =}
+{= title: <span class="glyphicon glyphicon-stats"></span> Reports =}
+{= path: ?q=agency_reports =}
 {= pagewidth: 1024 =}
 
 {% layout %}
 
-{= months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] =}
-{= year_color: ["", "#ff9886","#7a6fbf"] =}
 {{headerdown
 
 <div class="panel panel-success" style="width: {$width}; margin: auto;">

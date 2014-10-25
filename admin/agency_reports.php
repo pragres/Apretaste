@@ -41,7 +41,7 @@ $sql = "
 
 $r = Apretaste::query($sql);
 
-foreach ( $r as $rx ){
+if (is_array($r)) foreach ( $r as $rx ){
 	$sales_by_hour[$rx['hora']][$rx['orden']] = intval($rx['total']);
 	$amount_by_hour[$rx['hora']][$rx['orden']] = intval($rx['amount']);
 }

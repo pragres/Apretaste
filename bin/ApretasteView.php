@@ -5,6 +5,34 @@ class ApretasteView extends div {
 		self::setSubParser('ico', 'ApretasteView::aIconImage');
 		parent::__construct($src, $items, $ignore);
 		$this->setItem("apretaste", "Apretaste!");
+		$this->setItem("months", array(
+				1 => "Jan",
+				2 => "Feb",
+				3 => "Mar",
+				4 => "Apr",
+				5 => "May",
+				6 => "Jun",
+				7 => "Jul",
+				8 => "Aug",
+				9 => "Sep",
+				10 => "Oct",
+				11 => "Nov",
+				12 => "Dec"
+		));
+		$this->setItem("meses", array(
+				1 => "Ene",
+				2 => "Feb",
+				3 => "Mar",
+				4 => "Abr",
+				5 => "May",
+				6 => "Jun",
+				7 => "Jul",
+				8 => "Ago",
+				9 => "Sep",
+				10 => "Oct",
+				11 => "Nov",
+				12 => "Dic"
+		));
 	}
 	static function aBlockFullScreen($src){
 		$src = '[[_	{= c:' . $src . ' =} {% block_fullscreen %} _]]';

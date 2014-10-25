@@ -1,4 +1,4 @@
-{= title: Agencies =}
+{= title: <span class="glyphicon glyphicon-shopping-cart"></span> Agencies =}
 {= path: "?q=config_agency" =}
 
 {% layout %}
@@ -7,13 +7,13 @@
 	{%% chart_block_pie: {
 		data: $best_amount,
 		id: "best_amount",
-		title: "Best agencies (amount)"
+		title: "Best (amount)"
 	} %%}
 	<br/>
 	{%% chart_block_pie: {
 		data: $best_recharges,
 		id: "best_recharges",
-		title: "Best agencies (recharges)"
+		title: "Best (recharges)"
 	} %%}
 blocks}}
 
@@ -21,7 +21,7 @@ blocks}}
 
 	{%% table: {
 		data: $agencies,
-		title: "Agencies",
+		title: '<span class="glyphicon glyphicon-shopping-cart"></span> Agencies',
 		hideColumns: {id: true, profit_percent: false, residual_percent: false, address: false},
 		headers: {
 			credit_line: "Credit",
@@ -31,7 +31,7 @@ blocks}}
 			credit_line: '${#value:2.#}',
 			sold: '${#value:2.#}',
 			residual: '${#value:2.#}',
-			owe: '<a href="index.php?q=config_agency_bill&agency={$id}" title="View the bill">${#value:2.#}</a> <a href="?q=config_agency&download=bill&agency={$id}"><span title="Download agency\'s bill as PDF" class="glyphicon glyphicon-print"></span></a>'
+			owe: '<a href="index.php?q=config_agency_bill&agency={$id}" data-toggle="tooltip" data-placement="top" title="View the bill">${#value:2.#}</a> <a href="?q=config_agency&download=bill&agency={$id}"><span title="Download agency\'s bill as PDF" class="glyphicon glyphicon-print"></span></a>'
 		}
 	} %%}
 

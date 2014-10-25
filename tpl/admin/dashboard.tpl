@@ -6,9 +6,8 @@
 }-->
 
 <!--{ auxiliary vars }-->
-{= year_color: ["", "#ff9886","#7a6fbf"] =}
 {= div.literals: ['s'] =}	
-{= title: "Dashboard" =} 				
+{= title: <i class="fa fa-dashboard fa-fw"></i> Dashboard =} 				
 {= current_visitors: {$visitors.(# {$current_month} - 1 #).current} =}
 {= days: [0,31,28,31,30,31,30,31,31,30,31,30,31] =}
 {= path: "index.php?path=admin&page=dashboard" =}

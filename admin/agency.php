@@ -1,5 +1,4 @@
 <?php
-
 $phrase = post('edtSearch', '');
 $phrase = str_replace("'", "''", $phrase);
 
@@ -28,9 +27,8 @@ if (strlen(trim($phrase)) >= 3) {
 		foreach ( $r as $k => $v ) {
 			$r[$k] = array_merge(Apretaste::getAuthor($v['email'], false, 50), $v);
 		}
-				
 	} else {
-		$data['msg'] = 'Customers for <b>'.$phrase.'</b> not found';
+		$data['msg'] = 'Customers for <b>' . $phrase . '</b> not found';
 		$data['msg-type'] = 'danger';
 	}
 }
@@ -44,21 +42,20 @@ if (! isset($_POST['edtSearch'])) {
 	FROM agency_customer) AS subq
 	order by (select count(*) FROM agency_recharge WHERE subq.id = agency_recharge.customer) desc		
 	LIMIT 20;");
-	
-	
 }
 
-foreach ( $r as $k => $v ) {
-	$r[$k] = array_merge(Apretaste::getAuthor($v['email'], false, 50), $v);
-	$r[$k] = array(
-			'id' => $r[$k]['id'],
-			'picture' => $r[$k]['picture'],
-			'full_name' => $r[$k]['full_name'],
-			'email' => $r[$k]['email'],
-			'phone' => $r[$k]['phone'],
-			'date_registered' => $r[$k]['date_registered'],
-			'last_recharge' => $r[$k]['last_recharge']
-	);
-}
+if (is_array($r))
+	foreach ( $r as $k => $v ) {
+		$r[$k] = array_merge(Apretaste::getAuthor($v['email'], false, 50), $v);
+		$r[$k] = array(
+				'id' => $r[$k]['id'],
+				'picture' => $r[$k]['picture'],
+				'full_name' => $r[$k]['full_name'],
+				'email' => $r[$k]['email'],
+				'phone' => $r[$k]['phone'],
+				'date_registered' => $r[$k]['date_registered'],
+				'last_recharge' => $r[$k]['last_recharge']
+		);
+	}
 
 $data['searchresults'] = $r;

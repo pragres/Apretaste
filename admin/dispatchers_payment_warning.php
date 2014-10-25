@@ -1,5 +1,4 @@
 <?php
-
 $email = get('dispatcher');
 
 if (! is_null($email)) {
@@ -8,13 +7,13 @@ if (! is_null($email)) {
 	
 	if (isset($_GET['pdf'])) {
 		
-		$html = new div("../tpl/admin/dispatchers_payment_warning.pdf.tpl", $data['payment_warning']);
+		$html = new ApretasteView("../tpl/admin/dispatchers_payment_warning.pdf.tpl", $data['payment_warning']);
 		$html = "$html";
 		
 		include "../lib/mpdf/mpdf.php";
-		$mpdf=new mPDF();
+		$mpdf = new mPDF();
 		$mpdf->WriteHTML($html);
-				
+		
 		$mpdf->Output("Apretaste - Aviso de pago - " . date("Y-m-d h-i-s") . ".pdf", 'D');
 		
 		return true;

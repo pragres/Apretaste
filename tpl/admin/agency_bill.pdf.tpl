@@ -1,17 +1,3 @@
-{= months: {
-	1:"Jan",
-	2:"Feb",
-	3:"Mar",
-	4:"Apr",
-	5:"May",
-	6:"Jun",
-	7:"Jul",
-	8:"Aug",
-	9:"Sep",
-	10:"Oct",
-	11:"Nov",
-	12:"Dec"
-} =}
 <html>
 	<head>
 		<style>
@@ -71,7 +57,7 @@
 			[/$weeks]
 			<tr>
 				<td  colspan="7" align="right">
-					<b>$(# {$sum:weeks-owe} + {$sum:weeks-residuals}:2.#)</b> owes - <b>${#sum:weeks-residuals:2.0#}</b> residuals = <b>${#agency.owe:2.#}</b> current owe
+					<b>${#sum:weeks-owe:2.#}</b> owes - <b>${#sum:weeks-residuals:2.0#}</b> residuals = <b>${#agency.owe:2.#}</b> current owe
 				</td>
 			</tr>
 			<tr>

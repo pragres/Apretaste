@@ -1,5 +1,5 @@
-{= path: index.php?path=admin&page=config_agency_bill =}
-{= title: Agency bill =}
+{= path: "?q=config_agency_bill&agency={$div.get.agency}" =}
+{= title: <span class="glyphicon glyphicon-list-alt"></span> Agency bill =}
 {= pagewidth: 1024 =}
 
 {% layout %}

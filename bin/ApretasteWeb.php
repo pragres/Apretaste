@@ -103,7 +103,7 @@ class ApretasteWeb {
 		return $r;
 	}
 	static function help(){
-		$help = new div("../tpl/alone/help.es.html.tpl", array(
+		$help = new ApretasteView("../tpl/alone/help.es.html.tpl", array(
 				"font" => "font-family: Arial,Helvetica,sans-serif",
 				"from" => "you@somemail.com",
 				"reply_to" => "anuncios@apretaste.com",
@@ -115,7 +115,7 @@ class ApretasteWeb {
 		return $help;
 	}
 	static function terms(){
-		$help = new div("../tpl/alone/terms.es.html.tpl", array(
+		$help = new ApretasteView("../tpl/alone/terms.es.html.tpl", array(
 				"font" => "font-family: Arial,Helvetica,sans-serif",
 				"from" => "you@somemail.com",
 				"reply_to" => "anuncios@apretaste.com",

@@ -1,6 +1,4 @@
 {= title: "Service usage" =}
-{= months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] =}
-{= year_color: ["", "#ff9886","#7a6fbf"] =}
 {= div.literals: ['s'] =}	
 
 {% layout %}

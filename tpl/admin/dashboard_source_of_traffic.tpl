@@ -1,6 +1,4 @@
 {= title: "Sources of traffic" =}
-{= months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] =}
-{= year_color: ["", "#ff9886","#7a6fbf"] =}
 {= div.literals: ['s'] =}	
 
 {% layout %}
@@ -42,7 +40,7 @@ blocks}}
 					if (is_array($sources_of_traffic)){
 						foreach($sources_of_traffic as $m => $v){
 						
-							echo '<td width="33%" valign="top"><strong>'.$months[$m-1].'</strong><br/><hr/>';
+							echo '<td width="33%" valign="top"><strong>'.$months[$m].'</strong><br/><hr/>';
 							if (is_array($v)) foreach($v as $x){
 								echo "{$x['xauthor']} - <b>{$x['messages']}</b><br/>";
 							}

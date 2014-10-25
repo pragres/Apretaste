@@ -33,6 +33,12 @@
 					<label><input type = "checkbox" name = "chkSmsFree" ?$chkSmsFree checked $chkSmsFree?>SMS Free</label>
 				</div>
 			</fieldset>
+			<fieldset>
+				<legend>Agencies</legend>
+				<label for="edtPriceRegExp">Payment time limit:</label>
+				<input class="form-control" size="3" style="width: 100px;" type ="number" name = "edtAgencyPaymentTimelimit" ?$edtAgencyPaymentTimelimit value = "{$edtAgencyPaymentTimelimit}"><br>
+			</fieldset>
+			
 			<input type = "submit" class="btn btn-default" value = "Update" name = "btnUpdateConfig">
 		</form>	
 	</div>

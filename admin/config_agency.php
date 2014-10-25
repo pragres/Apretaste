@@ -9,7 +9,7 @@ if (isset($_GET['download'])) {
 			
 			include_once "../admin/agency_bill.php";
 			
-			$html = new div("../tpl/admin/agency_bill.pdf.tpl", $data);
+			$html = new ApretasteView("../tpl/admin/agency_bill.pdf.tpl", $data);
 			
 			$html = "$html";
 			

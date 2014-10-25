@@ -78,7 +78,6 @@ class ApretasteAdmin {
 		}
 		return false;
 	}
-	
 	static function saveUserAction(){
 		$u = self::getUser();
 		
@@ -125,7 +124,7 @@ class ApretasteAdmin {
 		if ($chksum != $last_chksum) {
 			self::log('Building menu...');
 			
-			$menu = new div('../tpl/admin/menu.tpl', array(
+			$menu = new ApretasteView('../tpl/admin/menu.tpl', array(
 					"user" => $user
 			));
 			
@@ -181,7 +180,8 @@ class ApretasteAdmin {
 				
 				include "../admin/$url.php";
 				
-				$tpl = "../tpl/admin/{$url}.tpl";
+				if (! isset($tpl))
+					$tpl = "../tpl/admin/{$url}.tpl";
 				
 				if (! self::checkAccess($url))
 					die('Access denied');
@@ -225,8 +225,7 @@ class ApretasteAdmin {
 			include "../charts/$url.img.php";
 		} else {
 			if (self::verifyLogin()) {
-				header("Location: index.php?path=admin&page=" . self::getDefaultPage());
-				// echo new div("../tpl/admin/index");
+				header("Location: ?q=" . self::getDefaultPage());
 			} else
 				echo new div("../tpl/admin/auth", array(
 						"error" => ! self::$login_result,

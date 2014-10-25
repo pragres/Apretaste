@@ -1,5 +1,5 @@
-{= title: List of recharges =}
-{= path: index.php?path=admin&page=agency_recharge_list =}
+{= title: <span class="glyphicon glyphicon-th"></span> List of recharges =}
+{= path: ?q=agency_recharge_list =}
 
 {% layout %}
 

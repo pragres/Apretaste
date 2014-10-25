@@ -1,8 +1,7 @@
 <?php
-
 $data['hash'] = md5(uniqid());
 $_SESSION['agency_recharge_hash'] = $data['hash'];
- 
+
 $amount = post("edtAmount");
 $amount = $amount * 1;
 
@@ -18,14 +17,23 @@ if ($chk !== true) {
 	$data['max_amount'] = $chk['max_amount'];
 	$data['limitcredit'] = true;
 } else {
-	$email = post("edtEmail");
-	$user = Apretaste::getAuthor($email);
-	$user['credit'] = ApretasteMoney::getCreditOf($email);
-	$user['picture'] = Apretaste::resizeImage($user['picture'], 200);
-	$agency = ApretasteAdmin::getAgency($data['user']['agency']);
 	
-	$customer = post('edtCustomer');
+	$chk = ApretasteMoney::checkPaymentTimelimit($data['user']['agency']);
 	
-	$data['author'] = $user;
-	$data['limitcredit'] = false;
+	if ($chk === false) {
+		$data['msg'] = 'You need pay your owe before continue the recharge. Please see <a href="?q=agency_bill">your bill</a> for more details.';
+		$data['msg-type'] = 'danger';
+		$data['limitcredit'] = true;
+	} else {
+		$email = post("edtEmail");
+		$user = Apretaste::getAuthor($email);
+		$user['credit'] = ApretasteMoney::getCreditOf($email);
+		$user['picture'] = Apretaste::resizeImage($user['picture'], 200);
+		$agency = ApretasteAdmin::getAgency($data['user']['agency']);
+		
+		$customer = post('edtCustomer');
+		
+		$data['author'] = $user;
+		$data['limitcredit'] = false;
+	}
 }

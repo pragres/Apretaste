@@ -1,5 +1,5 @@
-{= title: "Search customer" =}
-{= path: "index.php?q=agency" =}
+{= title: "<span class="glyphicon glyphicon-search"></span> Search customer" =}
+{= path: "?q=agency" =}
 
 {% layout %}
 
@@ -27,7 +27,7 @@ blocks}}
 			?$searchresults
 			{%% table: {
 				data: $searchresults,
-				title: "Customers",
+				title: '<i class="fa fa-group fa-fw"></i> Customers',
 				hideColumns: {id: true, date_registered: true},
 				headers: {full_name: "Name", last_recharge: "Last recharge", picture: ""},
 				wrappers: {
@@ -45,8 +45,8 @@ blocks}}
 			
 			{%% form-block: {
 				id: "new_customer",
-				title: "New customer",
-				action: "agency&page=agency_add_customer" ,
+				title: "<span class="glyphicon glyphicon-user"></span> New customer",
+				action: "agency_add_customer" ,
 				modal: true,
 				width: 400,
 				fields: [
@@ -57,11 +57,11 @@ blocks}}
 					},{
 						id: "edtEmail",
 						label: "Email",
-						type: text
+						type: 'text'
 					},{
 						id: "edtPhone",
 						label: "Phone",
-						type: text
+						type: 'text'
 					}
 				],
 				submit: {
@@ -73,29 +73,25 @@ blocks}}
 			</p>
 			$div.post.edtSearch?
 		
-		
+		?$customer_exists
+		[[customer_exists
+			<h3>Customer exists</h3>
+			<table><tr>
+			?$picture
+			<td valign="top" style="padding:10px;">
+			<img src="data:image/jpeg;base64,{$picture}" width="100">
+			</td>
+			$picture?
+			<td valign="top">
+			Full name: <br/><b>{$full_name}</b><br/><br/>
+			Email: <br/><b>{$email}</b><br/><br/>
+			?$phone Phone: <br/><b>{$phone}</b> $phone?<br/> 
+			</td></tr></table>
+			<a class ="button" href="index.php?path=admin&page=agency_customer&id={$id}">This is the customer?</a>
+
+		customer_exists]]
+		$customer_exists?
+
 		{% agency_footer %}
 page}}
-
-
-			
-			?$customer_exists
-			[[customer_exists
-
-				<h1>Customer exists</h1>
-				<table><tr>
-				?$picture
-				<td valign="top" style="padding:10px;">
-				<img src="data:image/jpeg;base64,{$picture}" width="100">
-				</td>
-				$picture?
-				<td valign="top">
-				Full name: <br/><b>{$full_name}</b><br/><br/>
-				Email: <br/><b>{$email}</b><br/><br/>
-				?$phone Phone: <br/><b>{$phone}</b> $phone?<br/> 
-				</td></tr></table>
-				<a class ="button" href="index.php?path=admin&page=agency_customer&id={$id}">This is the customer?</a>
-
-			customer_exists]]
-			$customer_exists?
 

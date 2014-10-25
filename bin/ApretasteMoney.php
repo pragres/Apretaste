@@ -259,7 +259,9 @@ class ApretasteMoney {
 		// amount = profit / profit_percent
 		// amount = owe / (1 - profit_percent)
 		// max_amount = (credit_line - amount) / (1 - profit_percent)
+		
 		$owe = q("SELECT owe from agency_expanded where id = '$agency';");
+		
 		if (isset($owe[0])) {
 			$owe = $owe[0]['owe'] * 1;
 			$credit_line = q("SELECT credit_line, profit_percent from agency where id = '$agency';");
@@ -282,6 +284,28 @@ class ApretasteMoney {
 				}
 			}
 		}
+		
+		return true;
+	}
+	
+	/**
+	 * This function verify the time limit for payments
+	 * and return true if agency could recharge
+	 *
+	 * @author rafa <rafa@pragres.com>
+	 * @param string $agency
+	 * @return boolean
+	 */
+	static function checkPaymentTimelimit($agency){
+		
+		// Getting time limit for payments from setup
+		$period = c('agency_payment_timelimit', 30) * 1; // in days
+		                                                                       
+		// Searching the first day with owe
+		$r = q("select (select min(date) from agency_days_without_payment where agency = '$agency') + $period < current_date as c");
+		
+		if ($r[0]['c'] == 'f')
+			return false;
 		
 		return true;
 	}

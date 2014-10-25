@@ -1,6 +1,7 @@
-<div class="panel panel-success">
+<div class="panel panel-default tooltips">
 	<div class="panel-heading">
-		<h3 class="panel-title">{$title}</h3>
+		{$title}
+		(( {$id}-title-right ))
 	</div>
 	!$simple<div class="panel-body">$simple!
 	?$body

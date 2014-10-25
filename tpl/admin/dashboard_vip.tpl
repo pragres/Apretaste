@@ -1,5 +1,4 @@
 {= title: "VIP users" =}
-
 {= div.literals: ['s'] =}	
 
 {% layout %}
@@ -16,7 +15,7 @@
 					if (is_array($best_users)) 
 						foreach($best_users as $m => $v){
 							echo '<div class="panel panel-success" style="float: left; margin-right: 5px; width: 32%;">
-								<div class="panel-heading">'.$months[$m-1].'</div> <ul class="list-group">';
+								<div class="panel-heading">'.$months[$m].'</div> <ul class="list-group">';
 					
 						if (is_array($v)) foreach($v as $x){
 							echo "<li class=\"list-group-item\"><a href=\"?path=admin&page=user_activity&user={$x['xauthor']}\">{$x['xauthor']}</a> - {$x['messages']}</li>";

@@ -23,7 +23,7 @@ if (isset($_GET['run'])) {
 	$_POST['btnRun'] = true;
 	$r = q("select * from queries where id = '$id_query'");
 	$query = $r[0]['query'];
-	$query = new div($query, $_POST);
+	$query = new ApretasteView($query, $_POST);
 	$query = "$query";
 	
 	$data['query_title'] = $r[0]['title'];

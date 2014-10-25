@@ -66,13 +66,13 @@
 		icon: "briefcase",
 		submenu: {
 			header_1: "Sellers",
-			dispatchers: "Browse sellers",
-			dispatchers_reports: "{ico}chart_curve{/ico}&nbsp;Reports",
-			dispatchers_payments: "{ico}money{/ico}&nbsp;Payments",
+			dispatchers: '<span class="glyphicon glyphicon-briefcase"></span> Browse sellers',
+			dispatchers_reports: '<span class="glyphicon glyphicon-stats"></span>&nbsp;Reports',
+			dispatchers_payments: '<i class="fa fa-money fa-fw"></i> Payments',
 			sep3: "-",
 			header_agencies: "Agencies",
-			config_agency: "Browse agencies",
-			config_agency_payments: "Payments",
+			config_agency: "<span class="glyphicon glyphicon-shopping-cart"></span> Browse agencies",
+			config_agency_payments: "<i class="fa fa-money fa-fw"></i> Payments",
 		}
 	},
 	tools: {
@@ -84,13 +84,13 @@
 		}
 	},
 	agency: {
-		caption: "Agency",
+		caption: "Recharges",
 		icon: "shopping-cart",
 		submenu: {
-			agency: "<span class="glyphicon glyphicon-search"></span> Search customer",
-			agency_recharge_list: "<span class="glyphicon glyphicon-usd"></span> Recharges today",
-			agency_reports: "<span class="glyphicon glyphicon-signal"></span> Reports",
-			agency_bill: "My bill"
+			agency: '<span class="glyphicon glyphicon-search"></span> Search & Recharge',
+			agency_recharge_list: '<span class="glyphicon glyphicon-th"></span> Recharges today',
+			agency_reports: '<span class="glyphicon glyphicon-stats"></span> Reports',
+			agency_bill: '<span class="glyphicon glyphicon-list"></span> My bill'
 		}
 	},
 	logout: "Logout"

@@ -1,5 +1,4 @@
 {strip}
-{= months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"] =}
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="es">
@@ -61,6 +60,8 @@
         			return true;
     			});
 				
+				$('.tooltips').tooltip({selector: "[data-toggle=tooltip]", container: "body"});
+				$("[data-toggle=popover]").popover();
 				
     		{/ignore}
     		
@@ -141,7 +142,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-			?$title <h3>{$title}</h3> $title?
+			?$title <h3 style="margin-top: 0px;">{$title}</h3> $title?
 			</div>
 		</div>
 		<div class="row">

@@ -122,13 +122,15 @@ class Apretaste {
 	 */
 	static function getConfiguration($variable, $default = null){
 		if (! isset(self::$configuration[$variable])) {
+			
 			self::$configuration[$variable] = $default;
+			
 			$r = self::query("select value from configuration where variable = '$variable';");
-			if ($r)
+			
+			if (is_array($r))
 				self::$configuration[$variable] = unserialize($r[0]['value']);
-			else if (is_null($default))
-				self::setConfiguration($variable, $default);
 		}
+		
 		return self::$configuration[$variable];
 	}
 	
@@ -3471,5 +3473,6 @@ function q($sql){
 function c($var, $default = null, $set = false){
 	if ($set !== false)
 		return Apretaste::setConfiguration($var, $default);
-	return Apretaste::getConfiguration($var);
+	
+	return Apretaste::getConfiguration($var, $default);
 }

@@ -1,6 +1,6 @@
 ?$modal
 <button type="button" class="btn btn-default" onclick="$('#{$id}-modal').modal('show');">{$title}</button>
-<div class="modal fade" id="{$id}-modal" tabindex="-1" role="dialog" aria-labelledby="{$id}-label" aria-hidden="true"> 
+<div class="modal fade tooltips" id="{$id}-modal" tabindex="-1" role="dialog" aria-labelledby="{$id}-label" aria-hidden="true"> 
 	<div class="modal-dialog" style="width:{$width}px;"> 
 		<div class="modal-content"> 
 				<div class="modal-header"> 
@@ -9,7 +9,7 @@
 				</div>
 				<div class="modal-body"> 
 @else@
-<div class="panel panel-success" style="width: {$width}; margin: auto; ?$float float: {$float}; $float?">
+<div class="panel panel-success tooltips" style="width: {$width}; margin: auto; ?$float float: {$float}; $float?">
 	<div class="panel-heading">
 		<h3 class="panel-title">{$title}</h3>
 	</div>

@@ -221,7 +221,7 @@ class ApretasteHordeRobot {
 				$textBody = str_ireplace('this part is empty.', '', $textBody);
 				$htmlBody = str_ireplace('this part is empty.', '', $htmlBody);
 				
-				$ans = $call($headers, $textBody, $htmlBody, $images, $otherstuff, "anuncios@apretaste.com", true, true, true);
+				$ans = $call($headers, $textBody, $htmlBody, $images, $otherstuff, $client->hordeConfig->address, true, true, true);
 			}
 		return true;
 	}

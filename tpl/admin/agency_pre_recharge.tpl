@@ -24,7 +24,7 @@
 		?$author.town Town: {$author.town} <br/>$author.town?
 		?$author.credit Current credit: <b>${#author.credit:2.#}</b> <br/>$author.credit?
 		<br/>
-		Amount: <b>$<b>{#div.post.edtAmount:2.#}</b> 		
+		Amount: <b>${#div.post.edtAmount:2.#}</b> 		
 		<hr/>
 		<form action="index.php?path=admin&page=agency_recharge" method="post">
 			<input value="{$hash}" name="hash" type="hidden">

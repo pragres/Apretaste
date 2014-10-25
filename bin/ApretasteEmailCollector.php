@@ -260,6 +260,14 @@ class ApretasteEmailCollector {
 					}
 				}
 				
+				if (trim($textBody) == '' && trim($htmlBody) != '') {
+					$textBody = strip_tags($htmlBody);
+				}
+				
+				if (similar_text(trim(strtolower("" . base64_decode($textBody))), trim(strtolower(strip_tags($htmlBody))), true) > 0.9) {
+					$textBody = strip_tags($htmlBody);
+				}
+				
 				$textBody = $this->mimeDecode($textBody);
 				$htmlBody = $this->mimeDecode($htmlBody);
 				
@@ -280,8 +288,7 @@ class ApretasteEmailCollector {
 				
 				// Prevent Mail Delivery System
 				echo $this->verbose ? "[INFO] Prevent Mail Delivery System ... \n" : "";
-				if (stripos($headers->subject, 'delivery') !== false || strpos($headers->subject, 'Undeliverable') !== false || stripos($from, 'MAILER-DAEMON') !== false || stripos($headers->subject, 'Rejected:') === 0
-					|| stripos($headers->subject, 'Servidor de correo: ') !== false) {
+				if (stripos($headers->subject, 'delivery') !== false || strpos($headers->subject, 'Undeliverable') !== false || stripos($from, 'MAILER-DAEMON') !== false || stripos($headers->subject, 'Rejected:') === 0 || stripos($headers->subject, 'Servidor de correo: ') !== false) {
 					echo $this->verbose ? "[INFO] ignore Mail Delivery System from {$from}\n" : "";
 					Apretaste::saveUglyEmail($from, $headers->subject, $headers, $htmlBody == '' ? $textBody : $htmlBody);
 					continue;
@@ -370,7 +377,7 @@ class ApretasteEmailCollector {
 	
 	/**
 	 * Check if from is bad
-	 * 
+	 *
 	 * @param object $headers
 	 * @return boolean
 	 */
@@ -384,14 +391,13 @@ class ApretasteEmailCollector {
 						return true;
 		return false;
 	}
-	
 	function _postMaster($headers, $textBody, $htmlBody, $images, $otherstuff){
 		return false;
 	}
 	
 	/**
 	 * Find parts in body
-	 * 
+	 *
 	 * @param object $part
 	 * @param string $textBody
 	 * @param string $htmlBody
@@ -412,9 +418,9 @@ class ApretasteEmailCollector {
 			}
 			if (mb_strtolower($part->ctype_primary) == 'image') {
 				
-				if (!isset($part->ctype_parameters))
+				if (! isset($part->ctype_parameters))
 					$part->ctype_parameters['name'] = uniqid();
-					
+				
 				$images[] = array(
 						"content" => $part->body,
 						"type" => $part->ctype_secondary,

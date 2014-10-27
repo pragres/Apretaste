@@ -66,7 +66,9 @@
 				if (isset($row[$col]))
 					$xrow[$col] = $row[$col];
 				else 
-					$xrow[$col] =  $row[$rkeys[$i]]; 
+					if (isset($rkeys[$i]))
+						if (isset($row[$rkeys[$i]]))
+							$xrow[$col] =  $row[$rkeys[$i]]; 
 				$i++;
 			}
 			

@@ -264,6 +264,7 @@ class ApretasteEmailCollector {
 					$textBody = strip_tags($htmlBody);
 				}
 				
+				// sometimes textbody is base64 and htmlbody not
 				$percent = 0;
 				$similar = similar_text(trim(strtolower("" . base64_decode($textBody))), trim(strtolower(strip_tags($htmlBody))), $percent);
 				

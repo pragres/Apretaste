@@ -23,7 +23,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 		$argument = trim($argument);
 	}
 	
-	$argument = strip_tags($argument);
+	$argument = Apretaste::strip_html_tags($argument);
 	
 	$argument = trim(strtolower($argument));
 	

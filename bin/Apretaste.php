@@ -1613,7 +1613,7 @@ class Apretaste {
 		/*
 		 * if(!get_magic_quotes_gpc()) { $str = addslashes($str); }
 		 */
-		$str = strip_tags(htmlspecialchars($str));
+		$str = strip_html_tags(htmlspecialchars($str));
 		return $str;
 	}
 	static function uniq(){
@@ -2777,7 +2777,7 @@ class Apretaste {
 			$text = utf8_encode($text);
 		
 		$text = quoted_printable_decode($text);
-		$text = strip_tags($text);
+		$text = strip_html_tags($text);
 		$text = html_entity_decode($text, ENT_COMPAT, 'UTF-8');
 		$text = htmlentities($text, ENT_COMPAT, 'UTF-8');
 		
@@ -3458,7 +3458,7 @@ class Apretaste {
 	 * @return boolean
 	 */
 	static function checkInvitationRebate($from, $subject, $body){
-		$body = strip_tags($body);
+		$body = strip_html_tags($body);
 		if ($subject == 'Delivery Status Notification (Failure)' || strpos($subject, 'Undeliverable') !== false || strpos($subject, 'Mensaje no entregado') !== false || $from == 'mailer-daemon@googlemail.com' || $subject == 'Your message can not be delivered' || $subject == 'Permanent Delivery Failure' || $subject == 'Mail Delivery Error' || stripos($subject, 'Rejected:') === 0 || stripos($subject, 'lo ha invitado a usar Apretaste!') !== false || stripos($subject, 'Correo electrónico devuelto:') === 0) {
 			$from = self::getAddressFrom($from);
 			if (isset($from[0])) {
@@ -3516,6 +3516,62 @@ class Apretaste {
 		
 		q("INSERT INTO email_ugly(email,subject,headers,body,cause) VALUES ('$from','$subject','$headers','$body', '$cause');");
 	}
+	
+	/**
+	 * Remove HTML tags, including invisible text such as style and
+	 * script code, and embedded objects.
+	 * Add line breaks around
+	 * block-level tags to prevent word joining after tag removal.
+	 */
+	static function strip_html_tags($text, $allowable_tags = null){
+		$text = preg_replace(array(
+				// Remove invisible content
+				'@<head[^>]*?>.*?</head>@siu',
+				'@<style[^>]*?>.*?</style>@siu',
+				'@<script[^>]*?.*?</script>@siu',
+				'@<object[^>]*?.*?</object>@siu',
+				'@<embed[^>]*?.*?</embed>@siu',
+				'@<applet[^>]*?.*?</applet>@siu',
+				'@<noframes[^>]*?.*?</noframes>@siu',
+				'@<noscript[^>]*?.*?</noscript>@siu',
+				'@<noembed[^>]*?.*?</noembed>@siu',
+				// Add line breaks before and after blocks
+				'@</?((address)|(blockquote)|(center)|(del))@iu',
+				'@</?((div)|(h[1-9])|(ins)|(isindex)|(p)|(pre))@iu',
+				'@</?((dir)|(dl)|(dt)|(dd)|(li)|(menu)|(ol)|(ul))@iu',
+				'@</?((table)|(th)|(td)|(caption))@iu',
+				'@</?((form)|(button)|(fieldset)|(legend)|(input))@iu',
+				'@</?((label)|(select)|(optgroup)|(option)|(textarea))@iu',
+				'@</?((frameset)|(frame)|(iframe))@iu'
+		), array(
+				' ',
+				' ',
+				' ',
+				' ',
+				' ',
+				' ',
+				' ',
+				' ',
+				' ',
+				"\n\$0",
+				"\n\$0",
+				"\n\$0",
+				"\n\$0",
+				"\n\$0",
+				"\n\$0",
+				"\n\$0",
+				"\n\$0"
+		), $text);
+		
+		$text = strip_tags($text, $allowable_tags);
+		
+		$text = str_replace('&nbsp;', ' ', $text);
+		$text = Apretaste::replaceRecursive("  ", " ", trim(html_entity_decode($text, null, 'UTF-8')));
+		$text = str_replace("\r", "", $text);
+		$text = Apretaste::replaceRecursive("\n\n", "\n", $text);
+		
+		return $text;
+	}
 }
 
 // Function aliases
@@ -3545,4 +3601,7 @@ function c($var, $default = null, $set = false){
 		return Apretaste::setConfiguration($var, $default);
 	
 	return Apretaste::getConfiguration($var, $default);
+}
+function strip_html_tags($text, $allowable_tags = null){
+	return Apretaste::strip_html_tags($text, $allowable_tags);
 }

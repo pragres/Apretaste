@@ -149,8 +149,8 @@ function cmd_baseball_response($news, $header){
 	);
 	
 	foreach ( $news as $k => $v ) {
-		$news[$k]['title'] = str_replace($drop, '', strip_tags("{$v['title']}", $tags));
-		$news[$k]['content'] = str_replace($drop, '', strip_tags("{$v['content']}", $tags));
+		$news[$k]['title'] = str_replace($drop, '', Apretaste::strip_html_tags("{$v['title']}", $tags));
+		$news[$k]['content'] = str_replace($drop, '', Apretaste::strip_html_tags("{$v['content']}", $tags));
 	}
 	
 	return array(

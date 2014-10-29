@@ -84,9 +84,22 @@ class ApretasteHordeRobot {
 					$robot->log("Ignore email address {$from}");
 					Apretaste::saveUglyEmail($from, $mail->subject, $mail, $mail->body, 'black_list');
 					continue;
+				}			
+
+				
+				if (trim($textBody) == '' && trim($htmlBody) != '') {
+					$textBody = strip_html_tags($htmlBody);
 				}
 				
-				$textBody = strip_tags($mail->body);
+				// sometimes textbody is base64 and htmlbody not
+				$percent = 0;
+				$similar = similar_text(trim(strtolower("" . base64_decode($textBody))), trim(strtolower(strip_html_tags($htmlBody))), $percent);
+				
+				if ($percent > 0.9) {
+					$textBody = Apretaste::strip_html_tags($htmlBody);
+				}
+				
+				$textBody = Apretaste::strip_html_tags($mail->body);
 				$htmlBody = $mail->body;
 				
 				if ($mail->subject == '')
@@ -208,7 +221,7 @@ class ApretasteHordeRobot {
 				
 				$p1 = strpos($htmlBody, 'Text part');
 				if ($p1 !== false) {
-					$htmlBody = strip_tags($htmlBody);
+					$htmlBody = Apretaste::strip_html_tags($htmlBody);
 					$p1 = strpos($htmlBody, ')');
 					$htmlBody = substr($htmlBody, $p1 + 1);
 				} else {

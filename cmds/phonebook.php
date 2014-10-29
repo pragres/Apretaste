@@ -12,7 +12,7 @@
  */
 function cmd_phonebook($robot, $from, $argument, $body = '', $images = array()){
 	$body = trim($body);
-	$body = strip_tags($body);
+	$body = Apretaste::strip_html_tags($body);
 	$body = trim($body);
 	$body = explode("\n", $body);
 	

@@ -255,21 +255,21 @@ class ApretasteEmailCollector {
 				
 				if (trim($textBody) == '' && trim($htmlBody) == '') {
 					if (isset($otherstuff[0])) {
-						$textBody = strip_tags($otherstuff[0]);
+						$textBody = Apretaste::strip_html_tags($otherstuff[0]);
 						$htmlBody = $textBody;
 					}
 				}
 				
 				if (trim($textBody) == '' && trim($htmlBody) != '') {
-					$textBody = strip_tags($htmlBody);
+					$textBody = Apretaste::strip_html_tags($htmlBody);
 				}
 				
 				// sometimes textbody is base64 and htmlbody not
 				$percent = 0;
-				$similar = similar_text(trim(strtolower("" . base64_decode($textBody))), trim(strtolower(strip_tags($htmlBody))), $percent);
+				$similar = similar_text(trim(strtolower("" . base64_decode($textBody))), trim(strtolower(Apretaste::strip_html_tags($htmlBody))), $percent);
 				
 				if ($percent > 0.9) {
-					$textBody = strip_tags($htmlBody);
+					$textBody = Apretaste::strip_html_tags($htmlBody);
 				}
 				
 				$textBody = $this->mimeDecode($textBody);

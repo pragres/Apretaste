@@ -60,9 +60,9 @@ function cmd_google($robot, $from, $argument, $body = '', $images = array()){
 		
 		$robot->log("Cleanning the content");
 		
-		$titulo = strip_tags($results[0]->title);
+		$titulo = Apretaste::strip_html_tags($results[0]->title);
 		
-		$remedio = strip_tags($remedio, '<b><strong><tr><table><td><li><ul><ol><p><a><div><br><hr>');
+		$remedio = Apretaste::strip_html_tags($remedio, '<b><strong><tr><table><td><li><ul><ol><p><a><div><br><hr>');
 		
 		$remedio = Apretaste::repairUTF8($remedio);
 		

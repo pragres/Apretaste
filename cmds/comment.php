@@ -14,7 +14,7 @@ function cmd_comment($robot, $from, $argument, $body = '', $images = array()){
 	
 	$robot->log("Comment ad: $id from $from");
 	
-	$body = strip_tags($body);
+	$body = Apretaste::strip_html_tags($body);
 	$body = trim($body);
 	$body = Apretaste::replaceRecursive("  ", " ", $body);
 	$body = htmlentities($body, null, 'UTF-8', false);

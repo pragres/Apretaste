@@ -6,8 +6,14 @@
  * Generic stores
  *
  * @author rafa <rafa@pragres.com>
- *        
+ * @version 1.0
  */
+define('APRETASTE_STORE_NOT_ENOUGHT_FUNDS', 'APRETASTE_STORE_NOT_ENOUGHT_FUNDS');
+define('APRETASTE_STORE_NOT_MORE_ITEMS', 'APRETASTE_STORE_NOT_MORE_ITEMS');
+define('APRETASTE_STORE_SALE_NOT_FOUND', 'APRETASTE_STORE_SALE_NOT_FOUND');
+define('APRETASTE_STORE_UNKNOWN_ERROR', 'APRETASTE_STORE_UNKNOWN_ERROR');
+define('APRETASTE_STORE_PURCHASE_ALREADY_CONFIRMED', 'APRETASTE_STORE_PURCHASE_ALREADY_CONFIRMED');
+define('APRETASTE_STORE_INVALID_USER_OR_CODE', 'APRETASTE_STORE_INVALID_USER_OR_CODE');
 class ApretasteStore {
 	
 	/**
@@ -85,5 +91,83 @@ class ApretasteStore {
 		$r = @q($sql);
 		
 		return $r[0]['id'];
+	}
+	
+	/**
+	 * Purchase
+	 *
+	 * @param string $sale
+	 * @param string $buyer
+	 * @return boolean
+	 */
+	static function purchase($sale, $buyer){
+		$sale = str_replace("''", "'", $sale);
+		
+		if (Apretaste::checkAddress($buyer)) {
+			$error = null;
+			$r = @q("INSERT INTO store_purchase (sale, buyer) VALUES ('$sale', '$buyer');", $error);
+			
+			if ($error !== false) {
+				
+				$error = json_decode($json);
+				if (! is_null($error)) {
+					switch ($error->err_code) {
+						case 1 :
+							return APRETASTE_STORE_NOT_ENOUGHT_FUNDS;
+							break;
+						case 2 :
+							return APRETASTE_STORE_NOT_MORE_ITEMS;
+							break;
+						default :
+							return APRETASTE_STORE_UNKNOWN_ERROR;
+					}
+				} else
+					return APRETASTE_STORE_UNKNOWN_ERROR;
+			}
+		}
+		
+		return APRETASTE_INCORRECT_EMAIL_ADDRESS;
+	}
+	
+	/**
+	 * Confirm purchase
+	 *
+	 * @param string $confirmation_code
+	 * @param string $buyer
+	 * @return mixed
+	 */
+	static function confirmPurchase($confirmation_code, $buyer){
+		$sale = str_replace("''", "'", $sale);
+		
+		if (Apretaste::checkAddress($buyer)) {
+			
+			$error = null;
+			$rows = 0;
+			$r = @q("UPDATE store_purchase SET bought = true WHERE buyer = '$buyer' AND confirmation_code = '$confirmation_code';", $error, $rows);
+			
+			if ($error !== false) {
+				
+				$error = json_decode($json);
+				if (! is_null($error)) {
+					switch ($error->err_code) {
+						case 4 :
+							return APRETASTE_STORE_PURCHASE_ALREADY_CONFIRMED;
+							break;
+						default :
+							return APRETASTE_STORE_UNKNOWN_ERROR;
+					}
+				} else
+					return APRETASTE_STORE_UNKNOWN_ERROR;
+			} else
+				return APRETASTE_STORE_UNKNOWN_ERROR;
+			
+			$rows = pg_affected_rows($r);
+			
+			if ($rows < 1)
+				return APRETASTE_STORE_INVALID_USER_OR_CODE;
+			
+			return true;
+		} else
+			return APRETASTE_INCORRECT_EMAIL_ADDRESS;
 	}
 }

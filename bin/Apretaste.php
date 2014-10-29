@@ -5,6 +5,7 @@
  *
  * @author rafa <rafa@pragres.com>
  */
+define("APRETASTE_INCORRECT_EMAIL_ADDRESS", "APRETASTE_INCORRECT_EMAIL_ADDRESS");
 define("APRETASTE_INVITATION_REPEATED", "APRETASTE_INVITATION_REPEATED");
 define("APRETASTE_INVITATION_UNNECESASARY", "APRETASTE_INVITATION_UNNECESASARY");
 define("APRETASTE_INVITATION_SUCCESSFULL", "APRETASTE_INVITATION_SUCCESSFULL");
@@ -101,16 +102,20 @@ class Apretaste {
 	 * @param string $sql
 	 * @return array
 	 */
-	static function query($sql, &$error = null){
+	static function query($sql, &$error = null, &$affected_rows = null){
 		if (stripos($sql, 'vacuum') === false)
 			$sql = 'set time zone -4;' . $sql;
+		
 		self::connect();
+		
 		$r = pg_query(self::$db, self::utf8Encode($sql));
 		$s = pg_last_error(self::$db);
-		// echo "[SQL] $sql \n";
+		
 		$error = $s;
+		
 		if (trim("$s") !== "")
 			self::log("$sql -> $s\n", "SQL-ERRORS", 80000);
+		
 		return pg_fetch_all($r);
 	}
 	
@@ -1432,6 +1437,12 @@ class Apretaste {
 				
 				$results[$k]['cota'] = false;
 				
+				if (! isset($results[$k]['rank_global']))
+					$results[$k]['rank_global'] = 1;
+				
+				if (! isset($results[$k]['rank_title']))
+					$results[$k]['rank_title'] = 1;
+				
 				$rank_global = $results[$k]['rank_global'] * 1;
 				$rank_title = $results[$k]['rank_title'] * 1;
 				
@@ -1511,6 +1522,9 @@ class Apretaste {
 		$recommended = false;
 		if ($search)
 			$recommended = self::generateRecommendedPhrases($original, 30);
+		
+		if (! isset($allads))
+			$allads = array();
 		
 		return array(
 				"results" => $results,
@@ -3383,6 +3397,30 @@ class Apretaste {
 		// $config, $to, $servers, $data, $send = false, $verbose = false, $debug = false, $msg_id = null, $save_on_fail = true, $async = false
 		$answerMail = new ApretasteAnswerEmail($config, $to, self::$robot->smtp_servers, $data, true, true, false, null, true, $async);
 	}
+	
+	/**
+	 * Execute command/callback
+	 * @param unknown $user
+	 * @param unknown $subject
+	 * @param unknown $body
+	 * @param unknown $images
+	 */
+	static function execute($user, $subject, $body, $images = array()){
+		$robot = new ApretasteEmailRobot($autostart = false, $verbose = false);
+		
+		Apretaste::$robot = &$robot;
+		
+		$callback = $robot->callback;
+		
+		// ($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false, $via_horde = false)
+		$r = $callback();
+	}
+	
+	/**
+	 * Delete email address from database
+	 *
+	 * @param string $email
+	 */
 	static function dropEmailAddress($email){
 		$email = self::extractEmailAddress($email);
 		$email = trim(strtolower($email));
@@ -3458,18 +3496,50 @@ class Apretaste {
 		
 		return false;
 	}
+	
+	/**
+	 * Save ugly email
+	 *
+	 * @param string $from
+	 * @param string $subject
+	 * @param object/array $headers
+	 * @param string $body
+	 * @param string $cause
+	 */
 	static function saveUglyEmail($from, $subject, $headers, $body, $cause = 'unknown'){
+		
+		// Clean params
 		$headers = str_replace("''", "'", json_encode($headers));
 		$from = str_replace("'", "''", $from);
 		$body = str_replace("'", "''", $body);
 		$subject = str_replace("''", "'", $subject);
 		
-		self::query("INSERT INTO email_ugly(email,subject,headers,body,cause) VALUES ('$from','$subject','$headers','$body', '$cause');");
+		q("INSERT INTO email_ugly(email,subject,headers,body,cause) VALUES ('$from','$subject','$headers','$body', '$cause');");
 	}
 }
-function q($sql){
-	return Apretaste::query($sql);
+
+// Function aliases
+
+/**
+ * SQL Query
+ * @param string $sql
+ * @param string $error
+ * @param integer $affected_rows
+ * @return mixed
+ */
+function q($sql, &$error = null, &$affected_rows = null){
+	return Apretaste::query($sql, $error, $affected_rows);
 }
+
+/**
+ * Set/Get setup value
+ *
+ * @param string $var
+ * @param mixed $default
+ * @param boolean $set
+ *
+ * @return mixed
+ */
 function c($var, $default = null, $set = false){
 	if ($set !== false)
 		return Apretaste::setConfiguration($var, $default);

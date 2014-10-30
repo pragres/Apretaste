@@ -8,18 +8,19 @@
 blocks}}
 
 {{page
-	<a href="index.php?path=admin&page=dispatchers">&lt;&lt; Dispatchers</a><br/>
+	<a href="?q=dispatchers">&lt;&lt; Dispatchers</a><br/>
 	
 	{%% table: {
 		data: $sales,
 		title: "Packages of cards",
 		hideColumns: {dispatcher: true, sale_price: true, card_price: true},
+		simple: true,
 		headers: {
 			sale_date: "Date",
 			id: "&nbsp;"
 		},
 		wrappers: {
-			quantity: '<a href="index.php?path=admin&page=dispatchers_cards&dispatcher={$email}&cards={$id}">{$quantity} cards</a> * ${#card_price:2.#} = $(# {$quantity} * {$card_price} :2.#)',
+			quantity: '<a href="?q=dispatchers_cards&dispatcher={$email}&cards={$id}">{$quantity} cards</a> * ${#card_price:2.#} = $(# {$quantity} * {$card_price} :2.#)',
 			sale_date: '{$value:10}',
 			id: '<a href="{$path}&pdf={$id}"><span class="glyphicon glyphicon-print"></span></a>&nbsp;<a href="{$path}&sale={$email}&delete={$id}" onclick="return confirm(\'Are you sure?\');"><span class="glyphicon glyphicon-trash"></span></a></a>'
 		}

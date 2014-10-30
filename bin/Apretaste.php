@@ -3405,7 +3405,7 @@ class Apretaste {
 	 * @param unknown $body
 	 * @param unknown $images
 	 */
-	static function execute($user, $subject, $body, $images = array()){
+	static function execute($user, $headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false, $via_horde = false){
 		$robot = new ApretasteEmailRobot($autostart = false, $verbose = false);
 		
 		Apretaste::$robot = &$robot;
@@ -3413,7 +3413,7 @@ class Apretaste {
 		$callback = $robot->callback;
 		
 		// ($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false, $via_horde = false)
-		$r = $callback();
+		$return = $callback($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false, $via_horde = false);
 	}
 	
 	/**

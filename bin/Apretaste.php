@@ -2647,10 +2647,15 @@ class Apretaste {
 		if ($from == $to)
 			return $s;
 		$p = 0;
+		$max = 100;
+		$i = 0;
 		do {
+			$i ++;
 			$p = strpos($s, $from, $p);
 			if ($p !== false)
 				$s = str_replace($from, $to, $s);
+			if ($i >= $max)
+				break;
 		} while ( $p !== false );
 		
 		return $s;

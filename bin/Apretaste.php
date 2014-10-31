@@ -111,6 +111,9 @@ class Apretaste {
 		$r = pg_query(self::$db, self::utf8Encode($sql));
 		$s = pg_last_error(self::$db);
 		
+		if ($s == "")
+			$s = false;
+		
 		$error = $s;
 		
 		if (trim("$s") !== "")
@@ -989,6 +992,21 @@ class Apretaste {
 	}
 	
 	/**
+	 * Return true if development mode is setup
+	 *
+	 * @return boolean
+	 */
+	static public function isDevelopmentMode(){
+		self::loadSetup();
+		
+		if (isset(self::$config['development']))
+			if (self::$config['development'] == true)
+				return true;
+		
+		return false;
+	}
+	
+	/**
 	 * Extract email addresses from the text
 	 *
 	 * @param string $text
@@ -997,9 +1015,8 @@ class Apretaste {
 	static public function getAddressFrom($text){
 		$check = true;
 		
-		if (isset(self::$config['development']))
-			if (self::$config['development'] == true)
-				$check = false;
+		if (self::isDevelopmentMode())
+			$check = false;
 		
 		$chars = '1234567890abcdefghijklmnopqrstuvwxyz._-@ ';
 		
@@ -1514,6 +1531,20 @@ class Apretaste {
 				if ($filter['phone'] === true || $filter['phone'] == 'on')
 					$withphone = 'true';
 			$total = intval($total) * 1;
+			
+			$pricemin = Apretaste::getPricesFrom("$pricemin");
+			$pricemax = Apretaste::getPricesFrom("$pricemax");
+			
+			if (isset($pricemin[0]))
+				$pricemin = $pricemin[0]['value'];
+			else
+				$pricemin = 'null';
+			
+			if (isset($pricemax[0]))
+				$pricemax = $pricemax[0]['value'];
+			else
+				$pricemax = 'null';
+			
 			$sql = "INSERT INTO search_history (phrase, email, host, results, pricemin, pricemax, with_photo, with_phone) VALUES ('$original', '$email', '$ip', $total, $pricemin, $pricemax, $withphoto, $withphone);";
 			if (! self::isSimulator())
 				self::query($sql);
@@ -3182,10 +3213,22 @@ class Apretaste {
 			}
 		return $result;
 	}
+	
+	/**
+	 * Save query and execute later
+	 *
+	 * @param string $query
+	 */
 	static function query_queue($query){
 		$query = str_replace("'", "''", $query);
 		self::query("INSERT INTO query_queue (query) VALUES ('$query');");
 	}
+	
+	/**
+	 * Return a list of black keywords
+	 *
+	 * @return array
+	 */
 	static function getBlackWords(){
 		$rr = Apretaste::query("select word from word where black = true order by word;");
 		$r = array();
@@ -3194,6 +3237,10 @@ class Apretaste {
 				$r[] = $row["word"];
 		return $r;
 	}
+	
+	/**
+	 * Mime decoding
+	 */
 	static function mimeDecode($text){
 		$text = trim($text);
 		$nt = "";
@@ -3575,7 +3622,12 @@ class Apretaste {
 }
 
 // Function aliases
-
+function jsonDecode($json){
+	return div::jsonDecode($json);
+}
+function jsonEncode($json){
+	return div::jsonEncode($json);
+}
 /**
  * SQL Query
  * @param string $sql
@@ -3583,8 +3635,22 @@ class Apretaste {
  * @param integer $affected_rows
  * @return mixed
  */
-function q($sql, &$error = null, &$affected_rows = null){
-	return Apretaste::query($sql, $error, $affected_rows);
+function q($sql, &$error = null, &$affected_rows = null, $decode_error = false){
+	$error = false;
+	
+	$r = Apretaste::query($sql, $error, $affected_rows);
+	
+	if ($decode_error) {
+		if ($error !== false) {
+			
+			$error = trim($error);
+			if (strpos($error, 'ERROR:') === 0)
+				$error = trim(substr($error, 6));
+			$error = jsonDecode($error);
+		}
+	}
+	
+	return $r;
 }
 
 /**

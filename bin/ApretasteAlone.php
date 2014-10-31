@@ -636,7 +636,7 @@ class ApretasteAlone {
 			$max = 100;
 		
 		for($i = 1; $i <= $max; $i ++) {
-			$r = Apretaste::query("select id, query from query_queue where moment = (select min(moment) from query_queue);");
+			$r = Apretaste::query("select id, query from query_queue where moment = (select min(moment) from query_queue) AND start_time <= now();");
 			if (isset($r[0])) {
 				echo "[INFO] Query queue $i/$max {$r[0]['id']} - {$r[0]['query']} \n";
 				Apretaste::query($r[0]['query']);

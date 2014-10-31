@@ -89,7 +89,7 @@ class ApretasteSMS {
 	 * @param string $message
 	 * @return string
 	 */
-	static function send($prefix, $number, $sender, $message, $discount){
+	static function send($prefix, $number, $sender, $message, $discount, $save_msg = true){
 		if (self::getCredit() >= $discount * 1) {
 			
 			$login = Apretaste::$config['sms_user'];
@@ -109,10 +109,11 @@ class ApretasteSMS {
 			
 			$r = strtolower(trim("$r"));
 			
-			if ($r == 'sms enviado')
-				Apretaste::query("INSERT INTO sms (email, phone, message, discount)
+			if ($r == 'sms enviado') {
+				if ($save_msg === true)
+					Apretaste::query("INSERT INTO sms (email, phone, message, discount)
 				VALUES ('$sender', '(+$prefix)$number', '$message', $discount);");
-			
+			}
 			return $r;
 		} else
 			return false;
@@ -203,16 +204,14 @@ class ApretasteSMS {
 	 */
 	static function getRate($code){
 		
-		/*$r = q("SELECT rate from sms_rate WHERE country = '$code';");
-		
-		if (isset($r[0])
-		*/
-		
+		/*
+		 * $r = q("SELECT rate from sms_rate WHERE country = '$code';"); if (isset($r[0])
+		 */
 		$code = $code * 1;
 		
 		if ($code == 53)
 			return 0.05;
-			
+		
 		return 0.05; // 0.1
 	}
 	

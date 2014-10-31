@@ -63,7 +63,9 @@
 		share: {cmd: "COMPARTIR", desc: "Compartir algo con un amigo", rel:["invite"]},
 		comment: {cmd: "COMENTAR", desc: "Comentar un anuncio", rel:["insert"]},
 		phonebook: {cmd: "AGENDA", desc: "Agenda telefonica", rel:["sms"]},
-		baseball: {cmd: "BEISBOL", desc: "Noticias del Beisbol", rel:[]}
+		baseball: {cmd: "BEISBOL", desc: "Noticias del Beisbol", rel:[]},
+		buy: {cmd: "COMPRAR", desc: "Comprar con Apretaste!", rel:[]},
+		sale: {cmd: "VENTA", desc: "Ver detalles de una venta", rel: []}
 	}
 =}
 

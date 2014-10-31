@@ -9,7 +9,6 @@
  * @version 1.0
  */
 define('APRETASTE_STORE_NOT_ENOUGHT_FUNDS', 'APRETASTE_STORE_NOT_ENOUGHT_FUNDS');
-define('APRETASTE_STORE_NOT_MORE_ITEMS', 'APRETASTE_STORE_NOT_MORE_ITEMS');
 define('APRETASTE_STORE_SALE_NOT_FOUND', 'APRETASTE_STORE_SALE_NOT_FOUND');
 define('APRETASTE_STORE_UNKNOWN_ERROR', 'APRETASTE_STORE_UNKNOWN_ERROR');
 define('APRETASTE_STORE_PURCHASE_ALREADY_CONFIRMED', 'APRETASTE_STORE_PURCHASE_ALREADY_CONFIRMED');
@@ -101,29 +100,35 @@ class ApretasteStore {
 	 * @return boolean
 	 */
 	static function purchase($sale, $buyer){
-		$sale = str_replace("''", "'", $sale);
+		self::clearPurchases();
 		
-		if (Apretaste::checkAddress($buyer)) {
+		$sale = str_replace("''", "'", $sale);
+		$rows = 0;
+		
+		if (Apretaste::checkAddress($buyer) || Apretaste::isDevelopmentMode()) {
+			
 			$error = null;
-			$r = @q("INSERT INTO store_purchase (sale, buyer) VALUES ('$sale', '$buyer');", $error);
+			
+			$r = @q("INSERT INTO store_purchase (sale, buyer) VALUES ('$sale', '$buyer') RETURNING confirmation_code;", $error, $rows, true);
 			
 			if ($error !== false) {
-				
-				$error = json_decode($json);
 				if (! is_null($error)) {
 					switch ($error->err_code) {
 						case 1 :
+							return APRETASTE_STORE_SALE_NOT_FOUND;
+						
+						case 2 :
 							return APRETASTE_STORE_NOT_ENOUGHT_FUNDS;
 							break;
-						case 2 :
-							return APRETASTE_STORE_NOT_MORE_ITEMS;
-							break;
+						
 						default :
 							return APRETASTE_STORE_UNKNOWN_ERROR;
 					}
 				} else
 					return APRETASTE_STORE_UNKNOWN_ERROR;
 			}
+			
+			return $r['0']['confirmation_code'];
 		}
 		
 		return APRETASTE_INCORRECT_EMAIL_ADDRESS;
@@ -138,16 +143,15 @@ class ApretasteStore {
 	 */
 	static function confirmPurchase($confirmation_code, $buyer){
 		$sale = str_replace("''", "'", $sale);
-		
-		if (Apretaste::checkAddress($buyer)) {
+		$rows = 0;
+		if (Apretaste::checkAddress($buyer) || Apretaste::isDevelopmentMode()) {
 			
 			$error = null;
-			$rows = 0;
-			$r = @q("UPDATE store_purchase SET bought = true WHERE buyer = '$buyer' AND confirmation_code = '$confirmation_code';", $error, $rows);
+			
+			$r = @q("UPDATE store_purchase SET bought = true WHERE buyer = '$buyer' AND confirmation_code = '$confirmation_code';", $error, $rows, true);
 			
 			if ($error !== false) {
 				
-				$error = json_decode($json);
 				if (! is_null($error)) {
 					switch ($error->err_code) {
 						case 4 :
@@ -169,5 +173,18 @@ class ApretasteStore {
 			return true;
 		} else
 			return APRETASTE_INCORRECT_EMAIL_ADDRESS;
+	}
+	
+	/**
+	 * Clear purchases
+	 */
+	static function clearPurchases(){
+		q("DELETE FROM store_purchase WHERE moment + '30 minutes'::interval < now();");
+	}
+	static function getStoreSale($id){
+		$r = q("SELECT * FROM store_sale WHERE id='$id';");
+		if (! isset($r[0]))
+			return false;
+		return $r[0];
 	}
 }

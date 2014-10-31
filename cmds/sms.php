@@ -108,6 +108,8 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	$credit = ApretasteMoney::getCreditOf($from);
 	
 	$c = Apretaste::getConfiguration("sms_free", false);
+	$w = Apretaste::matchEmailPlus($from, Apretaste::getEmailWhiteList());
+	$c = $c || $w;
 	
 	if ($c == true)
 		$discount = 0;
@@ -136,7 +138,7 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 		}
 		
 		if (! Apretaste::isSimulator()) {
-			$r = ApretasteSMS::send($code, $number, $from, $part, $discount);
+			$r = ApretasteSMS::send($code, $number, $from, $part, $discount, ! $w);
 			if ($r !== 'sms enviado') {
 				
 				$robot->log('SMS not sent! Server return "' . $r . '"');

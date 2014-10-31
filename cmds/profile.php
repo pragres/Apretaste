@@ -15,6 +15,7 @@
  * @return array
  */
 function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
+	
 	$email = $from;
 	$from = strtolower($from);
 	
@@ -22,7 +23,7 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 	
 	$argument = trim($argument);
 	
-	if (Apretaste::checkAddress($argument) || $argument == 'newuser@localhost')
+	if (Apretaste::checkAddress($argument) || Apretaste::isDevelopmentMode())
 		$email = strtolower($argument);
 	
 	$properties = array(

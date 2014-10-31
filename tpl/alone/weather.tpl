@@ -82,4 +82,4 @@
 $provincias?
 @else@
 <img src="cid:climaimagen" width="700">
-!$climaimagen
+$climaimagen!

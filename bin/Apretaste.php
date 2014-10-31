@@ -2642,7 +2642,6 @@ class Apretaste {
 		$text = preg_replace($search, $replace, $document);
 		return $text;
 	}
-	
 	static function replaceRecursive($from, $to, $s){
 		if ($from == $to)
 			return $s;
@@ -2660,7 +2659,6 @@ class Apretaste {
 		
 		return $s;
 	}
-	
 	static function cleanTextJunk($text, $ps = false, $align = "justify"){
 		$text = self::cleanText($text);
 		
@@ -3620,9 +3618,11 @@ class Apretaste {
 		$text = strip_tags($text, $allowable_tags);
 		
 		$text = str_replace('&nbsp;', ' ', $text);
-		$text = Apretaste::replaceRecursive("  ", " ", trim(html_entity_decode($text, null, 'UTF-8')));
+		// $text = Apretaste::replaceRecursive(" ", " ", trim(html_entity_decode($text, null, 'UTF-8')));
+		$text = str_replace("  ", " ", $text);
+		$text = str_replace("\n\n", "\n", $text);
 		$text = str_replace("\r", "", $text);
-		$text = Apretaste::replaceRecursive("\n\n", "\n", $text);
+		// $text = Apretaste::replaceRecursive("\n\n", "\n", $text);
 		
 		return $text;
 	}

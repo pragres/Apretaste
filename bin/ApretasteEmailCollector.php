@@ -286,7 +286,9 @@ class ApretasteEmailCollector {
 				echo "strlen html body = " . strlen($htmlBody) . "\n";
 				
 				$similar = similar_text($txt1, $txt2, $percent);
+				
 				echo "Percent = $percent" . "\n";
+				
 				if ($percent * 1 > 90) {
 					echo $this->verbose ? "[INFO] ... text body will be strip tags of html body \n" : "";
 					$htmlBody = ApretasteEncoding::base64Decode($htmlBody);

@@ -3576,7 +3576,7 @@ class Apretaste {
 	 * block-level tags to prevent word joining after tag removal.
 	 */
 	static function strip_html_tags($text, $allowable_tags = null){
-		echo "STRIP HTML TAGS\n";
+		//echo "STRIP HTML TAGS\n";
 		$text = preg_replace(array(
 				// Remove invisible content
 				'@<head[^>]*?>.*?</head>@siu',
@@ -3616,7 +3616,7 @@ class Apretaste {
 				"\n\$0"
 		), $text);
 		
-		echo "STRIP HTML TAGS -- last action \n";
+		//echo "STRIP HTML TAGS -- last action \n";
 		$text = strip_tags($text, $allowable_tags);
 		
 		$text = str_replace('&nbsp;', ' ', $text);
@@ -3626,7 +3626,7 @@ class Apretaste {
 		$text = str_replace("\r", "", $text);
 		$text = Apretaste::replaceRecursive("\n\n", "\n", $text);
 		
-		echo "STRIP HTML TAGS -- good work \n";
+		//echo "STRIP HTML TAGS -- good work \n";
 		
 		return $text;
 	}

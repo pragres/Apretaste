@@ -275,6 +275,8 @@ class ApretasteEmailCollector {
 				$txt2 = Apretaste::strip_html_tags($htmlBody);
 				echo $this->verbose ? "[INFO] ...calculate similar text percent \n" : "";
 				$txt2 = trim(strtolower($txt2));
+				echo "\n\ntxt 1 = $txt1\n\n";
+				echo "\n\ntxt 2 = $txt2\n\n";
 				$similar = similar_text($txt1, $txt2, $percent);
 				
 				if ($percent > 0.9) {

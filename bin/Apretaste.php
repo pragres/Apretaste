@@ -3620,11 +3620,11 @@ class Apretaste {
 		$text = strip_tags($text, $allowable_tags);
 		
 		$text = str_replace('&nbsp;', ' ', $text);
-		// $text = Apretaste::replaceRecursive(" ", " ", trim(html_entity_decode($text, null, 'UTF-8')));
-		$text = str_replace("  ", " ", $text);
-		$text = str_replace("\n\n", "\n", $text);
+		$text = Apretaste::replaceRecursive("  ", " ", trim(html_entity_decode($text, null, 'UTF-8')));
+		//$text = str_replace("  ", " ", $text);
+		//$text = str_replace("\n\n", "\n", $text);
 		$text = str_replace("\r", "", $text);
-		// $text = Apretaste::replaceRecursive("\n\n", "\n", $text);
+		$text = Apretaste::replaceRecursive("\n\n", "\n", $text);
 		
 		echo "STRIP HTML TAGS -- good work \n";
 		

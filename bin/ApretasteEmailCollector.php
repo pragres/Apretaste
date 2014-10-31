@@ -275,23 +275,26 @@ class ApretasteEmailCollector {
 				echo $this->verbose ? "[INFO] ...calculate similar text percent \n" : "";
 				$txt2 = trim(strtolower($txt2));
 				
-				/*if (strlen($txt2) > 512 && strpos($txt2, ' ') === false) {
+				if (strlen($txt2) > 512 && strpos($txt2, ' ') === false) {
 					$txt2 = ApretasteEncoding::base64Decode($txt2);
-				}*/
+				}
 				
 				$txt1 = substr($txt1, 0, 1024);
 				$txt2 = substr($txt2, 0, 1024);
 				
-				echo "\n\ntxt 1 = $txt1\n\n";
-				echo "\n\ntxt 2 = $txt2\n\n";
+				echo "strlen text body = " . strlen($textBody) . "\n";
+				echo "strlen html body = " . strlen($htmlBody) . "\n";
 				
 				$similar = similar_text($txt1, $txt2, $percent);
 				
 				if ($percent > 0.9) {
 					echo $this->verbose ? "[INFO] ... text body will be strip tags of html body \n" : "";
+					$htmlBody = ApretasteEncoding::base64Decode($htmlBody);
 					$textBody = Apretaste::strip_html_tags($htmlBody);
 				}
+				
 				die();
+				
 				echo $this->verbose ? "[INFO] mime decoding... \n" : "";
 				
 				$textBody = $this->mimeDecode($textBody);
@@ -376,8 +379,8 @@ class ApretasteEmailCollector {
 						"---------- Mensaje reenviado ----------",
 						"&gt; wrote:",
 						"> wrote:"
-						
-				);
+				)
+				;
 				
 				foreach ( $cutbody as $cut ) {
 					$p = strpos($textBody, $cut);

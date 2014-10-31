@@ -373,7 +373,10 @@ class ApretasteEmailCollector {
 						"-----Mensaje original-----",
 						"50 Aniversario de la Cujae",
 						"Nunca digas nunca di mejor: gracias permiso",
-						"---------- Mensaje reenviado ----------"
+						"---------- Mensaje reenviado ----------",
+						"&gt; wrote:",
+						"> wrote:"
+						
 				);
 				
 				foreach ( $cutbody as $cut ) {

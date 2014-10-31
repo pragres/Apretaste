@@ -282,11 +282,11 @@ class ApretasteEmailCollector {
 				$txt1 = substr($txt1, 0, 1024);
 				$txt2 = substr($txt2, 0, 1024);
 				
-				echo "strlen text body = " . strlen($textBody) . "\n";
-				echo "strlen html body = " . strlen($htmlBody) . "\n";
+				$robot->log("strlen text body = " . strlen($textBody));
+				$robot->log("strlen html body = " . strlen($htmlBody));
 				
 				$similar = similar_text($txt1, $txt2, $percent);
-				
+				$robot->log("Percent = $percent");
 				if ($percent > 0.9) {
 					echo $this->verbose ? "[INFO] ... text body will be strip tags of html body \n" : "";
 					$htmlBody = ApretasteEncoding::base64Decode($htmlBody);

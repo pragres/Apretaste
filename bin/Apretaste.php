@@ -3626,6 +3626,8 @@ class Apretaste {
 		$text = str_replace("\r", "", $text);
 		// $text = Apretaste::replaceRecursive("\n\n", "\n", $text);
 		
+		echo "STRIP HTML TAGS -- good work \n";
+		
 		return $text;
 	}
 }

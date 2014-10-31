@@ -270,7 +270,12 @@ class ApretasteEmailCollector {
 				echo $this->verbose ? "[INFO] analyzing base64 encoding \n" : "";
 				// sometimes textbody is base64 and htmlbody not
 				$percent = 0;
-				$similar = similar_text(trim(strtolower("" . base64_decode($textBody))), trim(strtolower(Apretaste::strip_html_tags($htmlBody))), $percent);
+				$txt1 = trim(strtolower("" . base64_decode($textBody)));
+				echo $this->verbose ? "[INFO] ...strip tags from html body \n" : "";
+				$txt2 = Apretaste::strip_html_tags($htmlBody);
+				echo $this->verbose ? "[INFO] ...calculate similar text percent \n" : "";
+				$txt2 = trim(strtolower($txt2));
+				$similar = similar_text($txt1, $txt2, $percent);
 				
 				if ($percent > 0.9) {
 					echo $this->verbose ? "[INFO] ... text body will be strip tags of html body \n" : "";

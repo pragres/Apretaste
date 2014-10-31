@@ -250,7 +250,6 @@ class ApretasteEmailCollector {
 				 * if (! Apretaste::isUTF8($textBody)) { echo "textBody = $textBody = ".htmlentities($textBody)."\n"; echo $this->verbose ? "textBody is not utf8, converting now \n" : ""; $textBody = iconv('ISO-8859-1', 'UTF-8', $textBody); //$textBody = ApretasteEncoding::toUTF8($textBody); echo "textBody = $textBody = ".htmlentities($textBody, ENT_QUOTES | ENT_IGNORE, "UTF-8")."\n"; } if (! Apretaste::isUTF8($htmlBody)){ echo $this->verbose ? "htmlBody is not utf8 \n" : ""; $textBody = ApretasteEncoding::toUTF8($htmlBody); }
 				 */
 				
-				
 				// echo "textBody = $textBody\n";
 				
 				echo $this->verbose ? "[INFO] ... analyzing empty messages vs otherstuff... \n" : "";
@@ -275,8 +274,17 @@ class ApretasteEmailCollector {
 				$txt2 = Apretaste::strip_html_tags($htmlBody);
 				echo $this->verbose ? "[INFO] ...calculate similar text percent \n" : "";
 				$txt2 = trim(strtolower($txt2));
+				
+				/*if (strlen($txt2) > 512 && strpos($txt2, ' ') === false) {
+					$txt2 = ApretasteEncoding::base64Decode($txt2);
+				}*/
+				
+				$txt1 = substr($txt1, 0, 1024);
+				$txt2 = substr($txt2, 0, 1024);
+				
 				echo "\n\ntxt 1 = $txt1\n\n";
 				echo "\n\ntxt 2 = $txt2\n\n";
+				
 				$similar = similar_text($txt1, $txt2, $percent);
 				
 				if ($percent > 0.9) {

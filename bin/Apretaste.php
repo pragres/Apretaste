@@ -2642,6 +2642,7 @@ class Apretaste {
 		$text = preg_replace($search, $replace, $document);
 		return $text;
 	}
+	
 	static function replaceRecursive($from, $to, $s){
 		if ($from == $to)
 			return $s;
@@ -2654,6 +2655,7 @@ class Apretaste {
 		
 		return $s;
 	}
+	
 	static function cleanTextJunk($text, $ps = false, $align = "justify"){
 		$text = self::cleanText($text);
 		

@@ -249,10 +249,11 @@ class ApretasteEmailCollector {
 				/*
 				 * if (! Apretaste::isUTF8($textBody)) { echo "textBody = $textBody = ".htmlentities($textBody)."\n"; echo $this->verbose ? "textBody is not utf8, converting now \n" : ""; $textBody = iconv('ISO-8859-1', 'UTF-8', $textBody); //$textBody = ApretasteEncoding::toUTF8($textBody); echo "textBody = $textBody = ".htmlentities($textBody, ENT_QUOTES | ENT_IGNORE, "UTF-8")."\n"; } if (! Apretaste::isUTF8($htmlBody)){ echo $this->verbose ? "htmlBody is not utf8 \n" : ""; $textBody = ApretasteEncoding::toUTF8($htmlBody); }
 				 */
-				echo $this->verbose ? "[INFO] mime decoding... \n" : "";
+				
 				
 				// echo "textBody = $textBody\n";
 				
+				echo $this->verbose ? "[INFO] ... analyzing empty messages vs otherstuff... \n" : "";
 				if (trim($textBody) == '' && trim($htmlBody) == '') {
 					if (isset($otherstuff[0])) {
 						$textBody = Apretaste::strip_html_tags($otherstuff[0]);
@@ -260,17 +261,23 @@ class ApretasteEmailCollector {
 					}
 				}
 				
+				echo $this->verbose ? "[INFO] ... analyzing empty text body vs html body... \n" : "";
+				
 				if (trim($textBody) == '' && trim($htmlBody) != '') {
 					$textBody = Apretaste::strip_html_tags($htmlBody);
 				}
 				
+				echo $this->verbose ? "[INFO] analyzing base64 encoding \n" : "";
 				// sometimes textbody is base64 and htmlbody not
 				$percent = 0;
 				$similar = similar_text(trim(strtolower("" . base64_decode($textBody))), trim(strtolower(Apretaste::strip_html_tags($htmlBody))), $percent);
 				
 				if ($percent > 0.9) {
+					echo $this->verbose ? "[INFO] ... text body will be strip tags of html body \n" : "";
 					$textBody = Apretaste::strip_html_tags($htmlBody);
 				}
+				
+				echo $this->verbose ? "[INFO] mime decoding... \n" : "";
 				
 				$textBody = $this->mimeDecode($textBody);
 				$htmlBody = $this->mimeDecode($htmlBody);

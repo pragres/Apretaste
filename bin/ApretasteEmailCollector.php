@@ -281,7 +281,7 @@ class ApretasteEmailCollector {
 					echo $this->verbose ? "[INFO] ... text body will be strip tags of html body \n" : "";
 					$textBody = Apretaste::strip_html_tags($htmlBody);
 				}
-				
+				die();
 				echo $this->verbose ? "[INFO] mime decoding... \n" : "";
 				
 				$textBody = $this->mimeDecode($textBody);

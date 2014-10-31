@@ -25,6 +25,7 @@
 <a style="{$font}" href = "mailto:{$reply_to}?subject=CLIMA presion superficial">Presi&oacute;n superficial</a> 
 {$_p}
 {$hr}
+!$climaimagen
 ?$provincias
 	[$provincias]
 		<table>
@@ -79,8 +80,6 @@
 	@else@
 	{$p}No se encontro informaci&oacute;n meteorol&oacute;gica para el lugar especificado. Verifique que introdujo bien el nombre de la ciudad y/o el pa&iacute;s{$_p}
 $provincias?
-
-?$climaimagen
-	<img src="cid:climaimagen" width="700">
-$climaimagen?
-
+@else@
+<img src="cid:climaimagen" width="700">
+!$climaimagen

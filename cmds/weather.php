@@ -452,7 +452,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			
 			
 			if ($country != 'Cuba'){
-				$r = cmd_weather_place($place, $country);
+				$r = cmd_weather_place($places[0], $country);
 				if ($r === false) {
 					$places = $places_cuba;
 					$country = 'Cuba';

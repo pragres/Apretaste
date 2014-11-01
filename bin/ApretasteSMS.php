@@ -212,7 +212,7 @@ class ApretasteSMS {
 		if ($code == 53)
 			return 0.05;
 		
-		return 0.05; // 0.1
+		return 0.1;
 	}
 	
 	/**

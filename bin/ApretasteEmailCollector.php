@@ -219,7 +219,6 @@ class ApretasteEmailCollector {
 				if ($body_structure->type == 0 && $body_structure->ifsubtype) // Text message and specified
 					if (mb_strtolower($body_structure->subtype) == 'plain') { // Plain text message
 						$textBody = imap_body($this->imap, $message_number_iterator); // The whole text is the message
-						
 						echo $this->verbose ? "message $message_number_iterator is plain\n" : "";
 						$ugly_mail = false;
 					}
@@ -252,6 +251,9 @@ class ApretasteEmailCollector {
 				
 				// echo "textBody = $textBody\n";
 				
+				$htmlBody = Apretaste::strip_html_tags($htmlBody);
+				$textBody = Apretaste::strip_html_tags($textBody);
+				
 				echo $this->verbose ? "[INFO] ... analyzing empty messages vs otherstuff... \n" : "";
 				if (trim($textBody) == '' && trim($htmlBody) == '') {
 					if (isset($otherstuff[0])) {
@@ -263,18 +265,24 @@ class ApretasteEmailCollector {
 				echo $this->verbose ? "[INFO] ... analyzing empty text body vs html body... \n" : "";
 				
 				if (trim($textBody) == '' && trim($htmlBody) != '') {
-					$textBody = Apretaste::strip_html_tags($htmlBody);
+					$textBody = $htmlBody;
+				} elseif (trim($textBody) != '' && trim($htmlBody) == '') {
+					$htmlBody = $textBody;
 				}
 				
 				echo $this->verbose ? "[INFO] analyzing base64 encoding \n" : "";
+				
 				// sometimes textbody is base64 and htmlbody not
 				$percent = 0;
+				
 				$txt1 = trim(strtolower("" . base64_decode($textBody)));
+				
 				echo $this->verbose ? "[INFO] ...strip tags from html body \n" : "";
-				$txt2 = Apretaste::strip_html_tags($htmlBody);
-				echo $this->verbose ? "[INFO] ...calculate similar text percent \n" : "";
+				$txt2 = $htmlBody;
 				$txt2 = trim(strtolower($txt2));
 				
+				echo $this->verbose ? "[INFO] ...calculate similar text percent \n" : "";
+								
 				if (strlen($txt2) > 512 && strpos($txt2, ' ') === false) {
 					$txt2 = ApretasteEncoding::base64Decode($txt2);
 				}
@@ -301,6 +309,7 @@ class ApretasteEmailCollector {
 				$htmlBody = $this->mimeDecode($htmlBody);
 				
 				$this->log("Mark for deletion the message $message_number_iterator");
+				
 				imap_delete($this->imap, $message_number_iterator);
 				
 				// Check invitation rebate

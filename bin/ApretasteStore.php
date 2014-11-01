@@ -24,13 +24,16 @@ class ApretasteStore {
 	 *
 	 * @return mixed
 	 */
-	static function addStore($owner, $name, $classification = 'Misc'){
+	static function addStore($owner, $name, $classification = 'Misc', $id = null){
 		
 		// Checking owner
-		if (! Apretaste::checkAddress($email))
+		if (! Apretaste::checkAddress($owner))
 			return false;
 		
-		$sql = "INSERT INTO store (owner, name, classification) VALUES ('$owner','$name', '$classification') RETURNING id;";
+		if (is_null($id))
+			$sql = "INSERT INTO store (owner, name, classification) VALUES ('$owner','$name', '$classification') RETURNING id;";
+		else
+			$sql = "INSERT INTO store (id, owner, name, classification) VALUES ('$id', '$owner','$name', '$classification') RETURNING id;";
 		
 		$r = @q($sql);
 		
@@ -56,7 +59,7 @@ class ApretasteStore {
 	 * @param string $pic_type
 	 * @param string $store
 	 */
-	static function addSale($author, $deposit, $title, $desc, $price, $from_date = null, $to_date = null, $quantity = 1, $classif = 'Misc', $pic = null, $pic_type = 'jpeg', $store = null){
+	static function addSale($author, $deposit, $title, $desc, $price, $classif = 'Misc', $pic = null, $pic_type = 'jpeg', $callback = null, $store = null){
 		// Checking author
 		if (! Apretaste::checkAddress($author))
 			return false;
@@ -65,26 +68,15 @@ class ApretasteStore {
 		if (! Apretaste::checkAddress($deposit))
 			return false;
 		
-		$title = trim(str_replace("'", "'", $title));
-		$desc = trim(str_replace("'", "'", $desc));
-		$classif = trim(str_replace("'", "'", $classif));
+		$title = trim(str_replace("'", "''", $title));
+		$desc = trim(str_replace("'", "''", $desc));
+		$classif = trim(str_replace("'", "''", $classif));
+		$callback = trim(str_replace("'", "''", $callback));
 		
 		$price *= 1;
 		
-		if (is_null($from_date))
-			$from_date = date('Y-m-d h:i:s');
-		
-		if (is_null($to_date))
-			$to_date = 'null';
-		else
-			$to_date = "'$to_date'::TIMESTAMP WITHOUT TIME ZONE";
-		
-		$from_date = "'$from_date'::TIMESTAMP WITHOUT TIME ZONE";
-		
-		$quantity *= 1;
-		
-		$sql = "INSERT INTO store_sale (author, deposit, title, description, price, from_date, to_date, quantity, classification, picture, picture_type)
-				VALUES ('$author','$deposit','$title','$desc',$price,$from_date,$to_date,$quantity,'$classif','$pic','$pic_type')
+		$sql = "INSERT INTO store_sale (author, deposit, title, description, price, classification, picture, picture_type, store, callback)
+				VALUES ('$author','$deposit','$title','$desc',$price,'$classif','$pic','$pic_type','$store','$callback')
 				RETURNING id;";
 		
 		$r = @q($sql);
@@ -112,7 +104,7 @@ class ApretasteStore {
 			$error = null;
 			
 			$r = @q("INSERT INTO store_purchase (sale, buyer, message) VALUES ('$sale', '$buyer','$message') RETURNING confirmation_code;", $error, $rows, true);
-	
+			
 			if ($error !== false) {
 				if (! is_null($error)) {
 					switch ($error->err_code) {
@@ -144,7 +136,6 @@ class ApretasteStore {
 	 * @return mixed
 	 */
 	static function confirmPurchase($confirmation_code, $buyer){
-		
 		self::clearPurchases();
 		
 		$confirmation_code = str_replace("''", "'", $confirmation_code);
@@ -160,14 +151,14 @@ class ApretasteStore {
 					switch ($error->err_code) {
 						case 3 :
 							return APRETASTE_STORE_PURCHASE_ALREADY_CONFIRMED;
-						case 4: 
+						case 4 :
 							return APRETASTE_STORE_INVALID_USER_OR_CODE;
 						default :
 							return APRETASTE_STORE_UNKNOWN_ERROR;
 					}
 				} else
 					return APRETASTE_STORE_UNKNOWN_ERROR;
-			} 
+			}
 			
 			var_dump($rows);
 			
@@ -187,6 +178,12 @@ class ApretasteStore {
 	}
 	static function getStoreSale($id){
 		$r = q("SELECT * FROM store_sale WHERE id='$id';");
+		if (! isset($r[0]))
+			return false;
+		return $r[0];
+	}
+	static function getStore($id){
+		$r = q("SELECT * FROM store WHERE id='$id';");
 		if (! isset($r[0]))
 			return false;
 		return $r[0];

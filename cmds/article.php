@@ -444,8 +444,6 @@ function cmd_article($robot, $from, $argument, $body = '', $images = array()){
 			"compactmode" => true
 	);
 	
-	var_dump($r);
-	die();
 	if ($r != false)
 		$result = cmd_article_result($robot, $from, $r);
 	else {

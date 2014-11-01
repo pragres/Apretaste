@@ -88,7 +88,7 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 			
 			$robot->log("JOKE = " . $j);
 			
-			$jj = str_replace("'", " ", $j);
+			$jj = str_replace("'", "''", $j);
 			
 			Apretaste::query("INSERT INTO cache_jokes (joke) 
 			SELECT '$jj' AS joke 
@@ -104,7 +104,7 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 		}
 		
 		// Get id of joke
-		$jj = Apretaste::query("SELECT id FROM cache_jokes where joke = '" . str_replace("''", "'", $j) . "';");
+		$jj = Apretaste::query("SELECT id FROM cache_jokes where joke = '" . str_replace("'", "''", $j) . "';");
 		$id = $jj[0]['id'];
 	}
 	

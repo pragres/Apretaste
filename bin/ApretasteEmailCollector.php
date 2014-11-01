@@ -251,10 +251,15 @@ class ApretasteEmailCollector {
 				
 				// echo "textBody = $textBody\n";
 				
-				$htmlBody = Apretaste::strip_html_tags($htmlBody);
 				$textBody = Apretaste::strip_html_tags($textBody);
+				if (strpos($textBody,' ')===false)
+					$textBody = ApretasteEncoding::base64Decode($textBody);
+				
+				$textBody = trim($textBody);
+				$htmlBody = trim(Apretaste::strip_html_tags($htmlBody));
 				
 				echo $this->verbose ? "[INFO] ... analyzing empty messages vs otherstuff... \n" : "";
+				
 				if (trim($textBody) == '' && trim($htmlBody) == '') {
 					if (isset($otherstuff[0])) {
 						$textBody = Apretaste::strip_html_tags($otherstuff[0]);

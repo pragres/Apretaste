@@ -20,9 +20,12 @@ function cmd_purchase($robot, $from, $argument, $body = '', $images = array()){
 	
 	$r = ApretasteStore::confirmPurchase($argument, $from);
 	
-	if ($r != APRETASTE_STORE_INVALID_USER_OR_CODE) {
-		$sale = false;
-		$purchase = q("SELECT * FROM store_purchase WHERE confirmation_code = '$r';");
+	$purchase = false;
+	$sale = false;
+	
+	if ($r !== APRETASTE_STORE_INVALID_USER_OR_CODE) {
+		
+		$purchase = q("SELECT * FROM store_purchase WHERE confirmation_code = '$argument';");
 		
 		if (isset($purchase[0])) {
 			
@@ -49,43 +52,81 @@ function cmd_purchase($robot, $from, $argument, $body = '', $images = array()){
 					"src" => "cid:salepicture"
 			);
 		}
+		
+		$a = Apretaste::getAuthor($sale['author'], false, 50);
+		
+		if ($sale['author'] == $sale['deposit'])
+			$sale['deposit'] = false;
+		else {
+			$sale['deposit'] = Apretaste::getAuthor($sale['deposit'], false, 50);
+		}
+		
+		$sale['author'] = $a;
+		
+		$imgs[] = array(
+				"type" => 'image/jpeg',
+				"content" => base64_decode($sale['author']['picture']),
+				"name" => $sale['author']["name"],
+				"id" => "authorpicture",
+				"src" => "cid:authorpicture"
+		);
+		
+		if ($sale['deposit'] !== false) {
+			$imgs[] = array(
+					"type" => 'image/jpeg',
+					"content" => base64_decode($sale['deposit']['picture']),
+					"name" => $sale['deposit']["name"],
+					"id" => "depositpicture",
+					"src" => "cid:depositpicture"
+			);
+		}
 	}
 	
-	switch ($r) {
-		case APRETASTE_STORE_PURCHASE_ALREADY_CONFIRMED :
+	if ($r !== true) {
+		switch ($r) {
+			case APRETASTE_STORE_PURCHASE_ALREADY_CONFIRMED :
+				if ($purchase['buyer'] != $from && $purchase !== false)
+					return array(
+							'answer_type' => 'purchase_invalid_code',
+							'purchase' => $purchase,
+							'confirmation_code' => $argument,
+							'sale' => $sale,
+							'images' => $imgs
+					);
+				else
+					return array(
+							'answer_type' => 'purchase_already_confirmed',
+							'purchase' => $purchase,
+							'confirmation_code' => $argument,
+							'sale' => $sale,
+							'images' => $imgs
+					);
 			
-			return array(
-					'answer_type' => 'purchase_already_confirmed',
-					'purchase' => $purchase,
-					'sale' => $sale,
-					'images' => $imgs
-			);
-		
-		case APRETASTE_STORE_UNKNOWN_ERROR :
-			return array(
-					"answer_type" => "buy_unknown_error"
-			);
-		case APRETASTE_INCORRECT_EMAIL_ADDRESS :
+			case APRETASTE_STORE_UNKNOWN_ERROR :
+				return array(
+						"answer_type" => "buy_unknown_error"
+				);
+			case APRETASTE_INCORRECT_EMAIL_ADDRESS :
+				
+				$robot->log('Buy: incorrect email address');
+				
+				return array(
+						'_answers' => array()
+				);
 			
-			$robot->log('Buy: incorrect email address');
-			
-			return array(
-					'_answers' => array()
-			);
-		
-		case APRETASTE_STORE_INVALID_USER_OR_CODE :
-			return array(
-					'answer_type' => 'purchase_invalid_code',
-					'purchase' => $purchase,
-					'sale' => $sale,
-					'images' => $imgs
-			);
+			case APRETASTE_STORE_INVALID_USER_OR_CODE :
+				return array(
+						'answer_type' => 'purchase_invalid_code',
+						'confirmation_code' => $argument
+				);
+		}
 	}
 	
 	return array(
 			'answer_type' => 'purchase_successfull',
 			'purchase' => $purchase,
 			'sale' => $sale,
-			'images' => $imgs
+			'images' => $imgs,
+			'credit' => ApretasteMoney::getCreditOf($from)
 	);
 }

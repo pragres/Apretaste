@@ -23,6 +23,11 @@ $sale?
 	{$p}
 	Fecha y hora: {$purchase.moment:0,19}{$br}
 	C&oacute;digo de confirmaci&oacute;n: <b>{$confirmation_code}</b>{$br}
+	?$purchase.message
+	{$br}
+	Mensaje al vendedor: {$br}
+	<i>{$purchase.message}</i>
+	$purchase.message?
 	{$_p}	
 $purchase?
 {$p}IMPORTANTE: <b>Usted tiene 30 minutos, posterior a la hora de solicitud, para confirmar su compra.</b>{$_p}

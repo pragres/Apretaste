@@ -13,7 +13,6 @@ blocks}}
 {%% table: {
 	data: $cards,
 	hideColumns: {profit_percent: true, sale: true},
-	simple: true,
 	headers: {
 		recharge_date: "Recharge date"
 	},

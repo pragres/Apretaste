@@ -1,6 +1,7 @@
 {= *AnswerSubject: "Venta: {$sale.title}" =}
 
 {$h1}{$AnswerSubject}{$_h1}
+<!--{ begin }-->
 <b>{$sale.title}</b>{$br}
 	
 ?$sale.picture
@@ -41,7 +42,7 @@ Precio: <b>${#sale.price:2.#}</b>{$br}
 @else@
 	{$p}NOTA: El due&ntilde;o es el beneficiario del cr&eacute;dito a cobrar.{$_p}
 $sale.deposit?
-
+<!--{ end }-->
 {$hr}
 {$br}
 <table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">

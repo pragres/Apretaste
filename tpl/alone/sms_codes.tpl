@@ -1,4 +1,4 @@
-{= AnswerSubject: "C&oacute;digos por pa&iacute;ses" =}
+{= *AnswerSubject: "C&oacute;digos por pa&iacute;ses" =}
 <h3>C&oacute;digos internacionales</h3>
 <table width="100%">
 <tr>

@@ -72,19 +72,26 @@
 				$i++;
 			}
 			
+			$j = 0;
 			if (is_array($row)) foreach($xrow as $field => $value){
+			
 				if (!isset($hideColumns->$field)){
+					$j++;		
 					echo '<td valign="center">';
 						if (isset($wrappers)){
 							if (isset($wrappers->$field)){
 								$row['value'] = $value;
 								echo div($wrappers->$field, $row);
 							}
-							else echo $value;
-						} else echo $value;
+							else echo trim($value);
+						} else echo trim($value);
 						
 					echo '</td>';
 				}
+			}
+			
+			if ($j<$i){
+				for($k = $j; $k<=$i; $k++) echo '<td></td>';
 			}
 			echo '</tr>';
 		}

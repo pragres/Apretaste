@@ -1,4 +1,4 @@
-{= AnswerSubject: "Gracias por la recarga!" =}
+{= *AnswerSubject: "Gracias por la recarga!" =}
 
 {$h1}Gracias por su recarga!{$_h1}
 

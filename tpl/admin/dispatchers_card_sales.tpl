@@ -14,7 +14,6 @@ blocks}}
 		data: $sales,
 		title: "Packages of cards",
 		hideColumns: {dispatcher: true, sale_price: true, card_price: true},
-		simple: true,
 		headers: {
 			sale_date: "Date",
 			id: "&nbsp;"

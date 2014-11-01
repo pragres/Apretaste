@@ -99,18 +99,20 @@ class ApretasteStore {
 	 * @param string $buyer
 	 * @return boolean
 	 */
-	static function purchase($sale, $buyer){
+	static function purchase($sale, $buyer, $message = ''){
 		self::clearPurchases();
 		
 		$sale = str_replace("''", "'", $sale);
+		$message = str_replace("''", "'", $message);
+		
 		$rows = 0;
 		
 		if (Apretaste::checkAddress($buyer) || Apretaste::isDevelopmentMode()) {
 			
 			$error = null;
 			
-			$r = @q("INSERT INTO store_purchase (sale, buyer) VALUES ('$sale', '$buyer') RETURNING confirmation_code;", $error, $rows, true);
-			
+			$r = @q("INSERT INTO store_purchase (sale, buyer, message) VALUES ('$sale', '$buyer','$message') RETURNING confirmation_code;", $error, $rows, true);
+	
 			if ($error !== false) {
 				if (! is_null($error)) {
 					switch ($error->err_code) {
@@ -142,30 +144,32 @@ class ApretasteStore {
 	 * @return mixed
 	 */
 	static function confirmPurchase($confirmation_code, $buyer){
-		$sale = str_replace("''", "'", $sale);
+		
+		self::clearPurchases();
+		
+		$confirmation_code = str_replace("''", "'", $confirmation_code);
 		$rows = 0;
 		if (Apretaste::checkAddress($buyer) || Apretaste::isDevelopmentMode()) {
 			
-			$error = null;
+			$error = false;
 			
 			$r = @q("UPDATE store_purchase SET bought = true WHERE buyer = '$buyer' AND confirmation_code = '$confirmation_code';", $error, $rows, true);
 			
 			if ($error !== false) {
-				
 				if (! is_null($error)) {
 					switch ($error->err_code) {
-						case 4 :
+						case 3 :
 							return APRETASTE_STORE_PURCHASE_ALREADY_CONFIRMED;
-							break;
+						case 4: 
+							return APRETASTE_STORE_INVALID_USER_OR_CODE;
 						default :
 							return APRETASTE_STORE_UNKNOWN_ERROR;
 					}
 				} else
 					return APRETASTE_STORE_UNKNOWN_ERROR;
-			} else
-				return APRETASTE_STORE_UNKNOWN_ERROR;
+			} 
 			
-			$rows = pg_affected_rows($r);
+			var_dump($rows);
 			
 			if ($rows < 1)
 				return APRETASTE_STORE_INVALID_USER_OR_CODE;
@@ -179,7 +183,7 @@ class ApretasteStore {
 	 * Clear purchases
 	 */
 	static function clearPurchases(){
-		q("DELETE FROM store_purchase WHERE moment + '30 minutes'::interval < now();");
+		q("DELETE FROM store_purchase WHERE moment + '30 minutes'::interval < now() and bought = false;");
 	}
 	static function getStoreSale($id){
 		$r = q("SELECT * FROM store_sale WHERE id='$id';");

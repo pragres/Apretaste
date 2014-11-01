@@ -14,7 +14,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 	$completo = false;
 	
 	$url = "http://es.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&redirects=1&titles=$keyword&rvparse";
-	//$url = "http://localhost/wiki/ecuador.xml";
+	// $url = "http://localhost/wiki/ecuador.xml";
 	
 	$robot->log("File get contents: $url");
 	
@@ -44,18 +44,20 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 		$title = substr($title, $p1 + 7, $p2 - $p1 - 7);
 		
 		// remove everything before the index and external links
+		$robot->log("Remove everything before the index and external links");
 		$mark = '<rev xml:space="preserve">';
 		$page = substr($page, strpos($page, $mark) + strlen($mark));
-		
 		$page = str_replace('</rev></revisions></page></pages></query></api>', '', $page);
-		
-		$page = Apretaste::strip_html_tags($page, '<a><!--><!DOCTYPE><abbr><acronym><address><area><article><aside><b><base><basefont><bdi><bdo><big><blockquote><body><br><button><canvas><caption><center><cite><code><col><colgroup><command><datalist><dd><del><details><dfn><dialog><dir><div><dl><dt><em><embed><fieldset><figcaption><figure><font><footer><form><frame><frameset><head><header><h1> - <h6><hr><html><i><iframe><img><input><ins><kbd><keygen><label><legend><li><link><map><mark><menu><meta><meter><nav><noframes><noscript><object><ol><optgroup><option><output><p><param><pre><progress><q><rp><rt><ruby><s><samp><script><section><select><small><source><span><strike><strong><style><sub><summary><sup><table><tbody><td><textarea><tfoot><th><thead><time><title><tr><track><tt><u><ul><var><wbr><h2><h3>');
+		$robot->log("Strip tags...");
+		$page = strip_tags($page, '<a><!--><!DOCTYPE><abbr><acronym><address><area><article><aside><b><base><basefont><bdi><bdo><big><blockquote><body><br><button><canvas><caption><center><cite><code><col><colgroup><command><datalist><dd><del><details><dfn><dialog><dir><div><dl><dt><em><embed><fieldset><figcaption><figure><font><footer><form><frame><frameset><head><header><h1> - <h6><hr><html><i><iframe><img><input><ins><kbd><keygen><label><legend><li><link><map><mark><menu><meta><meter><nav><noframes><noscript><object><ol><optgroup><option><output><p><param><pre><progress><q><rp><rt><ruby><s><samp><script><section><select><small><source><span><strike><strong><style><sub><summary><sup><table><tbody><td><textarea><tfoot><th><thead><time><title><tr><track><tt><u><ul><var><wbr><h2><h3>');
 		$page = str_replace('oding="UTF-8"?>', '', $page);
 		
-		// removeing brackets []
+		// removing brackets []
+		$robot->log("Removing brackets..");
 		$page = preg_replace('/\[([^\[\]]++|(?R))*+\]/', '', $page);
 		
 		// remove indice
+		$robot->log("Removing index..");
 		$hpage = $page; // html_entity_decode($page);
 		
 		$mark = '<div id="toc" class="toc">';
@@ -70,21 +72,23 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 		}
 		
 		// remove enlaces externos
+		$robot->log("Remove external links...");
 		$mark = '<span class="mw-headline" id="Enlaces_externos';
 		$p = strpos($hpage, $mark);
 		if ($p !== false)
 			$hpage = substr($hpage, 0, $p - 4);
 			
 			// remove other stuff
+		$robot->log("Remove other stuff...");
 		$hpage = str_replace("</api>", "", $hpage);
 		$hpage = str_replace("<api>", "", $hpage);
 		
 		// remove references links
-		
+		$robot->log("Remove references links...");
 		$p = strpos($hpage, '<h2><span class="mw-headline" id="Referencias">');
 		if ($p !== false) {
 			$part = substr($hpage, $p);
-			$part = Apretaste::strip_html_tags($part, '<li><ul><span><h2><h3>');
+			$part = strip_tags($part, '<li><ul><span><h2><h3>');
 			$hpage = substr($hpage, 0, $p) . $part;
 		}
 		
@@ -93,12 +97,16 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 		$page = trim($hpage);
 		
 		if ($page != '') {
+			
 			// Build our DOMDocument, and load our HTML
+			$robot->log("Build our DOMDocument, and load our HTML...");
 			$doc = new DOMDocument();
 			
 			@$doc->loadHTML($page);
+			
 			// New-up an instance of our DOMXPath class
 			$xpath = new DOMXPath($doc);
+			
 			// Find all elements whose class attribute has test2
 			$elements = $xpath->query("//*[contains(@class,'thumb')]");
 			
@@ -109,6 +117,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 			}
 			
 			// Load images
+			$robot->log("Loading images...");
 			$imagestags = $doc->getElementsByTagName("img");
 			$images = array();
 			$ignored = array();
@@ -157,9 +166,11 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 			}
 			
 			// Output the HTML of our container
+			$robot->log("Output HTML...");
 			$page = $doc->saveHTML();
 			
 			// Cleanning
+			$robot->log("Cleanning...");
 			$page = str_replace("<br>", "<br>\n", $page);
 			$page = str_replace("<br/>", "<br/>\n", $page);
 			$page = str_replace("</p>", "</p>\n", $page);
@@ -188,7 +199,7 @@ function wiki_get($robot, $from, $argument, $body = '', $images = array(), $quer
 				if ($size > 1024 * 450) {
 					$images = array();
 					$showimages = false;
-					$page = Apretaste::strip_html_tags($page, '<a><abbr><acronym><address><applet><area><article><aside><audio><b><base><basefont><bdi><bdo><big><blockquote><br><button><canvas><caption><center><cite><code><col><colgroup><command><datalist><dd><del><details><dfn><dialog><dir><div><dl><dt><em><embed><fieldset><figcaption><figure><font><footer><form><frame><frameset><head><header><h1> - <h6><hr><i><iframe><input><ins><kbd><keygen><label><legend><li><link><map><mark><menu><meta><meter><nav><noframes><noscript><object><ol><optgroup><option><output><p><param><pre><progress><q><rp><rt><ruby><s><samp><script><section><select><small><source><span><strike><strong><style><sub><summary><sup><table><tbody><td><textarea><tfoot><th><thead><time><title><tr><track><tt><u><ul><var><video><wbr><h2><h3>');
+					$page = strip_tags($page, '<a><abbr><acronym><address><applet><area><article><aside><audio><b><base><basefont><bdi><bdo><big><blockquote><br><button><canvas><caption><center><cite><code><col><colgroup><command><datalist><dd><del><details><dfn><dialog><dir><div><dl><dt><em><embed><fieldset><figcaption><figure><font><footer><form><frame><frameset><head><header><h1> - <h6><hr><i><iframe><input><ins><kbd><keygen><label><legend><li><link><map><mark><menu><meta><meter><nav><noframes><noscript><object><ol><optgroup><option><output><p><param><pre><progress><q><rp><rt><ruby><s><samp><script><section><select><small><source><span><strike><strong><style><sub><summary><sup><table><tbody><td><textarea><tfoot><th><thead><time><title><tr><track><tt><u><ul><var><video><wbr><h2><h3>');
 				}
 			}
 			
@@ -433,6 +444,8 @@ function cmd_article($robot, $from, $argument, $body = '', $images = array()){
 			"compactmode" => true
 	);
 	
+	var_dump($r);
+	die();
 	if ($r != false)
 		$result = cmd_article_result($robot, $from, $r);
 	else {

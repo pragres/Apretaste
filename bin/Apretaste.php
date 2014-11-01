@@ -116,6 +116,8 @@ class Apretaste {
 		
 		$error = $s;
 		
+		$affected_rows = pg_affected_rows($r);
+		
 		if (trim("$s") !== "")
 			self::log("$sql -> $s\n", "SQL-ERRORS", 80000);
 		
@@ -3465,7 +3467,7 @@ class Apretaste {
 		$callback = $robot->callback;
 		
 		// ($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false, $via_horde = false)
-		$return = $callback($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false, $via_horde = false);
+		return $callback($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false, $via_horde = false);
 	}
 	
 	/**
@@ -3576,7 +3578,7 @@ class Apretaste {
 	 * block-level tags to prevent word joining after tag removal.
 	 */
 	static function strip_html_tags($text, $allowable_tags = null){
-		//echo "STRIP HTML TAGS\n";
+		// echo "STRIP HTML TAGS\n";
 		$text = preg_replace(array(
 				// Remove invisible content
 				'@<head[^>]*?>.*?</head>@siu',
@@ -3616,17 +3618,17 @@ class Apretaste {
 				"\n\$0"
 		), $text);
 		
-		//echo "STRIP HTML TAGS -- last action \n";
+		// echo "STRIP HTML TAGS -- last action \n";
 		$text = strip_tags($text, $allowable_tags);
 		
 		$text = str_replace('&nbsp;', ' ', $text);
 		$text = Apretaste::replaceRecursive("  ", " ", trim(html_entity_decode($text, null, 'UTF-8')));
-		//$text = str_replace("  ", " ", $text);
-		//$text = str_replace("\n\n", "\n", $text);
+		// $text = str_replace(" ", " ", $text);
+		// $text = str_replace("\n\n", "\n", $text);
 		$text = str_replace("\r", "", $text);
 		$text = Apretaste::replaceRecursive("\n\n", "\n", $text);
 		
-		//echo "STRIP HTML TAGS -- good work \n";
+		// echo "STRIP HTML TAGS -- good work \n";
 		
 		return $text;
 	}
@@ -3653,7 +3655,6 @@ function q($sql, &$error = null, &$affected_rows = null, $decode_error = false){
 	
 	if ($decode_error) {
 		if ($error !== false) {
-			
 			$error = trim($error);
 			if (strpos($error, 'ERROR:') === 0)
 				$error = trim(substr($error, 6));

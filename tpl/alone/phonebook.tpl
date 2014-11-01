@@ -1,4 +1,4 @@
-{= AnswerSubject: Su agenda telef&oacute;nica =}
+{= *AnswerSubject: Su agenda telef&oacute;nica =}
 {$h1}{$AnswerSubject}{$_h1}
 ?$phonebook
 	<table width="100%" style="{$font}">

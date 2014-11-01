@@ -1,4 +1,4 @@
-{= AnswerSubject: "Su cuenta ha sido recargada satisfactoriamente" =}
+{= *AnswerSubject: "Su cuenta ha sido recargada satisfactoriamente" =}
 {$h1}Su cuenta ha sido recargada satisfactoriamente{$_h1}
 
 ?$recharge_agency

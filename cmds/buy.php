@@ -18,7 +18,9 @@ function cmd_buy($robot, $from, $argument, $body = '', $images = array()){
 	$argument = $argument[0];
 	$argument = trim($argument);
 	
-	$r = ApretasteStore::purchase($argument, $from);
+	$body = Apretaste::strip_html_tags($body);
+
+	$r = ApretasteStore::purchase($argument, $from, $body);
 	
 	$robot->log("Buy result = $r");
 	

@@ -1,4 +1,4 @@
-{= AnswerSubject: "SMS enviado correctamente" =}
+{= *AnswerSubject: "SMS enviado correctamente" =}
 {$h1}{$AnswerSubject}{$_h1}
 ?$bodyextra
 	<i>Se enviaron solamente los primeros 160 caracteres. El texto que aparece abajo en negrita no fue enviado:</i>

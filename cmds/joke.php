@@ -87,7 +87,8 @@ function cmd_joke($robot, $from, $argument, $body = '', $images = array()){
 			$j = $jokes[mt_rand(1, count($jokes) - 1)];
 			
 			$robot->log("JOKE = " . $j);
-			$jj = str_replace("'", "''", $j);
+			
+			$jj = str_replace("'", "''", $jj);
 			
 			Apretaste::query("INSERT INTO cache_jokes (joke) 
 			SELECT '$jj' AS joke 

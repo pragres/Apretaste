@@ -4,6 +4,6 @@
 
 Apretaste::connect();
 
-$msg = strip_html_tags(' satelite');
+$ans = Apretaste::execute('newuser@localhost', 'CHISTE');
 
-echo $msg;
+//var_dump($ans);

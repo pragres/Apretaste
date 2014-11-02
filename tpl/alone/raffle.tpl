@@ -30,8 +30,26 @@ bombo y enviaremos un email con la lista de ganadores. Como en todas las rifas, 
 	</a></td></tr></table>
 	{$br}
 	{$p}
-		Usted tiene hasta ahora un total de <b>{$total_tickets} tickets</b><br/>
+		Usted tiene hasta ahora un total de <b>{$total_tickets} tickets</b>{$br}{$br}
 		Para contar los tickets que ha ganado puede <a href="mailto:{$reply_to}?subject=ESTADO">revisar su estado en Apretaste!</a>.
 	{$_p}
 	<font size="15" color="green">&iexcl;Buena suerte!</font>
 </center>
+<!--{ store_begin }-->
+?$store
+{$br}
+{$h1}Venta de tickets{$_h1}
+<table width="100%" align="center">
+	<tr>
+		<? $cellwidth = intval(100/count($store)); ?>
+		[$store]
+			<td align="center" valign="top" style="border: 1px solid gray;padding: 5px;" width="{$cellwidth}%">
+				<b>{$title}</b><br/>
+				<font color="green">${#price:2.#}</font><br/>
+				<a href="mailto:{$reply_to}?subject=COMPRAR%20{$id}&body=Haga%20clic%20en%20Enviar%20para%20comenzar%20la compra">Comprar</a>
+			</td>
+		[/$store]
+	</tr>
+</table>
+$store?
+<!--{ store_end }-->

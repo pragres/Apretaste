@@ -12,7 +12,7 @@ if (isset($_POST['btnAddSale'])) {
 	$price = post('edtPrice');
 	$pic = '';
 	$pic_type = '';
-	ApretasteStore::addSale('soporte@apretaste.com', 'soporte@apretaste.com', $title, $desc, $price, 'Paquete de tickets para rifas', $pic, $pic_type, 'TICKETS COMPRADOS', 'raffle_tickets');
+	ApretasteStore::addSale('soporte@apretaste.com', 'soporte@apretaste.com', $title, $desc, $price, 'Paquete de tickets para rifas', $pic, $pic_type, 'RIFA COMPRA', 'raffle_tickets');
 }
 
 $data['sales'] = q("SELECT id,moment::date as date,title,price FROM store_sale WHERE store = 'raffle_tickets';");

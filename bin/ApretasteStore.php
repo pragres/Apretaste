@@ -14,7 +14,7 @@ define('APRETASTE_STORE_UNKNOWN_ERROR', 'APRETASTE_STORE_UNKNOWN_ERROR');
 define('APRETASTE_STORE_PURCHASE_ALREADY_CONFIRMED', 'APRETASTE_STORE_PURCHASE_ALREADY_CONFIRMED');
 define('APRETASTE_STORE_INVALID_USER_OR_CODE', 'APRETASTE_STORE_INVALID_USER_OR_CODE');
 class ApretasteStore {
-	
+	static $confirmation_code = null;
 	/**
 	 * Add new store
 	 *
@@ -160,14 +160,34 @@ class ApretasteStore {
 					return APRETASTE_STORE_UNKNOWN_ERROR;
 			}
 			
-			var_dump($rows);
-			
 			if ($rows < 1)
 				return APRETASTE_STORE_INVALID_USER_OR_CODE;
+			
+			$sale = q("SELECT * FROM store_sale WHERE id = (SELECT sale FROM store_purchase WHERE confirmation_code = '$confirmation_code');");
+			$purchase = q("SELECT * FROM store_purchase WHERE confirmation_code = '$confirmation_code';");
+					
+			$callback = $sale[0]['callback'];
+			$message = $purchase[0]['message'];
+			
+			// TODO: send with horde
+			
+			self::$confirmation_code = $confirmation_code;
+			
+			Apretaste::execute($buyer, $callback . ' ' . $confirmation_code, $message);
 			
 			return true;
 		} else
 			return APRETASTE_INCORRECT_EMAIL_ADDRESS;
+	}
+	
+	/**
+	 * Check the confirmation code
+	 *
+	 * @param string $code
+	 * @return boolean
+	 */
+	static function checkConfirmationCode($code){
+		return self::$confirmation_code === $code;
 	}
 	
 	/**
@@ -176,10 +196,32 @@ class ApretasteStore {
 	static function clearPurchases(){
 		q("DELETE FROM store_purchase WHERE moment + '30 minutes'::interval < now() and bought = false;");
 	}
+	
+	/**
+	 * Return a sale 
+	 * 
+	 * @param string $id
+	 * @return mixed
+	 */
 	static function getStoreSale($id){
 		$r = q("SELECT * FROM store_sale WHERE id='$id';");
 		if (! isset($r[0]))
 			return false;
+		return $r[0];
+	}
+	
+	/**
+	 * Return a sale based on confirmation code
+	 * 
+	 * @param srting $code
+	 * @return mixed
+	 */
+	static function getStoreSaleByConfirmationCode($code){
+		$r = q("SELECT * FROM store_sale WHERE id = (SELECT sale FROM store_purchase WHERE confirmation_code = '$code');");
+		
+		if (! isset($r[0]))
+			return false;
+		
 		return $r[0];
 	}
 	static function getStore($id){

@@ -3454,20 +3454,129 @@ class Apretaste {
 	
 	/**
 	 * Execute command/callback
-	 * @param unknown $user
-	 * @param unknown $subject
-	 * @param unknown $body
-	 * @param unknown $images
+	 *
+	 * @param string $from
+	 * @param string $subject
+	 * @param string $body
+	 * @param array $images
+	 * @param boolean $via_horde
+	 * @return mixed
 	 */
-	static function execute($user, $headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false, $via_horde = false){
+	static function execute($from, $subject = '', $body = '', $images = array(), $via_horde = false){
+		
+		// Preparing headers...
+		$headers = new stdClass();
+		
+		$headers->subject = $subject;
+		$headers->from = array();
+		$headers->from[0] = new ApretasteEmailAddress($from, '');
+		$headers->from[0]->mailbox = $headers->from[0]->getMailbox();
+		$headers->from[0]->host = $headers->from[0]->getHost();
+		$headers->date = date("Y-m-d h:i:s");
+		$headers->fromaddress = $from;
+		$headers->toaddress = 'anuncios@apretaste.com';
+		
+		// Preparing robot
+		
 		$robot = new ApretasteEmailRobot($autostart = false, $verbose = false);
 		
-		Apretaste::$robot = &$robot;
+		self::$robot = &$robot;
 		
-		$callback = $robot->callback;
+		// Preparing command
 		
-		// ($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false, $via_horde = false)
-		return $callback($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false, $via_horde = false);
+		$rawCommand = array(
+				'headers' => $headers,
+				'textBody' => $body,
+				'htmlBody' => $body,
+				'images' => $images,
+				'otherstuff' => array()
+		);
+		
+		$account = null;
+		
+		foreach ( $robot->config_answer as $k => $v ) {
+			$account = $k;
+			break;
+		}
+		
+		$command = $robot->_prepareCommand($rawCommand);
+		
+		if ($command['operation']) {
+			
+			$robot->log("Performing callback to " . $command['operation'] . " operation");
+			
+			$cmdpath = "../cmds/{$command['operation']}.php";
+			$answer = array();
+			
+			$robot->account = $account;
+			
+			if (file_exists($cmdpath)) {
+				include_once $cmdpath;
+				
+				$user_func = 'cmd_' . $command['operation'];
+				$params = $command['parameters'];
+				array_unshift($params, $robot);
+				$command['parameters'] = $params;
+				
+				$answer = call_user_func_array($user_func, $command['parameters']);
+				
+				if (! isset($answer['command']))
+					$answer['command'] = $command['operation'];
+				if (! isset($answer['from']))
+					$answer['from'] = $params[1];
+				if (! isset($answer['answer_type']))
+					$answer['answer_type'] = $command['operation'];
+			}
+			
+			$msg_id = $robot->logger->log($rawCommand, $answer);
+			
+			$robot->log("Sending a " . $answer['answer_type'] . " type message", 'CALLBACK');
+			
+			if (! isset($answer['_answers'])) {
+				$answer = array(
+						'_answers' => array(
+								$answer
+						)
+				);
+			}
+			
+			$answerMail = array();
+			
+			foreach ( $answer['_answers'] as $ans ) {
+				
+				$t = strtotime($headers->date);
+				$d = date("d/m/Y", $t);
+				$s = $headers->subject;
+				
+				$s = htmlentities(quoted_printable_decode($s));
+				
+				$robot->log("Message subject = $s date = $d ", 'CALLBACK');
+				
+				$ans['msg'] = array(
+						'date' => $d,
+						'subject' => $s
+				);
+				
+				$robot->log("Updating address list with $from ...", 'CALLBACK');
+				
+				Apretaste::query("UPDATE address_list SET source = 'apretaste.public.messages' WHERE email = '$from';");
+				
+				$to = $from;
+				
+				if (isset($ans['_to']))
+					$to = $ans['_to'];
+				
+				if (isset($robot->config_answer[$account]))
+					$config = $robot->config_answer[$account];
+				else
+					$config = $robot->config_answer['anuncios@apretaste.com'];
+				
+				$answerMail[] = new ApretasteAnswerEmail($config, $to, $servers = $robot->smtp_servers, $data = $ans, true, true, $debug = $robot->debug, $msg_id, true, false, $via_horde);
+			}
+			
+			return $answerMail;
+		}
+		return false;
 	}
 	
 	/**

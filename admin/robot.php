@@ -14,6 +14,10 @@ if (! is_null($send) || ! is_null(get('subject'))) {
 	
 	$announce = array();
 	$from = post('from');
+	
+	if (is_null($from))
+		$from = get('from');
+	
 	$headers = new stdClass();
 	$headers->from = array(
 			new stdClass()
@@ -56,7 +60,7 @@ if (! is_null($send) || ! is_null(get('subject'))) {
 			$html = str_replace("cid:" . $img['cid'], 'data:' . $img['c_type'] . ";base64," . base64_encode($img['body']), $html);
 		}
 		
-		$html = str_replace('mailto:' . $resp->config['reply_to'] . '?', 'index.php?path=admin&page=robot&', $html);
+		$html = str_replace('mailto:' . $resp->config['reply_to'] . '?', '?q=robot&from=' . $from . '&', $html);
 		
 		$data['responses'][$k]->responseHTML = $html;
 	}

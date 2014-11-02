@@ -305,7 +305,7 @@ class ApretasteEmailCollector {
 				if ($percent * 1 > 90) {
 					echo $this->verbose ? "[INFO] ... text body will be strip tags of html body \n" : "";
 					$htmlBody = ApretasteEncoding::base64Decode($htmlBody);
-					$textBody = Apretaste::strip_html_tags($htmlBody);
+					$textBody = $htmlBody;
 				}
 						
 				echo $this->verbose ? "[INFO] mime decoding... \n" : "";

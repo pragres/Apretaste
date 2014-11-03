@@ -103,7 +103,7 @@ class ApretasteAnswerEmail {
 			
 			$this->headers = array(
 					"From" => "Apretaste! <$from>",
-					"To" => Apretaste::extractEmailAddress($this->to)
+					"To" => $this->to
 			);
 			
 			echo "[INFO] $i Trying send answer with $from \n";
@@ -152,7 +152,7 @@ class ApretasteAnswerEmail {
 			// if ($i == 1)
 			$messageBody = $this->message->getMessageBody();
 			
-			$result = $smtp_server->send(Apretaste::extractEmailAddress($this->to), $this->headers, $messageBody);
+			$result = $smtp_server->send($this->to, $this->headers, $messageBody);
 			
 			if ($result !== true) {
 				ApretasteMailboxes::saveShipmentError($from, '');

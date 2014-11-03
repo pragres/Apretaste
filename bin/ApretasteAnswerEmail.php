@@ -80,6 +80,8 @@ class ApretasteAnswerEmail {
 		if (trim($this->to) == '')
 			return false;
 		
+		$this->to = Apretaste::extractEmailAddress($this->to);
+		
 		$mailboxescount = ApretasteMailboxes::getMailboxesCount();
 		
 		$sent = false;
@@ -147,7 +149,7 @@ class ApretasteAnswerEmail {
 			
 			$message = '';
 			
-			echo $this->verbose ? "Send email \n" : "";
+			echo $this->verbose ? "Send email to {$this->to}\n" : "";
 			
 			// if ($i == 1)
 			$messageBody = $this->message->getMessageBody();

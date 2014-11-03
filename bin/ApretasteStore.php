@@ -165,7 +165,7 @@ class ApretasteStore {
 			
 			$sale = q("SELECT * FROM store_sale WHERE id = (SELECT sale FROM store_purchase WHERE confirmation_code = '$confirmation_code');");
 			$purchase = q("SELECT * FROM store_purchase WHERE confirmation_code = '$confirmation_code';");
-					
+			
 			$callback = $sale[0]['callback'];
 			$message = $purchase[0]['message'];
 			
@@ -173,7 +173,11 @@ class ApretasteStore {
 			
 			self::$confirmation_code = $confirmation_code;
 			
+			$robot = Apretaste::$robot;
+			
 			Apretaste::execute($buyer, $callback . ' ' . $confirmation_code, $message);
+			
+			Apretaste::$robot = $robot;
 			
 			return true;
 		} else
@@ -198,8 +202,8 @@ class ApretasteStore {
 	}
 	
 	/**
-	 * Return a sale 
-	 * 
+	 * Return a sale
+	 *
 	 * @param string $id
 	 * @return mixed
 	 */
@@ -212,7 +216,7 @@ class ApretasteStore {
 	
 	/**
 	 * Return a sale based on confirmation code
-	 * 
+	 *
 	 * @param srting $code
 	 * @return mixed
 	 */

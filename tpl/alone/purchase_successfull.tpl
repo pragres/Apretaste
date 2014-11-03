@@ -1,4 +1,4 @@
-{= *AnswerSubject: "El pago fue realizado con &eacute;xito" =}
+{= *AnswerSubject: "El pago fue realizado satisfactoriamente" =}
 
 {$h1}{$AnswerSubject}{$_h1}
 

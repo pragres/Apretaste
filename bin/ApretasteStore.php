@@ -173,11 +173,11 @@ class ApretasteStore {
 			
 			self::$confirmation_code = $confirmation_code;
 			
-			$robot = Apretaste::$robot;
+			//$robot = Apretaste::$robot;
 			
 			Apretaste::execute($buyer, $callback . ' ' . $confirmation_code, $message);
 			
-			Apretaste::$robot = $robot;
+			//Apretaste::$robot = $robot;
 			
 			return true;
 		} else

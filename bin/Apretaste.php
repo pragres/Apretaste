@@ -3480,6 +3480,7 @@ class Apretaste {
 		
 		$robot = new ApretasteEmailRobot($autostart = false, $verbose = false);
 		
+		$currentrobot = self::$robot;
 		self::$robot = &$robot;
 		
 		// Preparing command
@@ -3574,8 +3575,13 @@ class Apretaste {
 				$answerMail[] = new ApretasteAnswerEmail($config, $to, $servers = $robot->smtp_servers, $data = $ans, true, true, $debug = $robot->debug, $msg_id, true, false, $via_horde);
 			}
 			
+			self::$robot = $currentrobot;
+			
 			return $answerMail;
 		}
+		
+		self::$robot = $currentrobot;
+		
 		return false;
 	}
 	

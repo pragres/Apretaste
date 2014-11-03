@@ -848,11 +848,12 @@ class ApretasteAlone {
 					}
 				
 				if (! $horde) {
+					$ans->to = Apretaste::extractEmailAddress($ans->to);
 					if (Apretaste::checkAddress($ans->to)) {
 						echo "[INFO] Sending email {$email['id']} to {$ans->to}\n";
 						$r = $ans->send_answer(null, false, false);
 					} else {
-						echo "[INFO] Invalid address, ignoring email...\n";
+						echo "[INFO] Invalid address {$ans->to}, ignoring email...\n";
 						$r = true;
 					}
 				}

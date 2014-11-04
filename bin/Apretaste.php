@@ -2062,7 +2062,6 @@ class Apretaste {
 					foreach ( $ads as $adx ) {
 						$ad = self::getAnnouncement($adx['announcement']);
 						if ($ad != APRETASTE_ANNOUNCEMENT_NOTFOUND) {
-							self::query("DELETE FROM outbox where announcement = '{$adx['announcement']}' AND email = '{$r['email']}';");
 							$ad['tax'] = $adx['phrase'];
 							$data['search_results'][] = $ad;
 						} else

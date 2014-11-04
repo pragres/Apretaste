@@ -2016,6 +2016,11 @@ class Apretaste {
 		
 		// connect to database
 		self::connect();
+		q('delete from outbox where not exists(select * from announcement where id = outbox.announcement);');
+		
+		q('delete from outbox where not exists(select * from subscribe where id = outbox.subscribe);');
+		
+		q("delete from subscribe where phrase ~* 'aqui va una frase de b';");
 		
 		$max = self::getConfiguration("outbox.max");
 		

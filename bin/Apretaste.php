@@ -2034,7 +2034,7 @@ class Apretaste {
 			if (is_array($receivers))
 				foreach ( $receivers as $r ) {
 					
-					$ads = self::query("SELECT * FROM outbox inner join subscribe on subscribe.id = outbox.subscribe WHERE outbox.email = '{$r['email']}'");
+					$ads = self::query("SELECT * FROM outbox inner join subscribe on subscribe.id = outbox.subscribe WHERE outbox.email = '{$r['email']}' limit 50");
 					
 					if (! $ads)
 						continue;
@@ -2057,13 +2057,15 @@ class Apretaste {
 					foreach ( $ads as $adx ) {
 						$ad = self::getAnnouncement($adx['announcement']);
 						if ($ad != APRETASTE_ANNOUNCEMENT_NOTFOUND) {
-							self::query("DELETE FROM outbox WHERE announcement = '{$adx['announcement']}';");
+							self::query("DELETE FROM outbox where announcement = '{$adx['announcement']}' AND email = '{$r['email']}';");
 							$ad['tax'] = $adx['phrase'];
 							$data['search_results'][] = $ad;
-						}
+						} else
+							self::query("DELETE FROM outbox WHERE announcement = '{$adx['announcement']}';");
 					}
 					
 					$results = $data['search_results'];
+					
 					foreach ( $results as $k => $v ) {
 						
 						// Analyzing images
@@ -2146,11 +2148,15 @@ class Apretaste {
 				
 				// send answers
 			foreach ( $answers as $email => $data ) {
-				$answerMail = new ApretasteAnswerEmail($config, $email, $robot->smtp_servers, $data, true, false, false);
+				$answerMail = new ApretasteAnswerEmail($config, $email, $robot->smtp_servers, $data, true, false, false, null);
 			}
 		}
 		/*
-		 * // Load the outbox $outbox = self::query("SELECT * FROM outbox inner join subscribe on subscribe.id = outbox.subscribe order by outbox.fa desc;"); $r = self::query("SELECT count(*) as cant FROM outbox inner join announcement on outbox.announcement = announcement.id;"); $pass = false; if (intval($r[0]['cant']) > 0) $pass = true; if ($outbox) { if (count($outbox) >= $max || $pass) { // Preparing the shipments $shipments = array(); foreach ( $outbox as $ob ) { if (! isset($shipments[$ob['email']])) $shipments[$ob['email']] = array( "resutls" => array(), "query" => $ob['phrase'], "subscribe" => $ob['id'] ); $ad = self::getAnnouncement($ob['announcement']); if (! is_null($ad) && $ad != false && $ad != APRETASTE_ANNOUNCEMENT_NOTFOUND) $shipments[$ob['email']]['results'][] = $ad; self::query("DELETE FROM outbox where announcement = '{$ob['announcement']}' AND email = '{$ob['email']}';"); } // Sending... foreach ( $shipments as $email => $shp ) { $data = array( 'command' => 'search', 'answer_type' => 'search_results', 'query' => $shp['query'], 'search_results' => $shp['results'], "showminimal" => false, "alerta" => true, "title" => "Alerta por correo: " . $shp['query'], "subscribe" => $shp['subscribe'] ); echo "[INFO] Alert shipment {$shp['query']} to $email\n"; $data['image_src'] = 'cid:{$id}'; if (! self::isExcluded($email)) { $config = array(); foreach ( self::$robot->config_answer as $configx ) { $config = $configx; break; } $answerMail = new ApretasteAnswerEmail($config, $email, $robot->smtp_servers, $data, true, false, false); } } } }
+		 * // Load the outbox $outbox = self::query("SELECT * FROM outbox inner join subscribe on subscribe.id = outbox.subscribe order by outbox.fa desc;"); $r = self::query("SELECT count(*) as cant FROM outbox inner join announcement on outbox.announcement = announcement.id;"); $pass = false; if (intval($r[0]['cant']) > 0) $pass = true; if ($outbox) { if (count($outbox) >= $max || $pass) { // Preparing the shipments $shipments = array(); foreach ( $outbox as $ob ) { if (! isset($shipments[$ob['email']])) $shipments[$ob['email']] = array( "resutls" => array(), "query" => $ob['phrase'], "subscribe" => $ob['id'] ); $ad = self::getAnnouncement($ob['announcement']); if (! is_null($ad) && $ad != false && $ad != APRETASTE_ANNOUNCEMENT_NOTFOUND) $shipments[$ob['email']]['results'][] = $ad;
+		 */
+		
+		
+		 /*  // Sending... foreach ( $shipments as $email => $shp ) { $data = array( 'command' => 'search', 'answer_type' => 'search_results', 'query' => $shp['query'], 'search_results' => $shp['results'], "showminimal" => false, "alerta" => true, "title" => "Alerta por correo: " . $shp['query'], "subscribe" => $shp['subscribe'] ); echo "[INFO] Alert shipment {$shp['query']} to $email\n"; $data['image_src'] = 'cid:{$id}'; if (! self::isExcluded($email)) { $config = array(); foreach ( self::$robot->config_answer as $configx ) { $config = $configx; break; } $answerMail = new ApretasteAnswerEmail($config, $email, $robot->smtp_servers, $data, true, false, false); } } } }
 		 */
 	}
 	

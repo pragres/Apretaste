@@ -133,9 +133,11 @@ function cmd_purchase($robot, $from, $argument, $body = '', $images = array()){
 							'purchase' => $purchase,
 							'sale' => $sale,
 							'images' => $imgs,
-							'credit' => ApretasteMoney::getCreditOf($from)
+							'credit' => ApretasteMoney::getCreditOf($from),
+							'_to' => $from
 					),
 					$answer
-			)
+			),
+			'_to' => $from
 	);
 }

@@ -15,7 +15,7 @@ function cmd_raffle($robot, $from, $argument, $body = '', $images = array()){
 	$argument = $arguments[0];
 	
 	
-	$store = q("SELECT * FROM store_sale WHERE store = 'raffle_tickets' order by title;");
+	$store = q("SELECT * FROM store_sale WHERE store = 'raffle_tickets' order by price;");
 	
 	// Buy a ticket
 	if (strtolower($argument) == 'compra') {

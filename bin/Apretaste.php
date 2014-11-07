@@ -3512,8 +3512,6 @@ class Apretaste {
 			$cmdpath = "../cmds/{$command['operation']}.php";
 			$answer = array();
 			
-			$robot->account = $account;
-			
 			if (file_exists($cmdpath)) {
 				include_once $cmdpath;
 				

@@ -1871,9 +1871,9 @@ class Apretaste {
 				// $s = self::search($sub['phrase'], 1, 0, false, '', $ad);
 				
 				// only FTS, more fast
-				$sql = "SELECT plainto_tsquery('" . str_replace("'", "''", $sub['phrase']) . "') @@ to_tsvector(title || ' ' || body) as result FROM announcement WHERE id = '$ad';";
+				$sql = "SELECT plainto_tsquery('" . str_replace("'", "''", $sub['phrase']) . "') @@ to_tsvector(title || ' ' || body) as result FROM announcement WHERE id = '$ad' and (outboxed <> true or outboxed is  null);";
 				
-				$s = self::query($sql);
+				$s = q($sql);
 				$s = $s[0];
 				
 				if ($s['result'] == 't') {
@@ -1881,9 +1881,11 @@ class Apretaste {
 					// if (isset($s[0])) {
 					// if ($s[0]['id'] == $ad) {
 					// if ($s[0]['rank_title'] * 1 > 0) {
-					$r = self::query("SELECT * FROM outbox WHERE announcement = '$ad' AND email = '{$sub['email']}'");
-					if (! $r)
-						self::query("INSERT INTO outbox(announcement, subscribe, email) VALUES ('$ad','{$sub['id']}','{$sub['email']}');");
+					$r = q("SELECT * FROM outbox WHERE announcement = '$ad' AND email = '{$sub['email']}'");
+					if (! $r) {
+						q("INSERT INTO outbox(announcement, subscribe, email) VALUES ('$ad','{$sub['id']}','{$sub['email']}');");
+						q("UPDATE announcement set outboxed = true WHERE id = '$ad';");
+					}
 					// }
 					// }
 				}
@@ -2064,6 +2066,7 @@ class Apretaste {
 						if ($ad != APRETASTE_ANNOUNCEMENT_NOTFOUND) {
 							$ad['tax'] = $adx['phrase'];
 							$data['search_results'][] = $ad;
+							self::query("DELETE FROM outbox WHERE announcement = '{$adx['announcement']}' and email = '{$r['email']}';");
 						} else
 							self::query("DELETE FROM outbox WHERE announcement = '{$adx['announcement']}';");
 					}

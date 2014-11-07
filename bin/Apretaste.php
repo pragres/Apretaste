@@ -3493,9 +3493,6 @@ class Apretaste {
 		
 		$robot = new ApretasteEmailRobot($autostart = false, $verbose = false);
 		
-		$currentrobot = self::$robot;
-		self::$robot = &$robot;
-		
 		// Preparing command
 		
 		$rawCommand = array(
@@ -3505,13 +3502,6 @@ class Apretaste {
 				'images' => $images,
 				'otherstuff' => array()
 		);
-		
-		$account = null;
-		
-		foreach ( $robot->config_answer as $k => $v ) {
-			$account = $k;
-			break;
-		}
 		
 		$command = $robot->_prepareCommand($rawCommand);
 		
@@ -3540,60 +3530,10 @@ class Apretaste {
 					$answer['from'] = $params[1];
 				if (! isset($answer['answer_type']))
 					$answer['answer_type'] = $command['operation'];
+				
+				return $answer;
 			}
-			
-			$msg_id = $robot->logger->log($rawCommand, $answer);
-			
-			$robot->log("Sending a " . $answer['answer_type'] . " type message", 'CALLBACK');
-			
-			if (! isset($answer['_answers'])) {
-				$answer = array(
-						'_answers' => array(
-								$answer
-						)
-				);
-			}
-			
-			$answerMail = array();
-			
-			foreach ( $answer['_answers'] as $ans ) {
-				
-				$t = strtotime($headers->date);
-				$d = date("d/m/Y", $t);
-				$s = $headers->subject;
-				
-				$s = htmlentities(quoted_printable_decode($s));
-				
-				$robot->log("Message subject = $s date = $d ", 'CALLBACK');
-				
-				$ans['msg'] = array(
-						'date' => $d,
-						'subject' => $s
-				);
-				
-				$robot->log("Updating address list with $from ...", 'CALLBACK');
-				
-				Apretaste::query("UPDATE address_list SET source = 'apretaste.public.messages' WHERE email = '$from';");
-				
-				$to = $from;
-				
-				if (isset($ans['_to']))
-					$to = $ans['_to'];
-				
-				if (isset($robot->config_answer[$account]))
-					$config = $robot->config_answer[$account];
-				else
-					$config = $robot->config_answer['anuncios@apretaste.com'];
-				
-				$answerMail[] = new ApretasteAnswerEmail($config, $to, $servers = $robot->smtp_servers, $data = $ans, true, true, $debug = $robot->debug, $msg_id, true, false, $via_horde);
-			}
-			
-			self::$robot = $currentrobot;
-			
-			return $answerMail;
 		}
-		
-		self::$robot = $currentrobot;
 		
 		return false;
 	}

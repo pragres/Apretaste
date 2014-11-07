@@ -18,7 +18,9 @@ function cmd_purchase($robot, $from, $argument, $body = '', $images = array()){
 	$argument = $argument[0];
 	$argument = trim($argument);
 	
-	$r = ApretasteStore::confirmPurchase($argument, $from);
+	$answer = null;
+	
+	$r = ApretasteStore::confirmPurchase($argument, $from, $answer);
 	
 	$purchase = false;
 	$sale = false;
@@ -122,11 +124,18 @@ function cmd_purchase($robot, $from, $argument, $body = '', $images = array()){
 		}
 	}
 	
+	$answer['_to'] = $from;
+	
 	return array(
-			'answer_type' => 'purchase_successfull',
-			'purchase' => $purchase,
-			'sale' => $sale,
-			'images' => $imgs,
-			'credit' => ApretasteMoney::getCreditOf($from)
+			'_answers' => array(
+					array(
+							'answer_type' => 'purchase_successfull',
+							'purchase' => $purchase,
+							'sale' => $sale,
+							'images' => $imgs,
+							'credit' => ApretasteMoney::getCreditOf($from)
+					),
+					$answer
+			)
 	);
 }

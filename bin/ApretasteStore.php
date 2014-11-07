@@ -135,7 +135,7 @@ class ApretasteStore {
 	 * @param string $buyer
 	 * @return mixed
 	 */
-	static function confirmPurchase($confirmation_code, $buyer){
+	static function confirmPurchase($confirmation_code, $buyer, &$answer = null){
 		self::clearPurchases();
 		
 		$confirmation_code = str_replace("''", "'", $confirmation_code);
@@ -173,11 +173,7 @@ class ApretasteStore {
 			
 			self::$confirmation_code = $confirmation_code;
 			
-			//$robot = Apretaste::$robot;
-			
-			Apretaste::execute($buyer, $callback . ' ' . $confirmation_code, $message);
-			
-			//Apretaste::$robot = $robot;
+			$answer = Apretaste::execute($buyer, $callback . ' ' . $confirmation_code, $message);
 			
 			return true;
 		} else

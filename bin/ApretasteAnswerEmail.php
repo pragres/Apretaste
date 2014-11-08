@@ -100,6 +100,7 @@ class ApretasteAnswerEmail {
 				break;
 			}
 			
+			echo "[INFO] Get best mailbox \n";
 			do {
 				$from = ApretasteMailboxes::getBestMailbox($this->to, $xfrom);
 				
@@ -108,6 +109,8 @@ class ApretasteAnswerEmail {
 				else
 					break;
 			} while ( ! isset($this->servers[$from]) );
+			
+			echo "[INFO] Best mailbox = $from \n";
 			
 			$this->headers = array(
 					"From" => "Apretaste! <$from>",

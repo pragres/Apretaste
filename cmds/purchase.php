@@ -130,7 +130,7 @@ function cmd_purchase($robot, $from, $argument, $body = '', $images = array()){
 	
 	return array(
 			'_answers' => array(
-					array(
+					/*array(
 							'answer_type' => 'purchase_successfull',
 							'purchase' => $purchase,
 							'sale' => $sale,
@@ -139,7 +139,7 @@ function cmd_purchase($robot, $from, $argument, $body = '', $images = array()){
 							'credit' => ApretasteMoney::getCreditOf($from),
 							'command' => $command,
 							'_to' => $from
-					),
+					),*/
 					$answer
 			),
 			'_to' => $from,

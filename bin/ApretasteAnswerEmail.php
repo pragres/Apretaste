@@ -103,11 +103,13 @@ class ApretasteAnswerEmail {
 			echo "[INFO] Get best mailbox \n";
 			do {
 				$from = ApretasteMailboxes::getBestMailbox($this->to, $xfrom);
+				echo "[INFO] --- best mailbox: trying $from \n";
 				
 				if (! isset($this->servers[$from]))
 					ApretasteMailboxes::deleteMailBox($from);
 				else
 					break;
+				
 			} while ( ! isset($this->servers[$from]) );
 			
 			echo "[INFO] Best mailbox = $from \n";

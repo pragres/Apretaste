@@ -77,10 +77,16 @@ class ApretasteAnswerEmail {
 	function send_answer($xfrom = null, $save_on_fail = true, $async = false){
 		$froms = array_keys($this->servers);
 		
+		echo "[INFO] Froms: " . implode(", ", $froms) . "\n";
+		
 		if (trim($this->to) == '')
 			return false;
 		
 		$this->to = Apretaste::extractEmailAddress($this->to);
+		
+		echo "[INFO] Sending to {$this->to}...\n";
+		
+		echo "[INFO] Getting mailboxes setup...\n";
 		
 		$mailboxescount = ApretasteMailboxes::getMailboxesCount();
 		
@@ -220,6 +226,7 @@ class ApretasteAnswerEmail {
 	 * @param boolean $build_html
 	 */
 	function _buildMessage($build_plain = false, $build_html = true, $inline_images = false){
+		
 		$data = array(
 				'buttons' => $this->buttons,
 				'ads' => $this->ads,

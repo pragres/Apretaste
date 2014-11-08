@@ -103,6 +103,12 @@ class ApretasteAnswerEmail {
 			echo "[INFO] Get best mailbox \n";
 			do {
 				$from = ApretasteMailboxes::getBestMailbox($this->to, $xfrom);
+
+				if (is_null($from)){
+					echo "[FATAL] No mailboxes! Goto admin page NOW!....";
+					return false;
+				}
+				
 				echo "[INFO] --- best mailbox: trying $from \n";
 				
 				if (! isset($this->servers[$from]))

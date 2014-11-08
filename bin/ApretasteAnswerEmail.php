@@ -105,7 +105,8 @@ class ApretasteAnswerEmail {
 				$from = ApretasteMailboxes::getBestMailbox($this->to, $xfrom);
 
 				if (is_null($from)){
-					echo "[FATAL] No mailboxes! Goto admin page NOW!....";
+					echo "[FATAL] No mailboxes! Goto admin page NOW!....Trying solve the problem :( \n";
+					q("UPDATE mailboxes SET last_error_date = null;");
 					return false;
 				}
 				

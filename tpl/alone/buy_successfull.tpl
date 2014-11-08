@@ -21,7 +21,7 @@ M&aacute;s abajo se detallan los datos de la compra.
 $sale?
 
 {$hr}
-{$p}Por favor confirme su compra en los pr&oacute;ximos 30 minutos o ignoraremos esta transacci&oacute;n.{$_p}
+{$p}Por favor confirme su compra en los pr&oacute;ximos en 30 minutos o ignoraremos esta transacci&oacute;n.{$_p}
 {$br}
 <table><tr><td style="font-family: Arial,Helvetica,sans-serif;background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;">
 <a style="{$font};background: green; color: white; padding: 5px;text-decoration: none;font-weight: bold;" href="mailto:{$reply_to}?subject=PAGAR%20{$confirmation_code}">

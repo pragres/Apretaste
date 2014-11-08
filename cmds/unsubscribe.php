@@ -8,15 +8,12 @@
  * @return array
  */
 function cmd_unsubscribe($robot, $from, $argument, $body = '', $images = array()){
-	if (trim($argument) == '') {
-		$argument = trim($body);
-		$argument = str_replace("\n", " ", $argument);
-		$argument = str_replace("\r", "", $argument);
-		$argument = trim($argument);
-	}
+	$argument = str_replace("\n", " ", $argument);
+	$argument = str_replace("\r", "", $argument);
+	$argument = trim($argument);
 	
 	$sub = $argument;
-	if (!Apretaste::isSimulator())
+	if (! Apretaste::isSimulator())
 		$r = Apretaste::unsubscribe($from, $sub);
 	
 	if ($r == APRETASTE_SUBSCRIBE_UNKNOWN) {

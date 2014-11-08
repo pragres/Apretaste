@@ -11,12 +11,9 @@
  * @return array
  */
 function cmd_get($robot, $from, $argument, $body = '', $images = array()){
-	if (trim($argument) == '') {
-		$argument = trim($body);
-		$argument = str_replace("\n", " ", $argument);
-		$argument = str_replace("\r", "", $argument);
-		$argument = trim($argument);
-	}
+	$argument = str_replace("\n", " ", $argument);
+	$argument = str_replace("\r", "", $argument);
+	$argument = trim($argument);
 	
 	$id = $argument;
 	

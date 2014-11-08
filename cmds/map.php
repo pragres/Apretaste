@@ -11,13 +11,9 @@
  * @return array
  */
 function cmd_map($robot, $from, $argument, $body = '', $images = array()){
-	
-	if (trim($argument) == '') {
-		$argument = trim($body);
-		$argument = str_replace("\n", " ", $argument);
-		$argument = str_replace("\r", "", $argument);
-		$argument = trim($argument);
-	}
+	$argument = str_replace("\n", " ", $argument);
+	$argument = str_replace("\r", "", $argument);
+	$argument = trim($argument);
 	
 	$oStaticMap = new GoogleStaticMap();
 	
@@ -56,7 +52,7 @@ function cmd_map($robot, $from, $argument, $body = '', $images = array()){
 		$type = 'terreno';
 	}
 	
-	if (stripos($argument, 'hibrido') !== false) 
+	if (stripos($argument, 'hibrido') !== false)
 		$argument = str_replace_count('hibrido', '', $argument, 1);
 	
 	$oStaticMap->setScale(1);

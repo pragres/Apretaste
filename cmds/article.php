@@ -414,12 +414,9 @@ function cmd_article_result($robot, $from, $r){
  * @return array
  */
 function cmd_article($robot, $from, $argument, $body = '', $images = array()){
-	if (trim($argument) == '') {
-		$argument = trim($body);
-		$argument = str_replace("\n", " ", $argument);
-		$argument = str_replace("\r", "", $argument);
-		$argument = trim($argument);
-	}
+	$argument = str_replace("\n", " ", $argument);
+	$argument = str_replace("\r", "", $argument);
+	$argument = trim($argument);
 	
 	// getting the query
 	$query = $argument;

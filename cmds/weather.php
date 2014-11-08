@@ -16,15 +16,11 @@ include_once "../lib/WeatherForecast.php";
  * @return array
  */
 function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
-	if (trim($argument) == '') {
-		$argument = trim($body);
-		$argument = str_replace("\n", " ", $argument);
-		$argument = str_replace("\r", "", $argument);
-		$argument = trim($argument);
-	}
 	
 	$argument = Apretaste::strip_html_tags($argument);
-	
+	$argument = str_replace("\n", " ", $argument);
+	$argument = str_replace("\r", "", $argument);
+	$argument = trim($argument);
 	$argument = trim(strtolower($argument));
 	
 	switch ($argument) {
@@ -156,7 +152,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			
 			// Analisis de la temperatura del mar (NOAA/NHC)
 			// http://www.nhc.noaa.gov/tafb/atl_anal.gif
-			//http://polar.ncep.noaa.gov/sst/ophi/nwatl_sst_ophi0.png
+			// http://polar.ncep.noaa.gov/sst/ophi/nwatl_sst_ophi0.png
 			echo "[INFO] Download Temperature Image [composite] \n";
 			$img = file_get_contents("http://polar.ncep.noaa.gov/sst/ophi/nwatl_sst_ophi0.png");
 			
@@ -450,8 +446,7 @@ function cmd_weather($robot, $from, $argument, $body = '', $images = array()){
 			$provincias = array();
 			$images = array();
 			
-			
-			if ($country != 'Cuba'){
+			if ($country != 'Cuba') {
 				$r = cmd_weather_place($places[0], $country);
 				if ($r === false) {
 					$places = $places_cuba;

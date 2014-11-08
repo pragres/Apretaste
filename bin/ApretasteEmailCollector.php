@@ -152,8 +152,6 @@ class ApretasteEmailCollector {
 				
 				$headers->subject = $this->mimeDecode($headers->subject);
 				
-				var_dump($headers);
-				
 				$from = $headers->from[0]->mailbox . "@";
 				if (isset($headers->from[0]->host))
 					$from .= $headers->from[0]->host;

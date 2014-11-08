@@ -125,6 +125,8 @@ function cmd_purchase($robot, $from, $argument, $body = '', $images = array()){
 	}
 	
 	$answer['_to'] = $from;
+	$answer['command'] = 'purchase';
+	$answer['from'] = $from;
 	
 	return array(
 			'_answers' => array(
@@ -133,11 +135,15 @@ function cmd_purchase($robot, $from, $argument, $body = '', $images = array()){
 							'purchase' => $purchase,
 							'sale' => $sale,
 							'images' => $imgs,
+							'from' => $from,
 							'credit' => ApretasteMoney::getCreditOf($from),
+							'command' => $command,
 							'_to' => $from
 					),
 					$answer
 			),
-			'_to' => $from
+			'_to' => $from,
+			'command' => $command,
+			'from' => $from
 	);
 }

@@ -103,8 +103,8 @@ class ApretasteAnswerEmail {
 			echo "[INFO] Get best mailbox \n";
 			do {
 				$from = ApretasteMailboxes::getBestMailbox($this->to, $xfrom);
-
-				if (is_null($from)){
+				
+				if (is_null($from)) {
 					echo "[FATAL] No mailboxes! Goto admin page NOW!....Trying solve the problem :( \n";
 					q("UPDATE mailboxes SET last_error_date = null;");
 					return false;
@@ -116,7 +116,6 @@ class ApretasteAnswerEmail {
 					ApretasteMailboxes::deleteMailBox($from);
 				else
 					break;
-				
 			} while ( ! isset($this->servers[$from]) );
 			
 			echo "[INFO] Best mailbox = $from \n";
@@ -238,7 +237,6 @@ class ApretasteAnswerEmail {
 	 * @param boolean $build_html
 	 */
 	function _buildMessage($build_plain = false, $build_html = true, $inline_images = false){
-		
 		$data = array(
 				'buttons' => $this->buttons,
 				'ads' => $this->ads,
@@ -319,17 +317,24 @@ class ApretasteAnswerEmail {
 			
 			if ($data) {
 				if (isset($data['images']))
-					if (is_array($data['images']))
+					if (is_array($data['images'])) {
+						$ya = array();
 						foreach ( $data['images'] as $image ) {
-							if ($image['type'] == 'image/' || $image['type'] == '')
-								$image['type'] = 'image/jpeg';
-							
-							if ($inline_images) {
-								$content = rtrim(chunk_split(base64_encode($image['content']), 76, "\r\n"));
-								$html_body->__src = str_replace('cid:' . $image['id'], 'data:' . $image['type'] . ';base64,' . $content, $html_body->__src);
-							} else
-								$this->message->addHTMLImage($file = $image['content'], $c_type = $image['type'], $isfile = false, $name = $image['name'], $content_id = $image['id']);
+							if (isset($image['id']))
+								if (! isset($ya[$image['id']])) {
+									if ($image['type'] == 'image/' || $image['type'] == '')
+										$image['type'] = 'image/jpeg';
+									
+									if ($inline_images) {
+										$content = rtrim(chunk_split(base64_encode($image['content']), 76, "\r\n"));
+										$html_body->__src = str_replace('cid:' . $image['id'], 'data:' . $image['type'] . ';base64,' . $content, $html_body->__src);
+									} else
+										$this->message->addHTMLImage($file = $image['content'], $c_type = $image['type'], $isfile = false, $name = $image['name'], $content_id = $image['id']);
+									
+									$ya[$image['id']] = true;
+								}
 						}
+					}
 			}
 			
 			$this->message->setHTMLBody($html_body->__src);

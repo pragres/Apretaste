@@ -93,7 +93,10 @@ function cmd_purchase($robot, $from, $argument, $body = '', $images = array()){
 							'purchase' => $purchase,
 							'confirmation_code' => $argument,
 							'sale' => $sale,
-							'images' => $imgs
+							'images' => $imgs,
+							'_to' => $from,
+							'command' => 'purchase',
+							'from' => $from
 					);
 				else
 					return array(
@@ -101,7 +104,10 @@ function cmd_purchase($robot, $from, $argument, $body = '', $images = array()){
 							'purchase' => $purchase,
 							'confirmation_code' => $argument,
 							'sale' => $sale,
-							'images' => $imgs
+							'images' => $imgs,
+							'_to' => $from,
+							'command' => 'purchase',
+							'from' => $from
 					);
 			
 			case APRETASTE_STORE_UNKNOWN_ERROR :

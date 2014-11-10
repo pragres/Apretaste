@@ -1,4 +1,3 @@
-
 CREATE OR REPLACE FUNCTION tg_before_confirm_purchase()
   RETURNS trigger AS
 $BODY$

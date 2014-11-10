@@ -51,7 +51,7 @@ bombo y enviaremos un email con la lista de ganadores. Como en todas las rifas, 
 		[/$store]
 	</tr>
 </table>{$br}
-{$p}<b>Necesita comprar cr&eacute;dito?</b> Env&iacute;e un email a <a href="mailto:credito@apretaste.com?SUBJECT=Necesito%20comprar%20credito.%20Vivo%20en%20[AREA DONDE VIVE],%20contacteme%20a%20[TELEFONO%20o%20EMAIL]">credito@apretaste.com</a> y escriba el area donde vive y su informaci&oacute;n de contacto. El vendedor m&aacute;s cercano a usted lo contactar&aacute; inmediatamente.{$_p}
+{$p}<b>Necesita comprar cr&eacute;dito?</b> Env&iacute;e un email a <a href="mailto:credito@apretaste.com?subject=Necesito%20comprar%20credito.%20Vivo%20en%20[AREA DONDE VIVE],%20contacteme%20a%20[TELEFONO%20o%20EMAIL]">credito@apretaste.com</a> y escriba el area donde vive y su informaci&oacute;n de contacto. El vendedor m&aacute;s cercano a usted lo contactar&aacute; inmediatamente.{$_p}
 $store?
 <center>
 <font size="15" color="green">&iexcl;Buena suerte!</font>

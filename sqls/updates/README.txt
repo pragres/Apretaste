@@ -1,0 +1,1 @@
+Put here SQL scripts for update the db before pull

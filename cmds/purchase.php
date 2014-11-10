@@ -117,9 +117,13 @@ function cmd_purchase($robot, $from, $argument, $body = '', $images = array()){
 				);
 			
 			case APRETASTE_STORE_INVALID_USER_OR_CODE :
+				
+				$sale = ApretasteStore::getStoreSaleByConfirmationCode($argument);
+				
 				return array(
 						'answer_type' => 'purchase_invalid_code',
-						'confirmation_code' => $argument
+						'confirmation_code' => $argument,
+						'sale' => $sale // array or false
 				);
 		}
 	}
@@ -137,13 +141,13 @@ function cmd_purchase($robot, $from, $argument, $body = '', $images = array()){
 							'images' => $imgs,
 							'from' => $from,
 							'credit' => ApretasteMoney::getCreditOf($from),
-							'command' => $command,
+							'command' => 'purchase',
 							'_to' => $from
 					),*/
 					$answer
 			),
 			'_to' => $from,
-			'command' => $command,
+			'command' => 'purchase',
 			'from' => $from
 	);
 }

@@ -2,7 +2,7 @@
 
 {$h1}{$AnswerSubject}{$_h1}
 
-{$p}Usted ha comprado <b>{$count}</b> ticket(s) para la <a href="mailto:{$reply_to}?subject=RIFA">rifa en curso.</a>
+{$p}Usted ha comprado <b>{$count}</b> ticket(s) para la <a href="mailto:{$reply_to}?subject=RIFA&body={$default_link_help}">rifa en curso.</a>
 {$br}{$br}
 Ahora usted cuenta con un total de <b>{$tickets}</b> tickets.
 {$_p}

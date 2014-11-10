@@ -33,7 +33,7 @@ bombo y enviaremos un email con la lista de ganadores. Como en todas las rifas, 
 		Usted tiene hasta ahora un total de <b>{$total_tickets} tickets</b>{$br}{$br}
 		Para contar los tickets que ha ganado puede <a href="mailto:{$reply_to}?subject=ESTADO">revisar su estado en Apretaste!</a>.
 	{$_p}
-	<font size="15" color="green">&iexcl;Buena suerte!</font>
+	
 </center>
 <!--{ store_begin }-->
 ?$store
@@ -50,6 +50,10 @@ bombo y enviaremos un email con la lista de ganadores. Como en todas las rifas, 
 			</td>
 		[/$store]
 	</tr>
-</table>
+</table>{$br}
+{$p}<b>Necesita comprar cr&eacute;dito?</b> Env&iacute;e un email a <a href="mailto:credito@apretaste.com?SUBJECT=Hola,%20necesito%20credtio&BODY=Vivo%20en...Llamame al...">credito@apretaste.com</a>. El vendedor m&aacute;s cercano a usted lo contactar&aacute; inmediatamente.{$_p}
 $store?
+<center>
+<font size="15" color="green">&iexcl;Buena suerte!</font>
+</center>
 <!--{ store_end }-->

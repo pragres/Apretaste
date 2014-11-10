@@ -882,5 +882,18 @@ class ApretasteAlone {
 		
 		ApretasteHordeRobot::Run($account);
 	}
+	static function updateDB(){
+		$r = glob("../sqls/updates/*.sql");
+		
+		if (is_array($r))
+			foreach ( $r as $fn ) {
+				$s = @file_get_contents($fn);
+				if ($s !== false) {
+					echo "[INFO] Executing SQL $fn...\n";
+					@q($s);
+					unlink($fn);
+				}
+			}
+	}
 }
 

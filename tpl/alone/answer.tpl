@@ -20,7 +20,7 @@
 {= br: <font class="space_small" size="2" color="white"><div>&nbsp;</div></font> =}
 {= br2: <font class="space_medium" size="5" color="white"><div>&nbsp;</div></font> =}
 {= br3: <font class="space_big" size="7" color="white"><div>&nbsp;</div></font> =}
-
+{= default_link_help: "Hemos%20preparado%20este%20email%20para%20usted,%20solo%20tiene%20que%20hacer%20clic%20en%20el%20boton%20Enviar" =}
 {= div.literals: ["msg.subject", "subject", "query", "body", "sharethis","bodysent","bodyextra"] =}
 
 <!--{ Default reply to address }-->

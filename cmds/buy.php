@@ -73,7 +73,7 @@ function cmd_buy($robot, $from, $argument, $body = '', $images = array()){
 	}
 	
 	$sale = false;
-	$purchase = q("SELECT *,moment + '30 minutes'::interval as expiration FROM store_purchase WHERE confirmation_code = '$r';");
+	$purchase = q("SELECT *, to_char(moment + '1 hour'::interval, 'YYYY-MM-DD HH12:MI PM') as expiration FROM store_purchase WHERE confirmation_code = '$r';");
 	
 	if (isset($purchase[0])) {
 		

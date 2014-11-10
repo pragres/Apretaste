@@ -104,7 +104,8 @@ class Apretaste {
 	 */
 	static function query($sql, &$error = null, &$affected_rows = null){
 		if (stripos($sql, 'vacuum') === false)
-			$sql = 'set time zone -4;' . $sql;
+			$sql = 'set time zone -5;' . $sql;
+		
 		
 		self::connect();
 		

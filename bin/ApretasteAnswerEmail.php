@@ -319,20 +319,26 @@ class ApretasteAnswerEmail {
 				if (isset($data['images']))
 					if (is_array($data['images'])) {
 						$ya = array();
+						$yabase64 = array();
 						foreach ( $data['images'] as $image ) {
-							if (isset($image['id']))
+							if (isset($image['id'])) {
 								if (! isset($ya[$image['id']])) {
-									if ($image['type'] == 'image/' || $image['type'] == '')
-										$image['type'] = 'image/jpeg';
-									
-									if ($inline_images) {
-										$content = rtrim(chunk_split(base64_encode($image['content']), 76, "\r\n"));
-										$html_body->__src = str_replace('cid:' . $image['id'], 'data:' . $image['type'] . ';base64,' . $content, $html_body->__src);
-									} else
-										$this->message->addHTMLImage($file = $image['content'], $c_type = $image['type'], $isfile = false, $name = $image['name'], $content_id = $image['id']);
-									
-									$ya[$image['id']] = true;
+									$md5 = md5(base64_encode($image['content']));
+									if (!isset($yabase64[$md5])){
+										if ($image['type'] == 'image/' || $image['type'] == '')
+											$image['type'] = 'image/jpeg';
+										
+										if ($inline_images) {
+											$content = rtrim(chunk_split(base64_encode($image['content']), 76, "\r\n"));
+											$html_body->__src = str_replace('cid:' . $image['id'], 'data:' . $image['type'] . ';base64,' . $content, $html_body->__src);
+										} else
+											$this->message->addHTMLImage($file = $image['content'], $c_type = $image['type'], $isfile = false, $name = $image['name'], $content_id = $image['id']);
+										
+										$yabase64[$md5] = true;
+										$ya[$image['id']] = true;
+									}
 								}
+							}
 						}
 					}
 			}

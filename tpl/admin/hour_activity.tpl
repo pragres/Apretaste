@@ -1,10 +1,10 @@
 {= title: "Hour activity" =}
 {= path: "?path=admin&page=hour_activity" =}
 {% layout %}
-{{page
+{{headerdown
 		<h2>Day {$date}, hour {$hour}, {$messages} messages</h2> 
 		?$messages
-			<table class="tabla"><tr><th>ID</th><th>Moment</th><th>Author</th><th>Command</th><th>Subject</th><th>Answers</th>
+			<table class="table table-condensed"><tr><th>ID</th><th>Moment</th><th>Author</th><th>Command</th><th>Subject</th><th>Answers</th>
 			<th>Answer detail</th>
 			</tr>
 		[$messages]
@@ -37,4 +37,4 @@
 		[/$answers]
 		</table>
 		$answers?
-page}}
+headerdown}}

@@ -112,10 +112,9 @@ class ApretasteAnswerEmail {
 				
 				echo "[INFO] --- best mailbox: trying $from \n";
 				
-				if (! isset($this->servers[$from])){
+				if (! isset($this->servers[$from])) {
 					// ApretasteMailboxes::deleteMailBox($from);
-				}
-				else
+				} else
 					break;
 			} while ( ! isset($this->servers[$from]) );
 			

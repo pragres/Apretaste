@@ -175,7 +175,7 @@ class ApretasteAnswerEmail {
 			
 			if ($result !== true) {
 				ApretasteMailboxes::saveShipmentError($from, '');
-				ob_start();
+				/*ob_start();
 				echo "<h1>Error sending email from $from to {$this->to} </h1>\n";
 				echo "<br/>\n";
 				
@@ -205,6 +205,7 @@ class ApretasteAnswerEmail {
 				$headers .= 'X-Mailer: PHP/' . phpversion();
 				
 				mail('soporte@apretaste.com', "Error sending from $from to {$this->to}", $message, $headers);
+				*/
 			} else
 				$sent = true;
 		} while ( $sent == false );

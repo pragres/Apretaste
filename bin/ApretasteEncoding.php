@@ -1,4 +1,5 @@
 <?php
+
 class ApretasteEncoding {
 	protected static $win1252ToUtf8 = array(
 			128 => "\xe2\x82\xac",

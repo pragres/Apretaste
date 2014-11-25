@@ -10,127 +10,125 @@
  * @param array $images
  * @return array
  */
-function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
-	
-	$propaganda = array(
+function cmd_sms($robot, $from, $argument, $body = '', $images = array()) {
+	$propaganda = array (
 			"-SMS Enviado x Apretaste!",
 			"-SMS Envia2 x Apretaste!",
 			"-Enviado x Apretaste!",
 			"-Envia2 x Apretaste!",
 			"-SMS x Apretaste",
-			"-Apretaste SMS!"
+			"-Apretaste SMS!" 
 	);
 	
-	$body = str_replace("\n", " ", $body);
-	$body = str_replace("\r", " ", $body);
-	$body = str_replace("  ", " ", $body);
+	$body = str_replace ( "\n", " ", $body );
+	$body = str_replace ( "\r", " ", $body );
+	$body = str_replace ( "  ", " ", $body );
 	
-	$codes = ApretasteSMS::getCountryCodes();
+	$codes = ApretasteSMS::getCountryCodes ();
 	
-	asort($codes);
+	asort ( $codes );
 	
 	$as_plain_text = false;
 	
-	if (strpos($from, '@nauta.cu') !== false)
+	if (strpos ( $from, '@nauta.cu' ) !== false)
 		$as_plain_text = true;
 	
-	$argument = trim($argument);
+	$argument = trim ( $argument );
 	
-	if (strtolower($argument) == 'codigos') {
-		return array(
+	if (strtolower ( $argument ) == 'codigos') {
+		return array (
 				"answer_type" => "sms_codes",
 				"codes" => $codes,
-				"as_plain_text" => $as_plain_text
+				"as_plain_text" => $as_plain_text 
 		);
 	}
 	
-	if (! Apretaste::isUTF8($body))
-		$body = utf8_encode($body);
+	if (! Apretaste::isUTF8 ( $body ))
+		$body = utf8_encode ( $body );
 	
-	$body = quoted_printable_decode($body);
-	$body = trim(strip_tags($body));
-	$body = Apretaste::removeTildes($body);
-	$body = Apretaste::replaceRecursive("  ", " ", $body);
-	$body = Apretaste::replaceRecursive("--", "-", $body);
+	$body = quoted_printable_decode ( $body );
+	$body = trim ( strip_tags ( $body ) );
+	$body = Apretaste::removeTildes ( $body );
+	$body = Apretaste::replaceRecursive ( "  ", " ", $body );
+	$body = Apretaste::replaceRecursive ( "--", "-", $body );
 	
-	$body = trim($body);
+	$body = trim ( $body );
 	
-	if (trim($body) == '')
-		return array(
+	if (trim ( $body ) == '')
+		return array (
 				"answer_type" => "sms_empty_text",
 				"number" => $argument,
-				"as_plain_text" => $as_plain_text
+				"as_plain_text" => $as_plain_text 
 		);
-
+	
 	$without_answer = false;
 	
-	$dont_replyme = array(
+	$dont_replyme = array (
 			'no responder',
 			'sin responder',
 			'no contestar',
 			'sin contestar',
 			'sin notificacion',
-			'solo enviar'
+			'solo enviar' 
 	);
 	
-	$argument = strtolower(Apretaste::replaceRecursive("  "," ",$argument));
+	$argument = strtolower ( Apretaste::replaceRecursive ( "  ", " ", $argument ) );
 	
-	foreach($dont_replyme as $dr){
-		if (stripos($argument, $dr)!==false){
+	foreach ( $dont_replyme as $dr ) {
+		if (stripos ( $argument, $dr ) !== false) {
 			$without_answer = true;
-			$argument = str_replace($dr,"",$argument);
+			$argument = str_replace ( $dr, "", $argument );
 		}
 	}
 	
-		// Remove ugly chars
+	// Remove ugly chars
 	
 	$n = '';
-	$l = strlen($argument);
+	$l = strlen ( $argument );
 	for($i = 0; $i < $l; $i ++)
-		if (strpos('1234567890', $argument[$i]) !== false)
-			$n .= $argument[$i];
+		if (strpos ( '1234567890', $argument [$i] ) !== false)
+			$n .= $argument [$i];
 	
 	$argument = $n;
 	
 	// Get country code
 	
-	$parts = ApretasteSMS::splitNumber($argument);
+	$parts = ApretasteSMS::splitNumber ( $argument );
 	
 	if ($parts === false) {
 		
-		return array(
+		return array (
 				"answer_type" => "sms_wrong_number",
-				"answer_dont_send" => $without_answer,
 				"number" => $argument,
 				"message" => $body,
 				"codes" => $codes,
-				"credit" => ApretasteMoney::getCreditOf($from),
-				"as_plain_text" => $as_plain_text
+				"credit" => ApretasteMoney::getCreditOf ( $from ),
+				"as_plain_text" => $as_plain_text 
 		);
 	}
 	
-	$code = $parts['code'];
-	$number = $parts['number'];
+	$code = $parts ['code'];
+	$number = $parts ['number'];
 	
 	// Split message
-	$msg = trim($body);
+	$msg = trim ( $body );
 	
 	// $parts = ApretasteSMS::chopText($msg);
 	// $tparts = count($parts);
-	$parts = array(
-			substr($body, 0, 160)
+	$parts = array (
+			substr ( $body, 0, 160 ) 
 	);
 	
 	$tparts = 1;
 	
 	// Get rate
-	$discount = ApretasteSMS::getRate($code);
+	$discount = ApretasteSMS::getRate ( $code );
 	
 	// Verify credit
-	$credit = ApretasteMoney::getCreditOf($from);
+	$credit = ApretasteMoney::getCreditOf ( $from );
 	
-	$c = Apretaste::getConfiguration("sms_free", false);
-	$w = Apretaste::matchEmailPlus($from, Apretaste::getEmailWhiteList());
+	$c = Apretaste::getConfiguration ( "sms_free", false );
+	$w = Apretaste::matchEmailPlus ( $from, Apretaste::getEmailWhiteList () );
 	$c = $c || $w;
 	
 	if ($c == true)
@@ -138,35 +136,35 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	
 	if ($credit < $discount * $tparts && $c == false) {
 		// no credit
-		return array(
+		return array (
 				"answer_type" => "sms_not_enought_funds",
 				"credit" => $credit,
 				"discount" => $discount * $tparts,
 				"smsparts" => $parts,
-				"as_plain_text" => $as_plain_text
+				"as_plain_text" => $as_plain_text 
 		);
 	}
 	
 	// Send message
 	
 	foreach ( $parts as $i => $part ) {
-		$robot->log("Sending sms part $i - $part to $code - $number");
+		$robot->log ( "Sending sms part $i - $part to $code - $number" );
 		
 		foreach ( $propaganda as $prop ) {
-			if (strlen($part) + strlen($prop) <= 160) {
+			if (strlen ( $part ) + strlen ( $prop ) <= 160) {
 				$part .= $prop;
 				break;
 			}
 		}
 		
-		if (! Apretaste::isSimulator()) {
-			$r = ApretasteSMS::send($code, $number, $from, $part, $discount, ! $w);
+		if (! Apretaste::isSimulator ()) {
+			$r = ApretasteSMS::send ( $code, $number, $from, $part, $discount, ! $w );
 			if ($r !== 'sms enviado') {
 				
-				$robot->log('SMS not sent! Server return "' . $r . '"');
+				$robot->log ( 'SMS not sent! Server return "' . $r . '"' );
 				
-				return array(
-						"answer_type" => "sms_not_sent"
+				return array (
+						"answer_type" => "sms_not_sent" 
 				);
 			}
 		}
@@ -175,15 +173,16 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 	$bodyextra = false;
 	$bodysent = $body;
 	
-	if (strlen($body) > 160) {
-		$bodyextra = substr($body, 160);
-		$bodysent = substr($body, 0, 160);
+	if (strlen ( $body ) > 160) {
+		$bodyextra = substr ( $body, 160 );
+		$bodysent = substr ( $body, 0, 160 );
 	}
 	
-	$newcredit = ApretasteMoney::getCreditOf($from);
+	$newcredit = ApretasteMoney::getCreditOf ( $from );
 	
-	return array(
+	return array (
 			"answer_type" => "sms_sent",
+			"answer_dont_send" => $without_answer,
 			"credit" => $credit,
 			"newcredit" => $newcredit,
 			"discount" => $discount,
@@ -192,7 +191,7 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 			"bodysent" => $bodysent,
 			"totaldiscount" => $discount * $tparts,
 			"as_plain_text" => $as_plain_text,
-			"cellnumber" => "(+$code)$number"
+			"cellnumber" => "(+$code)$number" 
 	);
 }
 	

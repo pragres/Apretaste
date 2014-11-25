@@ -11,6 +11,7 @@
  * @return array
  */
 function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
+	
 	$propaganda = array(
 			"-SMS Enviado x Apretaste!",
 			"-SMS Envia2 x Apretaste!",
@@ -60,7 +61,27 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 				"number" => $argument,
 				"as_plain_text" => $as_plain_text
 		);
-		
+
+	$without_answer = false;
+	
+	$dont_replyme = array(
+			'no responder',
+			'sin responder',
+			'no contestar',
+			'sin contestar',
+			'sin notificacion',
+			'solo enviar'
+	);
+	
+	$argument = strtolower(Apretaste::replaceRecursive("  "," ",$argument));
+	
+	foreach($dont_replyme as $dr){
+		if (stripos($argument, $dr)!==false){
+			$without_answer = true;
+			$argument = str_replace($dr,"",$argument);
+		}
+	}
+	
 		// Remove ugly chars
 	
 	$n = '';
@@ -79,6 +100,7 @@ function cmd_sms($robot, $from, $argument, $body = '', $images = array()){
 		
 		return array(
 				"answer_type" => "sms_wrong_number",
+				"answer_dont_send" => $without_answer,
 				"number" => $argument,
 				"message" => $body,
 				"codes" => $codes,

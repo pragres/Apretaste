@@ -45,11 +45,17 @@ class ApretasteHordeClient {
 	 * Login in horde account
 	 */
 	public function login(){
+		echo "[info] set curl properties \n";
 		curl_setopt($this->client, CURLOPT_URL, $this->hordeConfig->baseUrl . "/login.php");
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, "app=&login_post=1&url=&anchor_string=&ie_version=&horde_user=apretaste&horde_pass=3Jd8VfFT&horde_select_view=mobile&new_lang=en_US");
+		
+		echo "[info] execute login curl exec \n";
 		$response = curl_exec($this->client);
+		
 		if ($response === false)
 			return false;
+		
+		echo "[info] parsing out token \n";
 		
 		$this->logOutToken = substr($response, strpos($response, "horde_logout_token"));
 		$this->logOutToken = explode("&", $this->logOutToken);

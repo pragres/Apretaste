@@ -83,6 +83,9 @@ $subscribes?
 {$br}
 
 ?$sms
+{$h2}Envio de SMS{$_h2}
+{$p}Usted ha enviado un total de {$sms} mensajes SMS que representan un costo de ${#sum:sms-discount:2.#} en su cre&eacute;dito personal.{$_p} 
+<!--{
 {$h2}&Uacute;ltimos SMS enviados:{$_h2}
 <table>
 	<table style="{$font}">
@@ -93,6 +96,7 @@ $subscribes?
 	</tr>
 	[/$sms]
 	</table>
+}-->
 $sms?
 
 {$br}

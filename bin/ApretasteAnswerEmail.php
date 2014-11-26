@@ -174,7 +174,7 @@ class ApretasteAnswerEmail {
 			// Silent mode
 			$ssend = true;
 			
-			if ($this->data ['answer_dont_send'])
+			if (isset($this->data ['answer_dont_send']))
 				if ($this->data ['answer_dont_send'] == true)
 					$ssend = false;
 				

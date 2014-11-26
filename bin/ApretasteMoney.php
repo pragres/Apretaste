@@ -138,13 +138,15 @@ class ApretasteMoney {
 	 *
 	 * @return array
 	 */
-	static function getDispatchers($pic_width = 20){
-		$r = Apretaste::query("SELECT *, 
+	static function getDispatchers($pic_width = 20, $withowe = false){
+		$r = Apretaste::query("select * FROM (SELECT *, 
 				(select count(*) from recharge_card_sale WHERE dispatcher = email) as sales,
 				coalesce((select total_sold from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as total_sold,
 				coalesce((select profit from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as profit,
 				coalesce((select owe from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as owe 
-				FROM dispatcher;");
+				FROM dispatcher) as q
+				" . ($withowe ? "WHERE q.owe > 0" : "") . "
+				order by q.owe desc;");
 		if (! is_array($r))
 			$r = array();
 		
@@ -259,7 +261,6 @@ class ApretasteMoney {
 		// amount = profit / profit_percent
 		// amount = owe / (1 - profit_percent)
 		// max_amount = (credit_line - amount) / (1 - profit_percent)
-		
 		$owe = q("SELECT owe from agency_expanded where id = '$agency';");
 		
 		if (isset($owe[0])) {
@@ -300,7 +301,7 @@ class ApretasteMoney {
 		
 		// Getting time limit for payments from setup
 		$period = c('agency_payment_timelimit', 30) * 1; // in days
-		                                                                       
+		                                                 
 		// Searching the first day with owe
 		$r = q("select (select min(date) from agency_days_without_payment where agency = '$agency') + $period < current_date as c");
 		

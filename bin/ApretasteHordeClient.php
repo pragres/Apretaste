@@ -45,11 +45,17 @@ class ApretasteHordeClient {
 	 * Login in horde account
 	 */
 	public function login(){
+		echo "[info] set curl properties \n";
 		curl_setopt($this->client, CURLOPT_URL, $this->hordeConfig->baseUrl . "/login.php");
 		curl_setopt($this->client, CURLOPT_POSTFIELDS, "app=&login_post=1&url=&anchor_string=&ie_version=&horde_user=apretaste&horde_pass=3Jd8VfFT&horde_select_view=mobile&new_lang=en_US");
+		
+		echo "[info] execute login curl exec \n";
 		$response = curl_exec($this->client);
+		
 		if ($response === false)
 			return false;
+		
+		echo "[info] parsing out token \n";
 		
 		$this->logOutToken = substr($response, strpos($response, "horde_logout_token"));
 		$this->logOutToken = explode("&", $this->logOutToken);
@@ -106,9 +112,15 @@ class ApretasteHordeClient {
 	public function getInbox($limit = 10, $savexml = true){
 		if ($this->login()) {
 			
+			echo "[info] login successfull \n";
+			
 			curl_setopt($this->client, CURLOPT_URL, $this->hordeConfig->baseUrl . "/services/ajax.php/imp/viewPort");
 			curl_setopt($this->client, CURLOPT_POSTFIELDS, "view=SU5CT1g&requestid=1&initial=1&after=&before=5000&slice=");
+			
+			echo "[info] curl exect \n";
+			
 			$response = curl_exec($this->client);
+			
 			$response = str_replace("/*-secure-", "", $response);
 			$response = str_replace("*/", "", $response);
 			
@@ -123,6 +135,8 @@ class ApretasteHordeClient {
 					$data = get_object_vars($data);
 				
 				$this->inbox = array();
+				
+				echo "[info] preparing msgs\n ";
 				
 				$i = 0;
 				if (is_array($data))
@@ -142,7 +156,11 @@ class ApretasteHordeClient {
 					}
 			}
 			
+			echo "[info] pruge deleted \n";
+			
 			$this->purgeDeletedMails("SU5CT1g");
+			
+			echo "[info] logout ";
 			$this->logout();
 			return $this->inbox;
 		}

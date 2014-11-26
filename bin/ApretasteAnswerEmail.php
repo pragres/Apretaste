@@ -174,14 +174,16 @@ class ApretasteAnswerEmail {
 			// Silent mode
 			$ssend = true;
 			
-			if ($this->data ['answer_dont_send'])
+			if (isset($this->data ['answer_dont_send']))
 				if ($this->data ['answer_dont_send'] == true)
 					$ssend = false;
 				
 			if ($ssend === true)
 				$result = $smtp_server->send ( $this->to, $this->headers, $messageBody );
-			else 
+			else {
 				echo $this->verbose ? "SILENT MODE: The answer was not sent to {$this->to}\n" : "";
+				$result = true;
+			}
 			
 			if ($result !== true) {
 				ApretasteMailboxes::saveShipmentError ( $from, '' );

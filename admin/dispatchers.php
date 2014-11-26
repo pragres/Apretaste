@@ -5,7 +5,6 @@
  *
  * Dispatchers
  */
-
 if (isset($_POST['btnAddDispatcher'])) {
 	$r = ApretasteMoney::addDispatcher(strtolower(trim($_POST['edtEmail'])), $_POST['edtName'], $_POST['edtContact']);
 	
@@ -24,7 +23,7 @@ if (isset($_GET['delete'])) {
 
 $data['dispatchers'] = array();
 
-$r = ApretasteMoney::getDispatchers(30);
+$r = ApretasteMoney::getDispatchers(30, isset($_GET['pdf']));
 
 foreach ( $r as $row ) {
 	$data['dispatchers'][] = array(
@@ -40,3 +39,16 @@ foreach ( $r as $row ) {
 	);
 }
 
+if (isset($_GET['pdf'])) {
+	$data['title'] = 'Vendedores deudores';
+	$html = new ApretasteView("../tpl/admin/dispatchers.pdf.tpl", $data);
+	$html = "$html";
+	
+	include "../lib/mpdf/mpdf.php";
+	$mpdf = new mPDF();
+	$mpdf->WriteHTML($html);
+	
+	$mpdf->Output("Apretaste - Vendedores - Deudores - " . date("Y-m-d h-i-s") . ".pdf", 'D');
+	
+	return true;
+}

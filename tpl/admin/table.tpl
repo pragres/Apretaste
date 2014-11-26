@@ -38,7 +38,10 @@
 
 		if (is_array($columns)) foreach ($columns as $field){
 			if (!isset($hideColumns->$field)){
-				echo '<th>';
+				echo '<th';
+				if (isset($column_width->$field)) 
+					echo ' width="'.$column_width->$field.'" ';
+				echo '>';
 				if (isset($headers->$field))
 					echo $headers->$field;
 				else

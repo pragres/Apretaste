@@ -144,7 +144,8 @@ class ApretasteMoney {
 				coalesce((select total_sold from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as total_sold,
 				coalesce((select profit from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as profit,
 				coalesce((select owe from  dispatchers_owe where dispatchers_owe.dispatcher = dispatcher.email),0) as owe 
-				FROM dispatcher;");
+				FROM dispatcher
+				order by owe desc;");
 		if (! is_array($r))
 			$r = array();
 		

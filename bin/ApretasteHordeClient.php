@@ -106,9 +106,15 @@ class ApretasteHordeClient {
 	public function getInbox($limit = 10, $savexml = true){
 		if ($this->login()) {
 			
+			echo "[info] login successfull \n";
+			
 			curl_setopt($this->client, CURLOPT_URL, $this->hordeConfig->baseUrl . "/services/ajax.php/imp/viewPort");
 			curl_setopt($this->client, CURLOPT_POSTFIELDS, "view=SU5CT1g&requestid=1&initial=1&after=&before=5000&slice=");
+			
+			echo "[info] curl exect \n";
+			
 			$response = curl_exec($this->client);
+			
 			$response = str_replace("/*-secure-", "", $response);
 			$response = str_replace("*/", "", $response);
 			
@@ -123,6 +129,8 @@ class ApretasteHordeClient {
 					$data = get_object_vars($data);
 				
 				$this->inbox = array();
+				
+				echo "[info] preparing msgs\n ";
 				
 				$i = 0;
 				if (is_array($data))
@@ -142,7 +150,11 @@ class ApretasteHordeClient {
 					}
 			}
 			
+			echo "[info] pruge deleted \n";
+			
 			$this->purgeDeletedMails("SU5CT1g");
+			
+			echo "[info] logout ";
 			$this->logout();
 			return $this->inbox;
 		}

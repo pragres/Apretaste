@@ -1,5 +1,5 @@
 {= title: "Dispatchers" =}
-{= path: "index.php?path=admin&page=dispatchers" =}
+{= path: "?q=dispatchers" =}
 
 {% layout %}
 
@@ -54,4 +54,6 @@
 			}
 			
 		} %%}
+		
+		<a class="btn btn-default" href="{$path}&pdf=true">Download as PDF</a>
 headerdown}}

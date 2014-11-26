@@ -9,7 +9,7 @@
 			data: $dispatchers,
 			hideColumns: {picture: true, name: true},
 			headers: {
-				picture: "",
+				picture: "&nbsp;",
 				total_sold: "Sold",
 				contact: "Contact info",
 				options: "&nbsp;",

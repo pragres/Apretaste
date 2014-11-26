@@ -40,3 +40,16 @@ foreach ( $r as $row ) {
 	);
 }
 
+if (isset($_GET['pdf'])) {
+
+	$html = new ApretasteView("../tpl/admin/dispatchers.tpl", $data['payment_warning']);
+	$html = "$html";
+
+	include "../lib/mpdf/mpdf.php";
+	$mpdf = new mPDF();
+	$mpdf->WriteHTML($html);
+
+	$mpdf->Output("Apretaste - Vendedores - Deudores - " . date("Y-m-d h-i-s") . ".pdf", 'D');
+
+	return true;
+}

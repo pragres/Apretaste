@@ -31,6 +31,7 @@
 	id: "dispatchers",
 	data: $dispatchers,
 	hideColumns: {picture: true, name: true, options: true},
+	simple: true,
 	headers: {
 		picture: "Picture",
 		total_sold: "Sold",

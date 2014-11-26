@@ -40,7 +40,7 @@ foreach ( $r as $row ) {
 }
 
 if (isset($_GET['pdf'])) {
-	
+	$data['title'] = 'Vendedores deudores';
 	$html = new ApretasteView("../tpl/admin/dispatchers.pdf.tpl", $data);
 	$html = "$html";
 	

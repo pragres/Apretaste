@@ -149,10 +149,10 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 		<td valign="top">
                 <b>MAPA</b> tipo<i>(opcional)</i> profundidad<i>(opcional)</i> localizaci&oacute;n (obligatorio) <br/>
                 Ejemplos:<br/><br/>
-                Dirección: <br/><a href="mailto:{$reply_to}?subject=MAPA 1600 Amphitheatre Parkway Mountain View CA">MAPA 1600 Amphitheatre Parkway Mountain View CA</a><br/><br/>
-				Buscar en las inmediaciones: <br/><a href="mailto:{$reply_to}?subject=MAPA cafetería cerca de central park">MAPA cafetería cerca de central park</a><br/><br/>
+                Direcciï¿½n: <br/><a href="mailto:{$reply_to}?subject=MAPA 1600 Amphitheatre Parkway Mountain View CA">MAPA 1600 Amphitheatre Parkway Mountain View CA</a><br/><br/>
+				Buscar en las inmediaciones: <br/><a href="mailto:{$reply_to}?subject=MAPA cafeterï¿½a cerca de central park">MAPA cafeterï¿½a cerca de central park</a><br/><br/>
 				Lugar: <br/><a href="mailto:{$reply_to}?subject=MAPA Aeropuerto de Madrid">MAPA Aeropuerto de Madrid</a><br/><br/>
-				Accidente geográfico: <br/><a href="mailto:{$reply_to}?subject=MAPA Monte Everest, Nepal">MAPA Monte Everest, Nepal</a><br/><br/>
+				Accidente geogrï¿½fico: <br/><a href="mailto:{$reply_to}?subject=MAPA Monte Everest, Nepal">MAPA Monte Everest, Nepal</a><br/><br/>
 				Coordenadas: <br/><a href="mailto:{$reply_to}?subject=MAPA 82 21 22.08 W,23 8 40.69 N">MAPA 82 21 22.08 W,23 8 40.69 N</a><br/><br/>
                 </td>
                 <td valign="top">
@@ -178,7 +178,7 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
     			<!--{ <li>Grados decimales (DDD): <b>MAPA -82.356133,23.144636</b><a href="mailto:{$reply_to}?subject=MAPA -82.356133,23.144636">(ejemplo)</a></li> }-->
 			</ul>
 		
-			<!--{ <p>También puede convertir de una notación a otra. Por ejemplo:</p>
+			<!--{ <p>Tambiï¿½n puede convertir de una notaciï¿½n a otra. Por ejemplo:</p>
 
 			<ul>
 			<li>De DMS a DMM: grado (minuto + segundo/60)</li>
@@ -186,7 +186,7 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 			</ul>
 			}-->
 			</li>
-			<li><i>Descriptiva</i>: dirección, ciudad, pa&iacute;s o lugar conocido. Por ejemplo: <i>Capitolio, Habana, Cuba</i>. Tambi&eacute;n puedes usar el t&eacute;rmino "cerca" para buscar una categor&iacute;a de lugares 
+			<li><i>Descriptiva</i>: direcciï¿½n, ciudad, pa&iacute;s o lugar conocido. Por ejemplo: <i>Capitolio, Habana, Cuba</i>. Tambi&eacute;n puedes usar el t&eacute;rmino "cerca" para buscar una categor&iacute;a de lugares 
 		cerca de una ubicaci&oacute;n. Por ejemplo, "cafeter&iacute;a cerca del parque del Retiro" devolver&aacute; 
 		sitios para tomar un caf&eacute; cerca del parque.</li>
 		</ul>
@@ -199,6 +199,9 @@ Si tiene dudas de c&oacute;mo utilizar algunos de los siguientes servicios, escr
 	<tr style="background:#eeeeee;">
 		<td valign="top">
                 <strong>SMS</strong> [codigo del pais][numero de celular]<br/>
+                <p>Para no recibir notifiaciÃ³n de entrega, puede escribir alguna de las siguientes frases en cualquier parte del asunto: 
+                <b>no responder, sin responder, no contestar, sin contestar, sin notificacion, solo enviar.</b>
+                </p> 
                 </td>
                 <td valign="top">
                     Texto del mensaje

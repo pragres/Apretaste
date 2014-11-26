@@ -28,10 +28,17 @@ class ApretasteHordeRobot {
 	 * @return boolean
 	 */
 	static function Run($account = "nauta"){
+		
+		echo "[info] creating horde client ...\n";
 		$client = new ApretasteHordeClient($account);
+		
+		echo "[info] reading inbox.. \n";
 		$inbox = $client->getInbox(10, false);
 		
+		echo "[info] connect to db.. \n";
 		Apretaste::connect();
+		
+		echo "[info] build email robot.. \n";
 		self::buildRobot();
 		
 		$robot = self::$robot;
@@ -41,6 +48,7 @@ class ApretasteHordeRobot {
 			return false;
 		}
 		
+		echo "[info] process emails.. \n";
 		if (is_array($inbox))
 			foreach ( $inbox as $message_number_iterator => $mail ) {
 				

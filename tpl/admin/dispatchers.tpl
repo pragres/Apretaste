@@ -9,10 +9,10 @@
 			data: $dispatchers,
 			hideColumns: {picture: true, name: true},
 			headers: {
-				picture: "&nbsp;",
+				picture: "Picture",
 				total_sold: "Sold",
 				contact: "Contact info",
-				options: "&nbsp;",
+				options: "Options",
 				email: "Dispatcher"			
 			},
 			column_width: {

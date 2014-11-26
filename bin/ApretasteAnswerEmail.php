@@ -184,6 +184,7 @@ class ApretasteAnswerEmail {
 				echo $this->verbose ? "SILENT MODE: The answer was not sent to {$this->to}\n" : "";
 				$result = true;
 			}
+			
 			if ($result !== true) {
 				ApretasteMailboxes::saveShipmentError ( $from, '' );
 				/*

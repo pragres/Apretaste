@@ -21,7 +21,10 @@ if (! is_null($download) || ! is_null($download1)) {
 	
 	$file_name = str_replace("--", "-", $file_name);
 	
-	$sql = "SELECT email FROM address_list " . (is_null($filter) ? "" : "WHERE matchEmail(email,'$filter') OR matchEmail(source,'$filter')");
+	if ($filter == 'apretaste.public.messages')
+		$sql = "SELECT author as email FROM messages_authors";
+	else
+		$sql = "SELECT email FROM address_list " . (is_null($filter) ? "" : "WHERE matchEmail(email,'$filter') OR matchEmail(source,'$filter')");
 	
 	$list = Apretaste::query($sql);
 	

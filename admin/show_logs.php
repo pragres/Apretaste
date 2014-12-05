@@ -1,16 +1,44 @@
 <?php
+function tail($fname, $count = 10) {
+	$line = '';
+	
+	$f = fopen ( $fname, 'r' );
+	$cursor = - 1;
+	for($i = 0; $i < $count; $i ++) {
+		fseek ( $f, $cursor, SEEK_END );
+		$char = fgetc ( $f );
+		
+		/**
+		 * Trim trailing newline chars of the file
+		 */
+		while ( $char === "\n" || $char === "\r" ) {
+			fseek ( $f, $cursor --, SEEK_END );
+			$char = fgetc ( $f );
+		}
+		
+		/**
+		 * Read until the start of file or first newline char
+		 */
+		while ( $char !== false && $char !== "\n" && $char !== "\r" ) {
+			/**
+			 * Prepend the new char
+			 */
+			$line = $char . $line;
+			fseek ( $f, $cursor --, SEEK_END );
+			$char = fgetc ( $f );
+		}
+		
+		$line = "\n" . $line;
+	}
+	// $line = str_replace("\n\n","\n",$line);
+	return trim ( $line ) . "\n\r";
+}
+
 $fname = get ( 'fname' );
 
 if (isset ( $_GET ['ajax'] )) {
-	session_start ();
-	$handle = fopen ( "../log/$fname.log", 'r' );
-	if (isset ( $_SESSION ['offset'] )) {
-		$data = stream_get_contents ( $handle, - 1, $_SESSION ['offset'] );
-		echo nl2br ( $data );
-	} else {
-		fseek ( $handle, 0, SEEK_END );
-		$_SESSION ['offset'] = ftell ( $handle );
-	}
+	// session_start ();
+	echo tail ( "../log/$fname.log" );
 	exit ();
 }
 ?>
@@ -25,13 +53,15 @@ if (isset ( $_GET ['ajax'] )) {
 $(function() {
 $.repeat(1000, function() {
 $.get('?q=show_logs&ajax&fname=<?php echo $fname; ?>', function(data) {
-$('#tail').append(data);
+$('#tail').html(data);
 });
 });
 });
 </script>
 </head>
 <body>
-	<div id="tail">Starting up...</div>
+	<pre
+		style="width: 1024px; height: 500px; background: black; color: white; padding: 5px;"
+		id="tail">Starting up...</pre>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-function tail($fname, $count = 50) {
+function tail($fname, $count = 1) {
 	$line = '';
 	
 	$f = fopen ( $fname, 'r' );
@@ -34,37 +34,9 @@ function tail($fname, $count = 50) {
 	return trim ( $line ) . "\n\r";
 }
 
-$fname = get ( 'fname' );
-
 if (isset ( $_GET ['ajax'] )) {
+	$fname = get ( 'fname' );
 	// session_start ();
 	echo tail ( "../log/$fname.log" );
-	exit ();
+	return true;
 }
-?>
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-<script
-	src="http://creativecouple.github.com/jquery-timing/jquery-timing.min.js"></script>
-<script>
-$(function() {
-	$.repeat(1000, function() {
-		if ($('#chkShow').attr('checked')=='checked') {
-			$.get('?q=show_logs&ajax&fname=<?php echo $fname; ?>', function(data) {
-				$('#tail').html(data);
-			});
-		}
-	});
-});
-</script>
-</head>
-<body>
-	<input type="checkbox" id = "chkShow"> Show
-	<pre
-		style="width: 1024px; height: 500px; background: black; color: white; padding: 5px;"
-		id="tail">Starting up...</pre>
-</body>
-</html>

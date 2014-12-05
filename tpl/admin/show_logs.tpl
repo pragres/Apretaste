@@ -10,7 +10,7 @@
 $(function() {
 	$.repeat(1000, function() {
 		if ($('#chkShow').attr('checked')=='checked') {
-			$.get('?q=show_logs&ajax&fname=<?php echo $fname; ?>', function(data) {
+			$.get('?q=show_logs&ajax&fname=cron', function(data) {
 				if ($('#lastline').val() != data){
 					$('#lastline').val(data);
 					$('#tail').append(data);

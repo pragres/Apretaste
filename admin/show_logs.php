@@ -1,5 +1,5 @@
 <?php
-function tail($fname, $count = 10) {
+function tail($fname, $count = 50) {
 	$line = '';
 	
 	$f = fopen ( $fname, 'r' );

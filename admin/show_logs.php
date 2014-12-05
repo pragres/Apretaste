@@ -51,15 +51,18 @@ if (isset ( $_GET ['ajax'] )) {
 	src="http://creativecouple.github.com/jquery-timing/jquery-timing.min.js"></script>
 <script>
 $(function() {
-$.repeat(1000, function() {
-$.get('?q=show_logs&ajax&fname=<?php echo $fname; ?>', function(data) {
-$('#tail').html(data);
-});
-});
+	$.repeat(1000, function() {
+		if ($('#chkShow').attr('checked')=='checked') {
+			$.get('?q=show_logs&ajax&fname=<?php echo $fname; ?>', function(data) {
+				$('#tail').html(data);
+			});
+		}
+	});
 });
 </script>
 </head>
 <body>
+	<input type="checkbox" id = "chkShow"> Show
 	<pre
 		style="width: 1024px; height: 500px; background: black; color: white; padding: 5px;"
 		id="tail">Starting up...</pre>

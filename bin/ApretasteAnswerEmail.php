@@ -122,7 +122,6 @@ class ApretasteAnswerEmail {
 					echo "[FATAL] The mailbox $from is not configured yet\n";
 					var_dump(array_keys($this->servers));
 					// ApretasteMailboxes::deleteMailBox($from);
-					continue;
 				} else
 					break;
 				

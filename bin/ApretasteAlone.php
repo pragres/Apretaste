@@ -839,6 +839,37 @@ class ApretasteAlone {
 				}
 				$ans = unserialize(base64_decode($email['data']));
 				
+				// -------------------------------- clone from Robot
+				
+				$thesource = new DOMImplementation();
+				$configuration = $thesource->createDocument();
+				$configuration->load("../etc/configuration.xml");
+				$configuration->validate();
+				
+				// SMTP servers
+				$smtps = $configuration->documentElement->getElementsByTagName('smtp');
+				$ans->smtp_servers = array();
+				for($i = 0; $i < $smtps->length; $i ++)
+					if (mb_strtolower($smtps->item($i)->getAttribute('auth')) == 'false' || mb_strtolower($smtps->item($i)->getAttribute('auth')) == 'no')
+						$ans->smtp_servers[$smtps->item($i)->getAttribute('address')] = array(
+								'host' => $smtps->item($i)->getAttribute('host'),
+								'port' => $smtps->item($i)->getAttribute('port'),
+								'auth' => false,
+								'username' => "",
+								'password' => ""
+						);
+					else
+						$this->smtp_servers[$smtps->item($i)->getAttribute('address')] = array(
+								'host' => $smtps->item($i)->getAttribute('host'),
+								'port' => $smtps->item($i)->getAttribute('port'),
+								'auth' => true,
+								'username' => $smtps->item($i)->getAttribute('username'),
+								'password' => $smtps->item($i)->getAttribute('password')
+						);
+				
+				echo "[INFO] Loaded SMTP configuration: " . implode(array_keys($ans->smtp_servers)) . "\n";
+				// --------------------------------
+				
 				$horde = false;
 				if (isset($ans->via_horde))
 					if ($ans->via_horde == true) {

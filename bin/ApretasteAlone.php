@@ -848,10 +848,10 @@ class ApretasteAlone {
 				
 				// SMTP servers
 				$smtps = $configuration->documentElement->getElementsByTagName('smtp');
-				$ans->smtp_servers = array();
+				$ans->servers = array();
 				for($i = 0; $i < $smtps->length; $i ++)
 					if (mb_strtolower($smtps->item($i)->getAttribute('auth')) == 'false' || mb_strtolower($smtps->item($i)->getAttribute('auth')) == 'no')
-						$ans->smtp_servers[$smtps->item($i)->getAttribute('address')] = array(
+						$ans->servers[$smtps->item($i)->getAttribute('address')] = array(
 								'host' => $smtps->item($i)->getAttribute('host'),
 								'port' => $smtps->item($i)->getAttribute('port'),
 								'auth' => false,
@@ -859,7 +859,7 @@ class ApretasteAlone {
 								'password' => ""
 						);
 					else
-						$ans->smtp_servers[$smtps->item($i)->getAttribute('address')] = array(
+						$ans->servers[$smtps->item($i)->getAttribute('address')] = array(
 								'host' => $smtps->item($i)->getAttribute('host'),
 								'port' => $smtps->item($i)->getAttribute('port'),
 								'auth' => true,
@@ -867,7 +867,7 @@ class ApretasteAlone {
 								'password' => $smtps->item($i)->getAttribute('password')
 						);
 				
-				echo "[INFO] Loaded SMTP configuration: " . implode(array_keys($ans->smtp_servers)) . "\n";
+				echo "[INFO] Loaded SMTP configuration: " . implode(array_keys($ans->servers)) . "\n";
 				// --------------------------------
 				
 				$horde = false;

@@ -2230,6 +2230,7 @@ class Apretaste {
 			return APRETASTE_INVITATION_REPEATED;
 		
 		$r = self::query("SELECT * FROM invitation where guest = '$from' and author = '$guest';");
+		
 		if ($r)
 			return APRETASTE_INVITATION_UNNECESASARY;
 		

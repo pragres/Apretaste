@@ -115,6 +115,7 @@ class ApretasteAnswerEmail {
 				
 				if ($from == $last_best) {
 					echo "[INFO] .... equal to last best.... try later...\n";
+					q("UPDATE mailboxes SET last_error_date = null;");
 					return false;
 				}
 				

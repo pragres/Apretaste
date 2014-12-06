@@ -859,7 +859,7 @@ class ApretasteAlone {
 								'password' => ""
 						);
 					else
-						$this->smtp_servers[$smtps->item($i)->getAttribute('address')] = array(
+						$ans->smtp_servers[$smtps->item($i)->getAttribute('address')] = array(
 								'host' => $smtps->item($i)->getAttribute('host'),
 								'port' => $smtps->item($i)->getAttribute('port'),
 								'auth' => true,

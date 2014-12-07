@@ -821,82 +821,101 @@ class ApretasteAlone {
 		if (isset($arg2))
 			if (is_numeric($arg2))
 				$max = $arg2;
-		
-		$emails = Apretaste::query("SELECT * FROM email_outbox LIMIT $max;");
+			
+			// $emails = Apretaste::query("SELECT * FROM email_outbox LIMIT $max;");
 		
 		$max_time = Apretaste::getConfiguration("cron_max_time", 120);
 		
-		if (is_array($emails)) {
-			$t1 = microtime(true);
-			foreach ( $emails as $i => $email ) {
-				
-				$t2 = microtime(true);
-				
-				if ($t2 - $t1 > $max_time) {
-					echo "[INFO] Stoping the outboxer by time limit: max_time = $max_time and timmer = " . ($t2 - $t1) . "\n";
-					echo "[INFO] --> $i of " . count($email) . " messages was sent \n";
-					break;
-				}
-				$ans = unserialize(base64_decode($email['data']));
-				
-				// -------------------------------- clone from Robot
-				
-				$thesource = new DOMImplementation();
-				$configuration = $thesource->createDocument();
-				$configuration->load("../etc/configuration.xml");
-				$configuration->validate();
-				
-				// SMTP servers
-				$smtps = $configuration->documentElement->getElementsByTagName('smtp');
-				$ans->servers = array();
-				for($i = 0; $i < $smtps->length; $i ++)
-					if (mb_strtolower($smtps->item($i)->getAttribute('auth')) == 'false' || mb_strtolower($smtps->item($i)->getAttribute('auth')) == 'no')
-						$ans->servers[$smtps->item($i)->getAttribute('address')] = array(
-								'host' => $smtps->item($i)->getAttribute('host'),
-								'port' => $smtps->item($i)->getAttribute('port'),
-								'auth' => false,
-								'username' => "",
-								'password' => ""
-						);
-					else
-						$ans->servers[$smtps->item($i)->getAttribute('address')] = array(
-								'host' => $smtps->item($i)->getAttribute('host'),
-								'port' => $smtps->item($i)->getAttribute('port'),
-								'auth' => true,
-								'username' => $smtps->item($i)->getAttribute('username'),
-								'password' => $smtps->item($i)->getAttribute('password')
-						);
-				
-				echo "[INFO] Loaded SMTP configuration: " . implode(array_keys($ans->servers)) . "\n";
-				// --------------------------------
-				
-				$horde = false;
-				if (isset($ans->via_horde))
-					if ($ans->via_horde == true) {
-						echo "[INFO] Sending email {$email['id']} to {$ans->to} via HORDE \n";
-						$r = ApretasteHordeRobot::sendAnswer($ans);
-						$horde = true;
-					}
-				
-				if (! $horde) {
-					$ans->to = Apretaste::extractEmailAddress($ans->to);
-					if (Apretaste::checkAddress($ans->to)) {
-						echo "[INFO] Sending email {$email['id']} to {$ans->to}\n";
-						$r = $ans->send_answer(null, false, false);
-					} else {
-						echo "[INFO] Invalid address {$ans->to}, ignoring email...\n";
-						$r = true;
-					}
-				}
-				
-				if ($r == true)
-					Apretaste::query("DELETE FROM email_outbox WHERE id = '{$email['id']}';");
-				else {
-					echo "[INFO] ... Error when sending email, aborting all operations!\n";
-					break;
-				}
-				$t2 = microtime(true);
+		// if (is_array($emails)) {
+		$t1 = microtime(true);
+		for($i = 0; $i < $max; $i ++) {
+			
+			echo "[INFO] Select a email from outbox ...\n";
+			$email = q("SELECT * FROM email_outbox WHERE locked = false ORDER BY fa LIMIT 1;");
+			
+			if ($email == false) {
+				echo "[INFO] No more emails, break operations ...\n";
+				break;
 			}
+			
+			$email = $email[0];
+			
+			echo "[INFO] Lock the email  {$email['id']} in outbox...\n";
+			
+			q("UPDATE email_outbox SET locked = true WHERE id = '{$email['id']}';");
+			
+			// foreach ( $emails as $i => $email ) {
+			
+			$t2 = microtime(true);
+			
+			if ($t2 - $t1 > $max_time) {
+				echo "[INFO] Stoping the outboxer by time limit: max_time = $max_time and timmer = " . ($t2 - $t1) . "\n";
+				echo "[INFO] --> $i of " . count($email) . " messages was sent \n";
+				break;
+			}
+			
+			$ans = unserialize(base64_decode($email['data']));
+			
+			// -------------------------------- clone from Robot
+			
+			$thesource = new DOMImplementation();
+			$configuration = $thesource->createDocument();
+			$configuration->load("../etc/configuration.xml");
+			$configuration->validate();
+			
+			// SMTP servers
+			$smtps = $configuration->documentElement->getElementsByTagName('smtp');
+			$ans->servers = array();
+			for($i = 0; $i < $smtps->length; $i ++)
+				if (mb_strtolower($smtps->item($i)->getAttribute('auth')) == 'false' || mb_strtolower($smtps->item($i)->getAttribute('auth')) == 'no')
+					$ans->servers[$smtps->item($i)->getAttribute('address')] = array(
+							'host' => $smtps->item($i)->getAttribute('host'),
+							'port' => $smtps->item($i)->getAttribute('port'),
+							'auth' => false,
+							'username' => "",
+							'password' => ""
+					);
+				else
+					$ans->servers[$smtps->item($i)->getAttribute('address')] = array(
+							'host' => $smtps->item($i)->getAttribute('host'),
+							'port' => $smtps->item($i)->getAttribute('port'),
+							'auth' => true,
+							'username' => $smtps->item($i)->getAttribute('username'),
+							'password' => $smtps->item($i)->getAttribute('password')
+					);
+			
+			echo "[INFO] Loaded SMTP configuration: " . implode(array_keys($ans->servers)) . "\n";
+			// --------------------------------
+			
+			$horde = false;
+			if (isset($ans->via_horde))
+				if ($ans->via_horde == true) {
+					echo "[INFO] Sending email {$email['id']} to {$ans->to} via HORDE \n";
+					$r = ApretasteHordeRobot::sendAnswer($ans);
+					$horde = true;
+				}
+			
+			if (! $horde) {
+				$ans->to = Apretaste::extractEmailAddress($ans->to);
+				if (Apretaste::checkAddress($ans->to)) {
+					echo "[INFO] Sending email {$email['id']} to {$ans->to}\n";
+					$r = $ans->send_answer(null, false, false);
+				} else {
+					echo "[INFO] Invalid address {$ans->to}, ignoring email...\n";
+					$r = true;
+				}
+			}
+			
+			if ($r == true) {
+				echo "[INFO] Delete email from outbox ...\n";
+				Apretaste::query("DELETE FROM email_outbox WHERE id = '{$email['id']}';");
+			} else {
+				q("UPDATE email_outbox SET locked = false WHERE id = '{$email['id']}';");
+				echo "[INFO] ... Error when sending email, unlock the email and aborting all operations!\n";
+				break;
+			}
+			$t2 = microtime(true);
+			// }
 		}
 	}
 	

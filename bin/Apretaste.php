@@ -3631,10 +3631,10 @@ class Apretaste {
 	static function saveUglyEmail($from, $subject, $headers, $body, $cause = 'unknown'){
 		
 		// Clean params
-		$headers = str_replace("''", "'", json_encode($headers));
+		$headers = str_replace("'", "''", json_encode($headers));
 		$from = str_replace("'", "''", $from);
 		$body = str_replace("'", "''", $body);
-		$subject = str_replace("''", "'", $subject);
+		$subject = str_replace("'", "''", $subject);
 		
 		q("INSERT INTO email_ugly(email,subject,headers,body,cause) VALUES ('$from','$subject','$headers','$body', '$cause');");
 	}

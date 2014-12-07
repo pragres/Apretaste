@@ -842,7 +842,15 @@ class ApretasteAlone {
 			
 			echo "[INFO] Lock the email  {$email['id']} in outbox...\n";
 			
-			q("UPDATE email_outbox SET locked = true WHERE id = '{$email['id']}';");
+			$error = null;
+			$affected = 0;
+			
+			q("UPDATE email_outbox SET locked = true WHERE id = '{$email['id']}' and locked = false;", $error, $affected);
+			
+			if ($affected == 0) {
+				echo "[INFO] Ignore locked email.... continue...\n";
+				continue;
+			}
 			
 			// foreach ( $emails as $i => $email ) {
 			

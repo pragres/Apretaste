@@ -4,7 +4,8 @@
 {% layout %}
 
 {{headerdown
-<!-- <script src="static/jquery-1.8.2.min.js"></script> -->
+{ignore}
+<!--{ <script src="static/jquery-1.8.2.min.js"></script> }--> 
 <script src="static/jquery-timing.min.js"></script>
 <script>
 $(function() {
@@ -21,7 +22,7 @@ $(function() {
 	});
 });
 </script>
-
+{/ignore}
 <input type="hidden" id="lastline">
 <input type="checkbox" id = "chkShow"> Show
 <pre

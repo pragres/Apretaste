@@ -64,7 +64,7 @@ if (! is_null ( $send ) || ! is_null ( get ( 'subject' ) )) {
 	foreach ( $r as $k => $resp ) {
 		
 		if ($real_send) {
-			echo "[SIMULATOR] Saving answer typ {$resp->type} \n";
+			echo "[SIMULATOR] Saving answer type {$resp->type} \n";
 			Apretaste::saveAnswer ( $headers, $resp->type, $message_id );
 		}
 		

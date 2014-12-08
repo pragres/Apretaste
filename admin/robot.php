@@ -61,7 +61,7 @@ if (! is_null ( $send ) || ! is_null ( get ( 'subject' ) )) {
 		$html = utf8_encode ( $resp->message->getHTMLBody () );
 		
 		if ($real_send) {
-			Apretraste::saveAnswer ( $headers, $resp->type, $message_id );
+			Apretaste::saveAnswer ( $headers, $resp->type, $message_id );
 		}
 		
 		foreach ( $resp->message->_html_images as $img ) {

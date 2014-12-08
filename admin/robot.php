@@ -63,13 +63,14 @@ if (! is_null ( $send ) || ! is_null ( get ( 'subject' ) )) {
 		
 	foreach ( $r as $k => $resp ) {
 		
-		if ($real_send) {
-			echo "[SIMULATOR] Saving answer type {$resp->type} \n";
-			Apretaste::saveAnswer ( $headers, $resp->type, $message_id );
-		}
 		
 		$resp->_buildMessage ();
 		$html = utf8_encode ( $resp->message->getHTMLBody () );
+		
+		if ($real_send) {
+			echo "[SIMULATOR] Saving answer type {$resp->type} \n";
+			Apretaste::saveAnswer ( $resp->headers, $resp->type, $message_id );
+		}
 				
 		foreach ( $resp->message->_html_images as $img ) {
 			$html = str_replace ( "cid:" . $img ['cid'], 'data:' . $img ['c_type'] . ";base64," . base64_encode ( $img ['body'] ), $html );

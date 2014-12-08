@@ -8,7 +8,7 @@ if (! is_null ( $send ) || ! is_null ( get ( 'subject' ) )) {
 	
 	ob_start ();
 	
-	$real_send = $_POST ['chkRealSend'];
+	$real_send = isset($_POST ['chkRealSend']);
 	if (! $real_send) {
 		Apretaste::startSimulator ();
 	}
@@ -49,12 +49,13 @@ if (! is_null ( $send ) || ! is_null ( get ( 'subject' ) )) {
 	$callback = $robot->callback;
 	
 	$message_id = null;
-	$r = $callback ( $headers, $txtBody, $htmlBody, $images, false, null, false, false, false, isset ( $real_send ), $message_id );
+	$r = $callback ( $headers, $txtBody, $htmlBody, $images, false, null, false, false, false, $real_send, $message_id );
 	
 	if (isset ( $r ['_answers'] ))
 		$r = $r ['_answers'];
 	
 	$data ['responses'] = $r;
+	
 	
 	foreach ( $r as $k => $resp ) {
 		$resp->_buildMessage ();

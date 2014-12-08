@@ -71,7 +71,7 @@ page}}
 				placeholder: "Type the body"
 			},{
 				id: "chkRealSend",
-				type: "chekbox",
+				type: "checkbox",
 				label: "Real send"
 			}
 		],

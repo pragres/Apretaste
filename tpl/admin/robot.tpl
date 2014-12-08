@@ -69,6 +69,10 @@ page}}
 				value: $div.post.body,
 				label: "Body",
 				placeholder: "Type the body"
+			},{
+				id: "chkRealSend",
+				type: "chekbox",
+				label: "Real send"
 			}
 		],
 		submit: {

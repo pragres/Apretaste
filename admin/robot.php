@@ -8,7 +8,8 @@ if (! is_null ( $send ) || ! is_null ( get ( 'subject' ) )) {
 	
 	ob_start ();
 	
-	if (! isset ( $_POST ['chkRealSend'] )) {
+	$real_send = $_POST ['chkRealSend'];
+	if (! $real_send) {
 		Apretaste::startSimulator ();
 	}
 	
@@ -47,7 +48,8 @@ if (! is_null ( $send ) || ! is_null ( get ( 'subject' ) )) {
 	$images = array ();
 	$callback = $robot->callback;
 	
-	$r = $callback ( $headers, $txtBody, $htmlBody, $images, false, null, false );
+	$message_id = null;
+	$r = $callback ( $headers, $txtBody, $htmlBody, $images, false, null, false, false, false, isset ( $real_send ), $message_id );
 	
 	if (isset ( $r ['_answers'] ))
 		$r = $r ['_answers'];
@@ -57,6 +59,10 @@ if (! is_null ( $send ) || ! is_null ( get ( 'subject' ) )) {
 	foreach ( $r as $k => $resp ) {
 		$resp->_buildMessage ();
 		$html = utf8_encode ( $resp->message->getHTMLBody () );
+		
+		if ($real_send) {
+			Apretraste::saveAnswer ( $headers, $resp->type, $message_id );
+		}
 		
 		foreach ( $resp->message->_html_images as $img ) {
 			$html = str_replace ( "cid:" . $img ['cid'], 'data:' . $img ['c_type'] . ";base64," . base64_encode ( $img ['body'] ), $html );

@@ -34,7 +34,7 @@ class ApretasteEmailRobot {
 		// Callback
 		$clase = $this;
 		
-		$this->callback = function ($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false, $via_horde = false) use($clase){
+		$this->callback = function ($headers, $textBody = false, $htmlBody = false, $images = false, $otherstuff = false, $account = null, $send = true, $async = false, $via_horde = false, $force_log_message = false, &$message_id = null) use($clase){
 			
 			$rawCommand = array(
 					'headers' => $headers,
@@ -76,10 +76,13 @@ class ApretasteEmailRobot {
 				);
 			}
 			
-			if ($send)
+			if ($send || $force_log_message) 
 				$msg_id = $clase->logger->log($rawCommand, $answer);
 			else
 				$msg_id = uniqid();
+			
+			// return via output/reference parameter
+			$message_id = $msg_id;
 			
 			echo $clase->verbose ? "sending a " . $answer['answer_type'] . " type message\n" : "";
 			

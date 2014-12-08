@@ -49,22 +49,28 @@ if (! is_null ( $send ) || ! is_null ( get ( 'subject' ) )) {
 	$callback = $robot->callback;
 	
 	$message_id = null;
+	
+	$headers->toaddress = 'anuncios@apretaste.com';
+	
 	$r = $callback ( $headers, $txtBody, $htmlBody, $images, false, null, false, false, false, $real_send, $message_id );
+	
+	echo "[SIMULATOR] Messager ID: $message_id \n";
 	
 	if (isset ( $r ['_answers'] ))
 		$r = $r ['_answers'];
 	
 	$data ['responses'] = $r;
-	
-	
+		
 	foreach ( $r as $k => $resp ) {
-		$resp->_buildMessage ();
-		$html = utf8_encode ( $resp->message->getHTMLBody () );
 		
 		if ($real_send) {
+			echo "[SIMULATOR] Saving answer typ {$resp->type} \n";
 			Apretaste::saveAnswer ( $headers, $resp->type, $message_id );
 		}
 		
+		$resp->_buildMessage ();
+		$html = utf8_encode ( $resp->message->getHTMLBody () );
+				
 		foreach ( $resp->message->_html_images as $img ) {
 			$html = str_replace ( "cid:" . $img ['cid'], 'data:' . $img ['c_type'] . ";base64," . base64_encode ( $img ['body'] ), $html );
 		}

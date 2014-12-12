@@ -46,7 +46,7 @@ class ApretasteMoney {
 		
 		$email = strtolower($email);
 		
-		$r = Apretaste::query("SELECT email, credit FROM credit WHERE email = '$email';");
+		$r = Apretaste::query("SELECT email, credit FROM credit WHERE lower(email) = '$email';");
 		
 		if (isset($r[0]))
 			if (isset($r[0]['email']))

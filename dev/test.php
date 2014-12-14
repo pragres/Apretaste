@@ -21,5 +21,6 @@ limit 15
 $guests = $r[0]['guests'];
 $guests = trim($guests);
 $_GET['subject'] = "INVITAR $guests";
+echo "\n\n".$guests."\n\n";
 include "../admin/robot.php";
 echo $data ['logs'];

@@ -38,6 +38,7 @@ class ApretasteAlone {
 		$robot->start();
 		
 		// self::shipment($robot);
+		
 	}
 	static function shipment($robot = null){
 		if (is_null($robot)) {

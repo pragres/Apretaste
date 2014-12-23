@@ -1431,7 +1431,7 @@ class Apretaste {
 			group by nanotitle";
 			
 			$allads = array (); // self::query($subq);
-			                   
+			                    
 			// pricing
 			/*
 			 * $subq = " SELECT announcement.price FROM announcement inner join $table_temp on announcement.id = $table_temp.ida WHERE price is not null AND rank_title > 0.2 AND price > 0 AND price < 999999 "; // Precios altos $sql = "SELECT * FROM ($subq) as subq ORDER BY price DESC LIMIT 20;"; $paltos = self::query($sql); $npaltos = array(); if (is_array($paltos)) foreach ( $paltos as $k => $p ) { $yes = true; if (strlen($p['price']) > 2) { for($ii = 1; $ii <= 9; $ii ++) { if ("{$p['price']}" == str_repeat("$ii", strlen("{$p['price']}"))) $yes = false; } } if ($yes) $npaltos[] = $p; } $paltos = $npaltos; // Precios bajos $sql = "SELECT * FROM ($subq) as subq ORDER BY price LIMIT 20;"; $pbajos = self::query($sql); // Precios populares $sql = "SELECT price, count(*) as cant FROM ($subq) as subq GROUP BY price ORDER BY cant desc LIMIT 20;"; $ppop = self::query($sql); $showpricing = false; for($i = 0; $i < 10; $i ++) { $pricing[$i] = array(); if (isset($paltos[$i])) { $pricing[$i][0] = $paltos[$i]['price']; $showpricing = true; } else $pricing[$i][0] = ''; if (isset($pbajos[$i])) { $pricing[$i][1] = $pbajos[$i]['price']; $showpricing = true; } else $pricing[$i][1] = ''; if (isset($ppop[$i])) { $pricing[$i][2] = $ppop[$i]['price']; $showpricing = true; } else $pricing[$i][2] = ''; } if (! $showpricing) $pricing = false; // var_dump($pricing);
@@ -2071,11 +2071,16 @@ class Apretaste {
 							self::query ( "DELETE FROM outbox WHERE announcement = '{$adx['announcement']}';" );
 					}
 					
-					$results = $data ['search_results'];
+					$results = array ();
 					
-					foreach ( $results as $k => $v ) {
+					foreach ( $data ['search_results'] as $k => $v ) {
 						
-						// Analyzing images
+						if (div::atLeastOneString ( $v ['title'], explode ( " ", self::depura ( $v ['tax'] ) ) )) {
+							$results [$k] = $v;
+						} else
+							continue;
+							
+							// Analyzing images
 						if (isset ( $v ['image'] ))
 							if ("{$v['image']}" != '') {
 								$results [$k] ['image'] = self::resizeImage ( $v ['image'], 100 );
@@ -3275,7 +3280,7 @@ class Apretaste {
 	
 	/**
 	 * Send data to post via HTTP
-	 * 
+	 *
 	 * @param string $url        	
 	 * @param array $fields        	
 	 */
@@ -3713,7 +3718,7 @@ function jsonEncode($json) {
 }
 /**
  * SQL Query
- * 
+ *
  * @param string $sql        	
  * @param string $error        	
  * @param integer $affected_rows        	

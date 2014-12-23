@@ -1,9 +1,16 @@
 <?php
 $email = get('dispatcher');
+$datefrom = null;
+$dateto = null;
+
+if (isset($_GET['datefrom']))
+	$datefrom = $_GET['datefrom'];
+if (isset($_GET['dateto']))
+	$dateto = $_GET['dateto'];
 
 if (! is_null($email)) {
 	$data['dispatcher'] = ApretasteMoney::getDispatcher($email, 60);
-	$data['payment_warning'] = ApretasteMoney::getPaymentWarning($email);
+	$data['payment_warning'] = ApretasteMoney::getPaymentWarning($email, $datefrom, $dateto);
 	
 	if (isset($_GET['pdf'])) {
 		

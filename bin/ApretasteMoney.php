@@ -212,18 +212,18 @@ class ApretasteMoney {
 	 * @param string $email
 	 * @return array
 	 */
-	static function getPaymentWarning($email){
+	static function getPaymentWarning($email, $datefrom = null, $dateto = null){
 		$dispatcher = self::getDispatcher($email);
-		$cards = q("SELECT * FROM dispatchers_cards_without_pay WHERE dispatcher='$email' order by date;");
+		$cards = q("SELECT * FROM dispatchers_cards_without_pay WHERE dispatcher='$email' " . (is_null($datefrom) ? "" : " and date >= '$datefrom'::date") . " ". (is_null($dateto) ? "" : " and date <= '$dateto'::date") . " order by date;");
 		
-		$from_date = q("SELECT min(date) as d FROM dispatchers_cards_without_pay WHERE dispatcher='$email';");
+		$from_date = q("SELECT min(date) as d FROM dispatchers_cards_without_pay WHERE dispatcher='$email'" . (is_null($datefrom) ? "" : " and date >= '$datefrom'::date") . ";");
 		
 		if (isset($from_date[0]))
 			$from_date = $from_date[0]['d'];
 		else
 			$from_date = false;
 		
-		$to_date = q("SELECT min(date) as d FROM dispatchers_cards_without_pay WHERE dispatcher='$email';");
+		$to_date = q("SELECT min(date) as d FROM dispatchers_cards_without_pay WHERE dispatcher='$email'" . (is_null($dateto) ? "" : " and date <= '$dateto'::date") . ";");
 		
 		if (isset($to_date[0]))
 			$to_date = $to_date[0]['d'];

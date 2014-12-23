@@ -214,9 +214,9 @@ class ApretasteMoney {
 	 */
 	static function getPaymentWarning($email, $datefrom = null, $dateto = null){
 		$dispatcher = self::getDispatcher($email);
-		$cards = q("SELECT * FROM dispatchers_cards_without_pay WHERE dispatcher='$email' " . (is_null($datefrom) ? "" : " and date >= $datefrom'::date") . " ". (is_null($datefrom) ? "" : " and date <= $dateto'::date") . " order by date;");
+		$cards = q("SELECT * FROM dispatchers_cards_without_pay WHERE dispatcher='$email' " . (is_null($datefrom) ? "" : " and date >= '$datefrom'::date") . " ". (is_null($dateto) ? "" : " and date <= '$dateto'::date") . " order by date;");
 		
-		$from_date = q("SELECT min(date) as d FROM dispatchers_cards_without_pay WHERE dispatcher='$email'" . (is_null($datefrom) ? "" : " and date >= $datefrom'::date") . ";");
+		$from_date = q("SELECT min(date) as d FROM dispatchers_cards_without_pay WHERE dispatcher='$email'" . (is_null($datefrom) ? "" : " and date >= '$datefrom'::date") . ";");
 		
 		if (isset($from_date[0]))
 			$from_date = $from_date[0]['d'];

@@ -1871,7 +1871,7 @@ class Apretaste {
 				// $s = self::search($sub['phrase'], 1, 0, false, '', $ad);
 				
 				// only FTS, more fast
-				$sql = "SELECT plainto_tsquery('" . str_replace ( "'", "''", $sub ['phrase'] ) . "') @@ to_tsvector(title || ' ' || body) as result FROM announcement WHERE id = '$ad' and (outboxed <> true or outboxed is  null);";
+				$sql = "SELECT plainto_tsquery('" . str_replace ( "'", "''", $sub ['phrase'] ) . "') @@ to_tsvector(title) as result FROM announcement WHERE id = '$ad' and (outboxed <> true or outboxed is  null);";
 				
 				$s = q ( $sql );
 				$s = $s [0];

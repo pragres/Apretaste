@@ -2075,9 +2075,7 @@ class Apretaste {
 					
 					foreach ( $data ['search_results'] as $k => $v ) {
 						
-						var_dump ($v);
-						
-						if (div::atLeastOneString ( $v ['title'], explode ( " ", self::depura ( $v ['tax'] ) ) )) {
+						if (div::atLeastOneString ( trim ( self::depura ( $v ['title'] ) ), trim ( explode ( " ", self::depura ( $v ['tax'] ) ) ) )) {
 							$results [$k] = $v;
 						} else
 							continue;

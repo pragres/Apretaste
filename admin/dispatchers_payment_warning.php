@@ -11,7 +11,7 @@ if (isset($_GET['dateto']))
 if (! is_null($email)) {
 	$data['dispatcher'] = ApretasteMoney::getDispatcher($email, 60);
 	$data['payment_warning'] = ApretasteMoney::getPaymentWarning($email, $datefrom, $dateto);
-	
+
 	if (isset($_GET['pdf'])) {
 		
 		$html = new ApretasteView("../tpl/admin/dispatchers_payment_warning.pdf.tpl", $data['payment_warning']);

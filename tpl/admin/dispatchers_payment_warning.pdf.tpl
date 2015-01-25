@@ -25,7 +25,7 @@
 		<img src="static/apretaste.white.png" width="300">
 		</p>
 		<h1 align="center">Aviso de pago</h1>
-		<p align="center"><b>{/div.now:d/} de {$months.{/div.now:m/}} del {/div.now:Y/}</b></p>
+		<p align="center"><b>{/div.now:d/} de {$meses.{/div.now:m/}} del {/div.now:Y/}</b></p>
 		<hr/>
 		<p align="center">
 		Para: <b>{$dispatcher_name}</b> ({$dispatcher_email})<br/>

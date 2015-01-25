@@ -223,7 +223,7 @@ class ApretasteMoney {
 		else
 			$from_date = false;
 		
-		$to_date = q("SELECT min(date) as d FROM dispatchers_cards_without_pay WHERE dispatcher='$email'" . (is_null($dateto) ? "" : " and date <= '$dateto'::date") . ";");
+		$to_date = q("SELECT max(date) as d FROM dispatchers_cards_without_pay WHERE dispatcher='$email'" . (is_null($dateto) ? "" : " and date <= '$dateto'::date") . ";");
 		
 		if (isset($to_date[0]))
 			$to_date = $to_date[0]['d'];

@@ -1,5 +1,5 @@
 {= title: Cards of <i>{$dispatcher.email}</i> =}
-{= path: "?q=dispatchers_cards&sales={$dispatcher.email}&cards={$sale}" =}
+{= path: "?q=dispatchers_cards&dispatcher={$dispatcher.email}&cards={$sale}" =}
 
 {% layout %}
 

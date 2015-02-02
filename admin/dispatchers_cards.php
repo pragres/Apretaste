@@ -3,7 +3,7 @@
 if (isset($_GET['deactivate'])){
     $code = $_GET['deactivate'];
     $sale = $_GET['cards'];
-    
+
     q("DELETE FROM recharge_card WHERE code = '$code';");
     q("UPDATE recharge_card_sale SET quantity = quantity - 1 WHERE id =  '$sale';");
 

@@ -232,7 +232,7 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 						
 						$robot->log("..continue value at line #$idx");
 						
-						foreach ( $val as $kk => $vv ) {
+						foreach ( $properties[$continue_prop] as $kk => $vv ) {
 							if ($prop == 'quitar foto' || $vv == $prop) {
 								$proced = false;
 								$continue_prop = false;

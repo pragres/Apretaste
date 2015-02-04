@@ -316,7 +316,7 @@ function cmd_profile($robot, $from, $argument, $body = '', $images = array()){
 							
 							$value = str_replace("'", "''", $value);
 							
-							$value = substr($value, 0, 100);
+							//$value = substr($value, 0, 100);
 							
 							$profile[$key] = $value;
 							

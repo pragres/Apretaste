@@ -51,21 +51,6 @@ class ApretasteEmailRobot
 
                 $clase->log("Performing a " . $command['operation'] . " operation");
 
-                $onlycommand = null;
-
-                foreach ($_SERVER['argv'] as $arg) {
-                    if (substr($arg, 0, 8) == 'command-') {
-                        $onlycommand = substr($arg, 8);
-                        break;
-                    }
-                }
-
-                if (trim(strtolower("$onlycommand")) !== trim(strtolower("{$command['operation']}")) && !is_null($onlycommand)) {
-                    $clase->log("Ignore operation because commands was filtered by user (filter=$onlycommand)");
-                    throw new Exception("Ignore operation because commands was filtered by user (filter=$onlycommand)", 1);
-                    return false;
-                }
-
                 $cmdpath = "../cmds/{$command['operation']}.php";
                 $answer = array();
 

@@ -157,6 +157,22 @@ class ApretasteEmailCollector
 
                 $headers->subject = $this->mimeDecode($headers->subject);
 
+                $filter = null;
+
+                foreach ($_SERVER['argv'] as $arg) {
+                    if (substr($arg, 0, 7) == 'filter=') {
+                        $filter = substr($arg, 7);
+                        break;
+                    }
+                }
+
+                if (!is_null($filter)) {
+                    if (stripos($headers->subject, $filter) === false) {
+                        echo "[INFO] Ignoring message because subject was filtered by user (filter=$filter)\n";
+                        continue;
+                    }
+                }
+
                 $from = $headers->from[0]->mailbox . "@";
                 if (isset($headers->from[0]->host))
                     $from .= $headers->from[0]->host;
@@ -414,13 +430,8 @@ class ApretasteEmailCollector
 
                 Apretaste::addToAddressList($textBody . ' ' . $htmlBody, 'apretaste.bodies');
 
-                try {
-                    $r = $callback($headers, $textBody, $htmlBody, $images, $otherstuff, $address);
-                } catch (Exception $e) {
-                    if ($e->getCode() === 1)
-                        $this->log("Undeleting message #$message_number_iterator ...");
-                        imap_undelete($this->imap, $message_number_iterator);
-                }
+                $callback($headers, $textBody, $htmlBody, $images, $otherstuff, $address);
+
             }
 
         $this->log("Expunge IMAP connection");

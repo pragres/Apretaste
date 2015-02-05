@@ -164,7 +164,7 @@ class ApretasteEmailCollector {
 				$headers->subject = trim($t);
 				
 				if (isset($headers->message_id)) {
-					echo "[INFO} Message-ID: " . $headers->message_id . "\n";
+					//echo "[INFO} Message-ID: " . $headers->message_id . "\n";
 					
 					if (strpos($headers->message_id, '@') !== false) {
 						
@@ -175,9 +175,9 @@ class ApretasteEmailCollector {
 							$msgid = substr($msgid, strpos($msgid, '@') + 1);
 							
 							if ($host != $msgid) {
-								echo "[INFO] host $host are not equal to $msgid message ID, mmmm...\n";
+								//echo "[INFO] host $host are not equal to $msgid message ID, mmmm...\n";
 								if (strpos($host, $msgid) === false && strpos($msgid, $host) === false) {
-									echo "[INFO] host is not inside msgid, and msgid is not inside host, mmmm...\n";
+									//echo "[INFO] host is not inside msgid, and msgid is not inside host, mmmm...\n";
 									
 									$other = Apretaste::query("SELECT extra_data FROM message WHERE author ~* '@$host' AND extract_email(author) <> extract_email('$from') limit 1;");
 									if (isset($other[0])) {
@@ -185,7 +185,7 @@ class ApretasteEmailCollector {
 										if (isset($other['headers']->message_id)) {
 											$msgid2 = $other['headers']->message_id;
 											$msgid2 = str_replace(">", "", substr($msgid2, strpos($msgid2, '@') + 1));
-											echo "[INFO] Checking $msgid = $msgid2 as the ID user by other similar users \n";
+											//echo "[INFO] Checking $msgid = $msgid2 as the ID user by other similar users \n";
 											if ($msgid != $msgid2) {
 												$other = Apretaste::query("SELECT extra_data FROM message WHERE extract_email(author) = extract_email('$from') order by moment limit 1;");
 												if (isset($other[0])) {
@@ -193,9 +193,9 @@ class ApretasteEmailCollector {
 													if (isset($other['headers']->message_id)) {
 														$msgid2 = $other['headers']->message_id;
 														$msgid2 = str_replace(">", "", substr($msgid2, strpos($msgid2, '@') + 1));
-														echo "[INFO] Checking $msgid = $msgid2 as the first ID used\n";
+														//echo "[INFO] Checking $msgid = $msgid2 as the first ID used\n";
 														if ($msgid != $msgid2) {
-															echo "[WARN] _______________________ Suspicious message !!!\n";
+															//echo "[WARN] _______________________ Suspicious message !!!\n";
 														}
 													}
 												}

@@ -418,6 +418,7 @@ class ApretasteEmailCollector
                     $r = $callback($headers, $textBody, $htmlBody, $images, $otherstuff, $address);
                 } catch (Exception $e) {
                     if ($e->getCode() === 1)
+                        $this->log("Undeleting message #$message_number_iterator ...");
                         imap_undelete($this->imap, $message_number_iterator);
                 }
             }

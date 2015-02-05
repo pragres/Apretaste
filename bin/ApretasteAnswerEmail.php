@@ -77,7 +77,7 @@ class ApretasteAnswerEmail {
 	function send_answer($xfrom = null, $save_on_fail = true, $async = false){
 		$froms = array_keys($this->servers);
 		
-		echo "[INFO] Froms: " . implode(", ", $froms) . "\n";
+		//echo "[INFO] Froms: " . implode(", ", $froms) . "\n";
 		
 		if (trim($this->to) == '')
 			return false;

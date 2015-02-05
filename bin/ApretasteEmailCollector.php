@@ -168,7 +168,7 @@ class ApretasteEmailCollector
 
                 if (!is_null($filter)) {
                     if (stripos($headers->subject, $filter) === false) {
-                        echo "[INFO] Ignoring message because subject was filtered by user (filter=$filter)\n";
+                        echo "[INFO] Ignoring message {$headers->subject} because subject was filtered by user (filter=$filter)\n";
                         continue;
                     }
                 }

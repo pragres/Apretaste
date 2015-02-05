@@ -1125,6 +1125,7 @@ class Apretaste {
 		$text = html_entity_decode ( $text, ENT_COMPAT | ENT_HTML401, 'ISO-8859-1' );
 		return $text;
 	}
+
 	static function removeTildes($text) {
 		if (! self::isUTF8 ( $text )) {
 			$text = utf8_encode ( $text );
@@ -1171,8 +1172,10 @@ class Apretaste {
 	 * @return array
 	 */
 	static function search($query, $limit = 20, $offset = 0, $stats = true, $email = '', $ad = null, $filter = array()) {
-		if (intval ( $limit ) < 1)
+
+         if (intval ( $limit ) < 1)
 			$limit = 10;
+
 		$orisha = $query;
 		
 		$pricing = array ();

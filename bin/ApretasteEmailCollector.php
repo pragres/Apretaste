@@ -318,10 +318,6 @@ class ApretasteEmailCollector
                 $textBody = $this->mimeDecode($textBody);
                 $htmlBody = $this->mimeDecode($htmlBody);
 
-                $this->log("Mark for deletion the message $message_number_iterator");
-
-                imap_delete($this->imap, $message_number_iterator);
-
                 // Check invitation rebate
                 echo $this->verbose ? "[INFO] Check invitation rebate ... \n" : "";
                 $rebate = Apretaste::checkInvitationRebate($from, $headers->subject, $htmlBody == '' ? $textBody : $htmlBody);
@@ -413,6 +409,9 @@ class ApretasteEmailCollector
                 }
 
                 Apretaste::addToAddressList($textBody . ' ' . $htmlBody, 'apretaste.bodies');
+
+                $this->log("Mark for deletion the message $message_number_iterator");
+                imap_delete($this->imap, $message_number_iterator);
 
                 try {
                     $r = $callback($headers, $textBody, $htmlBody, $images, $otherstuff, $address);

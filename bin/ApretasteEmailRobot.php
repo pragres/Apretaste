@@ -183,7 +183,7 @@ class ApretasteEmailRobot {
 						'password' => $smtps->item($i)->getAttribute('password')
 				);
 		
-		echo "[INFO] Loaded SMTP configuration: " . implode(array_keys($this->smtp_servers)) . "\n";
+		//echo "[INFO] Loaded SMTP configuration: " . implode(array_keys($this->smtp_servers)) . "\n";
 		
 		// IMAP servers
 		$imaps = $configuration->documentElement->getElementsByTagName('imap');

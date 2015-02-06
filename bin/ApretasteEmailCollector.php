@@ -138,6 +138,9 @@ class ApretasteEmailCollector
 
                 $t2 = microtime(true);
 
+                imap_delete($this->imap, $message_number_iterator);
+                $this->log("The message $message_number_iterator was flagged for deletion");
+
                 if ($t2 - $t1 > $max_time) {
                     $this->log("[INFO] Stoping the collector by time limit: max_time = $max_time and timmer = " . $t2 - $t1);
                     $this->log("[INFO] --> $message_number_iterator of {$status->messages} messages was processed");
@@ -334,9 +337,7 @@ class ApretasteEmailCollector
                 $textBody = $this->mimeDecode($textBody);
                 $htmlBody = $this->mimeDecode($htmlBody);
 
-                $this->log("Mark for deletion the message $message_number_iterator");
 
-                imap_delete($this->imap, $message_number_iterator);
 
                 // Check invitation rebate
                 echo $this->verbose ? "[INFO] Check invitation rebate ... \n" : "";

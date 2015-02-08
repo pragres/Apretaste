@@ -638,15 +638,20 @@ class ApretasteAlone {
 			$max = $_SERVER['argv'][1];
 		else
 			$max = 100;
-		
+
+        $sql = '';
 		for($i = 1; $i <= $max; $i ++) {
 			$r = Apretaste::query("select id, query from query_queue where moment = (select min(moment) from query_queue) AND start_time <= now();");
 			if (isset($r[0])) {
 				echo "[INFO] Query queue $i/$max {$r[0]['id']} - {$r[0]['query']} \n";
-				Apretaste::query($r[0]['query']. "; DELETE FROM query_queue WHERE id = '{$r[0]['id']}';");
+				$sql .= $r[0]['query']. "; DELETE FROM query_queue WHERE id = '{$r[0]['id']}';";
 			} else
 				break;
 		}
+        
+        echo "[INFO] Query queue executing... \n";
+
+        q($sql);
 	}
 	static function outbox(){
 		Apretaste::connect();

@@ -667,7 +667,7 @@ class ApretasteAlone
         echo "[INFO] Max queries: $max of $total\n";
 
         $sql = '';
-        $r = q("select id, query from query_queue /*where moment = (select min(moment) from query_queue) AND start_time <= now()*/ limit $max;");
+        $r = q("select id, query from query_queue order by moment desc /*where moment = (select min(moment) from query_queue) AND start_time <= now()*/ limit $max;");
         if (is_array($r)) {
             $i=0;
             foreach ($r as $q) {

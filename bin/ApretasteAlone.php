@@ -661,8 +661,13 @@ class ApretasteAlone
         else
             $max = 100;
 
+        $r = q("SELECT count(*) as total from query_queue;");
+        $total = $r[0]['total']*1;
+
+        echo "[INFO] Max queries: $max of $total\n";
+
         $sql = '';
-        $r = q("select id, query from query_queue where moment = (select min(moment) from query_queue) AND start_time <= now() limit $max;");
+        $r = q("select id, query from query_queue /*where moment = (select min(moment) from query_queue) AND start_time <= now()*/ limit $max;");
         if (is_array($r)) {
             $i=0;
             foreach ($r as $q) {

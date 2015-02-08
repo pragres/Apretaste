@@ -46,7 +46,7 @@
 			<h3 style="{$font}">Traducci&oacute;n, para traducir documentos a una infinidad de idiomas</h3>
 			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:{$reply_to}">{$reply_to}</a>{$_p}
 			{$p}2. En la secci&oacute;n "Asunto" escriba: <span style="color:green;">TRADUCIR </span> seguido del idimoma a traducir{$_p}
-			{$p}3. En el cuerpo del mensaje escriba el texto a traducir, Apretaste! entender&accute; el idioma en que est&aacute;, no necesita especificarlo.{$_p} 
+			{$p}3. En el cuerpo del mensaje escriba el texto a traducir, Apretaste! entender&aacute; el idioma en que est&aacute;, no necesita especificarlo.{$_p}
 			{$p}4. Haga clic en "Enviar".{$_p}
 			{$br}
 			<p align="center">En menos de 3 minutos recibir&aacute; un email con el texto traducido.</p>{$br}
@@ -167,7 +167,7 @@
 		<td valign="top">
 			<h3 style="{$font}">SMS, mandar SMS nacional o internacional mediante su email a precio reducido</h3>
 			{$p}1. Cree un correo nuevo. En la secci&oacute;n "Para" escriba: <a href="mailto:{$reply_to}">{$reply_to}</a>{$_p}
-			{$p}2. En la secci&oacute;n "Asunto" escriba: <span style="color:green;">SMS</span> seguido del numero de tel&eacute;fono que recibir&accute; el SMS{$_p}
+			{$p}2. En la secci&oacute;n "Asunto" escriba: <span style="color:green;">SMS</span> seguido del numero de tel&eacute;fono que recibir&aacute; el SMS{$_p}
 			{$p}3. En el cuerpo del mensaje escriba el texto a enviar{$_p} 
 			{$p}4. Haga clic en "Enviar", no necesita llenar ning&uacute;n otro campo.{$_p}
 			<p align="center">En menos de 3 minutos recibir&aacute; un email de confirmaci&oacute;n y su contacto recibir&aacute; un SMS.</p>

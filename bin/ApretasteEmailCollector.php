@@ -176,6 +176,10 @@ class ApretasteEmailCollector
                     }
                 }
 
+                if (strpos($headers->subject, 'Resultado de buscar:') !== false) {
+                    echo "[INFO] " . date("Y-m-d h:i:s") . "-" . "Ignoring message #$message_number_iterator: {$headers->subject} because is possible automatic answer\n";
+                    continue;
+                }
 
                 imap_delete($this->imap, $message_number_iterator);
                 $this->log("The message $message_number_iterator was flagged for deletion");

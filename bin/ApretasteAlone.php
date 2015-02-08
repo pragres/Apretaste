@@ -617,7 +617,10 @@ class ApretasteAlone {
 				if ($account == 'anuncios@localhost')
 					if ($author != 'newuser@localhost')
 						$go = false;
-				
+
+                if (stripos($author, '@nauta.cu'))
+                    $go =galse;
+
 				if ($go)
 					$answerMail = new ApretasteAnswerEmail($config, $author, $robot->smtp_servers, $data, true, false, false);
 			}

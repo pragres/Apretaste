@@ -320,10 +320,12 @@ class ApretasteEncoding
         if (strlen($text) <= 15) {
             $body = $text;
             if (quoted_printable_decode($body . '=') == $body) $body .= '=';
-            if (substr($body, strlen($body) - 3, 2) == '==')
-                $text = base64_decode($body);
-            else if (Apretaste::existsWord(base64_decode($body))) {
-                $text = base64_decode($body);
+            $dec = base64_decode($body);
+
+            if (substr($body, strlen($body) - 2, 2) == '==')
+                $text = $dec;
+            else if (Apretaste::existsWord($dec)) {
+                $text = $dec;
             }
         }
 

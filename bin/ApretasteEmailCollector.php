@@ -176,7 +176,9 @@ class ApretasteEmailCollector
                     }
                 }
 
-                if (strpos($headers->subject, 'Resultado de buscar:') !== false) {
+                if (strpos($headers->subject, 'Resultado de buscar:') !== false
+                    || strpos($headers->subject, 'lo ha invitado a usar Apretaste!') !== false
+                ) {
                     echo "[INFO] " . date("Y-m-d h:i:s") . "-" . "Ignoring message #$message_number_iterator: {$headers->subject} because is possible automatic answer\n";
                     continue;
                 }

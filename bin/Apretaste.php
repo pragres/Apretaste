@@ -480,6 +480,7 @@ class Apretaste {
 	 * @return boolean
 	 */
 	static function existsWord($w, $strict = false) {
+        $w = strtolower(trim($w));
 		$r = self::query ( "SELECT * from vocabulary where word = '$w';" );
 		if ($r)
 			return true;

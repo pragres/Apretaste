@@ -290,6 +290,7 @@ class ApretasteEmailCollector
                 // echo "textBody = $textBody\n";
 
                 $textBody = Apretaste::strip_html_tags($textBody);
+
                 if (strpos($textBody, ' ') === false)
                     $textBody = ApretasteEncoding::base64Decode($textBody);
 

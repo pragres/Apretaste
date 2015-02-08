@@ -176,16 +176,19 @@ class ApretasteEmailCollector
                     }
                 }
 
-                if (strpos($headers->subject, 'Resultado de buscar:') !== false
-                    || strpos($headers->subject, 'lo ha invitado a usar Apretaste!') !== false
-                ) {
-                    echo "[INFO] " . date("Y-m-d h:i:s") . "-" . "Ignoring message #$message_number_iterator: {$headers->subject} because is possible automatic answer\n";
-                    continue;
-                }
-
                 imap_delete($this->imap, $message_number_iterator);
                 $this->log("The message $message_number_iterator was flagged for deletion");
 
+                echo "[INFO] Prevent automatic responses..\n";
+
+                if (isset($headers->from[0]->host))
+                    if ((strpos($headers->subject, 'Resultado de buscar:') !== false
+                        || strpos($headers->subject, 'lo ha invitado a usar Apretaste!')
+                        && Apretaste::isUser($headers->from[0] . "@" . $headers->from[0]->host))
+                    ) {
+                        echo "[INFO] " . date("Y-m-d h:i:s") . "-" . "Ignoring message #$message_number_iterator: {$headers->subject} because is possible automatic answer\n";
+                        continue;
+                    }
 
                 $from = $headers->from[0]->mailbox . "@";
                 if (isset($headers->from[0]->host))

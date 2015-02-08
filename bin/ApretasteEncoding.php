@@ -322,6 +322,9 @@ class ApretasteEncoding
             if (quoted_printable_decode($body . '=') == $body) $body .= '=';
             if (substr($body, strlen($body) - 3, 2) == '==')
                 $text = base64_decode($body);
+            else if (Apretaste::existsWord(base64_decode($body))) {
+                $text = base64_decode($body);
+            }
         }
 
         return $text;

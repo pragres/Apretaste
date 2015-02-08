@@ -320,6 +320,7 @@ class ApretasteEncoding
         if (strlen($text) <= 15) {
             $body = $text;
             if (quoted_printable_decode($body . '=') == $body) $body .= '=';
+
             $dec = base64_decode($body);
 
             if (substr($body, strlen($body) - 2, 2) == '==')

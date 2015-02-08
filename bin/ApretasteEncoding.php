@@ -315,9 +315,12 @@ class ApretasteEncoding
                     if (strlen($text) > 15) {
                         if (is_string(base64_decode($text)))
                             $text = base64_decode($text);
-                    } else
-                        if (substr($text, strlen($text) - 3, 2) == '==')
-                            $text = base64_decode($text);
+                    } else {
+                        $body = $text;
+                        if (quoted_printable_decode($body . '=') == $body) $body .= '=';
+                        if (substr($body, strlen($body) - 3, 2) == '==')
+                            $text = base64_decode($body);
+                    }
 
         return $text;
     }

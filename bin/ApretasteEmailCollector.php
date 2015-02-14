@@ -204,7 +204,7 @@ class ApretasteEmailCollector
                 // Prevent duplicate proccess
                 $file_id = date("Y-m-d-") . md5($headers->message_id) . ".msg";
 
-                if (file_extists("../msgs/" . $file_id)) {
+                if (file_exists("../msgs/" . $file_id)) {
                     echo "[INFO] -->> Ignoring the message. The message were processed.";
                     continue;
                 }

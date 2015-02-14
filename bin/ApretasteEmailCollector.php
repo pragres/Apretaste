@@ -211,7 +211,7 @@ class ApretasteEmailCollector
 
                 if (!file_exists("../msgs")) mkdir("../msgs");
 
-                file_put_contents("../" . $file_id, $headers->message_id);
+                file_put_contents("../msgs/" . $file_id, $headers->message_id);
 
                 // Analyzing message ID
                 if (isset($headers->message_id)) {

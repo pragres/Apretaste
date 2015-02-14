@@ -201,8 +201,21 @@ class ApretasteEmailCollector
 
                 $headers->subject = trim($t);
 
+                // Prevent duplicate proccess
+                $file_id = .date("Y-m-d-") . md5($headers->message_id) . ".msg";
+
+                if (file_extists("../msgs/" . $file_id)) {
+                    echo "[INFO] -->> Ignoring the message. The message were processed.";
+                    continue;
+                }
+
+                if (!file_exists("../msgs")) mkdir("../msgs");
+
+                file_put_contents("../" . $file_id, $headers->message_id);
+
+                // Analyzing message ID
                 if (isset($headers->message_id)) {
-                    //echo "[INFO} Message-ID: " . $headers->message_id . "\n";
+                    echo "[INFO} Message-ID: " . $headers->message_id . "\n";
 
                     if (strpos($headers->message_id, '@') !== false) {
 

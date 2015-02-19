@@ -75,7 +75,7 @@ blocks}}
 			},{
 				type: "text",
 				class: "number",
-				label: "Amonut",
+				label: "Amount",
 				id: "edtAmount"
 			}
 		],

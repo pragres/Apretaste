@@ -26,8 +26,7 @@
                                         ?$emails
                                         Email(s):
                                         [$emails]
-                                        <a href ="mailto:{$value}">{$value}</a>&nbsp;
-                                        <a href="mailto:{$reply_to}?subject=PERFIL%20{$value}" title="Perfil de este usuario" style="{$font};font-size:10px;color:blue;text-decoration: none;">[:)]</a>&nbsp;
+                                        <a href ="mailto:{$reply_to}?subject=PERFIL%20{$value}">{$value}</a>&nbsp;
                                         <a href="mailto:{$reply_to}?subject=BUSCAR%20{$value}" title="Buscar anuncios con esta direcci&oacute;n" style="{$font};font-size:10px;color:green;text-decoration: none;">[?]</a>&nbsp;
                                         <a href="mailto:{$reply_to}?subject=ALERTA%20{$value}" title="Seguir los anuncios con esta direcci&oacute;n" style="{$font};font-size:10px;color:red;text-decoration: none;">[&gt;&gt;]</a>
                                         !$_is_last, $_is_last!
